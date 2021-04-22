@@ -1,0 +1,248 @@
+%Preamble<<<
+
+\documentclass[twoside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+%\usepackage[dutch]{babel}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+
+% Don't indent paragraphs, leave some space between them
+\usepackage{parskip}
+
+% Hide page number when page is empty
+\usepackage{emptypage}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{xcolor}
+
+% Other font I sometimes use.
+% \usepackage{cmbright}
+
+% Math stuff
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+% Fancy script capitals
+\usepackage{mathrsfs}
+\usepackage{cancel}
+% Bold math
+\usepackage{bm}
+% Some shortcuts
+\newcommand\N{ \ensuremath{\mathbb{N}} }
+\newcommand\R{ \ensuremath{\mathbb{R}} }
+\newcommand\Z{ \ensuremath{\mathbb{Z}} }
+\renewcommand\O{ \ensuremath{\emptyset} }
+\newcommand\Q{ \ensuremath{\mathbb{Q}} }
+\newcommand\C{ \ensuremath{\mathbb{C}} }
+
+% Easily typeset systems of equations (French package)
+\usepackage{systeme}
+
+% Put x \to \infty below \lim
+\let\svlim\lim\def\lim{\svlim\limits}
+
+%Make implies and impliedby shorter
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+% Add \contra symbol to denote contradiction
+\usepackage{stmaryrd} % for \lightning
+\newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
+% \let\phi\varphi
+
+% Command for short corrections
+% Usage: 1+1=\correct{3}{2}
+
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{ {\color{correct}{#1}} }
+
+% horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% hide parts
+\newcommand\hide[1]{}
+
+% si unitx
+\usepackage{siunitx}
+\sisetup{locale = FR}
+
+% Environments
+\makeatother
+% For box around Definition, Theorem, \ldots
+\usepackage{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em}
+\theoremstyle{definition}
+\newmdtheoremenv[nobreak=true]{definitie}{Definitie}
+\newmdtheoremenv[nobreak=true]{eigenschap}{Eigenschap}
+\newmdtheoremenv[nobreak=true]{gevolg}{Gevolg}
+\newmdtheoremenv[nobreak=true]{lemma}{Lemma}
+\newmdtheoremenv[nobreak=true]{propositie}{Propositie}
+\newmdtheoremenv[nobreak=true]{stelling}{Stelling}
+\newmdtheoremenv[nobreak=true]{wet}{Wet}
+\newmdtheoremenv[nobreak=true]{postulaat}{Postulaat}
+\newmdtheoremenv{conclusie}{Conclusie}
+\newmdtheoremenv{toemaatje}{Toemaatje}
+\newmdtheoremenv{vermoeden}{Vermoeden}
+%%%% Above is boxed
+\newtheorem*{herhaling}{Herhaling}
+\newtheorem*{intermezzo}{Intermezzo}
+\newtheorem*{notatie}{Notatie}
+\newtheorem*{observatie}{Observatie}
+\newtheorem*{oef}{Oefening}
+\newtheorem*{opmerking}{Opmerking}
+\newtheorem*{praktisch}{Praktisch}
+\newtheorem*{probleem}{Probleem}
+\newtheorem*{terminologie}{Terminologie}
+\newtheorem*{toepassing}{Toepassing}
+\newtheorem*{uovt}{UOVT}
+\newtheorem*{vb}{Voorbeeld}
+\newtheorem*{vraag}{Vraag}
+
+\newmdtheoremenv[nobreak=true]{definition}{Definition}
+\newtheorem*{eg}{Example}
+\newtheorem*{notation}{Notation}
+\newtheorem*{previouslyseen}{As previously seen}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{problem}{Problem}
+\newtheorem*{observe}{Observe}
+\newtheorem*{property}{Property}
+\newtheorem*{intuition}{Intuition}
+\newmdtheoremenv[nobreak=true]{prop}{Proposition}
+\newmdtheoremenv[nobreak=true]{theorem}{Theorem}
+\newmdtheoremenv[nobreak=true]{corollary}{Corollary}
+\usepackage{etoolbox}
+\AtEndEnvironment{vb}{\null\hfill$\diamond$}%
+\AtEndEnvironment{intermezzo}{\null\hfill$\diamond$}%
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=0pt
+}
+
+\newcommand{\practice}[1]{%
+    \def\@practice{#1}%
+    \subsection*{Practice #1}
+}
+
+\newcommand{\subpractice}[1]{%
+    \subsubsection*{Practice \@practice.#1}
+}
+
+\usepackage{xifthen}
+\def\testdateparts#1{\dateparts#1\relax}
+\def\dateparts#1 #2 #3 #4 #5\relax{
+    \marginpar{ \small\textsf{\mbox{#1 #2 #3 #5}} }
+}
+
+\def\@lecture{}%
+\newcommand{\lecture}[3]{
+    \ifthenelse{\isempty{#3}}{%
+        \def\@lecture{Lecture #1}%
+    }{%
+        \def\@lecture{Lecture #1: #3}%
+    }%
+    \subsection*{\@lecture}
+    \marginpar{ \small\textsf{\mbox{#2}} }
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead[RO,LE]{\@lecture} % Right odd,  Left even
+\fancyhead[RE,LO]{}          % Right even, Left odd
+
+\fancyfoot[RO,LE]{\thepage}  % Right odd,  Left even
+\fancyfoot[RE,LO]{}          % Right even, Left odd
+\fancyfoot[C]{\leftmark}     % Center
+
+\makeatother
+
+\usepackage{todonotes}
+\usepackage{tcolorbox}
+
+\tcbuselibrary{breakable}
+
+\newenvironment{correction}{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=green!60!black,
+    title=Correction,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+
+% Noot is note in Dutch. Same as 'verbetering' but color of box is different
+\newenvironment{noot}[1]{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=white!60!black,
+    title=#1,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+
+\pdfsuppresswarningpagegroup=1
+
+\author{Eric Lee}
+
+%>>>
+%Custom Commands<<<
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf_tex}
+}
+%>>>
+
+\begin{document}
+
+%Lecture 1: One Dimensional Motion <<<
+
+\lecture{1}{May 23th, 2020 15:00}{One Dimensional Motion}
+
+\begin{definition}
+    Average Velocity $= \frac{\Delta x}{\Delta t}$
+    Average Speed $= \frac{d}{\Delta t}$ \\
+    Displacement is the area under $v$ vs $t$
+\end{definition}
+\begin{definition}
+    Kinematic Equations \\
+    Missing $a$: $\Delta x = \frac{1}{2}\left(v_0+v\right)t$ \\
+    Missing $x$: $v=v_0 + at$ \\
+    Missing $v$: $x = x_0 + v_0t + \frac{1}{2}at^2$ \\
+    Missing $v_0$: $x = x_0 + vt - \frac{1}{2}at^2$ \\
+    Missing $t$: $v^2 = v_0^2 + 2a(\Delta x)$
+\end{definition}
+%>>>
+
+\begin{figure}[ht]
+    \centering
+    \incfig{figures-drawn-with-inkscape}
+    \caption{Figures drawn with Inkscape}
+    \label{fig:figures-drawn-with-inkscape}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=300px]{./imgs/image3.png}
+    \caption{Screenshots pasted from clipboard}
+    \label{fig:LABEL}
+\end{figure}
+
+\end{document}
+
