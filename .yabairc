@@ -1,0 +1,54 @@
+# bsp or float (default: bsp)
+yabai -m config layout bsp
+
+# Override default layout for space 2 only
+#yabai -m config --space 3 layout float
+
+# Set all padding and gaps to 20pt (default: 0)
+yabai -m config top_padding    10
+yabai -m config bottom_padding 10
+yabai -m config left_padding   10
+yabai -m config right_padding  10
+yabai -m config window_gap     10
+
+# floating windows are always on top (default: off)
+yabai -m config window_topmost on
+
+yabai -m config active_window_border_topmost on
+yabai -m config window_border on | off
+yabai -m config window_border_width 10
+#yabai -m config active_window_border_color 0xff775759
+#yabai -m config normal_window_border_color 0xff555555
+
+yabai -m config active_window_border_color   0xff8E83B8
+yabai -m config normal_window_border_color   0xff51425C
+yabai -m config insert_window_border_color   0xff8E83B8
+
+
+#yabai -m window --toggle border
+yabai -m config window_placement second_child
+#yabai -m rule --add app=Terminal border=off
+
+# global settings
+#yabai -m config mouse_follows_focus          off
+#yabai -m config focus_follows_mouse          autoraise
+yabai -m config window_placement             second_child
+
+# floating windows are always on top (default: off)
+yabai -m config window_topmost               on
+
+# float system preferences
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add title="^About$" manage=off
+yabai -m rule --add app="^Spark$" manage=off
+
+#Ubersicht Buffer Bar
+#yabai -m config external_bar                 all:28:0
+
+#Spacebar Bugger Bar
+SPACEBAR_HEIGHT=$(spacebar -m config height)
+yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+
+yabai -m rule --add app="^Discord$" space=5
+yabai -m rule --add app="^zoom.us$" space=4
+
