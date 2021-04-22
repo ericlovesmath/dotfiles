@@ -1,0 +1,52 @@
+# System.out.println();
+snippet sout "System.out.println();" bA
+System.out.println($0);
+endsnippet
+
+snippet br "break" bA
+break;
+endsnippet
+
+snippet cs "case" b
+case $1:
+	$2
+$0
+endsnippet
+
+snippet ca "catch" b
+catch (${1:Exception} ${2:e})`!p nl(snip)`{
+	$0
+}
+endsnippet
+
+# Main method for Java Class
+snippet main "public static void main()" bA
+public static void main (String[] args){
+	$0
+}
+endsnippet
+
+# if statement
+snippet if "If this then that" bA
+if ($1){
+	$2
+}
+$3
+endsnippet
+
+# Else if statement
+snippet elif "else if this then that" bA
+else if ($1){
+	$2
+}
+$3
+endsnippet
+
+snippet for "for(int i; i < imax; i++)" bA
+for ($1; $2; $3){
+	$4
+}
+
+endsnippet
+
+
