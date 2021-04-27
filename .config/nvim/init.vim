@@ -307,3 +307,8 @@ let g:vimtex_quickfix_warnings = {
 	    \ }
 
 hi Normal guibg=NONE ctermbg=NONE
+
+noremap ; l
+noremap l k
+noremap k j
+noremap j h

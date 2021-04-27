@@ -119,3 +119,7 @@ ctrl + alt - d : yabai -m space --layout float
 
 # opens iTerm2
 ctrl + shift - return : "${HOME}"/bin/open-iterm2.sh
+
+#Opens youtube
+ctrl + shift - p : python3 "${HOME}"/bin/youtube-window.py
+
