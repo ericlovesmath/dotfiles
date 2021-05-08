@@ -1,5 +1,5 @@
 alias c='clear'
-alias {vi,vim}="nvim"
+#alias {vi,vim}="nvim"
 alias ttyclock='tty-clock -bt -C2'
 alias ttyclockc='tty-clock -cbt -C2'
 alias blank="printf '\n%.0s' {1..100}"
@@ -12,7 +12,7 @@ alias restartaudio='sudo killall coreaudiod'
 alias zoom='~/bin/zoom-code.bash'
 alias weather='~/bin/weather.py'
 alias cal='gcalcli agenda today 23h59m59s'
-alias notes='nvim -p ~/bin/notes/*.md'
+alias notes='nvim -p ~/bin/notes/*.md;grep --color -E "#.*|$" ~/bin/notes/*.md'
 alias zshed='nvim -p ~/.zsh_aliases ~/.zshrc; exec zsh'
 alias owo='echo -e "What'"'"'s this?"'
 alias school='python3 ~/bin/cdm-calendar.py'
@@ -43,4 +43,7 @@ alias ...='cd ./../..'
 alias {:q,:q!,:wq,:wq!,:Q}='exit'
 alias {dotfiles,dots}='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias sus='function _sus(){echo ". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　.\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n　　ﾟ　　 $1 was not An Impostor.　 。　.\n　　'"'"'　　　 1 Impostor remains 　 　　。\n　　ﾟ　　　.　　　. ,　　　　.　 ."};_sus'
-alias spt='~/bin/spotify-launch.bash'
+#alias spt='~/bin/spotify-launch.bash'
+#alias {spt,spot}="open /Applications/Spotify.app;~/MuteSpotifyAds/NoAdsSpotify.sh"
+alias {sptmini,spotmini}='~/bin/spotify_mini/launch.sh'
+alias chegg='py3 ~/Desktop/Programming/Chegg/chegg.py'

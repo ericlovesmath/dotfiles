@@ -50,27 +50,10 @@ Plug 'junegunn/seoul256.vim'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'joshdick/onedark.vim'
 Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
 
-"Plug 'rbong/vim-crystalline'
 "" Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-" assuming you're using vim-plug: https://github.com/junegunn/vim-plug
-"Plug 'ncm2/ncm2'
-"Plug 'roxma/nvim-yarp'
-
-" enable ncm2 for all buffers
-"autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
-"set completeopt=noinsert,menuone,noselect
-
-" NOTE: you need to install completion sources to get completions. Check
-" our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
-"Plug 'ncm2/ncm2-bufword'
-"Plug 'ncm2/ncm2-path'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -79,12 +62,11 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
 let g:deoplete#enable_at_startup = 1
 
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'dense-analysis/ale'
-
-Plug 'tmsvg/pear-tree'
 
 Plug 'sheerun/vim-polyglot'
 
@@ -226,7 +208,6 @@ let g:tex_conceal='abdmg'
 "nnoremap <C-f> :exec '.!~/Desktop/bash/vim_inkscape.py %:r "'.getline(".").'"'
 autocmd FileType tex nmap <buffer> <C-T> :!latexmk -pvc -pdf %<CR>
 
-
 let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
 let g:vimtex_view_general_options_latexmk = '-r 1'
@@ -275,24 +256,12 @@ function! MarkdownClipboardImage() abort
   endif
 endfunction
 
-"let g:vimtex_fold_enabled = 1
-"let g:vimtex_fold_manual = 1
-"set fillchars=fold:\ 
-
 augroup vimtex_config
   au!
   autocmd User VimtexEventInitPost VimtexCompile
   set wrap
   au User VimtexEventQuit call vimtex#compiler#clean(1)
 augroup END
-
-
-"let g:vimtex_fold_enabled = 1
-"let g:latex_complete_close_braces = 1
-"let g:latex_quickfix_mode = 0
-"let g:latex_quickfix_open_on_warning = 0
-"let g:latex_fold_preamble = 1
-"let g:foldlevel=3
 
 set foldmethod=marker
 set fmr=<<<,>>>
@@ -305,10 +274,3 @@ let g:vimtex_quickfix_warnings = {
 	    \ 'Overfull' : 0,
 	    \ 'specifier changed to' : 0,
 	    \ }
-
-hi Normal guibg=NONE ctermbg=NONE
-
-noremap ; l
-noremap l k
-noremap k j
-noremap j h

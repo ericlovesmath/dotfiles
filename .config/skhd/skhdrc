@@ -123,3 +123,4 @@ ctrl + shift - return : "${HOME}"/bin/open-iterm2.sh
 #Opens youtube
 ctrl + shift - p : python3 "${HOME}"/bin/youtube-window.py
 
+ctrl + alt - p : yabai -m window --toggle float
