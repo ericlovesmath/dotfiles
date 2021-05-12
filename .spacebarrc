@@ -29,5 +29,5 @@ spacebar -m config clock_icon         
 spacebar -m config dnd_icon           
 spacebar -m config clock_format       "%d/%m/%y %r"
 spacebar -m config right_shell on
-spacebar -m config right_shell_icon   ""
-spacebar -m config right_shell_command "istats cpu --no-graphs --no-label"
+spacebar -m config right_shell_icon   " "
+spacebar -m config right_shell_command "~/bin/cpu-temp.sh"
