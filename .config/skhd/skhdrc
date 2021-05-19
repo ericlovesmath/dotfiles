@@ -1,6 +1,3 @@
-# open terminal
-cmd - return : open -na kitty.app
-
 # focus window
 #alt - x : yabai -m window --focus recent
 ctrl + shift - h : yabai -m window --focus west

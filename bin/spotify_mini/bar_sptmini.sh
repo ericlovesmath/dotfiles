@@ -17,7 +17,8 @@ CURRENT_SONG=$(curl -sX "GET" "https://api.spotify.com/v1/me/player/currently-pl
 SONG_TITLE=$(echo $CURRENT_SONG | jq -r ".item.name")
 SONG_ARTIST=$(echo $CURRENT_SONG | jq -r ".item.artists[].name")
 
-if [[ "$SONG_TITLE" != "$OLD_SONG_TITLE" && "$SONG_TITLE" != "" ]]; then 
-  OLD_SONG_TITLE="$SONG_TITLE"
-  echo Playing: $SONG_TITLE - $SONG_ARTIST # | fold -s -w $(($COLUMNS-4)) | fmt -c -w $COLUMNS
-fi; 
+if [[ ! "$SONG_ARTISTS" == "" ]]; then
+    echo Playing: $SONG_TITLE - $SONG_ARTIST # | fold -s -w $(($COLUMNS-4)) | fmt -c -w $COLUMNS
+else
+    echo ""
+fi
