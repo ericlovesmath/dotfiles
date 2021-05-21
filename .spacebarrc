@@ -32,6 +32,6 @@ spacebar -m config right_shell on
 spacebar -m config right_shell_icon   " "
 spacebar -m config right_shell_command "~/bin/cpu-temp.sh"
 
-spacebar -m config title            "off"
-spacebar -m config center_shell on
-spacebar -m config center_shell_command "~/bin/spotify_mini/bar_sptmini.sh"
+#spacebar -m config title            "off"
+#spacebar -m config center_shell on
+#spacebar -m config center_shell_command "~/bin/spotify_mini/bar_sptmini.sh"

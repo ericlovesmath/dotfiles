@@ -44,33 +44,27 @@ call plug#begin('~/.vim/plugged')
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'altercation/vim-colors-solarized'
-Plug 'junegunn/seoul256.vim'
-Plug 'phanviet/vim-monokai-pro'
+
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'junegunn/seoul256.vim'
+"Plug 'phanviet/vim-monokai-pro'
+"Plug 'lifepillar/vim-gruvbox8'
 Plug 'joshdick/onedark.vim'
+
 Plug 'ncm2/ncm2'
 
 "" Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-let g:deoplete#enable_at_startup = 1
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'dense-analysis/ale'
 
 Plug 'sheerun/vim-polyglot'
 
-Plug 'artur-shaik/vim-javacomplete2'
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 
 Plug 'SirVer/ultisnips'
 "| Plug 'honza/vim-snippets'
@@ -80,10 +74,12 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 Plug 'junegunn/goyo.vim'
 
+Plug 'dstein64/vim-startuptime'
+
 call plug#end()
 
 highlight Normal guibg=none
-syntax on
+"syntax on
 let g:lightline = {'colorscheme': 'onedark'}
 let g:onedark_termcolors=16
 
@@ -101,12 +97,14 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Deoplete -----------------------------
 
+let g:python3_host_prog = "/usr/local/anaconda3/bin/python3"
+
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option({
-\   'ignore_case': v:true,
-\   'smart_case': v:true,
-\})
+let g:deoplete#enable_at_startup = 0
+"call deoplete#custom#option({
+"\   'ignore_case': v:true,
+"\   'smart_case': v:true,
+"\})
 " complete with words from any opened file
 let g:context_filetype#same_filetypes = {}
 let g:context_filetype#same_filetypes._ = '_'
@@ -190,8 +188,6 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir = '/Users/ericlee/.vim/UltiSnips'
 let g:UltiSnipsSnippetDirectories=["/Users/ericlee/.vim/UltiSnips", "UltiSnips"]
 
-let g:python3_host_prog = "/usr/local/anaconda3/bin/python3"
-
 " LATEX
 
 let g:tex_flavor='latex'
@@ -274,3 +270,4 @@ let g:vimtex_quickfix_warnings = {
 	    \ 'Overfull' : 0,
 	    \ 'specifier changed to' : 0,
 	    \ }
+

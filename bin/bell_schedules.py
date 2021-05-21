@@ -1,6 +1,6 @@
-from datetime import datetime, timedelta    # Gets dates and time
+from datetime import datetime, timedelta  # Gets dates and time
 
-schedule = """
+schedule = """\
 ┌───────────────────────────────┐ ┌───────────────────────────────┐
 │ Late Start Schedule           │ │ Odd Schedule                  │
 │ ─────────────────────────────	│ │ ───────────────────────────── │
@@ -17,7 +17,7 @@ schedule = """
 │ Placeholder A --------------- │ │  7:55 -  8:25 Breakfast       │
 │ Placeholder B --------------- │ │  8:30 -  9:55 English    (1)  │
 │ Placeholder C --------------- │ │ 10:05 - 11:30 US History (3)  │
-└───────────────────────────────┘ └───────────────────────────────┘
+└───────────────────────────────┘ └───────────────────────────────┘\
 """
 
 # Today's day of the week

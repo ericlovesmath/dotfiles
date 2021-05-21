@@ -41,8 +41,8 @@ timezsh() {
 }
 
 . ~/.zsh_aliases
-export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
-export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
+#export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
+#export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -53,4 +53,32 @@ bindkey "^[[B" history-beginning-search-forward-end
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
 setopt appendhistory
+
+
+_zcompinit() {
+  setopt extendedglob local_options
+  autoload -Uz compinit
+  local zcd=${ZDOTDIR:-$HOME}/.zcompdump
+  local zcdc="$zcd.zwc"
+  # Compile the completion dump to increase startup speed if dump is newer or
+  # missing. Do in background for next time to not affect the current session
+  if [[ -f "$zcd"(#qN.m+1) ]]; then
+    compinit -i -d "$zcd"
+    { rm -f "$zcdc" && zcompile "$zcd" } &!
+  else
+    compinit -i -C -d "$zcd"
+    { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
+  fi
+}
+_zcompinit
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# caching
+zstyle ':completion:*' accept-exact '*(N)'
+    
+zstyle ':completion:*'            use-cache yes
+zstyle ':completion::complete:*'  cache-path ~/
