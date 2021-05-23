@@ -1,16 +1,16 @@
 # focus window
 #alt - x : yabai -m window --focus recent
-ctrl + shift - h : yabai -m window --focus west
-ctrl + shift - j : yabai -m window --focus south
-ctrl + shift - k : yabai -m window --focus north
-ctrl + shift - l : yabai -m window --focus east
+meh - h : yabai -m window --focus west
+meh - j : yabai -m window --focus south
+meh - k : yabai -m window --focus north
+meh - l : yabai -m window --focus east
 
 # swap window
 #ctrl + alt - x : yabai -m window --swap recent
-ctrl + alt - h : yabai -m window --swap west
-ctrl + alt - j : yabai -m window --swap south
-ctrl + alt - k : yabai -m window --swap north
-ctrl + alt - l : yabai -m window --swap east
+hyper - h : yabai -m window --swap west
+hyper - j : yabai -m window --swap south
+hyper - k : yabai -m window --swap north
+hyper - l : yabai -m window --swap east
 
 # move window
 #shift + cmd - h : yabai -m window --warp west
@@ -19,7 +19,7 @@ ctrl + alt - l : yabai -m window --swap east
 #shift + cmd - l : yabai -m window --warp east
 
 # balance size of windows
-ctrl + alt - 0 : yabai -m space --balance
+meh - 0 : yabai -m space --balance
 
 # create desktop, move window and follow focus
 #shift + cmd - n : yabai -m space --create;\
@@ -39,35 +39,35 @@ ctrl + alt - 0 : yabai -m space --balance
 #ctrl + alt - m : yabai -m window --space last; yabai -m space --focus last
 
 # Only move focus container to prev/next if in current display
-ctrl + alt - z : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && (yabai -m window --space prev; yabai -m space --focus prev )
-ctrl + alt - x : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && ( yabai -m window --space next; yabai -m space --focus next )
+hyper - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && (yabai -m window --space prev; yabai -m space --focus prev )
+hyper - d : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && ( yabai -m window --space next; yabai -m space --focus next )
 #ctrl + alt - z : yabai -m window --space prev || yabai -m window --space last; yabai -m space --focus prev || yabai -m space --focus last
 #ctrl + alt - x : yabai -m window --space next || yabai -m window --space first; yabai -m space --focus next || yabai -m space --focus first
-ctrl + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
-ctrl + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
-ctrl + alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
-ctrl + alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
-ctrl + alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
-ctrl + alt - 6 : yabai -m window --space 6; yabai -m space --focus 6
-ctrl + alt - 7 : yabai -m window --space 7; yabai -m space --focus 7
-ctrl + alt - 8 : yabai -m window --space 8; yabai -m space --focus 8
-ctrl + alt - 9 : yabai -m window --space 9; yabai -m space --focus 9
+hyper - 1 : yabai -m window --space 1; yabai -m space --focus 1
+hyper - 2 : yabai -m window --space 2; yabai -m space --focus 2
+hyper - 3 : yabai -m window --space 3; yabai -m space --focus 3
+hyper - 4 : yabai -m window --space 4; yabai -m space --focus 4
+hyper - 5 : yabai -m window --space 5; yabai -m space --focus 5
+hyper - 6 : yabai -m window --space 6; yabai -m space --focus 6
+hyper - 7 : yabai -m window --space 7; yabai -m space --focus 7
+hyper - 8 : yabai -m window --space 8; yabai -m space --focus 8
+hyper - 9 : yabai -m window --space 9; yabai -m space --focus 9
 
 # Move focus container to workspace
 # Only move focus to prev/next if in current display
-shift + ctrl - z : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && yabai -m space --focus prev
-shift + ctrl - x : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && yabai -m space --focus next
+meh - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && yabai -m space --focus prev
+meh - d : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && yabai -m space --focus next
 #shift + ctrl - z : yabai -m space --focus prev || yabai -m space --focus last
 #shift + ctrl - x : yabai -m space --focus next || yabai -m space --focus first
-shift + ctrl - 1 : yabai -m space --focus 1
-shift + ctrl - 2 : yabai -m space --focus 2
-shift + ctrl - 3 : yabai -m space --focus 3
-shift + ctrl - 4 : yabai -m space --focus 4
-shift + ctrl - 5 : yabai -m space --focus 5
-shift + ctrl - 6 : yabai -m space --focus 6
-shift + ctrl - 7 : yabai -m space --focus 7
-shift + ctrl - 8 : yabai -m space --focus 8
-shift + ctrl - 9 : yabai -m space --focus 9
+meh - 1 : yabai -m space --focus 1
+meh - 2 : yabai -m space --focus 2
+meh - 3 : yabai -m space --focus 3
+meh - 4 : yabai -m space --focus 4
+meh - 5 : yabai -m space --focus 5
+meh - 6 : yabai -m space --focus 6
+meh - 7 : yabai -m space --focus 7
+meh - 8 : yabai -m space --focus 8
+meh - 9 : yabai -m space --focus 9
 
 # focus monitor
 ctrl + shift - s  : yabai -m display --focus prev
@@ -115,7 +115,7 @@ ctrl + alt - a : yabai -m space --layout bsp
 ctrl + alt - d : yabai -m space --layout float
 
 # opens iTerm2
-ctrl + shift - return : "${HOME}"/bin/open-iterm2.sh
+hyper - return : "${HOME}"/bin/open-iterm2.sh
 
 #Opens youtube
 ctrl + shift - p : python3 "${HOME}"/bin/youtube-window.py

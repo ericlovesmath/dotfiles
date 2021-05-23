@@ -51,20 +51,10 @@ Plug 'nvim-telescope/telescope.nvim'
 "Plug 'lifepillar/vim-gruvbox8'
 Plug 'joshdick/onedark.vim'
 
-Plug 'ncm2/ncm2'
-
 "" Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'dense-analysis/ale'
-
-Plug 'sheerun/vim-polyglot'
-
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 
 Plug 'SirVer/ultisnips'
 "| Plug 'honza/vim-snippets'
@@ -75,6 +65,9 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
 
 Plug 'dstein64/vim-startuptime'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
 
@@ -98,27 +91,6 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Deoplete -----------------------------
 
 let g:python3_host_prog = "/usr/local/anaconda3/bin/python3"
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 0
-"call deoplete#custom#option({
-"\   'ignore_case': v:true,
-"\   'smart_case': v:true,
-"\})
-" complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
-
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-function! s:check_back_space() abort "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ deoplete#manual_complete()
 
 " Airline ------------------------------
 
@@ -156,24 +128,6 @@ nnoremap <leader>t :vsp<bar>vertical resize 48<bar>lcd %:p:h<bar>term<CR>
 
 " Ale
 
-let g:airline#extensions#ale#enabled = 1
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_sign_info = 'ℹ'
-
-let g:ale_linters = {'python': ['flake8', 'mypy', 'bandit', 'pydocviewer'], 'tex': []}
-let g:ale_fixers = {'python': ['black', 'isort']}
-let g:ale_fix_on_save = 1
-
-let g:ale_python_flake8_options = '--ignore=D100,D107'
-let g:ale_python_black_options = '--line-length 79'
-
-let g:ale_echo_msg_format = '[%linter%] %code%: %s'
-
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd FileType java JCEnable
-set completeopt-=preview
 
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe
@@ -270,4 +224,19 @@ let g:vimtex_quickfix_warnings = {
 	    \ 'Overfull' : 0,
 	    \ 'specifier changed to' : 0,
 	    \ }
+
+
+lua require'lspconfig'.pyls.setup{on_attach=require'completion'.on_attach}
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+let g:completion_enable_snippet = 'UltiSnips'
 
