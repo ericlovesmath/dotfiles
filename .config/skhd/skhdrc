@@ -123,3 +123,5 @@ hyper - r : \
 #    brew services restart spacebar; \
     brew services restart yabai; \
     brew services restart skhd
+
+meh - c: open -na /Applications/Google\ Chrome.app 
