@@ -20,14 +20,14 @@ set termguicolors
 set noshowmode
 
 set incsearch
-set scrolloff=8 "Early scroll
+set scrolloff=4 "Early scroll
 
 set colorcolumn=80
 set signcolumn=yes
 set ruler
 set wildmenu
 
-set cmdheight=2
+set cmdheight=1
 set updatetime=50
 set shortmess+=c
 set iskeyword+=-
@@ -68,6 +68,8 @@ Plug 'dstein64/vim-startuptime'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
@@ -240,3 +242,38 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 let g:completion_enable_snippet = 'UltiSnips'
 
+augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+augroup END
+
+set timeoutlen=1000 ttimeoutlen=0
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+  },
+}
+require'nvim-treesitter.configs'.setup {
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+require'nvim-treesitter.configs'.setup {
+  indent = {
+    enable = true
+  }
+}
+EOF

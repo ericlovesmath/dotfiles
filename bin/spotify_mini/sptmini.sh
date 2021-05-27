@@ -31,10 +31,11 @@ do
   if [[ "$SONG_TITLE" != "$OLD_SONG_TITLE" && "$SONG_TITLE" != "" ]]; then 
     OLD_SONG_TITLE="$SONG_TITLE"
 
-    curl -sL $SONG_ALBUM | imgcat --height=15
+    #curl -sL $SONG_ALBUM | imgcat --height=15
+    curl -sL $SONG_ALBUM | kitty +kitten icat --scale-up
     echo
     echo $SONG_TITLE | fold -s -w $(($COLUMNS-4)) | fmt -c -w $COLUMNS
-    echo \<\< $SONG_ARTIST \>\> | fold -s -w $(($COLUMNS-4)) | fmt -c -w $COLUMNS
+    echo $SONG_ARTIST | fold -s -w $(($COLUMNS-4)) | fmt -c -w $COLUMNS
   fi; 
   sleep $REFRESH_RATE; 
 done
