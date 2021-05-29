@@ -124,4 +124,5 @@ hyper - r : \
     brew services restart yabai; \
     brew services restart skhd
 
-meh - c: open -na /Applications/Google\ Chrome.app 
+meh - c : open -na /Applications/Google\ Chrome.app 
+delete : osascript ~/bin/panic-button.scpt

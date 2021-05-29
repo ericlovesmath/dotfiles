@@ -1,5 +1,5 @@
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<C-U>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S+tab>"
 

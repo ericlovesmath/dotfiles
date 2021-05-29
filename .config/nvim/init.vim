@@ -5,10 +5,8 @@ runtime config.vim
 runtime plugins.vim
 runtime colors.vim
 runtime lsp.vim
-
-for f in split(glob('~/.config/nvim/plugin.d/*.vim'), '\n')
-    exe 'source' f
-endfor
+runtime statusline.vim
 
 autocmd TermOpen * startinsert
 nnoremap <leader>t :vsp<CR>:term<CR>
+

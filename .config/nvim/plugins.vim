@@ -1,4 +1,5 @@
 call plug#begin()
+
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -8,11 +9,7 @@ Plug 'nvim-telescope/telescope.nvim'
 "Plug 'phanviet/vim-monokai-pro'
 "Plug 'lifepillar/vim-gruvbox8'
 Plug 'joshdick/onedark.vim'
-
-"" Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
+"Plug 'arcticicestudio/nord-vim'
 
 Plug 'SirVer/ultisnips'
 "| Plug 'honza/vim-snippets'
@@ -26,7 +23,12 @@ Plug 'dstein64/vim-startuptime'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/lsp-status.nvim'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
+
+for f in split(glob('~/.config/nvim/plugin.d/*.vim'), '\n')
+    exe 'source' f
+endfor
