@@ -100,7 +100,7 @@ alt - y : yabai -m space --mirror y-axis
 alt - x : yabai -m space --mirror x-axis
 
 # toggle window native fullscreen
-ctrl + alt - f : yabai -m window --toggle zoom-fullscreen
+meh - f : yabai -m window --toggle zoom-fullscreen
 
 # change layout of desktop
 #ctrl + alt - a : yabai -m space --layout bsp

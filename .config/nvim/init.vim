@@ -7,6 +7,10 @@ runtime colors.vim
 runtime lsp.vim
 runtime statusline.vim
 
-autocmd TermOpen * startinsert
+augroup TermShortcut
+    autocmd!
+    autocmd TermOpen * startinsert
+augroup END
+
 nnoremap <leader>t :vsp<CR>:term<CR>
 

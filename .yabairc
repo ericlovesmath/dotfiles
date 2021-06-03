@@ -5,11 +5,11 @@ yabai -m config layout bsp
 #yabai -m config --space 3 layout float
 
 # Set all padding and gaps to 20pt (default: 0)
-yabai -m config top_padding    5
-yabai -m config bottom_padding 5
-yabai -m config left_padding   5
-yabai -m config right_padding  5
-yabai -m config window_gap     5
+#yabai -m config top_padding    5
+#yabai -m config bottom_padding 5
+#yabai -m config left_padding   5
+#yabai -m config right_padding  5
+#yabai -m config window_gap     5
 
 # floating windows are always on top (default: off)
 yabai -m config window_topmost on
