@@ -8,9 +8,8 @@ Plug 'nvim-telescope/telescope.nvim'
 "Plug 'junegunn/seoul256.vim'
 "Plug 'phanviet/vim-monokai-pro'
 "Plug 'lifepillar/vim-gruvbox8'
-Plug 'joshdick/onedark.vim'
-"Plug 'rakr/vim-one'
 "Plug 'arcticicestudio/nord-vim'
+Plug 'joshdick/onedark.vim'
 
 Plug 'SirVer/ultisnips'
 "| Plug 'honza/vim-snippets'
@@ -23,12 +22,13 @@ Plug 'junegunn/goyo.vim'
 Plug 'dstein64/vim-startuptime'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
+Plug 'hrsh7th/nvim-compe'
 
-"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-"Plug 'norcalli/nvim-colorizer.lua'
+Plug 'norcalli/nvim-colorizer.lua'
+
+Plug 'puremourning/vimspector'
 
 call plug#end()
 
@@ -36,4 +36,4 @@ for f in split(glob('~/.config/nvim/plugin.d/*.vim'), '\n')
     exe 'source' f
 endfor
 
-"lua require'colorizer'.setup()
+lua require'colorizer'.setup()

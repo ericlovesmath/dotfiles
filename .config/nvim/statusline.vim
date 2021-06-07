@@ -29,34 +29,20 @@ let g:currentmode={
     \ 't'  : 'Terminal'
     \}
 
-function! LspHints() abort
+function! LspReport() abort
 	let sl = ''
 	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-		let sl.=' H:'
-		let sl.= luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
-		let sl.=' '
-	else
-		let sl.='🦀'
-	endif
-	return sl
-endfunction
-
-function! LspWarnings() abort
-	let sl = ''
-	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-		let sl.=' W:'
-		let sl.= luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
-		let sl.=' '
-	endif
-	return sl
-endfunction
-
-function! LspErrors() abort
-	let sl = ''
-	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-		let sl.='  E:'
-		let sl.= luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
-		let sl.=' '
+		let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
+		let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
+        if warnings != 0
+            let sl.= ' W: '.warnings
+        endif
+        if errors != 0
+            let sl.= ' E: '.errors
+        endif
+        if sl != ''
+            let sl.=' '
+        endif
 	endif
 	return sl
 endfunction
@@ -79,8 +65,7 @@ set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}         " Encoding
 set statusline+=\                                         " Separator
 set statusline+=%1*\ %3p%%\                               " Percentage of document
 set statusline+=%0*\ %3l:%2v\                             " Row/Col
-set statusline+=%1*%{LspWarnings()}                       "   
-set statusline+=%2*%{LspErrors()}                         " 
+set statusline+=%1*%{LspReport()}                       "   
 
 hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad

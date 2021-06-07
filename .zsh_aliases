@@ -47,3 +47,4 @@ alias sus='function _sus(){echo ". 　　　。　　　　•　 　ﾟ　　�
 alias {sptmini,spotmini}='~/bin/spotify_mini/launch.sh'
 alias chegg='py3 ~/Desktop/Programming/Chegg/chegg.py'
 alias des='cd ~/Desktop'
+alias v='nvim'
