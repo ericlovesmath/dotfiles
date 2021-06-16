@@ -14,8 +14,8 @@ Plug 'joshdick/onedark.vim'
 Plug 'SirVer/ultisnips'
 "| Plug 'honza/vim-snippets'
 
-"Plug 'lervag/vimtex', { 'for': 'tex' }
-"Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 Plug 'junegunn/goyo.vim'
 
@@ -28,7 +28,10 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'norcalli/nvim-colorizer.lua'
 
-Plug 'puremourning/vimspector'
+"Plug 'puremourning/vimspector'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 
 call plug#end()
 

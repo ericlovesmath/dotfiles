@@ -45,6 +45,6 @@ alias sus='function _sus(){echo ". 　　　。　　　　•　 　ﾟ　　�
 #alias {spt,spot}="open /Applications/Spotify.app;~/MuteSpotifyAds/NoAdsSpotify.sh"
 alias {sptmini,spotmini}='~/bin/spotify_mini/launch.sh'
 alias chegg='py3 ~/Desktop/Programming/Chegg/chegg.py'
-alias d='cd ~/Desktop'
+alias d='~/Desktop'
 alias v='nvim'
 alias matlab='/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nosplash'

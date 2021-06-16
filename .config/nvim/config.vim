@@ -42,3 +42,5 @@ set clipboard=unnamedplus
 set splitright
 set timeoutlen=1000 ttimeoutlen=0
 
+set showtabline=0
+
