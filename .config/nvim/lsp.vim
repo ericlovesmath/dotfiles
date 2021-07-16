@@ -70,6 +70,9 @@ EOF
 autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
 autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
 autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.java lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.vim lua vim.lsp.buf.formatting_sync(nil, 100)
 
 " nvim-compe
 set completeopt=menuone,noselect

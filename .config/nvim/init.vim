@@ -15,3 +15,10 @@ augroup END
 
 nnoremap <leader>t :vsp<CR>:term<CR>
 
+nnoremap <silent> <c-k> :wincmd k<CR>
+nnoremap <silent> <c-j> :wincmd j<CR>
+nnoremap <silent> <c-h> :wincmd h<CR>
+nnoremap <silent> <c-l> :wincmd l<CR>
+
+"nnoremap <silent> <Tab> :bnext<CR>
+"nnoremap <silent> <S-Tab> :bprevious<CR>

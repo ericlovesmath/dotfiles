@@ -28,7 +28,7 @@ autoload -Uz compinit
     compinit -C
   fi
 } ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24)
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors '${(@s.:.)LS_COLORS}'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # caching completion
@@ -50,23 +50,6 @@ timezsh() {
 #export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 #export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 #export PATH=/usr/local/opt/python/libexec/bin:$PATH
+#
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# conda initialize: disabled <<<
-
-#export PATH=/usr/local/anaconda3/bin:$PATH
-# !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('~/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "~/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "~/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="~/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-
-# conda initialize >>>
 

@@ -5,11 +5,11 @@ yabai -m config layout bsp
 #yabai -m config --space 3 layout float
 
 # Set all padding and gaps to 20pt (default: 0)
-#yabai -m config top_padding    5
-#yabai -m config bottom_padding 5
-#yabai -m config left_padding   5
-#yabai -m config right_padding  5
-#yabai -m config window_gap     5
+yabai -m config top_padding    5
+yabai -m config bottom_padding 5
+yabai -m config left_padding   5
+yabai -m config right_padding  5
+yabai -m config window_gap     5
 
 # floating windows are always on top (default: off)
 yabai -m config window_topmost on
@@ -40,6 +40,7 @@ yabai -m config window_topmost               on
 yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add title="^About$" manage=off
 yabai -m rule --add app="^Spark$" manage=off
+yabai -m rule --add app="^About This Mac$" manage=off
 #yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="^Macs Fan Control$" manage=off
 #Ubersicht Buffer Bar
@@ -52,7 +53,7 @@ yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
 yabai -m rule --add app="^Spotify$" space=5
 yabai -m rule --add app="^IINA$" space=7
 yabai -m rule --add app="^mpv$" space=7
-yabai -m rule --add title="^Zoom Meeting$" space=4
+yabai -m rule --add title="^Zoom Meeting$" space=5
 
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"

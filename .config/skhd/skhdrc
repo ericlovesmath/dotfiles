@@ -131,3 +131,8 @@ hyper - r : \
 meh - c : open -na /Applications/Google\ Chrome.app 
 hyper - c : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito
 delete : osascript ~/bin/panic-button.scpt
+
+hyper - u : yabai -m window --toggle sticky;\
+          yabai -m window --toggle topmost
+
+meh - x: skhd -k "ctrl - a"

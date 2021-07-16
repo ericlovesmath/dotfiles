@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 spacebar -m config position           top
-spacebar -m config height             40
+spacebar -m config height             38
 spacebar -m config spacing_left       25
 spacebar -m config spacing_right      30
 spacebar -m config text_font          "MesloLGS NF:Bold:18.0"

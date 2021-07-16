@@ -30,20 +30,13 @@ let g:currentmode={
     \}
 
 function! LspReport() abort
-	let sl = ''
+    let sl = ''
 	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-		let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
-		let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
-        if warnings != 0
-            let sl.= ' W: '.warnings
-        endif
-        if errors != 0
-            let sl.= ' E: '.errors
-        endif
-        if sl != ''
-            let sl.=' '
-        endif
-	endif
+	    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
+	    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
+	    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
+        let sl = ' +'.hints.' ~'.warnings.' -'.errors.' '
+    endif
 	return sl
 endfunction
 
@@ -52,8 +45,8 @@ set noshowmode
 
 set statusline=
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\   " The current mode
-set statusline+=%1*\ %<%F%m%r%h%w\                        " File path, modified, readonly, helpfile, preview
-set statusline+=%3*│                                      " Separator
+set statusline+=%1*\ %<%f%m%r%h%w\                        " File path, modified, readonly, helpfile, preview
+set statusline+=%2*%{LspReport()}                       "   
 
 set statusline+=%=                                        " Right Side
 
@@ -65,9 +58,10 @@ set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}         " Encoding
 set statusline+=\                                         " Separator
 set statusline+=%1*\ %3p%%\                               " Percentage of document
 set statusline+=%0*\ %3l:%2v\                             " Row/Col
-set statusline+=%1*%{LspReport()}                       "   
 
 hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
 hi User3 ctermfg=236 ctermbg=236 guibg=#303030 guifg=#303030
 hi User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e
+
+au BufEnter NvimTree setlocal statusline=%0*\ %<%f
