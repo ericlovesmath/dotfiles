@@ -33,6 +33,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
+Plug 'kyazdani42/nvim-tree.lua'
+
+"Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 

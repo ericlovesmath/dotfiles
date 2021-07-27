@@ -20,5 +20,4 @@ nnoremap <silent> <c-j> :wincmd j<CR>
 nnoremap <silent> <c-h> :wincmd h<CR>
 nnoremap <silent> <c-l> :wincmd l<CR>
 
-"nnoremap <silent> <Tab> :bnext<CR>
-"nnoremap <silent> <S-Tab> :bprevious<CR>
+au TextYankPost * silent! lua vim.highlight.on_yank()
