@@ -7,17 +7,4 @@ runtime plugins.vim
 runtime colors.vim
 runtime lsp.vim
 runtime statusline.vim
-
-augroup TermShortcut
-    autocmd!
-    autocmd TermOpen * startinsert
-augroup END
-
-nnoremap <leader>t :vsp<CR>:term<CR>
-
-nnoremap <silent> <c-k> :wincmd k<CR>
-nnoremap <silent> <c-j> :wincmd j<CR>
-nnoremap <silent> <c-h> :wincmd h<CR>
-nnoremap <silent> <c-l> :wincmd l<CR>
-
-au TextYankPost * silent! lua vim.highlight.on_yank()
+runtime keymaps.vim

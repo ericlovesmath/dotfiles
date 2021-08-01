@@ -37,7 +37,7 @@ set smartindent
 set showtabline=2
 set nobackup
 set nowritebackup
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 
 set splitright
 set timeoutlen=1000 ttimeoutlen=0

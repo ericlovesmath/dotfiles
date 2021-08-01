@@ -135,4 +135,4 @@ delete : osascript ~/bin/panic-button.scpt
 hyper - u : yabai -m window --toggle sticky;\
           yabai -m window --toggle topmost
 
-meh - x: skhd -k "ctrl - a"
+meh - r: skhd -k "ctrl - a"
