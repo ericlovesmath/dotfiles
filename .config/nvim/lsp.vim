@@ -42,12 +42,12 @@ end
 --end
 
 
-require'lspinstall'.setup() -- important
+--require'lspinstall'.setup() -- important
 
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-  require'lspconfig'[server].setup{}
-end
+--local servers = require'lspinstall'.installed_servers()
+--for _, server in pairs(servers) do
+--  require'lspconfig'[server].setup{}
+--end
 
 local function setup_servers()
   require'lspinstall'.setup()
@@ -64,6 +64,7 @@ require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
+
 EOF
 
 " auto-format
@@ -99,6 +100,6 @@ let g:compe.source.nvim_lsp = v:true
 let g:compe.source.nvim_lua = v:true
 let g:compe.source.ultisnips = v:true
 
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')

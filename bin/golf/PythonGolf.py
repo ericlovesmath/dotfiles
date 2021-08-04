@@ -132,3 +132,27 @@ a=f"{n:.99g}"
 x=n=input()
 while len(n)>1:n=str(sum(map(lambda a:int(a)**2,n)))
 print(x,f"IS {'UN'*(n!='1')}HAPPY")
+
+You can "input()" instead of "print()"
+
+i,s=0,""
+for c in input():
+ if c=='.':s+=chr(i)
+ else:i=i+(1*c=='+')-(1*c=='-')
+ if(i>255 or i<0):print("UONVD"[i>255::2]+"ERFLOW");exit()
+print(s)
+
+a,x,t=0,"",0
+for i in input():
+ if"+"==i:a+=1;t=1*(a>255)
+ elif"-"==i:a-=1;t=2*(a<0)
+ else:x+=chr(a)
+print([x,"OVERFLOW","UNDERFLOW"][t])
+
+set1.intersection(set2)
+
+t,a,b=map(int,open(0))
+
+max(round(a,2),0)
+
+print(sum(map("88690".count,input())))

@@ -26,7 +26,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'kabouzeid/nvim-lspinstall'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 Plug 'norcalli/nvim-colorizer.lua'
 
 "Plug 'lukas-reineke/indent-blankline.nvim'
@@ -36,6 +37,8 @@ Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 
 "Plug 'jiangmiao/auto-pairs'
+
+Plug 'ahmedkhalf/lsp-rooter.nvim'
 
 call plug#end()
 

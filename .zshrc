@@ -52,4 +52,3 @@ timezsh() {
 #export PATH=/usr/local/opt/python/libexec/bin:$PATH
 #
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-

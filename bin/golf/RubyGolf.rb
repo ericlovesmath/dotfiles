@@ -16,7 +16,6 @@ Integer.sqrt(25)
 
 puts gets.gsub(/./,"A"=>"T","T"=>"A","C"=>"G","G"=>"C")
 
-
 p gets.to_i.digits(2).sum
 p gets.to_i.to_s(2).chars.map{|c|c.to_i}.sum
 
@@ -69,3 +68,27 @@ $a = $x-int($t*60/$n);
 print $a>0 ? $a : "0";
 
 puts$<.read.split.drop(1).sort_by(&:to_i)*" "
+
+m=gets
+puts(m=~/_/i?"snake_case":(m[0]==m[0].upcase ? "Pascal":"camel")+"Case")
+
+[97,98,99,100].pack('c*')
+=> "abcd"
+
+s=gets
+p (s.scan(/[A-Z]/).size-s.scan(/[a-z]/).size).abs()
+
+p `dd`.scan(/\d+/).size-1
+# Ignores second line somehow?
+
+f,_,*x=$<.read.split.map &:to_i
+p *x.map{|i|2*(f-i)}
+
+n=gets.to_i
+print n>0?$<.read.count("*")*100/n/n:0,"%"
+# print doesn't append newlines
+
+gets
+$<.read.split{|i|p i[..2].sum==i[3..].sum}
+
+p (gets.to_i**gets.to_i).digits.sum
