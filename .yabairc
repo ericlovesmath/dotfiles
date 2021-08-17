@@ -9,7 +9,7 @@ yabai -m config top_padding    0
 yabai -m config bottom_padding 0
 yabai -m config left_padding   0
 yabai -m config right_padding  0
-yabai -m config window_gap     6
+yabai -m config window_gap     0
 
 # floating windows are always on top (default: off)
 yabai -m config window_topmost on

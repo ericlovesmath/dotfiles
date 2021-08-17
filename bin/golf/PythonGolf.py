@@ -133,7 +133,7 @@ x=n=input()
 while len(n)>1:n=str(sum(map(lambda a:int(a)**2,n)))
 print(x,f"IS {'UN'*(n!='1')}HAPPY")
 
-You can "input()" instead of "print()"
+#You can "input()" instead of "print()"
 
 i,s=0,""
 for c in input():
@@ -156,3 +156,12 @@ t,a,b=map(int,open(0))
 max(round(a,2),0)
 
 print(sum(map("88690".count,input())))
+
+if CONDITION: SOMETHING
+# to place nested in one line (doesn't run something if CONDITION is already true
+CONDITION and SOMETHING
+
+# Fibbonacci
+phi = (1+5**.5)/2
+n = int(input())
+print(round(n*phi))

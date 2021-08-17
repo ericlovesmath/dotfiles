@@ -38,7 +38,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 "Plug 'jiangmiao/auto-pairs'
 
-Plug 'ahmedkhalf/lsp-rooter.nvim'
+"Plug 'ahmedkhalf/lsp-rooter.nvim'
 
 call plug#end()
 

@@ -128,8 +128,11 @@ hyper - r : \
     brew services restart yabai; \
     brew services restart skhd
 
-meh - c : open -na /Applications/Google\ Chrome.app 
-hyper - c : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito
+# meh - c : open -na /Applications/Google\ Chrome.app 
+# hyper - c : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito
+
+meh - c : /Applications/Firefox.app/Contents/MacOS/firefox
+hyper - c : /Applications/Firefox.app/Contents/MacOS/firefox --args -private-window
 delete : osascript ~/bin/panic-button.scpt
 
 hyper - u : yabai -m window --toggle sticky;\
