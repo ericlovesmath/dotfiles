@@ -1,5 +1,4 @@
 alias c='clear'
-alias {vi,vim}="nvim"
 alias ttyclock='tty-clock -bt -C2'
 alias ttyclockc='tty-clock -cbt -C2'
 alias blank="printf '\n%.0s' {1..100}"
@@ -49,3 +48,4 @@ alias s='ls'
 alias duck='curl -sL https://i.redd.it/zgdnh7q9u9t41.jpg | kitty +kitten icat'
 alias tm='~/bin/tmuxsessions.sh'
 alias aseprite='nohup /Applications/aseprite/build/bin/aseprite > /dev/null 2>&1&'
+alias {cnote,cn}='~/bin/buildnote.sh'

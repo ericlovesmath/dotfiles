@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta  # Gets dates and time
+from datetime import datetime
 
 schedule = """\
 ┌───────────────────────────────┐ ┌───────────────────────────────┐
