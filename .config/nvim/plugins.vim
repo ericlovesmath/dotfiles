@@ -36,6 +36,8 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 
+"Plug 'tom-doerr/vim_codex'
+
 "Plug 'jiangmiao/auto-pairs'
 
 "Plug 'ahmedkhalf/lsp-rooter.nvim'

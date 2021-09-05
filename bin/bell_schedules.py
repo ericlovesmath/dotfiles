@@ -4,19 +4,17 @@ schedule = """\
 ┌───────────────────────────────┐ ┌───────────────────────────────┐
 │ Late Start Schedule           │ │ Odd Schedule                  │
 │ ─────────────────────────────	│ │ ───────────────────────────── │
-│  7:25 -  7:55 Intervention	│ │  6:55 -  7:50 Choir      (0)  │
-│  9:00 -  9:30 Choir      (0)	│ │  7:55 -  8:25 Breakfast       │
-│  9:35 - 10:05 Chinese    (1)	│ │  8:30 -  9:55 Chinese    (1)  │
-│ 10:10 - 10:40 English    (2)	│ │ 10:05 - 11:30 Physics    (3)  │
-│ 10:40 - 10:45 Break           │ │ 11:40 -  1:00 Statistics (5)  │
-│ 10:50 - 11:20 Physics    (3)  │ └───────────────────────────────┘
-│ 11:25 - 11:55 US History (4)  │ ┌───────────────────────────────┐
-│ 12:00 - 12:30 Statistics (5)  │ │ Even Schedule                 │
+│  8:10 -  9:00 Choir      (0)	│ │  6:55 -  7:50 Choir      (0)  │
+│  9:05 -  9:40 Comp Sci   (1)	│ │  7:55 -  9:25 Comp Sci   (1)  │
+│  9:45 - 10:20 Biology    (2)	│ │  9:25 -  9:40 Break           │
+│ 10:20 - 10:30 Break           │ │  9:40 - 11:15 Literature (3)  │
+│ 10:30 - 11:10 Literature (3)  │ ╞═══════════════════════════════╡
+│ 11:15 - 11:50 Macro/Gov  (4)  │ │ Even Schedule                 │
 └───────────────────────────────┘ │ ───────────────────────────── │
 ┌───────────────────────────────┐ │  6:55 -  7:50 Choir      (0)  │
-│ Placeholder A --------------- │ │  7:55 -  8:25 Breakfast       │
-│ Placeholder B --------------- │ │  8:30 -  9:55 English    (1)  │
-│ Placeholder C --------------- │ │ 10:05 - 11:30 US History (3)  │
+│ Placeholder A --------------- │ │  7:55 -  9:25 Biology    (2)  │
+│ Placeholder B --------------- │ │  9:25 -  9:40 Break           │
+│ Placeholder C --------------- │ │  9:40 - 11:15 Macro/Gov (4)   │
 └───────────────────────────────┘ └───────────────────────────────┘\
 """
 
@@ -35,6 +33,9 @@ time = date.strftime("%m/%d %a %I:%M")
 # __ min until __
 
 minute_time = hour*60 + minute
+
+classes = ["Choir", "AP Comp Sci", "AP Biology", "AP Literature", "AP Macro/Gov"]
+lateSched = []
 
 if DoTW==0: # Late Start
     today_sched = ((540,570), (575,605), (610,640), (650,680), (685,715), (720,750))

@@ -1,7 +1,6 @@
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
-set smartindent
 
 set exrc
 set relativenumber
@@ -32,6 +31,7 @@ set updatetime=50
 set shortmess+=c
 set iskeyword+=-
 set t_Co=256
+
 set smarttab
 set smartindent
 set showtabline=2

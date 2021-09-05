@@ -15,12 +15,14 @@ x,y,X,Y=map(int,open(0).read().split())
 
 # Function                                                   Output of f(360)
 #========================================================================================
+f=lambda n,i=2:n//i*[0]and[f(n,i+1),[i]+f(n//i)][n%i<1]      # [2, 2, 2, 3, 3, 5] (slow!)
 f=lambda n,i=2:n<2and{1}or n%i and f(n,i+1)or{i}|f(n/i)    # {1, 2, 3, 5}
 f=lambda n,i=2:n<2and{i}or n%i and f(n,i+1)or{i}|f(n/i,i)  #*{2, 3, 5}
+f=lambda n,i=1,p=1:n*[0]and p%i*[i]+f(n-p%i,i+1,p*i*i)     # first n primes
+f=lambda n,i=1,p=1:n*[0]and p%i*[i]+f(n-1,i+1,p*i*i)       # primes <= n
 f=lambda n:all(n%m for m in range(2,n))                    # is n prime?
 f=lambda n:1>>n or n*f(n-1)                                # factorial
 f=lambda n:sum(k/n*k%n>n-2for k in range(n*n))             # totient phi(n) (not recursive)
-f=lambda n:[k/n for k in range(n*n)if k/n*k%n==1]          # coprimes up to n (not recursive)
 
 # Strip newline from end of string or int
 print(end=s)
@@ -45,20 +47,13 @@ if~-a:
 >>> filter(None, L)
 [1, [5], (4, 2)]
 
-Use a=b=c=0 instead of a,b,c=0,0,0.
 Use a,b,c='123' instead of a,b,c='1','2','3'
 
 # Don't use, use below
-if a<b:return a
-else:return b
-
 return(b,a)[a<b]
 
 I=input
 R=range
-
-
-#Use extended iterable unpacking to turn something into a list (-4 bytes):
 
 # Double for loop
 for i in range(m):
@@ -165,3 +160,109 @@ CONDITION and SOMETHING
 phi = (1+5**.5)/2
 n = int(input())
 print(round(n*phi))
+
+# I'm just proud of this one
+# Given n, find the next smallest number that doesn't share digits with n
+# If its impossible, return "Impossible"
+I=input
+n=I()
+a=int(n)
+if len(set(n))>5:I("Impossible");exit()
+while 1:a+=1;any(i in n for i in str(a))or I(a) # Abuse of ternary statements
+
+f,d,*m=open(0)
+
+
+return X==5 and Y==6 #19 Chars
+return(X,Y)==(5,6) #18 Chars
+
+print(['hello','world'][X]) #27 Chars
+print(X*'world'or'hello') #25 Chars
+
+print(['much','code','wow'][X]) #31 Chars
+print('mcwuoocdwhe'[X::3]) #26 Chars
+
+for a in range(X):
+ for b in range(Y):print(a,b) #48 Chars
+for a in range(X*Y):print(a//X,a%X) #35 Chars
+
+for a in range(4):print(a) #26 Chars
+for a in 0,1,2,3:print(a) #25 Chars
+
+#Getting last item
+A=L[-1] #7 Chars
+*_,A=L #6 Chars
+
+#Removing first item
+L.pop(0) #8 Chars
+L=L[1:] #7 Chars
+_,*L=L #6 Chars
+
+#Removing last item
+L=L[:-1] #8 Chars
+L.pop() #7 Chars
+*L,_=L #6 Chars
+
+L.insert(i,A) #13 Chars #Inserting items into a list
+L[:i]+=A #8 Chars
+
+A = combinations("ABC",2) # [('A', 'B'), ('A', 'C'), ('B', 'C')]
+print(len(A)) # TypeError!
+print(len(list(A))) # 19 Chars
+print(len([*A])) # 16 Chars
+
+if A and not B:
+    foo()
+
+is the same as:
+
+if A>B:
+    foo()
+
+
+Store lookup tables as magic numbers
+
+Say you want to hardcode a Boolean lookup table, like which of the first twelve English numbers contain an n.
+
+0: False
+1: True
+2: False
+3: False
+4: False
+5: False
+6: False
+7: True
+8: False
+9: True
+10:True
+11:True
+12:False
+
+Then, you can implement this lookup table concisely as:
+3714>>i&1
+with the resulting 0 or 1 being equal to False to True.
+The idea is that the magic number stores the table as a bitstring bin(3714) = 0b111010000010, with the n-th digit (from the end) corresponding the the nth table entry. We access the nth entry by bitshifting the number n spaces to the right and taking the last digit by &1.
+
+a=1;b=2;c=[]
+a,b,*c=1,2
+
+set(T)
+{*T}
+list(T)
+[*T]
+tuple(T)
+(*T,)
+
+n choose k -> ((2**n+1)**n>>n*k)%2**n
+
+L=[1,2,3,1,2,3]
+a=2
+b=3
+print map({a:b}.get,L,L)
+[1, 3, 3, 1, 3, 3]  #Output
+
+"tex".center(7, "-") -> f"{'tex':-^7}"
+
+*l,=b"golf" => l=[103, 111, 108, 102]
+
+exec(bytes('ⱰⱭ渪漽数⡮⤰朊椽瑮瀨献汰瑩⤨ㅛ⥝瀊楲瑮木猾浵椨瑮椨㸩湩⡴⥭潦⁲⁩湩渠愩摮琢畲≥牯昢污敳⤢','u16')[2:])

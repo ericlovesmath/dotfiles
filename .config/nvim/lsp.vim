@@ -8,7 +8,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
@@ -23,10 +23,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -41,25 +41,11 @@ end
 --  nvim_lsp[lsp].setup { on_attach = on_attach }
 --end
 
--- config that activates keymaps and enables snippet support
-local function make_config()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.colorProvider = { dynamicRegistration = false }
-  return {
-    -- enable snippet support
-    capabilities = capabilities,
-    -- map buffer local keybindings when the language server attaches
-    on_attach = on_attach,
-  }
-end
-
 local function setup_servers()
   require'lspinstall'.setup()
   local servers = require'lspinstall'.installed_servers()
   for _, server in pairs(servers) do
-    local config = make_config()
-    require'lspconfig'[server].setup(config)
+    require'lspconfig'[server].setup{on_attach = on_attach}
   end
 end
 
@@ -100,7 +86,7 @@ let g:compe.documentation = v:true
 
 let g:compe.source = {}
 let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
+let g:compe.source.buffer = v:false
 let g:compe.source.calc = v:true
 let g:compe.source.nvim_lsp = v:true
 let g:compe.source.nvim_lua = v:true
