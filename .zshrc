@@ -53,6 +53,6 @@ export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 #export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 #export PATH=/usr/local/opt/python/libexec/bin:$PATH
 #
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 PROMPT_EOL_MARK=''

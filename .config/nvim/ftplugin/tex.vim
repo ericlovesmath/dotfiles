@@ -21,7 +21,6 @@ inoremap <C-f> <Esc>: silent exec "!inkscape-figures watch"<CR>: silent exec '.!
 "nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 nnoremap <C-p> :call MarkdownClipboardImage()<CR>
 
-
 function! MarkdownClipboardImage() abort
   " Create `img` directory if it doesn't exist
   let img_dir = getcwd() . '/imgs'

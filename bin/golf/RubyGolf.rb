@@ -144,3 +144,45 @@ l=(1..gets.to_i).filter &f
 puts"#{r=l.sum/l.size} is#{f[r]?'':"n't"} a palindrome in binary"
 
 (a+b/2)/b # Rounding a/b when they are integers without using to_f
+
+n=eval`dd`
+$><<"%.1f %.1f %.1f"%[n.real,n.imaginary,n.polar[0]]
+a=Complex(gets)
+$><<[a.real,a.imag,a.abs].map{1.0*_1.round(1)}*" "
+
+n=gets.to_i
+a=1
+i=0
+x=[]
+n>0?n.to_s(2).chars.map{_1.to_i==a ?i+=1:(x+=[i];a^=i=1)}:0
+$><<(x+[i])*""
+
+# I swear to god I will never understand regex code like this
+# Problem was 143 -> '0b10001111' -> 134
+puts gets<?1?0:('%b'%$_).gsub(/(.)\1*/,&:size)
+
+gets
+puts$<.map{|s|t=s.scan(/[a-z]/i).uniq.select{1<s.count(_1)}
+t[0]?t*'':'NONE'}
+
+# MATCH ALL LETTERS LOWERCASE OR UPPERCASE WITH /[a-z]/i
+#
+# AND MATCH NUMBER SPACE WORD WITH "(\d+) (.+)"
+
+_,n,d,a=`dd`.split
+puts "YOU_CAN%s_MAKE_A_SOUP_IN_%d_DAYS"%[n.to_i<=a.chars.count{_1<=d}?"":"NOT",d]
+
+puts`dd`.to_r.to_s.chomp('/1').sub ?/,' / '
+# Instead of
+a,b=gets.to_r.to_s.split "/"
+puts b.to_i<2?a:a+" / "+b
+# I don't know what .chomp('/1') does 
+# Rational("3/2")
+
+f=[0,0,0,1]
+999.times{f<<f[-3..].sum}
+gets
+p$<.sum{f[_1.to_i]}%(10**9+7)
+
+gets
+puts $<.map{_1.scan(/\w+/)}.map{|a,b,c|a+"/"+(c=='jpg'||c=='png' ? b.gsub(/[A-Z]/){'_'+_1.downcase} : b)+"."+c}
