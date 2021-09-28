@@ -186,3 +186,15 @@ p$<.sum{f[_1.to_i]}%(10**9+7)
 
 gets
 puts $<.map{_1.scan(/\w+/)}.map{|a,b,c|a+"/"+(c=='jpg'||c=='png' ? b.gsub(/[A-Z]/){'_'+_1.downcase} : b)+"."+c}
+
+$><<gets.gsub(/\W/,'').split(/(?<=[aeiou])(?=[^aeiou])|(?<=[^aeiou])(?=[aeiou])/)*" "
+
+$><<gets.tr("A-J","0-9").gsub(/../){(_1.to_i+65).chr}
+
+a,b,c=gets.split
+p eval c[/.{#{b}}/]+a+$'
+
+a.any?(0) instead of a.include?(0)
+
+$><<(0...gets.to_i).map{("%b"%_1).sum%2}*""
+(0...gets.to_i).map{$><<("%b"%_1).sum%2}

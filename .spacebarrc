@@ -27,7 +27,7 @@ spacebar -m config power_icon_strip   
 spacebar -m config space_icon         
 spacebar -m config clock_icon         
 spacebar -m config dnd_icon           
-spacebar -m config clock_format       "%d/%m/%y %r"
+spacebar -m config clock_format       "%Y-%m-%d %a %r"
 spacebar -m config right_shell on
 spacebar -m config right_shell_icon   " "
 spacebar -m config right_shell_command "~/bin/cpu-temp.sh"

@@ -23,7 +23,9 @@ Plug 'junegunn/goyo.vim'
 Plug 'dstein64/vim-startuptime'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
 Plug 'kabouzeid/nvim-lspinstall'
 
 "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
