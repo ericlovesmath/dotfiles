@@ -120,5 +120,3 @@ autocmd BufWritePre *.vim lua vim.lsp.buf.formatting_sync(nil, 100)
 "inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 "inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-
-inore

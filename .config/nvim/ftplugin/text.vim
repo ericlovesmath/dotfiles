@@ -1,0 +1,2 @@
+set wrap
+set linebreak
