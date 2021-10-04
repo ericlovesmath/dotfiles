@@ -1,0 +1,49 @@
+"complex_modifications":[
+    {
+        "manipulators":[
+            {
+                "description":"Change Ins to Ctrl+Tab",
+                "from":{
+                    "key_code":"insert",
+                    "modifiers":{
+                        "optional":[
+                            "any"
+                        ]
+                    }
+                },
+                "to":[
+                    {
+                        "key_code":"right_control"
+                    },
+                    {
+                        "key_code":"tab"
+                    }
+                ],
+                "type":"basic"
+            },
+            {
+                "description":"Change Ins to Ctrl+Tab",
+                "from":{
+                    "key_code":"delete_forward",
+                    "modifiers":{
+                        "optional":[
+                            "any"
+                        ]
+                    }
+                },
+                "to":[
+                    {
+                        "key_code":"right_control"
+                    },
+                    {
+                        "key_code":"right_shift"
+                    },
+                    {
+                        "key_code":"tab"
+                    }
+                ],
+                "type":"basic"
+            }
+        ]
+    }
+]
