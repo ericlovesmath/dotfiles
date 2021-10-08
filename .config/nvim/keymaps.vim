@@ -48,15 +48,15 @@ nnoremap L $
 
 nnoremap U <C-r>
 
-"map <Up>    <nop>
-"map <Down>  <nop>
-"map <Left>  <nop>
-"map <Right> <nop>
+map <Up>    <nop>
+map <Down>  <nop>
+map <Left>  <nop>
+map <Right> <nop>
 
-"inoremap <Up>    <nop>
-"inoremap <Down>  <nop>
-"inoremap <Left>  <nop>
-"inoremap <Right> <nop>
+inoremap <Up>    <nop>
+inoremap <Down>  <nop>
+inoremap <Left>  <nop>
+inoremap <Right> <nop>
 
 "-----------------------------
 " Increment and decrement mappings

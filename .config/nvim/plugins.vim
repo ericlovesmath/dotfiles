@@ -13,6 +13,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'joshdick/onedark.vim'
 
 Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 "| Plug 'honza/vim-snippets'
 
 Plug 'lervag/vimtex', { 'for': 'tex' }

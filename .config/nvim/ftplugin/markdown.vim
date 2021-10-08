@@ -2,9 +2,14 @@ set wrap
 set linebreak
 set spell
 
+map j gj
+map k gk
+
 "nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
 nnoremap <leader>r :w<CR>:!~/bin/buildnote.sh "%:p"<CR>
 nnoremap <leader>o :w<CR>:!~/bin/buildnote.sh "%:p"<CR>:!open -a Skim.app %:r.pdf<CR>
+
+"autocmd BufWritePre !~/bin/buildnote.sh "%:p"<CR>
 
 nnoremap <silent> <leader>p :call MarkdownClipboardImage()<CR>
 
@@ -43,7 +48,7 @@ function! MarkdownClipboardImage() abort
 endfunction
 
 command! -range Tablify <line1>,<line2>s/\s*|/§|/g | <line1>,<line2>!column -s § -t
-inoremap <bar> <bar><esc>:call <SID>Tablify()<cr>a
+"inoremap <bar> <bar><esc>:call <SID>Tablify()<cr>a
 function! s:Tablify()
   let p = '^\s*|\s.*\s|\s*$'
   if getline('.') =~ '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
@@ -92,4 +97,4 @@ endfunction
 
 " N.B. Currently only enabled for return key in insert mode, not for normal
 " mode 'o' or 'O'
-inoremap <buffer> <CR> <CR><Esc>:call <SID>auto_list()<CR>A
+"inoremap <buffer> <CR> <CR><Esc>:call <SID>auto_list()<CR>A
