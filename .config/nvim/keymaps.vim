@@ -43,8 +43,8 @@ inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 
-nnoremap H ^
-nnoremap L $
+nnoremap H g^
+nnoremap L g$
 
 nnoremap U <C-r>
 
