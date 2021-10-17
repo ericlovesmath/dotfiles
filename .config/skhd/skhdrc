@@ -139,3 +139,6 @@ hyper - u : yabai -m window --toggle sticky;\
           yabai -m window --toggle topmost
 
 meh - r: skhd -k "ctrl - a"
+
+# Toggle desktop on macos
+meh - t: ~/bin/toggle-desktop.sh
