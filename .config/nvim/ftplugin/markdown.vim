@@ -5,13 +5,15 @@ set spell
 map j gj
 map k gk
 
+au TermOpen * setlocal nospell
+
 "nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
 nnoremap <leader>r :w<CR>:!~/bin/buildnote.sh "%:p"<CR>
-nnoremap <leader>o :w<CR>:!~/bin/buildnote.sh "%:p"<CR>:!open -a Skim.app %:r.pdf<CR>
+nnoremap <leader>o :silent exec "!open -a Skim.app %:r.pdf"<CR>
 
 "autocmd BufWritePre !~/bin/buildnote.sh "%:p"<CR>
 
-nnoremap <silent> <leader>p :call MarkdownClipboardImage()<CR>
+nnoremap <silent> <leader>i :call MarkdownClipboardImage()<CR>
 
 function! MarkdownClipboardImage() abort
 
@@ -98,3 +100,51 @@ endfunction
 " N.B. Currently only enabled for return key in insert mode, not for normal
 " mode 'o' or 'O'
 "inoremap <buffer> <CR> <CR><Esc>:call <SID>auto_list()<CR>A
+
+fu! RedirStdoutNewTabSingle(cmd)
+  let a:newt= expand('%:p') . ".out.tmp"
+  tabnext
+  if expand('%:p') != a:newt
+    tabprevious
+    exec "tabnew" . a:newt
+  else
+    exec "%d"
+  endif
+  exec 'silent r !' . a:cmd
+  set nomodified
+endfunc
+
+function! GlowPreview() abort
+
+    let file_name = expand('%:p')
+
+    " Define the size of the floating window
+    let width = nvim_get_option("columns")
+    let height = nvim_get_option("lines")
+
+    let win_width = float2nr(ceil(width * 0.8))
+    let win_height = float2nr(ceil(height * 0.8 - 4))
+
+    " Starting Position
+    let row = (height - win_height) / 2 - 1
+    let col = (width - win_width) / 2
+
+    " Create the scratch buffer displayed in the floating window
+    let buf = nvim_create_buf(v:false, v:true)
+    let opts = {'relative': 'editor',
+                \ 'width': win_width,
+                \ 'height': win_height,
+                \ 'row': row,
+                \ 'col': col,
+                \ 'anchor': 'NW',
+                \ 'style': 'minimal',
+                \ }
+
+    let win = nvim_open_win(buf, 1, opts)
+    call nvim_buf_set_option(buf, "bufhidden", "wipe")
+    call nvim_win_set_option(win, "winblend", 0)
+    call termopen("glow " . file_name)
+
+endfunction
+
+nnoremap <leader>p :call GlowPreview()<CR>

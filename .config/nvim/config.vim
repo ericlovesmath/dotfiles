@@ -21,7 +21,7 @@ set noshowmode
 set incsearch
 set scrolloff=4 "Early scroll
 
-set colorcolumn=80
+"set colorcolumn=80
 set signcolumn=yes
 set ruler
 set wildmenu

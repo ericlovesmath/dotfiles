@@ -32,6 +32,7 @@ autoload -Uz compinit
     compinit -C
   fi
 } ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24)
+
 zstyle ':completion:*' list-colors '${(@s.:.)LS_COLORS}'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
@@ -42,25 +43,13 @@ zstyle ':completion::complete:*'  cache-path ~/
 
 ZLE_RPROMPT_INDENT=0
 
-. ~/.zsh_aliases
+source $HOME/.zsh_aliases
 
 # Times zsh startup
 timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
-
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
 
 # Exports for various programs
 export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"

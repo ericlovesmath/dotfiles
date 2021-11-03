@@ -30,14 +30,14 @@ let g:currentmode={
     \}
 
 function! LspReport() abort
-    let sl = ''
 	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
 	    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
 	    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
 	    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
-        let sl = ' +'.hints.' ~'.warnings.' -'.errors.' '
+        return ' +'.hints.' ~'.warnings.' -'.errors.' '
+    else
+        return ''
     endif
-	return sl
 endfunction
 
 set laststatus=2

@@ -10,11 +10,11 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
-augroup TerminalInsert
-    autocmd!
-    autocmd TermOpen * startinsert
-    autocmd BufWinEnter,WinEnter term://* startinsert
-augroup END
+"augroup TerminalInsert
+"    autocmd!
+"    autocmd TermOpen * startinsert
+"    autocmd BufWinEnter,WinEnter term://* startinsert
+"augroup END
 
 au TextYankPost * silent! lua vim.highlight.on_yank()
 
@@ -63,3 +63,5 @@ inoremap <Right> <nop>
 "-----------------------------
 nnoremap + <C-a>
 nnoremap - <C-x>
+
+nnoremap <leader>w :w<CR>

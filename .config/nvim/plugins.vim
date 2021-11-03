@@ -45,5 +45,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'ahmedkhalf/lsp-rooter.nvim'
 
+"Plug 'github/copilot.vim'
+
 call plug#end()
 

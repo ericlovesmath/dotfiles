@@ -1,3 +1,5 @@
+set completeopt=menu,menuone,noselect
+
 lua <<EOF
 
 -- Setup nvim-cmp.
@@ -19,8 +21,9 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = {
-        { name = 'nvim_lsp' },
         { name = 'ultisnips' },
+        { name = 'nvim_lsp' },
+        { name = 'buffer', keyword_length = 5 },
     },
 
 --  formatting = {
