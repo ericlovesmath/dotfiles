@@ -87,3 +87,5 @@ nnoremap <leader>m :NvimTreeFindFile<CR>
 
 " a list of groups can be found at `:help nvim_tree_highlight`
 highlight NvimTreeFolderIcon guibg=blue 
+
+au BufEnter NvimTree setlocal statusline=%0*\ %<%f
