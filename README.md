@@ -18,11 +18,9 @@ Personalized Dotfiles for MacOS with Yabai and Neovim
  - Shell: `zsh`, [powerlevel10k](https://github.com/romkatv/powerlevel10k)
  - Shortcut Managers: [skhd](https://github.com/koekeishiya/skhd), [karabiner-elements](https://karabiner-elements.pqrs.org/), [Alfred](https://www.alfredapp.com/)
 
-cli apps
-
 # Neovim
 
-![Neovim Configuration](/bin/neovim.png)
+![Neovim Configuration](bin/img/neovim.png)
 
 [Neovim](https://github.com/neovim/neovim) is my editor of choice, due to customizability, Native LSP, universal versatility, and performance.
 
