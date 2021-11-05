@@ -19,14 +19,14 @@ scrolling:
   multiplier: 1
 font:
   normal:
-    family: "MesloLGS NF"
+    family: "Meslo LG S for Powerline"
     style: Regular
-  size: 20.0
+  size: 22.0
   offset:
     x: 0
-    y: 4
+    y: 0
   glyph_offset:
-    x: -1
+    x: 0
     y: 0
   use_thin_strokes: true
 

@@ -162,7 +162,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ahmedkhalf/lsp-rooter.nvim'
 Plug 'dstein64/vim-startuptime'
 
-"Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 "Plug 'github/copilot.vim'
 "Plug 'tom-doerr/vim_codex'
@@ -258,13 +258,13 @@ highlight! link CmpItemMenuDefault Pmenu
 " Statusline / Colors
 "--------------------------------------------------------------------------
 
-highlight Normal ctermbg=none guibg=none
-
 " Onedark Color Scheme
 let g:onedark_termcolors=16
 let g:onedark_terminal_italics=1
 let g:onedark_hide_endofbuffer=1
 colorscheme onedark
+
+highlight Normal ctermbg=none guibg=none
 
 " Status Line
 let g:currentmode={

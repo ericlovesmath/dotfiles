@@ -5,9 +5,6 @@ let g:vimtex_quickfix_mode=0
 set conceallevel=1
 let g:tex_conceal='abdmg'
 
-"setlocal spell
-"set spelllang=en
-
 "nnoremap <C-f> :exec '.!~/Desktop/bash/vim_inkscape.py %:r "'.getline(".").'"'
 autocmd FileType tex nmap <buffer> <C-T> :!latexmk -pvc -pdf %<CR>
 
@@ -76,5 +73,4 @@ let g:vimtex_quickfix_warnings = {
 	    \ 'Overfull' : 0,
 	    \ 'specifier changed to' : 0,
 	    \ }
-
 
