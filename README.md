@@ -4,7 +4,7 @@
 
 ![Firefox Configuration](bin/img/firefox.png)
 
-Personalized Dotfiles for MacOS with Yabai and Neovim. Shortcuts managed with [skhd](https://github.com/koekeishiya/skhd),karabiner-elements](https://karabiner-elements.pqrs.org/), [Alfred](https://www.alfredapp.com/)
+Personalized Dotfiles for MacOS with Yabai and Neovim. Shortcuts managed with [skhd](https://github.com/koekeishiya/skhd), [karabiner-elements](https://karabiner-elements.pqrs.org/), [Alfred](https://www.alfredapp.com/)
 
 ## Terminal Workflow
 
@@ -23,4 +23,4 @@ Neovim Features
 
 Window management utilizes Yabai and skhd. 
 
-# TODO
+## TODO
