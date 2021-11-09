@@ -1,1 +1,13 @@
-lua require'nvim-treesitter.configs'.setup{indent = {disable = {"python"}}}
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+    disable = {"python"}
+  }
+}
+EOF
+
+
