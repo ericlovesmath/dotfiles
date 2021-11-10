@@ -151,7 +151,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
-Plug 'kabouzeid/nvim-lspinstall'
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 
 Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 Plug 'norcalli/nvim-colorizer.lua'
@@ -198,7 +199,6 @@ cmp.setup({
     sources = {
         { name = 'ultisnips' },
         { name = 'nvim_lsp' },
---      { name = 'buffer', keyword_length = 5 },
     },
 --  formatting = {
 --      format = function(entry, vim_item)
@@ -206,7 +206,6 @@ cmp.setup({
 --          vim_item.menu = ({
 --              nvim_lsp = "[LSP]",
 --              ultisnips = "[UltiSnips]",
---              buffer = "[Buffer]",
 --          })[entry.source.name]
 --          return vim_item
 --      end
@@ -239,15 +238,8 @@ local on_attach = function(client, bufnr)
 
 end
 
-require'lspinstall'.setup()
-
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{
-        on_attach = on_attach,
-        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-    }
-end
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function (server) server:setup {} end)
 
 EOF
 

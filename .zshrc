@@ -19,12 +19,28 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt appendhistory
 setopt extendedglob local_options
-ZSH_AUTOSUGGEST_USE_ASYNC=true
-ZSH_HIGHLIGHT_MAXLENGTH=300
 
 autoload -Uz promptinit && promptinit
 
-timezsh() { repeat 10 { /usr/bin/time $SHELL -i -c exit } }
+# ZSH Autocomplete, check only once a day
+autoload -Uz compinit
+() {
+  if [[ $# -gt 0 ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+} ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24)
+
+zstyle ':completion:*' list-colors '${(@s.:.)LS_COLORS}'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# caching completion
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*'            use-cache yes
+zstyle ':completion::complete:*'  cache-path ~/
+
+timezsh() { repeat 10 { time zsh -i -c exit } }
 
 # Exports for various programs
 source $HOME/.cargo/env

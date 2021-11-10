@@ -10,7 +10,11 @@ Personalized Dotfiles for MacOS with Yabai and Neovim. Shortcuts managed with [s
 
 [Neovim](https://github.com/neovim/neovim) is my editor of choice, due to customizability, Native LSP, universal versatility, and performance. [Kitty](https://github.com/kovidgoyal/kitty) is my choice of terminal emulator, as it is much faster than iTerm. Terminal theme is [powerlevel10k](https://github.com/romkatv/powerlevel10k) with zsh.
 
-Neovim configuration is located in `.config/nvim`
+Neovim Installation
+
+ - Copy `.config/nvim` to machine
+ - Run `nvim`, `:PlugInstall`
+ - Restart neovim, `:LspInstall <LSP>`
 
 Neovim Features
 
