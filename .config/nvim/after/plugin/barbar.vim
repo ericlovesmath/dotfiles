@@ -6,7 +6,6 @@ hi BufferInactiveSign ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 let bufferline = get(g:, 'bufferline', {})
 let bufferline.animation = v:false
 let bufferline.closable = v:false
-
 let bufferline.maximum_padding = 2
 let bufferline.maximum_length = 25
 

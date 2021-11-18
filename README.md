@@ -14,7 +14,7 @@ Neovim Installation
 
  - Copy `.config/nvim` to machine
  - Run `nvim`, `:PlugInstall`
- - Restart neovim, `:LspInstall <LSP>`
+ - Restart neovim, `:LspInstall <LSP>`, `TSInstall <TreeSitter Lang>`
 
 Neovim Features
 

@@ -11,7 +11,6 @@
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
-set exrc
 set relativenumber
 set number
 set hidden
@@ -21,29 +20,20 @@ set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
-set autoindent
 set termguicolors
 set nohlsearch
 set noshowmode
-set incsearch
 set scrolloff=4
 set signcolumn=yes:2
-set ruler
 set wildmenu
-set cmdheight=1
 set updatetime=50
-set shortmess+=c
-set iskeyword+=-
-set t_Co=256
-set smarttab
 set smartindent
-set showtabline=2
-set nobackup
 set nowritebackup
 set splitright
 set timeoutlen=1000 ttimeoutlen=0
 set showtabline=0
 set laststatus=2
+set completeopt=menu,menuone,noselect
 
 "--------------------------------------------------------------------------
 " Key maps
@@ -51,7 +41,7 @@ set laststatus=2
 
 let mapleader = " "
 
-nnoremap <leader>t :vsp<CR>:term<CR>
+nnoremap <leader>t :vsp<CR>:term<CR>:startinsert<CR>
 nnoremap <leader>w :w<CR>
 
 " Navigate windows
@@ -66,17 +56,10 @@ tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
 " Copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy  "+yy
-
-" Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
-
+vnoremap <leader>y  "+y
+nnoremap <leader>Y  "+yg_
+nnoremap <leader>y  "+y
+nnoremap <leader>yy  "+yy
 nnoremap Y y$
 
 " Center n,N,J movements
@@ -96,15 +79,14 @@ nnoremap L g$
 nnoremap U <C-r>
 
 " No arrow keys
-map <Up>    <nop>
-map <Down>  <nop>
-map <Left>  <nop>
-map <Right> <nop>
-
-inoremap <Up>    <nop>
-inoremap <Down>  <nop>
-inoremap <Left>  <nop>
-inoremap <Right> <nop>
+"map <Up>    <nop>
+"map <Down>  <nop>
+"map <Left>  <nop>
+"map <Right> <nop>
+"inoremap <Up>    <nop>
+"inoremap <Down>  <nop>
+"inoremap <Left>  <nop>
+"inoremap <Right> <nop>
 
 " Increment and decrement mappings
 nnoremap + <C-a>
@@ -127,103 +109,56 @@ endif
 
 call plug#begin(data_dir . '/plugins')
 
+" Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-"Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
-Plug 'joshdick/onedark.vim'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'junegunn/seoul256.vim'
-"Plug 'phanviet/vim-monokai-pro'
-"Plug 'lifepillar/vim-gruvbox8'
-"Plug 'arcticicestudio/nord-vim'
-
-Plug 'SirVer/ultisnips'
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-"| Plug 'honza/vim-snippets'
-
-Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-Plug 'junegunn/goyo.vim'
-
+" LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
+Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips' " | Plug 'honza/vim-snippets'
 
+" Visual Enhancements
 Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
-
-Plug 'ahmedkhalf/lsp-rooter.nvim'
-Plug 'dstein64/vim-startuptime'
-
 Plug 'lukas-reineke/indent-blankline.nvim'
 
+" Misc / Specific Tools
+Plug 'joshdick/onedark.vim'
+Plug 'ahmedkhalf/project.nvim'
+Plug 'dstein64/vim-startuptime'
+Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'junegunn/goyo.vim'
 "Plug 'github/copilot.vim'
 "Plug 'tom-doerr/vim_codex'
 
 call plug#end()
 
 "--------------------------------------------------------------------------
-" Native LSP
+" Native LSP + Ultisnips
 "--------------------------------------------------------------------------
 
-set completeopt=menu,menuone,noselect
+let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 
-lua <<EOF
-
--- Setup nvim-cmp.
-local cmp = require('cmp')
-
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
-        end,
-    },
-    mapping = {
-        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-        ["<Tab>"] = cmp.mapping.select_next_item(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = {
-        { name = 'ultisnips' },
-        { name = 'nvim_lsp' },
-    },
---  formatting = {
---      format = function(entry, vim_item)
---          vim_item.menu = 'menu'
---          vim_item.menu = ({
---              nvim_lsp = "[LSP]",
---              ultisnips = "[UltiSnips]",
---          })[entry.source.name]
---          return vim_item
---      end
---  },
-})
-
+lua << EOF
 local nvim_lsp = require('lspconfig')
-
--- Use an on_attach function to only map the following keys 
--- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', '<leader>vd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', '<leader>vh', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<leader>vi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -234,13 +169,53 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>vsd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '<leader>vp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', '<leader>vn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap("n", "<space>vf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
+  buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function (server) server:setup {} end)
+require("nvim-lsp-installer").on_server_ready(
+    function (server)
+        server:setup{on_attach = on_attach}
+    end
+)
 
+-- Setup nvim-cmp.
+local cmp = require('cmp')
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+    mapping = {
+        ["<Tab>"] = function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+            elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>(ultisnips_jump_forward)", true, true, true), 'm', true)
+            else
+                fallback()
+            end
+        end,
+        ["<S-Tab>"] = function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+            elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>(ultisnips_jump_backward)", true, true, true), 'm', true)
+            else
+                fallback()
+            end
+        end,
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = {
+        { name = 'ultisnips' },
+        { name = 'nvim_lsp' },
+    }
+})
 EOF
 
 highlight! link CmpItemAbbrDefault Pmenu
@@ -255,31 +230,14 @@ let g:onedark_termcolors=16
 let g:onedark_terminal_italics=1
 let g:onedark_hide_endofbuffer=1
 colorscheme onedark
-
-highlight Normal ctermbg=none guibg=none
+" highlight Normal ctermbg=none guibg=none
 
 " Status Line
-let g:currentmode={
-    \ 'n'  : 'Normal',
-    \ 'no' : 'Normal·Operator Pending',
-    \ 'v'  : 'Visual',
-    \ 'V'  : 'V·Line',
-    \ '^V' : 'V·Block',
-    \ 's'  : 'Select',
-    \ 'S'  : 'S·Line',
-    \ '^S' : 'S·Block',
-    \ 'i'  : 'Insert',
-    \ 'R'  : 'Replace',
-    \ 'Rv' : 'V·Replace',
-    \ 'c'  : 'Command',
-    \ 'cv' : 'Vim Ex',
-    \ 'ce' : 'Ex',
-    \ 'r'  : 'Prompt',
-    \ 'rm' : 'More',
-    \ 'r?' : 'Confirm',
-    \ '!'  : 'Shell',
-    \ 't'  : 'Terminal'
-    \}
+let g:currentmode={'n': 'Normal', 'no': 'Normal·Operator Pending', 'v': 'Visual',
+    \ 'V': 'V·Line', '^V': 'V·Block', 's': 'Select', 'S': 'S·Line', '^S': 'S·Block',
+    \ 'i': 'Insert', 'R': 'Replace', 'Rv': 'V·Replace', 'c': 'Command',
+    \ 'cv': 'Vim Ex', 'ce': 'Ex', 'r': 'Prompt', 'rm': 'More', 'r?': 'Confirm',
+    \ '!': 'Shell', 't': 'Terminal'}
 
 function! LspReport() abort
 	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
@@ -295,15 +253,11 @@ endfunction
 set statusline=
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\   " The current mode
 set statusline+=%1*\ %<%f%m%r%h%w\                        " File path, modified, readonly, helpfile, preview
-set statusline+=%2*%{LspReport()}                         " LSP Information
-set statusline+=%=                                        " Right Side
-set statusline+=%2*\ %Y\                                  " FileType
-set statusline+=\|                                        " Separator
-set statusline+=\ %{&ff}\                                 " FileFormat (dos/unix..)
-set statusline+=\|                                        " Separator
-set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}         " Encoding
-set statusline+=\                                         " Separator
-set statusline+=%1*\ %3p%%\                               " Percentage of document
+set statusline+=%2*%{LspReport()}%=                       " LSP Information
+set statusline+=%2*\ %Y                                   " FileType
+"set statusline+=\ \|\ %{&ff}\ \|                         " FileFormat (dos/unix..)
+"set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}        " Encoding
+set statusline+=\ %1*\ %3p%%\                             " Percentage of document
 set statusline+=%0*\ %3l:%2v\                             " Row/Col
 
 " Status Bar Colors
@@ -313,20 +267,9 @@ au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=c
 hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
 hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
-hi User3 ctermfg=236 ctermbg=236 guibg=#303030 guifg=#303030
-hi User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e
 
 au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
-
-"augroup TerminalInsert
-"    autocmd!
-"    autocmd TermOpen * startinsert
-"    autocmd BufWinEnter,WinEnter term://* startinsert
-"augroup END
-
-" Highlight on Yank
 au TextYankPost * silent! lua vim.highlight.on_yank()
-
 
 " Unity (Mono) Instructions:
 " Edit omnisharp/run, 'mono_cmd=`command -v mono`'
