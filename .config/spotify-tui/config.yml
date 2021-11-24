@@ -1,0 +1,7 @@
+behavior:
+  liked_icon: ♥
+  shuffle_icon: "[Shuffle]"
+  repeat_track_icon: "[Solo]"
+  repeat_context_icon: "[Repeat]"
+  playing_icon: ▶
+  paused_icon: ■
