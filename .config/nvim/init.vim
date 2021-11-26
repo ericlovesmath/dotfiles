@@ -118,6 +118,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'SirVer/ultisnips'
@@ -214,9 +215,11 @@ cmp.setup({
     sources = {
         { name = 'ultisnips' },
         { name = 'nvim_lsp' },
+        { name = 'path' },
     }
 })
 EOF
+
 
 highlight! link CmpItemAbbrDefault Pmenu
 highlight! link CmpItemMenuDefault Pmenu
@@ -263,12 +266,12 @@ set statusline=
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\   " The current mode
 set statusline+=%1*\ %<%f%m%r%h%w\                        " File path, modified, readonly, helpfile, preview
 set statusline+=%2*%{LspReport()}%=                       " LSP Information
-set statusline+=%2*\ \|\ %Y                               " FileType
+set statusline+=\ %Y                                      " FileType
 "set statusline+=\ \|\ %{&ff}\ \|                         " FileFormat (dos/unix..)
 "set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}        " Encoding
 set statusline+=\ %1*\ %3p%%\                             " Percentage of document
-"set statusline+=%0*\ %3l:%2v\                             " Row/Col
-set statusline+=%0*\ %{WordCount()}\ 
+set statusline+=%0*\ %3l:%2v\                             " Row/Col
+"set statusline+=%0*\ %{WordCount()}\ 
 "set statusline+=%{&ft=='markdown'?WordCount():''}         " WordCount for Markdown
 
 " Status Bar Colors
