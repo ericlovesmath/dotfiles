@@ -1,29 +1,38 @@
 #!/usr/bin/env bash
 
 if ! pgrep -x "Spotify|spotifyd" > /dev/null; then
-    echo "Spotify Device not found, launching spotifyd..."
-    spotifyd
+    # echo "Spotify Device not found, launching spotifyd..."
+    # spotifyd
+    # Note: Spotifyd needs to be updated to librespot 2.0.0, currently low res
+    open -j "/Applications/Spotify.app"
+    sleep 1
 fi
 
 case $1 in  
     h|help)
         echo "Help";;
-    p|play)
+    s|start|stop)
         echo "Toggling Play / Pause"
         spt playback --toggle;;
+    n|next)
+        echo "Toggling Play / Pause"
+        spt playback --next;;
+    p|prev|previous)
+        echo "Toggling Play / Pause"
+        spt playback --previous;;
     "")
         echo "Playing Liked Songs in Shuffle..."
-        spt play --playlist --random --name Liked
-
+        spt play --playlist --random --name "Liked Songs"
+        sleep 1
         STATUS=$(spt playback --status -f "%f %s")
         if [[ ! $STATUS =~ "[Shuffle]" ]]; then
             spt playback --shuffle
         fi;;
-    *)
-        echo "Invalid";;
 esac > /dev/null
 
-spt playback --status -f "%t - %a // %f %s"
+spt playback --status -f "%t - %a"
+spt playback --status -f "%r"
+#spt playback --status -f "%r // %f %s"
 
 : '
 spotifyd
@@ -50,5 +59,4 @@ behavior:
   paused_icon: ■
 
 Use FZF?
-Dots add this and config.yml
 '
