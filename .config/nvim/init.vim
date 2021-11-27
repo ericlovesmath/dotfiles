@@ -236,11 +236,11 @@ colorscheme onedark
 " highlight Normal ctermbg=none guibg=none
 
 " Status Line
-let g:currentmode={'n': 'Normal', 'no': 'Normal·Operator Pending', 'v': 'Visual',
-    \ 'V': 'V·Line', '^V': 'V·Block', 's': 'Select', 'S': 'S·Line', '^S': 'S·Block',
-    \ 'i': 'Insert', 'R': 'Replace', 'Rv': 'V·Replace', 'c': 'Command',
-    \ 'cv': 'Vim Ex', 'ce': 'Ex', 'r': 'Prompt', 'rm': 'More', 'r?': 'Confirm',
-    \ '!': 'Shell', 't': 'Terminal'}
+let g:currentmode={'n': 'NORMAL', 'no': 'NORMAL·OPERATOR PENDING', 'v': 'VISUAL',
+    \ 'V': 'V·LINE', '^V': 'V·BLOCK', 's': 'SELECT', 'S': 'S·LINE', '^S': 'S·BLOCK',
+    \ 'i': 'INSERT', 'R': 'REPLACE', 'Rv': 'V·REPLACE', 'c': 'COMMAND',
+    \ 'cv': 'VIM EX', 'ce': 'Ex', 'r': 'PROMPT', 'rm': 'MORE', 'r?': 'CONFIRM',
+    \ '!': 'SHELL', 't': 'TERMINAL'}
 
 function! LspReport() abort
 	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
@@ -253,26 +253,27 @@ function! LspReport() abort
     endif
 endfunction
 
-function! WordCount()
-    if has_key(wordcount(),'visual_words')
-        return wordcount().visual_words.":".wordcount().words
+function! WordCountOrRowCol()
+    if &filetype == 'markdown'
+        if has_key(wordcount(),'visual_words')
+            return wordcount().visual_words.":".wordcount().words
+        else
+            return wordcount().cursor_words.":".wordcount().words
+        endif
     else
-        return wordcount().cursor_words.":".wordcount().words
+        return '%3l:%2v'
     endif
 endfunction
 
-set statusline+=%{WordCount()}
 set statusline=
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\   " The current mode
-set statusline+=%1*\ %<%f%m%r%h%w\                        " File path, modified, readonly, helpfile, preview
-set statusline+=%2*%{LspReport()}%=                       " LSP Information
-set statusline+=\ %Y                                      " FileType
-"set statusline+=\ \|\ %{&ff}\ \|                         " FileFormat (dos/unix..)
-"set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}        " Encoding
-set statusline+=\ %1*\ %3p%%\                             " Percentage of document
-"set statusline+=%0*\ %3l:%2v\                             " Row/Col
-set statusline+=%0*\ %{WordCount()}\ 
-"set statusline+=%{&ft=='markdown'?WordCount():''}         " WordCount for Markdown
+set statusline+=%0*\ %{g:currentmode[mode()]}\         " The current mode
+set statusline+=%1*\ %<%f%m%r%h%w\                     " File path, modified, readonly, helpfile, preview
+set statusline+=%2*%{LspReport()}%=                    " LSP Information
+set statusline+=\ %Y                                   " FileType
+"set statusline+=\ \|\ %{&ff}\ \|                      " FileFormat (dos/unix..)
+"set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
+set statusline+=\ %1*\ %3p%%\                          " Percentage of document
+set statusline+=%0*\ %{%WordCountOrRowCol()%}\         " WordCount for Markdown, Row/Col for else
 
 " Status Bar Colors
 au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
