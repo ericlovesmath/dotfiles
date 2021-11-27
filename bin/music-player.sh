@@ -15,10 +15,10 @@ case $1 in
         echo "Toggling Play / Pause"
         spt playback --toggle;;
     n|next)
-        echo "Toggling Play / Pause"
+        echo "Playing Next Song"
         spt playback --next;;
     p|prev|previous)
-        echo "Toggling Play / Pause"
+        echo "Playing Previous Song"
         spt playback --previous;;
     "")
         echo "Playing Liked Songs in Shuffle..."
@@ -34,6 +34,7 @@ spt playback --status -f "%t - %a"
 spt playback --status -f "%r"
 #spt playback --status -f "%r // %f %s"
 
+# Notes
 : '
 spotifyd
 spt play --playlist --name Liked

@@ -270,8 +270,8 @@ set statusline+=\ %Y                                      " FileType
 "set statusline+=\ \|\ %{&ff}\ \|                         " FileFormat (dos/unix..)
 "set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}        " Encoding
 set statusline+=\ %1*\ %3p%%\                             " Percentage of document
-set statusline+=%0*\ %3l:%2v\                             " Row/Col
-"set statusline+=%0*\ %{WordCount()}\ 
+"set statusline+=%0*\ %3l:%2v\                             " Row/Col
+set statusline+=%0*\ %{WordCount()}\ 
 "set statusline+=%{&ft=='markdown'?WordCount():''}         " WordCount for Markdown
 
 " Status Bar Colors
