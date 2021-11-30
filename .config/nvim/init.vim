@@ -1,4 +1,4 @@
-"-------------------------------------------------------------------------"-
+"------------------------------------------------------------------------"-
 " Eric Lee's Neovim Configuration
 " Email: ericlovesmath@gmail.com
 " Github: https://github.com/ericlovesmath
@@ -73,6 +73,28 @@ inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 
+let s:comment_map = { "c": '\/\/', "cpp": '\/\/', "go": '\/\/', "java": '\/\/',
+            \ "javascript": '\/\/', "rust": '\/\/', "python": '#', "ruby": '#',
+            \ "sh": '#', "conf": '#', "lua": '--', "vim": '"', "tex": '%'}
+
+function! ToggleComment()
+    if has_key(s:comment_map, &filetype)
+        let comment_leader = s:comment_map[&filetype]
+        if getline('.') =~ '\v^\s*' . comment_leader
+            " Uncomment the line if it's a comment
+            execute 'silent s/\v^(\s*)' . comment_leader . '(\s?)/\1'
+        elseif getline('.') !~ '\v^\s*$'
+            " Comment the line if not empty
+            execute 'silent s/\v^(\s*)/\1' . comment_leader . ' '
+        end
+    else
+        echo "No comment leader found for filetype"
+    end
+endfunction
+
+nnoremap <leader>/ :call ToggleComment()<cr>
+vnoremap <leader>/ :call ToggleComment()<cr>
+
 "--------------------------------------------------------------------------
 " Plugins
 "--------------------------------------------------------------------------
@@ -116,6 +138,7 @@ Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
+Plug 'tpope/vim-commentary'
 "Plug 'github/copilot.vim'
 "Plug 'tom-doerr/vim_codex'
 
@@ -253,6 +276,10 @@ hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
 au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
 au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+
+"--------------------------------------------------------------------------
+" Miscellaneous
+"--------------------------------------------------------------------------
 
 au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
 au TextYankPost * silent! lua vim.highlight.on_yank()
