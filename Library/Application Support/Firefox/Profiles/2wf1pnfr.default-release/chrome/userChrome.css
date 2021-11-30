@@ -12,6 +12,11 @@ background: var(--lwt-accent-color) !important;
   background: var(--toolbar-bgcolor) !important;
 }
 
+panelview,  
+.panel-arrowcontent{ 
+  background:#15141a !important;  
+  color: #afafab !important; }
+
 /*css part of the prismatic night theme. visit https://github.com/dbuxy218/Prismatic-Night*/
 /*MANDATORY*/
 /*
