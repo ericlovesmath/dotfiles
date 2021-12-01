@@ -1,6 +1,7 @@
 set wrap
 set linebreak
 set spell
+set spellsuggest+=5
 
 map j gj
 map k gk
@@ -100,3 +101,9 @@ function! GlowPreview() abort
 endfunction
 
 nnoremap <leader>p :call GlowPreview()<CR>
+
+nnoremap <silent> ]] /^#<CR>
+nnoremap <silent> [[ ?^#<CR>
+nnoremap gO :lvimgrep /^#/ %<CR>:lopen<CR>
+
+
