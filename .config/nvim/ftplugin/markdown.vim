@@ -51,7 +51,7 @@ function! MarkdownClipboardImage() abort
 endfunction
 
 command! -range Tablify <line1>,<line2>s/\s*|/§|/g | <line1>,<line2>!column -s § -t
-"inoremap <bar> <bar><esc>:call <SID>Tablify()<cr>a
+
 function! s:Tablify()
   let p = '^\s*|\s.*\s|\s*$'
   if getline('.') =~ '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
@@ -64,8 +64,6 @@ function! s:Tablify()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
-
-" command! -range Tablify <line1>,<line2>s /|/§|/g | <line1>,<line2>!column -s § -t
 
 function! GlowPreview() abort
 
@@ -105,5 +103,3 @@ nnoremap <leader>p :call GlowPreview()<CR>
 nnoremap <silent> ]] /^#<CR>
 nnoremap <silent> [[ ?^#<CR>
 nnoremap gO :lvimgrep /^#/ %<CR>:lopen<CR>
-
-

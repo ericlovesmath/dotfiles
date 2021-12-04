@@ -14,7 +14,6 @@ set expandtab
 set smartindent
 set relativenumber
 set number
-set hidden
 set nowrap
 set noswapfile
 set undofile
@@ -50,10 +49,9 @@ tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
 vnoremap <leader>y  "+y
-nnoremap <leader>Y  "+yg_
+nnoremap <leader>Y  "+y$
 nnoremap <leader>y  "+y
 nnoremap <leader>yy  "+yy
-nnoremap Y y$
 
 nnoremap + <C-a>
 nnoremap - <C-x>
@@ -73,9 +71,9 @@ inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 
-let s:comment_map = { "c": '\/\/', "cpp": '\/\/', "go": '\/\/', "java": '\/\/',
-            \ "javascript": '\/\/', "rust": '\/\/', "python": '#', "ruby": '#',
-            \ "sh": '#', "conf": '#', "lua": '--', "vim": '"', "tex": '%'}
+let s:comment_map = { 'c': '\/\/', 'cpp': '\/\/', 'go': '\/\/', 'java': '\/\/',
+            \ 'javascript': '\/\/', 'rust': '\/\/', 'python': '#', 'ruby': '#',
+            \ 'sh': '#', 'conf': '#', 'lua': '--', 'vim': "'", 'tex': '%'}
 
 function! ToggleComment()
     if has_key(s:comment_map, &filetype)
@@ -88,7 +86,7 @@ function! ToggleComment()
             execute 'silent s/\v^(\s*)/\1' . comment_leader . ' '
         end
     else
-        echo "No comment leader found for filetype"
+        echo 'No comment leader found for filetype'
     end
 endfunction
 
@@ -138,7 +136,6 @@ Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
-Plug 'tpope/vim-commentary'
 "Plug 'github/copilot.vim'
 "Plug 'tom-doerr/vim_codex'
 
