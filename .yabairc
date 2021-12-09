@@ -1,3 +1,6 @@
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
 # bsp or float (default: bsp)
 yabai -m config layout bsp
 
@@ -49,8 +52,8 @@ yabai -m rule --add app="^PokerStrategy$" manage=off
 #yabai -m config external_bar                 all:28:0
 
 #Spacebar Bugger Bar
-SPACEBAR_HEIGHT=$(spacebar -m config height)
-yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+#SPACEBAR_HEIGHT=$(spacebar -m config height)
+#yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
 
 yabai -m rule --add app="^Spotify$" space=5
 yabai -m rule --add app="^IINA$" space=7
@@ -59,5 +62,3 @@ yabai -m rule --add title="^Zoom Meeting$" space=5
 
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-
-

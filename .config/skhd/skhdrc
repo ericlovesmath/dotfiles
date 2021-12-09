@@ -39,7 +39,7 @@ meh - 0 : yabai -m space --balance
 #ctrl + alt - m : yabai -m window --space last; yabai -m space --focus last
 
 # Only move focus container to prev/next if in current display
-hyper - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && (yabai -m window --space prev; yabai -m space --focus prev )
+hyper - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && (yabai -m window --space prev; yabai -m space --focus prev)
 hyper - d : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && ( yabai -m window --space next; yabai -m space --focus next )
 #ctrl + alt - z : yabai -m window --space prev || yabai -m window --space last; yabai -m space --focus prev || yabai -m space --focus last
 #ctrl + alt - x : yabai -m window --space next || yabai -m window --space first; yabai -m space --focus next || yabai -m space --focus first
