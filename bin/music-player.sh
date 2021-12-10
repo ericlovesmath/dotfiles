@@ -31,7 +31,6 @@ case $1 in
 esac > /dev/null
 
 spt playback --status -f "%t - %a"
-spt playback --status -f "%r"
 #spt playback --status -f "%r // %f %s"
 
 # Notes

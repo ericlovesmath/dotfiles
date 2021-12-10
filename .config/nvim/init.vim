@@ -241,7 +241,7 @@ function! LspReport() abort
 	    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
 	    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
 	    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
-        return ' +'.hints.' ~'.warnings.' -'.errors
+        return '+'.hints.' ~'.warnings.' -'.errors
     else
         return ''
     endif
@@ -260,11 +260,11 @@ endfunction
 set statusline=
 set statusline+=%0*\ %{g:currentmode[mode()]}\         " The current mode
 set statusline+=%1*\ %<%f%m%r%h%w\                     " File path, modified, readonly, helpfile, preview
-set statusline+=%2*%{LspReport()}%=                    " LSP Information
-set statusline+=\ %Y                                   " FileType
-"set statusline+=\ \|\ %{&ff}\ \|                      " FileFormat (dos/unix..)
-"set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
-set statusline+=\ %1*\ %3p%%\                          " Percentage of document
+set statusline+=%2*\ %{LspReport()}%=\                 " LSP Information
+set statusline+=%Y\                                    " FileType
+"set statusline+=\|\ %{&ff}\                           " FileFormat (dos/unix..)
+"set statusline+=\|\ %{&fenc!=''?&fenc:&enc}\          " Encoding
+set statusline+=%1*\ %3p%%\                            " Percentage of document
 set statusline+=%0*\ %{%WordCountOrRowCol()%}\         " WordCount for Markdown, Row/Col for else
 
 " Status Bar Colors
