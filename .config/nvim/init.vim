@@ -11,7 +11,6 @@
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
-set smartindent
 set relativenumber
 set ignorecase
 set smartcase
@@ -75,7 +74,7 @@ inoremap ? ?<C-g>u
 
 let s:comment_map = { 'c': '\/\/', 'cpp': '\/\/', 'go': '\/\/', 'java': '\/\/',
             \ 'javascript': '\/\/', 'rust': '\/\/', 'python': '#', 'ruby': '#',
-            \ 'sh': '#', 'conf': '#', 'lua': '--', 'vim': "'", 'tex': '%'}
+            \ 'sh': '#', 'conf': '#', 'lua': '--', 'vim': '"', 'tex': '%'}
 
 function! ToggleComment()
     if has_key(s:comment_map, &filetype)
@@ -240,9 +239,12 @@ let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL
 
 function! LspReport() abort
 	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-	    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
-	    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
-	    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
+"	    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
+"	    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
+"	    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
+ 	    let hints = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })")
+ 	    let warnings = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })")
+ 	    let errors = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })")
         return '+'.hints.' ~'.warnings.' -'.errors
     else
         return ''

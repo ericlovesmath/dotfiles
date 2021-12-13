@@ -44,6 +44,7 @@ timezsh() { repeat 10 { time zsh -i -c exit } }
 
 # Exports for various programs
 source $HOME/.cargo/env
+export EDITOR="nvim"
 export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="~/.nvm/versions/node/v17.2.0/bin:$PATH"
 #export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
