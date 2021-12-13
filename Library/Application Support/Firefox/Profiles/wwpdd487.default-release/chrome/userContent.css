@@ -1,4 +1,4 @@
- @-moz-document url("about:home"),url(about:preferences),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"){
+ /*@-moz-document url("about:home"),url(about:preferences),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"){
   body{background-color:#263238!important;--newtab-search-icon: transparent !important;}
   a,a:visited,a:hover{color:#263238!important}
 	#newtab-search-text {
@@ -50,9 +50,10 @@
     scrollbar-color: #677379 #273237 !important;
     scrollbar-width: thin;
 }
+*/
 
 /* Below is to make flashing white gone*/
-@-moz-document url-prefix(about:blank) {
+/*@-moz-document url-prefix(about:blank) {
     html > body:empty {
         background-color: rgb(39,50,55) !important;
     }
@@ -64,4 +65,4 @@
 }
 
 @-moz-document url-prefix(about:blank) {*{background-color:#273237;}}
-
+*/
