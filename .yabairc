@@ -44,6 +44,7 @@ yabai -m rule --add title="^About This Mac$" manage=off
 yabai -m rule --add app="^Spark$" manage=off
 yabai -m rule --add app="^About This Mac$" manage=off
 yabai -m rule --add app="^SwC Poker$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
 yabai -m rule --add app="^Macs Fan Control$" manage=off
 #Ubersicht Buffer Bar
 #yabai -m config external_bar                 all:28:0

@@ -113,9 +113,11 @@ meh - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d
 #Opens youtube
 meh - p : python3 "${HOME}"/bin/youtube-window.py
 
-# Navigate chrome tabs
-meh - e : skhd -k "ctrl - tab"
+# Navigate browser tabs
 meh - q : skhd -k "ctrl + shift - tab"
+hyper - q : skhd -k "ctrl + shift - pageup"
+meh - e : skhd -k "ctrl - tab"
+hyper - e : skhd -k "ctrl + shift - pagedown"
 
 # Toggles floating window
 meh - u : yabai -m window --toggle float
