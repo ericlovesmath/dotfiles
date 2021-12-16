@@ -132,6 +132,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Misc / Specific Tools
 Plug 'joshdick/onedark.vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -229,7 +230,8 @@ EOF
 let g:onedark_termcolors=16
 let g:onedark_terminal_italics=1
 colorscheme onedark
-" highlight Normal ctermbg=none guibg=none
+"colorscheme tokyonight
+ highlight Normal ctermbg=none guibg=none
 
 " Status Line
 let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL",
@@ -245,7 +247,7 @@ function! LspReport() abort
  	    let hints = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })")
  	    let warnings = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })")
  	    let errors = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })")
-        return '+'.hints.' ~'.warnings.' -'.errors
+        return '+' . hints . ' ~' . warnings . ' -' . errors
     else
         return ''
     endif
@@ -254,7 +256,7 @@ endfunction
 function! WordCountOrRowCol()
     if &filetype != 'markdown'
         return '%3l:%2v'
-    elseif has_key(wordcount(),'visual_words')
+    elseif has_key(wordcount(), 'visual_words')
         return wordcount().visual_words.':'.wordcount().words
     else
         return wordcount().cursor_words.':'.wordcount().words
@@ -287,3 +289,4 @@ au TextYankPost * silent! lua vim.highlight.on_yank()
 
 " Unity (Mono) Instructions:
 " Edit omnisharp/run, 'mono_cmd=`command -v mono`'
+

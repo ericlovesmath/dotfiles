@@ -103,3 +103,17 @@ nnoremap <leader>p :call GlowPreview()<CR>
 nnoremap <silent> ]] /^#<CR>
 nnoremap <silent> [[ ?^#<CR>
 nnoremap gO :lvimgrep /^#/ %<CR>:lopen<CR>
+
+function! ToggleCheckbox()
+  let line = getline('.')
+
+  if line =~ '- \[ \]'
+    call setline('.', substitute(line, '- \[ \]', '- \[x\]', ''))
+  elseif line =~ '- \[x\]'
+    call setline('.', substitute(line, '- \[x\]', '- \[ \]', ''))
+  elseif line =~ '- '
+    call setline('.', substitute(line, '- ', '- \[ \] ', ''))
+  endif
+endf
+
+nnoremap <Leader>c :call ToggleCheckbox()<CR>
