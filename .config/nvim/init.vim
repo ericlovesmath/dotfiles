@@ -131,7 +131,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Misc / Specific Tools
-Plug 'joshdick/onedark.vim'
+Plug 'ful1e5/onedark.nvim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/sonokai'
 Plug 'nvim-lua/lsp_extensions.nvim'
@@ -229,9 +229,7 @@ EOF
 "--------------------------------------------------------------------------
 
 " Onedark Color Scheme
-let g:onedark_termcolors=16
-let g:onedark_terminal_italics=1
-hi Normal ctermfg=none ctermbg=none
+hi Normal ctermfg=NONE ctermbg=NONE
 hi Normal ctermfg=NONE ctermbg=NONE
 colorscheme onedark
 
