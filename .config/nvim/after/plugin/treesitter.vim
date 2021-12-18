@@ -1,14 +1,4 @@
 lua << EOF
--- local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
--- 
--- parser_config.markdown = {
---   install_info = {
---     url = 'https://github.com/MDeiml/tree-sitter-markdown',
---     branch = 'main',
---     files = { 'src/parser.c', 'src/scanner.cc' },
---   },
---   filetype = 'markdown'
--- }
 
 require'nvim-treesitter.configs'.setup {
     highlight = {

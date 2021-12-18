@@ -52,20 +52,7 @@ export PATH="~/.nvm/versions/node/v17.2.0/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Load NVM, Remove --no-use for nvim-lsp-installer
-#export NVM_DIR=~/.nvm
-#[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
-#[[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
-
 PROMPT_EOL_MARK=''
 
 source $HOME/.zsh_aliases
 
-export NVM_DIR="$HOME/.nvm"
-nvm_load () {
-  . $NVM_DIR/nvm.sh
-  . $NVM_DIR/bash_completion
-}
-alias node='unalias nvm; unalias node; unalias npm; nvm_load; node $@'
-alias npm='unalias nvm; unalias node; unalias npm; nvm_load; npm $@'
-alias nvm='unalias nvm; unalias node; unalias npm; nvm_load; nvm $@'

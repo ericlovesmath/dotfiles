@@ -16,10 +16,10 @@ yabai -m config window_gap     10
 
 # floating windows are always on top (default: off)
 yabai -m config window_topmost on
-yabai -m config window_shadow off
+# yabai -m config window_shadow off
 
 #yabai -m config active_window_border_topmost on
-yabai -m config window_border on
+# yabai -m config window_border on
 yabai -m config window_border_width 3
 
 yabai -m config active_window_border_color   0xff8E83B8
@@ -43,9 +43,7 @@ yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add title="^About This Mac$" manage=off
 yabai -m rule --add app="^About This Mac$" manage=off
 yabai -m rule --add app="^SwC Poker$" manage=off
-yabai -m rule --add app="^Messages$" manage=off
 yabai -m rule --add app="^Macs Fan Control$" manage=off
-yabai -m rule --add app="^Discord$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 
 #Spacebar

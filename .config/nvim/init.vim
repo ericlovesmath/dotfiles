@@ -123,7 +123,7 @@ Plug 'SirVer/ultisnips'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips' " | Plug 'honza/vim-snippets'
 
 " Visual Enhancements
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
@@ -132,6 +132,9 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Misc / Specific Tools
 Plug 'joshdick/onedark.vim'
+Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/sonokai'
+Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -228,8 +231,16 @@ EOF
 " Onedark Color Scheme
 let g:onedark_termcolors=16
 let g:onedark_terminal_italics=1
+hi Normal ctermfg=none ctermbg=none
+hi Normal ctermfg=NONE ctermbg=NONE
 colorscheme onedark
-" highlight Normal ctermbg=none guibg=none
+
+" Gruvbox Color Scheme
+" let g:gruvbox_sign_column='none'
+" let g:gruvbox_color_column='none'
+" let g:gruvbox_italic=1
+" let g:gruvbox_termcolors=16
+" colorscheme gruvbox
 
 " Status Line
 let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL",
@@ -284,6 +295,8 @@ au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=c
 
 au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
 au TextYankPost * silent! lua vim.highlight.on_yank()
+autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 
 " Unity (Mono) Instructions:
 " Edit omnisharp/run, 'mono_cmd=`command -v mono`'
+

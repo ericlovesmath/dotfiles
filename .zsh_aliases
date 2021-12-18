@@ -54,6 +54,7 @@ alias {pog,poggers}='echo "⣿⣿⣿⣿⡿⠟⠛⠛⠛⠛⠉⠉⠙⠛⠛⠿⢿�
 alias gh="open \`git remote -v | grep fetch | awk '{print \$2}' | sed 's/git@/http:\/\//' | sed 's/com:/com\//'\`| head -n1"
 alias {mus,music}='~/bin/music-player.sh'
 alias o='open .'
+alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 
 hash -d school=$HOME/Desktop/Academics/School-21-22
 hash -d college=$HOME/Desktop/Academics/College/Regular
