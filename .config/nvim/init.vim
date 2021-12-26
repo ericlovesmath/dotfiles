@@ -1,4 +1,4 @@
-"------------------------------------------------------------------------"-
+"--------------------------------------------------------------------------
 " Eric Lee's Neovim Configuration
 " Email: ericlovesmath@gmail.com
 " Github: https://github.com/ericlovesmath
@@ -11,10 +11,10 @@
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
+set number
 set relativenumber
 set ignorecase
 set smartcase
-set number
 set nowrap
 set noswapfile
 set undofile
@@ -26,7 +26,7 @@ set signcolumn=yes:2
 set updatetime=300
 set splitright
 set timeoutlen=1000 ttimeoutlen=0
-set showtabline=0
+set showtabline=0 " Tab Line
 set laststatus=2
 set completeopt=menu,menuone,noselect
 
@@ -92,7 +92,7 @@ function! ToggleComment()
 endfunction
 
 nnoremap <leader>/ :call ToggleComment()<cr>
-vnoremap <leader>/ :call ToggleComment()<cr>
+vnoremap <leader>/ :call ToggleComment()<cr>gv
 
 "--------------------------------------------------------------------------
 " Plugins
@@ -128,20 +128,20 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'lukas-reineke/indent-blankline.nvim'
+" Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Misc / Specific Tools
 Plug 'ful1e5/onedark.nvim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'sainnhe/sonokai'
+" Plug 'gruvbox-community/gruvbox'
+" Plug 'sainnhe/sonokai'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
-"Plug 'github/copilot.vim'
-"Plug 'tom-doerr/vim_codex'
+" Plug 'github/copilot.vim'
+" Plug 'tom-doerr/vim_codex'
 
 call plug#end()
 
@@ -153,8 +153,9 @@ let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
 let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
 let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 
-highlight! link CmpItemAbbrDefault Pmenu
-highlight! link CmpItemMenuDefault Pmenu
+highlight! link CmpItemAbbr Pmenu
+highlight! link CmpItemKind Pmenu
+highlight! link CmpItemMenu Pmenu
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -231,6 +232,7 @@ EOF
 " Onedark Color Scheme
 hi Normal ctermfg=NONE ctermbg=NONE
 hi Normal ctermfg=NONE ctermbg=NONE
+let g:onedark_dark_sidebar = 0
 colorscheme onedark
 
 " Gruvbox Color Scheme
@@ -239,6 +241,8 @@ colorscheme onedark
 " let g:gruvbox_italic=1
 " let g:gruvbox_termcolors=16
 " colorscheme gruvbox
+
+" colorscheme sonokai
 
 " Status Line
 let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL",
@@ -274,9 +278,9 @@ set statusline=
 set statusline+=%0*\ %{g:currentmode[mode()]}\         " The current mode
 set statusline+=%1*\ %<%f%m%r%h%w\                     " File path, modified, readonly, helpfile, preview
 set statusline+=%2*\ %{LspReport()}%=\                 " LSP Information
-set statusline+=%Y\                                    " FileType
-"set statusline+=\|\ %{&ff}\                           " FileFormat (dos/unix..)
-"set statusline+=\|\ %{&fenc!=''?&fenc:&enc}\          " Encoding
+" set statusline+=%Y\                                  " FileType
+" set statusline+=\|\ %{&ff}\                          " FileFormat (dos/unix..)
+" set statusline+=\|\ %{&fenc!=''?&fenc:&enc}\         " Encoding
 set statusline+=%1*\ %3p%%\                            " Percentage of document
 set statusline+=%0*\ %{%WordCountOrRowCol()%}\         " WordCount for Markdown, Row/Col for else
 
@@ -293,8 +297,7 @@ au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=c
 
 au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
 au TextYankPost * silent! lua vim.highlight.on_yank()
-autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+au BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 
 " Unity (Mono) Instructions:
-" Edit omnisharp/run, 'mono_cmd=`command -v mono`'
-
+" Edit omnisharp/run, 'mono_cmd=`command -v mono`

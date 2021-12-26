@@ -140,7 +140,8 @@ delete : osascript ~/bin/panic-button.scpt
 hyper - u : yabai -m window --toggle sticky;\
           yabai -m window --toggle topmost
 
-meh - r: skhd -k "ctrl - a"
+meh - r: osascript ~/bin/click-notification.scpt
 
 # Toggle desktop on macos
 meh - t: ~/bin/toggle-desktop.sh
+
