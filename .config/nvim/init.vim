@@ -135,6 +135,7 @@ Plug 'ful1e5/onedark.nvim'
 " Plug 'gruvbox-community/gruvbox'
 " Plug 'sainnhe/sonokai'
 Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
