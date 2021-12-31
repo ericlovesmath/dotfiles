@@ -135,7 +135,6 @@ Plug 'ful1e5/onedark.nvim'
 " Plug 'gruvbox-community/gruvbox'
 " Plug 'sainnhe/sonokai'
 Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
@@ -276,7 +275,7 @@ endfunction
 
 set statusline=
 set statusline+=%0*\ %{g:currentmode[mode()]}\         " The current mode
-set statusline+=%1*\ %<%f%m%r%h%w\                     " File path, modified, readonly, helpfile, preview
+set statusline+=%1*\ %<%t%m%r\                         " File name, modified, readonly
 set statusline+=%2*\ %{LspReport()}%=\                 " LSP Information
 " set statusline+=%Y\                                  " FileType
 " set statusline+=\|\ %{&ff}\                          " FileFormat (dos/unix..)
