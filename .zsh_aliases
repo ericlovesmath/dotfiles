@@ -58,3 +58,4 @@ alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 
 hash -d school=$HOME/Desktop/Academics/School-21-22
 hash -d college=$HOME/Desktop/Academics/College/Regular
+hash -d usaco=$HOME/Desktop/Programming/competitive-programming/usaco
