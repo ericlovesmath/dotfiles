@@ -14,8 +14,7 @@ require("nvim-tree").setup({
 EOF
 
 nnoremap <leader>n :NvimTreeToggle<CR>
-nnoremap <leader>m :NvimTreeRefresh<CR>:NvimTreeFindFile<CR>
+" nnoremap <leader>m :NvimTreeRefresh<CR>:NvimTreeFindFile<CR>
 
-" highlight NvimTreeFolderIcon guibg=blue 
 au BufEnter,WinEnter NvimTree setlocal laststatus=0
 au BufLeave,WinLeave NvimTree setlocal laststatus=2

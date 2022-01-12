@@ -172,7 +172,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>vrr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', '<leader>vrn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<leader>vca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', '<leader>vsd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '<leader>vsd', '<cmd>lua vim.diagnostic.open_float(nil, {})<CR>', opts)
     buf_set_keymap('n', '<leader>vp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '<leader>vn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
@@ -252,9 +252,6 @@ let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL
 
 function! LspReport() abort
 	if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-"	    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
-"	    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
-"	    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
  	    let hints = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })")
  	    let warnings = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })")
  	    let errors = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })")
@@ -264,7 +261,7 @@ function! LspReport() abort
     endif
 endfunction
 
-function! WordCountOrRowCol()
+function! WordCountOrRowCol() abort
     if &filetype != 'markdown'
         return '%3l:%2v'
     elseif has_key(wordcount(), 'visual_words')
@@ -275,19 +272,17 @@ function! WordCountOrRowCol()
 endfunction
 
 set statusline=
-set statusline+=%0*\ %{g:currentmode[mode()]}\         " The current mode
-set statusline+=%1*\ %<%t%m%r\                         " File name, modified, readonly
-set statusline+=%2*\ %{LspReport()}%=\                 " LSP Information
-" set statusline+=%Y\                                  " FileType
-" set statusline+=\|\ %{&ff}\                          " FileFormat (dos/unix..)
-" set statusline+=\|\ %{&fenc!=''?&fenc:&enc}\         " Encoding
-set statusline+=%1*\ %3p%%\                            " Percentage of document
-set statusline+=%0*\ %{%WordCountOrRowCol()%}\         " WordCount for Markdown, Row/Col for else
+set statusline+=%0*\ %{g:currentmode[mode()]}\     " Current mode (Insert, Normal...)
+set statusline+=%1*\ %<%t%m%r\                     " File name, modified, readonly
+set statusline+=%2*\ %{LspReport()}%=\             " LSP Information
+" set statusline+=%Y\ \|\ %{&ff}\ \|\ %{&fenc}\    " File Type, File Format, Encoding
+set statusline+=%1*\ %3p%%\                        " Percentage of document
+set statusline+=%0*\ %{%WordCountOrRowCol()%}\     " Word Count for Markdown, Row/Col for all else
 
 " Status Bar Colors
 hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
-hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
-hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
+hi User1 guifg=#adadad guibg=#4e4e4e ctermfg=007 ctermbg=239 
+hi User2 guifg=#adadad guibg=#303030 ctermfg=007 ctermbg=236 
 au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
 au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
 
