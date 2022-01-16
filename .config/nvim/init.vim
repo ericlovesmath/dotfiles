@@ -234,6 +234,7 @@ hi Normal ctermfg=NONE ctermbg=NONE
 hi Normal ctermfg=NONE ctermbg=NONE
 let g:onedark_dark_sidebar = 0
 colorscheme onedark
+hi Normal guibg=NONE ctermbg=NONE
 
 " Gruvbox Color Scheme
 " let g:gruvbox_sign_column='none'

@@ -33,7 +33,6 @@ yabai -m config window_placement second_child
 # global settings
 #yabai -m config mouse_follows_focus          off
 #yabai -m config focus_follows_mouse          autoraise
-yabai -m config window_placement             second_child
 
 # floating windows are always on top (default: off)
 yabai -m config window_topmost               on
@@ -42,13 +41,17 @@ yabai -m config window_topmost               on
 yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add title="^About This Mac$" manage=off
 yabai -m rule --add app="^About This Mac$" manage=off
-yabai -m rule --add app="^SwC Poker$" manage=off
 yabai -m rule --add app="^Macs Fan Control$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 
-#Spacebar
-#SPACEBAR_HEIGHT=$(spacebar -m config height)
-#yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+# Spacebar
+# SPACEBAR_HEIGHT=$(spacebar -m config height)
+# yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
 
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+
+HEIGHT=$(sketchybar --query bar | jq -r '[.[]][0].height')
+Y_OFFSET=$(sketchybar --query bar | jq -r '[.[]][0].y_offset')
+
+yabai -m config external_bar all:"$(($HEIGHT + $Y_OFFSET))":0

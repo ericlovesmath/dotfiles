@@ -1,1 +1,3 @@
-lua require'colorizer'.setup{}
+lua << EOF
+require'colorizer'.setup{}
+EOF
