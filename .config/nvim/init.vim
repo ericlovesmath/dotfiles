@@ -26,7 +26,6 @@ set signcolumn=yes:2
 set updatetime=300
 set splitright
 set timeoutlen=1000 ttimeoutlen=0
-set showtabline=0 " Tab Line
 set laststatus=2
 set completeopt=menu,menuone,noselect
 
@@ -71,6 +70,10 @@ inoremap , ,<C-g>u
 inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
+
+nnoremap <leader><leader> <C-^>
+nnoremap <silent> <Tab> :w<CR>:bn<CR>
+nnoremap <silent> <S-Tab> :w<CR>:bp<CR>
 
 let s:comment_map = { 'c': '\/\/', 'cpp': '\/\/', 'go': '\/\/', 'java': '\/\/',
             \ 'javascript': '\/\/', 'rust': '\/\/', 'python': '#', 'ruby': '#',
@@ -126,7 +129,7 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips' " | Plug 'honza/vim-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
+" Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 
@@ -134,6 +137,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ful1e5/onedark.nvim'
 " Plug 'gruvbox-community/gruvbox'
 " Plug 'sainnhe/sonokai'
+Plug 'tpope/vim-surround'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
@@ -234,7 +238,6 @@ hi Normal ctermfg=NONE ctermbg=NONE
 hi Normal ctermfg=NONE ctermbg=NONE
 let g:onedark_dark_sidebar = 0
 colorscheme onedark
-hi Normal guibg=NONE ctermbg=NONE
 
 " Gruvbox Color Scheme
 " let g:gruvbox_sign_column='none'
@@ -242,8 +245,6 @@ hi Normal guibg=NONE ctermbg=NONE
 " let g:gruvbox_italic=1
 " let g:gruvbox_termcolors=16
 " colorscheme gruvbox
-
-" colorscheme sonokai
 
 " Status Line
 let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL",
