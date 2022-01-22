@@ -28,6 +28,7 @@ set splitright
 set timeoutlen=1000 ttimeoutlen=0
 set laststatus=2
 set completeopt=menu,menuone,noselect
+set guitablabel=%t
 
 "--------------------------------------------------------------------------
 " Key maps
@@ -298,3 +299,31 @@ au BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 
 " Unity (Mono) Instructions:
 " Edit omnisharp/run, 'mono_cmd=`command -v mono`
+
+function! Tabline() abort
+    let l:line = ''
+    let l:current = tabpagenr()
+
+    for l:i in range(1, tabpagenr('$'))
+        if l:i == l:current
+            let l:line .= '%#TabLineSel#'
+        else
+            let l:line .= '%#TabLine#'
+        endif
+
+        let l:label = fnamemodify(
+            \ bufname(tabpagebuflist(l:i)[tabpagewinnr(l:i) - 1]),
+            \ ':t'
+        \ )
+
+        let l:line .= '%' . i . 'T' " Starts mouse click target region.
+        let l:line .= '  ' . l:label . '  '
+    endfor
+
+    let l:line .= '%#TabLineFill#'
+    let l:line .= '%T' " Ends mouse click target region(s).
+
+    return l:line
+endfunction
+
+set tabline=%!Tabline()
