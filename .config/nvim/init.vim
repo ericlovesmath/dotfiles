@@ -145,6 +145,7 @@ Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
+Plug 'mattn/emmet-vim'
 " Plug 'github/copilot.vim'
 " Plug 'tom-doerr/vim_codex'
 
@@ -295,7 +296,7 @@ au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=c
 
 au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
 au TextYankPost * silent! lua vim.highlight.on_yank()
-au BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+" au BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 
 " Unity (Mono) Instructions:
 " Edit omnisharp/run, 'mono_cmd=`command -v mono`
