@@ -57,9 +57,6 @@ nnoremap <leader>yy  "+yy
 nnoremap + <C-a>
 nnoremap - <C-x>
 
-nnoremap H g^
-nnoremap L g$
-
 vnoremap < <gv
 vnoremap > >gv
 
