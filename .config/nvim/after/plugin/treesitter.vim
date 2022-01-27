@@ -8,7 +8,7 @@ require'nvim-treesitter.configs'.setup {
     indent = {
         enable = true,
         disable = {"python"}
-    }
+    },
 }
 
 -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
