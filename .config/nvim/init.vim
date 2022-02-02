@@ -143,6 +143,7 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
 Plug 'mattn/emmet-vim'
+Plug 'numToStr/Comment.nvim'
 " Plug 'github/copilot.vim'
 " Plug 'tom-doerr/vim_codex'
 
