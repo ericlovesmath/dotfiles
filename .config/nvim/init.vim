@@ -127,14 +127,16 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips' " | Plug 'honza/vim-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'romgrk/barbar.nvim'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 
-" Misc / Specific Tools
+" Colors
 Plug 'ful1e5/onedark.nvim'
 " Plug 'gruvbox-community/gruvbox'
 " Plug 'sainnhe/sonokai'
+
+" Misc / Specific Tools
 Plug 'tpope/vim-surround'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'ahmedkhalf/project.nvim'
@@ -145,7 +147,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'mattn/emmet-vim'
 Plug 'numToStr/Comment.nvim'
 " Plug 'github/copilot.vim'
-" Plug 'tom-doerr/vim_codex'
 
 call plug#end()
 
