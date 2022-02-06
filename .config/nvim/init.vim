@@ -170,8 +170,8 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     local opts = { noremap = true, silent = true }
-    buf_set_keymap('n', '<leader>vd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<leader>vh', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', '<leader>vd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', '<leader>vh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', '<leader>vi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', '<leader>vsh', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<leader>vrr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -183,9 +183,19 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
+-- Required for html/cssls because Microsoft :/
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 require("nvim-lsp-installer").on_server_ready(
     function (server)
-        server:setup{on_attach = on_attach}
+        local opts = { on_attach = on_attach }
+        if server.name == "cssls" then
+            opts = vim.tbl_deep_extend("force", opts, {
+                capabilities = capabilities,
+            })
+        end
+        server:setup(opts)
     end
 )
 
