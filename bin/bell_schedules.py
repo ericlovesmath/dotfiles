@@ -1,6 +1,6 @@
 from datetime import datetime
 
-schedule = """\
+calendar = """\
 ┌───────────────────────────────┐ ┌───────────────────────────────┐
 │ Late Start Schedule           │ │ Odd Schedule                  │
 │ ─────────────────────────────	│ │ ───────────────────────────── │
@@ -14,9 +14,14 @@ schedule = """\
 ┌───────────────────────────────┐ │  6:55 -  7:50 Choir      (0)  │
 │ Placeholder A --------------- │ │  7:55 -  9:25 Biology    (2)  │
 │ Placeholder B --------------- │ │  9:25 -  9:40 Break           │
-│ Placeholder C --------------- │ │  9:40 - 11:15 Macro/Gov (4)   │
+│ Placeholder C --------------- │ │  9:40 - 11:15 Macro/Gov  (4)  │
 └───────────────────────────────┘ └───────────────────────────────┘\
 """
+
+class bcolors:
+    OKCYAN = '\033[96m'
+    ENDC = '\033[0m'
+    RED = '\033[1;31m'
 
 # Today's day of the week
 date = datetime.today()
@@ -34,57 +39,48 @@ time = date.strftime("%m/%d %a %I:%M")
 
 minute_time = hour*60 + minute
 
-classes = ["Choir", "AP Comp Sci", "AP Biology", "AP Literature", "AP Macro/Gov"]
-lateSched = []
-
-if DoTW==0: # Late Start
-    today_sched = ((540,570), (575,605), (610,640), (650,680), (685,715), (720,750))
-    today_classes = ("Choir", "Chinese", "English", "Physics", "US History", "Statistics")
-elif DoTW==1 or DoTW==3: # Odd
-    today_sched = ((415,470), (510,595), (605, 690), (700,780))
-    today_classes = ("Choir", "Chinese", "Physics", "Statistics")
-elif DoTW==2 or DoTW==4: # Even
-    today_sched = ((415,470), (510,595), (605, 690))
-    today_classes = ("Choir", "English", "US History")
+if DoTW==0:               # Late Start
+    schedule = ((490,540), (545,580), (585,620), (630,670), (675,710))
+    classes = ("Choir", "AP CompSci", "AP Biology", "AP Lit", "AP Gov")
+elif DoTW==1 or DoTW==3:  # Odd
+    schedule = ((415,470), (475,565), (580, 675))
+    classes = ("Choir", "AP CompSci", "AP Lit")
+elif DoTW==2 or DoTW==4:  # Even
+    schedule = ((415,470), (475,565), (580, 675))
+    classes = ("Choir", "AP Biology", "AP Gov")
 else:
-    today_sched = ()
-    today_classes = ()
-    next_class_when = "Its the weekend (:3｣∠)_".center(29)
-    zoom_link, zoom_message = "https://c.xkcd.com/random/comic/","Zoom into some xkcd"
+    schedule = ()
+    classes = ()
 
-links = {
-    "Choir": "zoommtg://nmusd.zoom.us/join?confno=4130515482",
-    "Chinese": "zoommtg://nmusd.zoom.us/join?confno=93757689317&pwd=Leifeng1",
-    "English": "zoommtg://nmusd.zoom.us/join?confno=6799693127",
-    "Physics": "zoommtg://nmusd.zoom.us/join?confno=95973021704",
-    "US History": "zoommtg://nmusd.zoom.us/join?confno=5190214576",
-    "Statistics": "zoommtg://nmusd.zoom.us/join?confno=94950158769&pwd=WGdRR2hkTlk3cE5ocFFsWExNUXE4UT09"
-}
+next_up = "School's out (:3｣∠)_".center(29)
+message = "Zoom into some xkcd"
 
-for current_class, class_time in zip(today_classes, today_sched):
+for current_class, class_time in zip(classes, schedule):
     if minute_time < class_time[0]: # In between classes
-        next_class_when = f"\033[1;31m{current_class}\033[0m starts in \033[1;31m{class_time[0] - minute_time} min\033[0m".ljust(51)
-        zoom_link = links[current_class]
-        zoom_message = f"Zoom into {current_class}"
+        next_up = bcolors.RED + str(current_class) + bcolors.ENDC + " starts in " \
+            + bcolors.RED + str(class_time[0] - minute_time) + " min" + bcolors.ENDC
+        message = f"Zoom into {current_class}"
         break
     elif minute_time < class_time[1]: # During class
-        next_class_when = f"\033[1;31m{current_class}\033[0m ends in \033[1;31m{class_time[1] - minute_time} min\033[0m".ljust(51)
-        zoom_link = links[current_class]
-        zoom_message = f"Zoom into {current_class}"
+        next_up = bcolors.RED + str(current_class) + bcolors.ENDC + " end in " \
+            + bcolors.RED + str(class_time[1] - minute_time) + " min" + bcolors.ENDC
+        message = f"Zoom into {current_class}"
         break
-    next_class_when = "School's out (:3｣∠)_".center(29)
-    zoom_link, zoom_message = "https://c.xkcd.com/random/comic/","Zoom into some xkcd"
 
 # Prints schedule
 
-print(schedule
-    .replace("Placeholder A ---------------", 
-             f"Current Time: \033[1;31m{time}\033[0m")
-    .replace("Placeholder B ---------------", 
-             next_class_when)
-    .replace("Placeholder C ---------------", 
-            "ᕕ( ᐛ )ᕗ  "
-            #+ f"\u001b]8;;{zoom_link}\u001b\\{zoom_message}\u001b]8;;\u001b\\"
-            + f"\u001b]8;;{zoom_link}\u001b\\\033[96m{zoom_message}\033[0m\u001b]8;;\u001b\\"
-            + " "*(20-len(zoom_message)))
+print(
+    calendar
+    .replace(
+        "Placeholder A ---------------", 
+        "Current Time: " + bcolors.RED + time + bcolors.ENDC
     )
+    .replace(
+        "Placeholder B ---------------", 
+        next_up.ljust(51)
+    )
+    .replace(
+        "Placeholder C ---------------", 
+        "ᕕ( ᐛ )ᕗ  " + bcolors.OKCYAN + message.ljust(20) + bcolors.ENDC
+    )
+)

@@ -190,7 +190,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require("nvim-lsp-installer").on_server_ready(
     function (server)
         local opts = { on_attach = on_attach }
-        if server.name == "cssls" then
+        if server.name == "cssls" or server.name == "html" then
             opts = vim.tbl_deep_extend("force", opts, {
                 capabilities = capabilities,
             })
@@ -234,7 +234,8 @@ cmp.setup({
     },
     sources = {
         { name = 'ultisnips' },
-        { name = 'nvim_lsp' },
+        -- { name = 'nvim_lsp', max_item_count = 10 },
+        { name = 'nvim_lsp'},
         { name = 'path' },
     }
 })
