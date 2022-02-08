@@ -234,8 +234,8 @@ cmp.setup({
     },
     sources = {
         { name = 'ultisnips' },
-        -- { name = 'nvim_lsp', max_item_count = 10 },
-        { name = 'nvim_lsp'},
+        { name = 'nvim_lsp', max_item_count = 10 },
+        -- { name = 'nvim_lsp'},
         { name = 'path' },
     }
 })
