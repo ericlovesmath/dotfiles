@@ -49,6 +49,8 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
+tnoremap <Esc> <C-\><C-n>
+
 vnoremap <leader>y  "+y
 nnoremap <leader>Y  "+y$
 nnoremap <leader>y  "+y
@@ -144,7 +146,6 @@ Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
-Plug 'mattn/emmet-vim'
 Plug 'numToStr/Comment.nvim'
 " Plug 'github/copilot.vim'
 
@@ -190,11 +191,11 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require("nvim-lsp-installer").on_server_ready(
     function (server)
         local opts = { on_attach = on_attach }
-        if server.name == "cssls" or server.name == "html" then
-            opts = vim.tbl_deep_extend("force", opts, {
-                capabilities = capabilities,
-            })
-        end
+        -- if server.name == "cssls" or server.name == "html" then
+        --     opts = vim.tbl_deep_extend("force", opts, {
+        --         capabilities = capabilities,
+        --     })
+        -- end
         server:setup(opts)
     end
 )
@@ -234,8 +235,8 @@ cmp.setup({
     },
     sources = {
         { name = 'ultisnips' },
-        { name = 'nvim_lsp', max_item_count = 10 },
-        -- { name = 'nvim_lsp'},
+        -- { name = 'nvim_lsp', max_item_count = 10 },
+        { name = 'nvim_lsp'},
         { name = 'path' },
     }
 })

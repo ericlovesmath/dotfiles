@@ -1,7 +1,7 @@
-set wrap
-set linebreak
-set spell
-set spellsuggest+=5
+setlocal wrap
+setlocal linebreak
+setlocal spell
+setlocal spellsuggest+=5
 
 map j gj
 map k gk
