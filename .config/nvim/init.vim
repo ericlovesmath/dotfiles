@@ -191,11 +191,11 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require("nvim-lsp-installer").on_server_ready(
     function (server)
         local opts = { on_attach = on_attach }
-        -- if server.name == "cssls" or server.name == "html" then
-        --     opts = vim.tbl_deep_extend("force", opts, {
-        --         capabilities = capabilities,
-        --     })
-        -- end
+        if server.name == "cssls" then
+            opts = vim.tbl_deep_extend("force", opts, {
+                capabilities = capabilities,
+            })
+        end
         server:setup(opts)
     end
 )
