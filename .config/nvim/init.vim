@@ -134,8 +134,9 @@ Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Colors
-Plug 'ful1e5/onedark.nvim'
-" Plug 'gruvbox-community/gruvbox'
+" Plug 'ful1e5/onedark.nvim'
+Plug 'navarasu/onedark.nvim'
+Plug 'gruvbox-community/gruvbox'
 " Plug 'sainnhe/sonokai'
 
 " Misc / Specific Tools
@@ -147,6 +148,7 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
 Plug 'numToStr/Comment.nvim'
+Plug 'andweeb/presence.nvim'
 " Plug 'github/copilot.vim'
 
 call plug#end()
@@ -247,16 +249,26 @@ EOF
 "--------------------------------------------------------------------------
 
 " Onedark Color Scheme
-hi Normal ctermfg=NONE ctermbg=NONE
-hi Normal ctermfg=NONE ctermbg=NONE
-let g:onedark_dark_sidebar = 0
+" hi Normal ctermfg=NONE ctermbg=NONE
+" hi Normal ctermfg=NONE ctermbg=NONE
+let g:onedark_config = {
+  \ 'style': 'cool', 
+  \ 'ending_tildes': v:true,
+  \ 'transparent': v:false,
+  \ 'toggle_style_key': '<leader>ts',
+  \ 'toggle_style_list': ['dark', 'warm', 'cool'],
+  \ 'diagnostics': {
+    \ 'darker': v:false,
+    \ 'background': v:false,
+  \ },
+\ }
 colorscheme onedark
 
 " Gruvbox Color Scheme
-" let g:gruvbox_sign_column='none'
-" let g:gruvbox_color_column='none'
-" let g:gruvbox_italic=1
-" let g:gruvbox_termcolors=16
+let g:gruvbox_sign_column='none'
+let g:gruvbox_color_column='none'
+let g:gruvbox_italic=1
+let g:gruvbox_termcolors=16
 " colorscheme gruvbox
 
 " Status Line
