@@ -148,7 +148,10 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
 Plug 'numToStr/Comment.nvim'
-Plug 'andweeb/presence.nvim'
+Plug 'romgrk/barbar.nvim'
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'puremourning/vimspector'
 " Plug 'github/copilot.vim'
 
 call plug#end()
@@ -198,6 +201,11 @@ require("nvim-lsp-installer").on_server_ready(
                 capabilities = capabilities,
             })
         end
+        --[[ if server.name == "emmet_ls" then
+            opts = vim.tbl_deep_extend("force", opts, {
+                filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
+            })
+        end ]]
         server:setup(opts)
     end
 )
@@ -252,11 +260,11 @@ EOF
 " hi Normal ctermfg=NONE ctermbg=NONE
 " hi Normal ctermfg=NONE ctermbg=NONE
 let g:onedark_config = {
-  \ 'style': 'cool', 
+  \ 'style': 'dark', 
   \ 'ending_tildes': v:true,
   \ 'transparent': v:false,
   \ 'toggle_style_key': '<leader>ts',
-  \ 'toggle_style_list': ['dark', 'warm', 'cool'],
+  \ 'toggle_style_list': ['warm', 'cool', 'dark'],
   \ 'diagnostics': {
     \ 'darker': v:false,
     \ 'background': v:false,
