@@ -151,7 +151,8 @@ Plug 'numToStr/Comment.nvim'
 Plug 'romgrk/barbar.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
-Plug 'puremourning/vimspector'
+Plug 'theHamsta/nvim-dap-virtual-text'
+" Plug 'puremourning/vimspector'
 " Plug 'github/copilot.vim'
 
 call plug#end()
@@ -210,6 +211,11 @@ require("nvim-lsp-installer").on_server_ready(
     end
 )
 
+require'lspconfig'.gdscript.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
 -- Setup nvim-cmp.
 local cmp = require('cmp')
 cmp.setup({
@@ -245,11 +251,15 @@ cmp.setup({
     },
     sources = {
         { name = 'ultisnips' },
-        -- { name = 'nvim_lsp', max_item_count = 10 },
+        { name = 'nvim_lsp', max_item_count = 10 },
         { name = 'nvim_lsp'},
         { name = 'path' },
+    },
+    flags = {
+      debounce_text_changes = 150,
     }
 })
+
 EOF
 
 "--------------------------------------------------------------------------

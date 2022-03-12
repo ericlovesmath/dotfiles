@@ -43,6 +43,8 @@ yabai -m rule --add title="^About This Mac$" manage=off
 yabai -m rule --add app="^About This Mac$" manage=off
 yabai -m rule --add app="^Macs Fan Control$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
+yabai -m rule --add app="^Godot$" manage=off
+# yabai -m rule --add app="^Godot$" title="^.*(DEBUG)$" manage=off
 
 # Spacebar
 # SPACEBAR_HEIGHT=$(spacebar -m config height)
