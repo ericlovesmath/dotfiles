@@ -29,6 +29,7 @@ set timeoutlen=1000 ttimeoutlen=0
 set laststatus=2
 set completeopt=menu,menuone,noselect
 set guitablabel=%t
+set pumheight=10
 
 "--------------------------------------------------------------------------
 " Key maps
@@ -72,8 +73,10 @@ inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 
 nnoremap <leader><leader> <C-^>
-nnoremap <silent> <Tab> :w<CR>:bn<CR>
-nnoremap <silent> <S-Tab> :w<CR>:bp<CR>
+" nnoremap <silent> <Tab> :w<CR>:bn<CR>
+" nnoremap <silent> <S-Tab> :w<CR>:bp<CR>
+nnoremap <silent> <Tab> :bn<CR>
+nnoremap <silent> <S-Tab> :bp<CR>
 
 let s:comment_map = { 'c': '\/\/', 'cpp': '\/\/', 'go': '\/\/', 'java': '\/\/',
             \ 'javascript': '\/\/', 'rust': '\/\/', 'python': '#', 'ruby': '#',
@@ -251,7 +254,7 @@ cmp.setup({
     },
     sources = {
         { name = 'ultisnips' },
-        { name = 'nvim_lsp', max_item_count = 10 },
+        -- { name = 'nvim_lsp', max_item_count = 10 },
         { name = 'nvim_lsp'},
         { name = 'path' },
     },
@@ -259,8 +262,8 @@ cmp.setup({
       debounce_text_changes = 150,
     }
 })
-
 EOF
+
 
 "--------------------------------------------------------------------------
 " Statusline / Colors
@@ -345,26 +348,21 @@ au TextYankPost * silent! lua vim.highlight.on_yank()
 function! Tabline() abort
     let l:line = ''
     let l:current = tabpagenr()
-
     for l:i in range(1, tabpagenr('$'))
         if l:i == l:current
             let l:line .= '%#TabLineSel#'
         else
             let l:line .= '%#TabLine#'
         endif
-
         let l:label = fnamemodify(
             \ bufname(tabpagebuflist(l:i)[tabpagewinnr(l:i) - 1]),
             \ ':t'
         \ )
-
         let l:line .= '%' . i . 'T' " Starts mouse click target region.
         let l:line .= '  ' . l:label . '  '
     endfor
-
     let l:line .= '%#TabLineFill#'
     let l:line .= '%T' " Ends mouse click target region(s).
-
     return l:line
 endfunction
 
