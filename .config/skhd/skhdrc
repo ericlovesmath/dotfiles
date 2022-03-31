@@ -56,11 +56,11 @@ hyper - 9 : yabai -m window --space 9; yabai -m space --focus 9
 # Move focus container to workspace
 # Only move focus to prev/next if in current display
 # FOR WHEN PAYLOAD IS FINE
-# meh - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && yabai -m space --focus prev
-# meh - d : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && yabai -m space --focus next
+meh - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && yabai -m space --focus prev
+meh - d : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && yabai -m space --focus next
 # FOR WHEN PAYLOAD BREAKS
-meh - a : skhd -k "ctrl - left"
-meh - d : skhd -k "ctrl - right"
+# meh - a : skhd -k "ctrl - left"
+# meh - d : skhd -k "ctrl - right"
 #shift + ctrl - z : yabai -m space --focus prev || yabai -m space --focus last
 #shift + ctrl - x : yabai -m space --focus next || yabai -m space --focus first
 meh - 1 : yabai -m space --focus 1

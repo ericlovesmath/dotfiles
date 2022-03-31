@@ -5,12 +5,13 @@ filename=$1
 outputFile="$(basename "$filename" .md).pdf"
 
 pandoc \
-    --pdf-engine=xelatex \
     -V "geometry:margin=1in" \
-    -o "$outputFile" $filename
+    -f markdown $filename -t pdf -o "$outputFile"
+    # --filter pandoc-crossref
+    # --pdf-engine=xelatex \
     #-V 'mainfont:DejaVuSerif' \
     #-V 'mainfontoptions:Extension=.ttf, UprightFont=*, BoldFont=*-Bold, ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic' \
     #-V 'sansfont:DejaVuSans.ttf' \
     #-V 'monofont:DejaVuSansMono.ttf' \
 
- #    --toc \
+    # --toc \

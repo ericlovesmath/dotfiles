@@ -1,6 +1,6 @@
 setlocal wrap
 setlocal linebreak
-setlocal spell
+" setlocal spell
 setlocal spellsuggest+=5
 
 map j gj
@@ -8,15 +8,15 @@ map k gk
 
 au TermOpen * setlocal nospell
 
-"nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
+" nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
 nnoremap <leader>r :w<CR>:!~/bin/buildnote.sh "%:p"<CR>
 nnoremap <leader>o :silent exec "!open -a Skim.app %:r.pdf"<CR>
 
 "autocmd BufWritePre !~/bin/buildnote.sh "%:p"<CR>
 
-nnoremap <silent> <leader>i :call MarkdownClipboardImage()<CR>
+nnoremap <silent> <leader>i :call ImageFromClipboard()<CR>
 
-function! MarkdownClipboardImage() abort
+function! ImageFromClipboard() abort
 
   " Create `img` directory if it doesn't exist
   let img_dir = getcwd() . '/img'
@@ -45,7 +45,7 @@ function! MarkdownClipboardImage() abort
       call inputsave()
       let img_name = input('Enter Image Name: ')
       call inputrestore()
-      execute "normal! i![" . img_name . "](./img/image" . index . ".png){ width=250px }"
+      execute "normal! i![" . img_name . "](./img/image" . index . ".png){ width=400px }"
       execute "normal! F]"
   endif
 endfunction
