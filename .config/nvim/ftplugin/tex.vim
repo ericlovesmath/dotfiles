@@ -7,6 +7,8 @@ let g:vimtex_complete_enabled = 0
 
 set conceallevel=1
 let g:tex_conceal='abdmg'
+" highlight Conceal ctermfg=<fg color> ctermbg=<bg color>
+
 
 " Default is 500 lines and gave me lags on missed key presses
 " let g:vimtex_delim_stopline = 5
@@ -66,3 +68,12 @@ endfunction
 set foldmethod=marker
 set fmr=<<<,>>>
 set fillchars=fold:\ 
+
+" Key maps for VimTex
+" <localleader>lI Show Vimtex Info
+" <localleader>lt Show Table of Contents
+" <localleader>lv Show current line on pdf
+" <localleader>ll Compiler Start
+" <localleader>lk Compiler Stop
+" <localleader>le Show Errors
+" <localleader>lc Clean Compiler
