@@ -323,7 +323,7 @@ set statusline=
 set statusline+=%0*\ %{g:currentmode[mode()]}\     " Current mode (Insert, Normal...)
 set statusline+=%1*\ %<%t%m%r\                     " File name, modified, readonly
 set statusline+=%2*\ %{LspReport()}%=\             " LSP Information
-" set statusline+=%Y\ \|\ %{&ff}\ \|\ %{&fenc}\    " File Type, File Format, Encoding
+set statusline+=%Y\ \|\ %{&ff}\ \|\ %{&fenc}\    " File Type, File Format, Encoding
 set statusline+=%1*\ %3p%%\                        " Percentage of document
 set statusline+=%0*\ %{%WordCountOrRowCol()%}\     " Word Count for Markdown, Row/Col for all else
 
