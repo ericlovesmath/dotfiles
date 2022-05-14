@@ -1,7 +1,7 @@
 "nnoremap <leader>r :w<CR>:vsp<CR>:term python3 "%:p"<CR><C-\><C-n>
 " set makeprg=g++\ -o\ %<\ %
 " nnoremap <leader>r :make<cr>
-nnoremap <leader>r :w<CR>:vsp<CR>:term cd %:p:h && g++ -std=c++11 %:p -o a.out -Wall && ./a.out<CR><C-\><C-n>
+nnoremap <leader>r :w<CR>:vsp<CR>:term cd %:p:h && g++ -std=c++17 %:p -o a.out -Wall && ./a.out<CR><C-\><C-n>
 
 " nnoremap     <leader>rm    :!g++ -g --std=c++11 % -o %:r<CR>
 " nnoremap   <leader>rm    :set makeprg=g++<CR>:make % -o %:r<CR>

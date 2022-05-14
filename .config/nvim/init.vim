@@ -147,7 +147,8 @@ Plug 'tpope/vim-surround'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
-Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'lervag/vimtex', { 'for': ['tex', 'markdown'] }
+" Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
 Plug 'numToStr/Comment.nvim'
@@ -157,6 +158,8 @@ Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
 " Plug 'puremourning/vimspector'
 " Plug 'github/copilot.vim'
+
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 
 call plug#end()
 
