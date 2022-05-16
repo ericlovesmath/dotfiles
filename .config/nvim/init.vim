@@ -200,6 +200,9 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+
+-- DEPRECATED, REFACTOR
+-- https://www.reddit.com/r/neovim/comments/ue61qj/psa_changes_to_nvimlspinstaller/
 require("nvim-lsp-installer").on_server_ready(
     function (server)
         local opts = { on_attach = on_attach }
@@ -263,7 +266,7 @@ cmp.setup({
     },
     flags = {
       debounce_text_changes = 150,
-    }
+    },
 })
 EOF
 
