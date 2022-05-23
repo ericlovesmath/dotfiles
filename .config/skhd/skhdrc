@@ -138,11 +138,11 @@ hyper - r : \
 # meh - c : open -na /Applications/Google\ Chrome.app 
 # hyper - c : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito
 
-# meh - c : /Applications/Firefox.app/Contents/MacOS/firefox
-# hyper - c : /Applications/Firefox.app/Contents/MacOS/firefox --args -private-window
-meh - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox"
-hyper - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox" --args -private-window
-delete : osascript ~/bin/panic-button.scpt
+meh - c : /Applications/Firefox.app/Contents/MacOS/firefox
+hyper - c : /Applications/Firefox.app/Contents/MacOS/firefox --args -private-window
+# meh - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox"
+# hyper - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox" --args -private-window
+delete : osascript ~/bin/spotify-toggle.scpt
 
 hyper - u : yabai -m window --toggle sticky;\
           yabai -m window --toggle topmost

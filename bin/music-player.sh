@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 if ! pgrep -x "Spotify|spotifyd" > /dev/null; then
-    # echo "Spotify Device not found, launching spotifyd..."
-    # spotifyd
-    # Note: Spotifyd needs to be updated to librespot 2.0.0, currently low res
-    open -j "/Applications/Spotify.app"
+    echo "Spotify Device not found, launching spotifyd..."
+    spotifyd
+    # open -j "/Applications/Spotify.app"
     sleep 1
 fi
 
@@ -21,8 +20,8 @@ case $1 in
         echo "Playing Previous Song"
         spt playback --previous;;
     "")
-        echo "Playing Liked Songs in Shuffle..."
-        spt play --playlist --random --name "Liked Songs"
+        echo "Playing 'General' in Shuffle..."
+        spt play --playlist --random --name "General"
         sleep 1
         STATUS=$(spt playback --status -f "%f %s")
         if [[ ! $STATUS =~ "[Shuffle]" ]]; then
