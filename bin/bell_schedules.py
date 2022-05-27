@@ -78,7 +78,7 @@ print(
     )
     .replace(
         "Placeholder B ---------------", 
-        next_up #.ljust(51)
+        next_up.ljust(51)
     )
     .replace(
         "Placeholder C ---------------", 

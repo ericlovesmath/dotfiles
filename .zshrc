@@ -59,3 +59,7 @@ export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
 PROMPT_EOL_MARK=''
 source $HOME/.zsh_aliases
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /Users/ericlee/Desktop/Desktop-Friend-master/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /Users/ericlee/Desktop/Desktop-Friend-master/node_modules/tabtab/.completions/electron-forge.zsh
