@@ -131,7 +131,7 @@ hyper - r : \
     osascript -e \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
     brew services restart yabai; \
-   brew services restart spacebar; \
+   # brew services restart spacebar; \
     # brew services restart sketchybar; \
     brew services restart skhd
 

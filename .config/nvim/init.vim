@@ -26,7 +26,7 @@ set signcolumn=yes:2
 set updatetime=300
 set splitright
 set timeoutlen=1000 ttimeoutlen=0
-set laststatus=2
+set laststatus=3
 set completeopt=menu,menuone,noselect
 set guitablabel=%t
 set pumheight=10

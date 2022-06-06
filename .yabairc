@@ -16,7 +16,7 @@ yabai -m config right_padding  10
 yabai -m config window_gap     10
 
 # floating windows are always on top (default: off)
-# yabai -m config window_topmost on
+yabai -m config window_topmost on
 # yabai -m config window_shadow off
 
 # yabai -m config active_window_border_topmost on
@@ -51,7 +51,7 @@ yabai -m rule --add app="^Godot$" manage=off
 # Spacebar
 # SPACEBAR_HEIGHT=$(spacebar -m config height)
 # yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
-yabai -m config external_bar all:35:0
+# yabai -m config external_bar all:35:0
 
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
