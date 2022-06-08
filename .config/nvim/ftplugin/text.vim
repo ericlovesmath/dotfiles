@@ -1,5 +1,7 @@
 set wrap
 set linebreak
+setlocal breakindent
+setlocal breakindentopt=shift:2
 " set spell
 " set spellsuggest+=5
 

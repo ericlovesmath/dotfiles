@@ -2,6 +2,8 @@ setlocal wrap
 setlocal linebreak
 " setlocal spell
 setlocal spellsuggest+=5
+setlocal breakindent
+setlocal breakindentopt=shift:2
 
 map j gj
 map k gk

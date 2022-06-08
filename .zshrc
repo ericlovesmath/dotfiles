@@ -54,6 +54,7 @@ PERL_MB_OPT="--install_base \"/Users/ericlee/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/ericlee/perl5"; export PERL_MM_OPT;
 #export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
+export PATH="/usr/local/sbin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
