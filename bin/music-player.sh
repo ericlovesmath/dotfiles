@@ -9,7 +9,10 @@ fi
 
 case $1 in  
     h|help)
-        echo "Help";;
+        echo "-s   start/stop   Toggle Play/Pause
+-n   next         Play Next Song
+-p   prev         Play Previous Song
+     NULL         Play 'Low Energy' in Shuffle";;
     s|start|stop)
         echo "Toggling Play / Pause"
         spt playback --toggle;;
@@ -20,14 +23,14 @@ case $1 in
         echo "Playing Previous Song"
         spt playback --previous;;
     "")
-        echo "Playing 'General' in Shuffle..."
-        spt play --playlist --random --name "General"
+        echo "Playing 'Low Energy' in Shuffle..."
+        spt play --playlist --random --name "Low Energy"
         sleep 1
         STATUS=$(spt playback --status -f "%f %s")
         if [[ ! $STATUS =~ "[Shuffle]" ]]; then
             spt playback --shuffle
         fi;;
-esac > /dev/null
+esac # > /dev/null
 
 spt playback --status -f "%t - %a"
 #spt playback --status -f "%r // %f %s"

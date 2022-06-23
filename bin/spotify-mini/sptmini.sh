@@ -33,7 +33,8 @@ do
 
     #curl -sL $SONG_ALBUM | imgcat --height=15
     curl -sL $SONG_ALBUM | kitty +kitten icat --scale-up
-    echo
+    # echo
+    COLUMNS=$(tput cols) 
     echo $SONG_TITLE | fold -s -w $(($COLUMNS-4)) | fmt -c -w $COLUMNS
     echo $SONG_ARTIST | fold -s -w $(($COLUMNS-4)) | fmt -c -w $COLUMNS
   fi; 

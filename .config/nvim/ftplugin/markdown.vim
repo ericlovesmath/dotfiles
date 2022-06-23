@@ -3,7 +3,8 @@ setlocal linebreak
 " setlocal spell
 setlocal spellsuggest+=5
 setlocal breakindent
-setlocal breakindentopt=shift:2
+setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
+setlocal breakindentopt=shift:0,list:-1
 
 map j gj
 map k gk
@@ -122,3 +123,6 @@ nnoremap <Leader>c :call ToggleCheckbox()<CR>
 
 set conceallevel=2
 autocmd BufNewFile,BufRead *.md call vimtex#init()
+
+" Abbreviations
+" ab short_string Longer Description

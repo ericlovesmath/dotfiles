@@ -277,7 +277,6 @@ EOF
 
 " Onedark Color Scheme
 " hi Normal ctermfg=NONE ctermbg=NONE
-" hi Normal ctermfg=NONE ctermbg=NONE
 let g:onedark_config = {
   \ 'style': 'dark', 
   \ 'ending_tildes': v:true,
@@ -292,11 +291,16 @@ let g:onedark_config = {
 colorscheme onedark
 
 " Gruvbox Color Scheme
-let g:gruvbox_sign_column='none'
-let g:gruvbox_color_column='none'
-let g:gruvbox_italic=1
-let g:gruvbox_termcolors=16
+" let g:gruvbox_sign_column='none'
+" let g:gruvbox_color_column='none'
+" let g:gruvbox_italic=1
+" let g:gruvbox_termcolors=16
 " colorscheme gruvbox
+"
+" hi SignColumn guibg=none
+" hi CursorLineNR guibg=none
+" hi Normal guibg=none
+" hi TelescopeBorder guifg=#5eacd3
 
 " Status Line
 let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL",
