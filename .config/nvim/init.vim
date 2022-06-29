@@ -30,6 +30,7 @@ set laststatus=3
 set completeopt=menu,menuone,noselect
 set guitablabel=%t
 set pumheight=10
+set cmdheight=0
 
 "--------------------------------------------------------------------------
 " Key maps
