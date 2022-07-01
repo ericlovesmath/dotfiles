@@ -124,7 +124,8 @@ meh - e : skhd -k "ctrl - tab"
 hyper - e : skhd -k "ctrl + shift - pagedown"
 
 # Toggles floating window
-meh - u : yabai -m window --toggle float
+meh - u : yabai -m window --toggle float; \
+        yabai -m window --grid 8:8:1:1:6:6
 
 # restart yabai
 hyper - r : \
