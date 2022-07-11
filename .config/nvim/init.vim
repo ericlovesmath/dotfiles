@@ -157,6 +157,8 @@ Plug 'romgrk/barbar.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'rmagatti/auto-session'
+Plug 'mattn/emmet-vim'
 " Plug 'puremourning/vimspector'
 " Plug 'github/copilot.vim'
 
@@ -194,7 +196,8 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>vsd', '<cmd>lua vim.diagnostic.open_float(nil, {})<CR>', opts)
     buf_set_keymap('n', '<leader>vp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '<leader>vn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    -- buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opts)
 end
 
 -- Required for html/cssls because Microsoft :/
@@ -212,11 +215,11 @@ require("nvim-lsp-installer").on_server_ready(
                 capabilities = capabilities,
             })
         end
-        --[[ if server.name == "emmet_ls" then
+        if server.name == "emmet_ls" then
             opts = vim.tbl_deep_extend("force", opts, {
-                filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
+                filetypes = { "html", "typescriptreact", "javascriptreact" },
             })
-        end ]]
+        end
         server:setup(opts)
     end
 )
@@ -297,7 +300,7 @@ colorscheme onedark
 " let g:gruvbox_italic=1
 " let g:gruvbox_termcolors=16
 " colorscheme gruvbox
-"
+
 " hi SignColumn guibg=none
 " hi CursorLineNR guibg=none
 " hi Normal guibg=none

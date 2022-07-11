@@ -1,9 +1,11 @@
-set wrap
-set linebreak
+setlocal wrap
+setlocal linebreak
+" setlocal spell
+setlocal spellsuggest+=5
 setlocal breakindent
-setlocal breakindentopt=shift:2
-" set spell
-" set spellsuggest+=5
+setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
+setlocal breakindentopt=shift:0,list:-1
+
 
 au TermOpen * setlocal nospell
 
