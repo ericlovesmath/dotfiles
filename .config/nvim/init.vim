@@ -159,6 +159,7 @@ Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'rmagatti/auto-session'
 Plug 'mattn/emmet-vim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 " Plug 'puremourning/vimspector'
 " Plug 'github/copilot.vim'
 
