@@ -74,32 +74,8 @@ inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 
 nnoremap <leader><leader> <C-^>
-" nnoremap <silent> <Tab> :w<CR>:bn<CR>
-" nnoremap <silent> <S-Tab> :w<CR>:bp<CR>
 nnoremap <silent> <Tab> :bn<CR>
 nnoremap <silent> <S-Tab> :bp<CR>
-
-let s:comment_map = { 'c': '\/\/', 'cpp': '\/\/', 'go': '\/\/', 'java': '\/\/',
-            \ 'javascript': '\/\/', 'rust': '\/\/', 'python': '#', 'ruby': '#',
-            \ 'sh': '#', 'conf': '#', 'lua': '--', 'vim': '"', 'tex': '%'}
-
-function! ToggleComment()
-    if has_key(s:comment_map, &filetype)
-        let comment_leader = s:comment_map[&filetype]
-        if getline('.') =~ '\v^\s*' . comment_leader
-            " Uncomment the line if it's a comment
-            execute 'silent s/\v^(\s*)' . comment_leader . '(\s?)/\1'
-        elseif getline('.') !~ '\v^\s*$'
-            " Comment the line if not empty
-            execute 'silent s/\v^(\s*)/\1' . comment_leader . ' '
-        end
-    else
-        echo 'No comment leader found for filetype'
-    end
-endfunction
-
-nnoremap <leader>/ :call ToggleComment()<cr>
-vnoremap <leader>/ :call ToggleComment()<cr>gv
 
 "--------------------------------------------------------------------------
 " Plugins
@@ -108,7 +84,7 @@ vnoremap <leader>/ :call ToggleComment()<cr>gv
 " Automatically install vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
-    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -135,7 +111,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
-" Plug 'romgrk/barbar.nvim'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Colors
@@ -146,7 +121,6 @@ Plug 'gruvbox-community/gruvbox'
 
 " Misc / Specific Tools
 Plug 'tpope/vim-surround'
-" Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': ['tex', 'markdown'] }
@@ -157,9 +131,10 @@ Plug 'romgrk/barbar.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
-Plug 'rmagatti/auto-session'
 Plug 'mattn/emmet-vim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+" Plug 'nvim-lua/lsp_extensions.nvim'
+" Plug 'rmagatti/auto-session'
 
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
@@ -175,16 +150,8 @@ call plug#end()
 " Native LSP + Ultisnips
 "--------------------------------------------------------------------------
 
-let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-
-highlight! link CmpItemAbbr Pmenu
-highlight! link CmpItemKind Pmenu
-highlight! link CmpItemMenu Pmenu
-
 lua << EOF
-local nvim_lsp = require('lspconfig')
+local nvim_lsp = require("lspconfig")
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -202,7 +169,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>vp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '<leader>vn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    -- buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', opts)
+    -- 0.8.0 buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', opts)
 end
 
 -- Required for html/cssls because Microsoft :/
@@ -216,23 +183,25 @@ local function config(_config)
 	}, _config or {})
 end
 
+-- Mason.nvim config
 require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-lspconfig").setup_handlers {
+    function(server_name)
+        nvim_lsp[server_name].setup(config())
+    end,
+    ["jsonls"] = function() -- Example non-default behavior
+        nvim_lsp.jsonls.setup(config())
+    end,
+}
 
-require("lspconfig").clangd.setup(config())
-require("lspconfig").cssls.setup(config())
-require("lspconfig").gopls.setup(config())
-require("lspconfig").html.setup(config())
-require("lspconfig").jdtls.setup(config())
-require("lspconfig").ltex.setup(config())
-require("lspconfig").pyright.setup(config())
-require("lspconfig").tsserver.setup(config())
-require("lspconfig").vimls.setup(config())
-require("lspconfig").yamlls.setup(config())
-require("lspconfig").gdscript.setup(config({
-    flags = {
-      debounce_text_changes = 150,
-    }
-}))
+-- LSPs not installed with mason.nvim
+nvim_lsp.gdscript.setup(config()) 
+
+-- Prepare for Ultisnips config
+let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 
 -- Setup nvim-cmp.
 local cmp = require('cmp')
@@ -272,12 +241,10 @@ cmp.setup({
     },
     sources = {
         { name = 'ultisnips' },
-        -- { name = 'nvim_lsp', max_item_count = 10 },
         { name = 'nvim_lsp'},
-        -- { name = 'nvim_lsp' },
         { name = 'path' },
+        -- { name = 'nvim_lsp', max_item_count = 10, keyword_length = 3 },
     },
-    -- keyword_length = 3,
 })
 EOF
 
@@ -360,30 +327,3 @@ au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=c
 
 au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
 au TextYankPost * silent! lua vim.highlight.on_yank()
-" au BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
-
-" Unity (Mono) Instructions:
-" Edit omnisharp/run, 'mono_cmd=`command -v mono`
-
-function! Tabline() abort
-    let l:line = ''
-    let l:current = tabpagenr()
-    for l:i in range(1, tabpagenr('$'))
-        if l:i == l:current
-            let l:line .= '%#TabLineSel#'
-        else
-            let l:line .= '%#TabLine#'
-        endif
-        let l:label = fnamemodify(
-            \ bufname(tabpagebuflist(l:i)[tabpagewinnr(l:i) - 1]),
-            \ ':t'
-        \ )
-        let l:line .= '%' . i . 'T' " Starts mouse click target region.
-        let l:line .= '  ' . l:label . '  '
-    endfor
-    let l:line .= '%#TabLineFill#'
-    let l:line .= '%T' " Ends mouse click target region(s).
-    return l:line
-endfunction
-
-set tabline=%!Tabline()
