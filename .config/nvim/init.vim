@@ -30,7 +30,7 @@ set laststatus=3
 set completeopt=menu,menuone,noselect
 set guitablabel=%t
 set pumheight=10
-set cmdheight=0
+" set cmdheight=0
 
 "--------------------------------------------------------------------------
 " Key maps
@@ -125,7 +125,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips' " | Plug 'honza/vim-snippets'
 
@@ -145,11 +146,10 @@ Plug 'gruvbox-community/gruvbox'
 
 " Misc / Specific Tools
 Plug 'tpope/vim-surround'
-Plug 'nvim-lua/lsp_extensions.nvim'
+" Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'dstein64/vim-startuptime'
 Plug 'lervag/vimtex', { 'for': ['tex', 'markdown'] }
-" Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'junegunn/goyo.vim'
 Plug 'numToStr/Comment.nvim'
@@ -160,6 +160,10 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'rmagatti/auto-session'
 Plug 'mattn/emmet-vim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim'
+" Plug 'habamax/vim-godot'
 " Plug 'puremourning/vimspector'
 " Plug 'github/copilot.vim'
 
@@ -197,42 +201,45 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>vsd', '<cmd>lua vim.diagnostic.open_float(nil, {})<CR>', opts)
     buf_set_keymap('n', '<leader>vp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '<leader>vn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    -- buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opts)
+    buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    -- buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', opts)
 end
 
 -- Required for html/cssls because Microsoft :/
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local function config(_config)
+	return vim.tbl_deep_extend("force", {
+		capabilities = capabilities,
+		on_attach = on_attach
+	}, _config or {})
+end
 
--- DEPRECATED, REFACTOR
--- https://www.reddit.com/r/neovim/comments/ue61qj/psa_changes_to_nvimlspinstaller/
-require("nvim-lsp-installer").on_server_ready(
-    function (server)
-        local opts = { on_attach = on_attach }
-        if server.name == "cssls" then
-            opts = vim.tbl_deep_extend("force", opts, {
-                capabilities = capabilities,
-            })
-        end
-        if server.name == "emmet_ls" then
-            opts = vim.tbl_deep_extend("force", opts, {
-                filetypes = { "html", "typescriptreact", "javascriptreact" },
-            })
-        end
-        server:setup(opts)
-    end
-)
+require("mason").setup()
 
-require'lspconfig'.gdscript.setup{
-    on_attach = on_attach,
-    capabilities = capabilities
-}
+require("lspconfig").clangd.setup(config())
+require("lspconfig").cssls.setup(config())
+require("lspconfig").gopls.setup(config())
+require("lspconfig").html.setup(config())
+require("lspconfig").jdtls.setup(config())
+require("lspconfig").ltex.setup(config())
+require("lspconfig").pyright.setup(config())
+require("lspconfig").tsserver.setup(config())
+require("lspconfig").vimls.setup(config())
+require("lspconfig").yamlls.setup(config())
+require("lspconfig").gdscript.setup(config({
+    flags = {
+      debounce_text_changes = 150,
+    }
+}))
 
 -- Setup nvim-cmp.
 local cmp = require('cmp')
 cmp.setup({
+    performance = {
+      debounce = 150,
+    },
     snippet = {
         expand = function(args)
             vim.fn["UltiSnips#Anon"](args.body)
@@ -267,14 +274,12 @@ cmp.setup({
         { name = 'ultisnips' },
         -- { name = 'nvim_lsp', max_item_count = 10 },
         { name = 'nvim_lsp'},
+        -- { name = 'nvim_lsp' },
         { name = 'path' },
     },
-    flags = {
-      debounce_text_changes = 150,
-    },
+    -- keyword_length = 3,
 })
 EOF
-
 
 "--------------------------------------------------------------------------
 " Statusline / Colors
