@@ -199,9 +199,9 @@ require("mason-lspconfig").setup_handlers {
 nvim_lsp.gdscript.setup(config()) 
 
 -- Prepare for Ultisnips config
-let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
+vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 
 -- Setup nvim-cmp.
 local cmp = require('cmp')
