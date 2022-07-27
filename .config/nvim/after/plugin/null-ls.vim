@@ -7,6 +7,7 @@ local sources = {
     b.formatting.shfmt,
     b.formatting.black.with { extra_args = { "--fast", "--line-length", "79" } },
     b.formatting.isort,
+    b.formatting.stylua,
     -- b.formatting.black.with { extra_args = { "--line-length 80" } },
 
     -- diagnostics
