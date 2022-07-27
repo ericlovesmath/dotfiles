@@ -1,4 +1,5 @@
-lua << EOF
+local nnoremap = require("keymap").nnoremap
+
 require('telescope').setup{
     defaults = {
         vimgrep_arguments = {
@@ -22,10 +23,9 @@ require('telescope').setup{
           file_ignore_patterns = { "node_modules" },
     }
 }
-EOF
 
-nnoremap <leader>fp <cmd>Telescope projects<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap("<leader>fp", "<cmd>Telescope projects<CR>")
+nnoremap("<leader>ff", "<cmd>Telescope find_files<CR>")
+nnoremap("<leader>fg", "<cmd>Telescope live_grep<CR>")
+nnoremap("<leader>fb", "<cmd>Telescope buffers<CR>")
+nnoremap("<leader>fh", "<cmd>Telescope help_tags<CR>")

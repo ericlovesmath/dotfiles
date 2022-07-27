@@ -7,4 +7,3 @@
 require("options")
 require("mappings")
 require("plugins")
-require("statusline") -- Manages colors and tabline as well

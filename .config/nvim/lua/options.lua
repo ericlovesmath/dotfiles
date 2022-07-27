@@ -16,15 +16,13 @@ o.hlsearch = false
 o.showmode = false
 o.scrolloff = 4
 o.signcolumn = "yes:2"
-o.updatetime = 300
+o.updatetime = 50
 o.splitright = true
-o.timeoutlen = 1000
-o.ttimeoutlen = 0
 o.laststatus = 3
-o.completeopt  = {
-  "menu",
-  "menuone",
-  "noselect",
+o.completeopt = {
+	"menu",
+	"menuone",
+	"noselect",
 }
 
 o.guitablabel = "%t"

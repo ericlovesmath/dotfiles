@@ -1,42 +1,52 @@
-vim.cmd([[
-let mapleader = " "
+local Remap = require("keymap")
+local nnoremap = Remap.nnoremap
+local inoremap = Remap.inoremap
+local vnoremap = Remap.vnoremap
+local tnoremap = Remap.tnoremap
 
-nnoremap <leader>t :vsp<CR>:term<CR>:startinsert<CR>
-nnoremap <leader>w :w<CR>
+vim.g.mapleader = " "
 
-nnoremap <silent> <C-h> :wincmd h<CR>
-nnoremap <silent> <C-j> :wincmd j<CR>
-nnoremap <silent> <C-k> :wincmd k<CR>
-nnoremap <silent> <C-l> :wincmd l<CR>
+-- Fast terminal and save
+nnoremap("<leader>t", ":vsp<CR>:term<CR>:startinsert<CR>", { silent = true })
+nnoremap("<leader>w", ":w<CR>", { silent = true })
 
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
+-- Using <C-hjkl> to navigate panes
+nnoremap("<C-h>", ":wincmd h<CR>")
+nnoremap("<C-j>", ":wincmd j<CR>")
+nnoremap("<C-k>", ":wincmd k<CR>")
+nnoremap("<C-l>", ":wincmd l<CR>")
+tnoremap("<C-h>", "<C-\\><C-n><C-w>h")
+tnoremap("<C-j>", "<C-\\><C-n><C-w>j")
+tnoremap("<C-k>", "<C-\\><C-n><C-w>k")
+tnoremap("<C-l>", "<C-\\><C-n><C-w>l")
+tnoremap("<Esc>", "<C-\\><C-n>")
 
-tnoremap <Esc> <C-\><C-n>
+-- Yank to clipboard
+vnoremap("<leader>y", '"+y')
+nnoremap("<leader>y", '"+y')
+nnoremap("<leader>Y", '"+y$')
+nnoremap("<leader>yy", '"+yy')
 
-vnoremap <leader>y  "+y
-nnoremap <leader>Y  "+y$
-nnoremap <leader>y  "+y
-nnoremap <leader>yy  "+yy
+-- Increment and Decrement mapping
+nnoremap("+", "<C-a>")
+nnoremap("-", "<C-x>")
 
-nnoremap + <C-a>
-nnoremap - <C-x>
+-- Reselecting when indenting multiple times
+nnoremap("<", "<gv")
+nnoremap("<", ">gv")
 
-vnoremap < <gv
-vnoremap > >gv
+-- Center screen when moving fast
+nnoremap("n", "nzz")
+nnoremap("N", "Nzz")
+nnoremap("J", "mzJ`z")
 
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap J mzJ`z
+-- Breaks undo chain on punctuation
+inoremap(",", ",<C-g>u")
+inoremap(".", ".<C-g>u")
+inoremap("!", "!<C-g>u")
+inoremap("?", "?<C-g>u")
 
-inoremap , ,<C-g>u
-inoremap . .<C-g>u
-inoremap ! !<C-g>u
-inoremap ? ?<C-g>u
-
-nnoremap <leader><leader> <C-^>
-nnoremap <silent> <Tab> :bn<CR>
-nnoremap <silent> <S-Tab> :bp<CR>
-]])
+-- Quick buffer nav
+nnoremap("<leader><leader>", "<C-^>", { silent = true })
+nnoremap("<Tab>", ":bn<CR>", { silent = true })
+nnoremap("<S-Tab>", ":bp<CR>", { silent = true })

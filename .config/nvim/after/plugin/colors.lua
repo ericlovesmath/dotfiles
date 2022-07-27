@@ -5,7 +5,7 @@ let g:onedark_config = {
   \ 'style': 'dark', 
   \ 'ending_tildes': v:true,
   \ 'transparent': v:true,
-  \ 'toggle_style_key': '<leader>ts',
+  \ 'toggle_style_key': '<Nop>',
   \ 'toggle_style_list': ['warm', 'cool', 'dark'],
   \ 'diagnostics': {
     \ 'darker': v:false,

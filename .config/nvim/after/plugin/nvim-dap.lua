@@ -1,5 +1,3 @@
-lua << EOF
-
 local dap = require('dap')
 dap.adapters.firefox = {
   type = 'executable',
@@ -77,8 +75,8 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end ]]
 
 require("nvim-dap-virtual-text").setup()
-EOF
 
+vim.cmd[[
 nnoremap <leader>d_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
 nnoremap <leader>db :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <leader>ds :lua require'dap'.terminate()<CR>
@@ -108,3 +106,4 @@ nnoremap <leader>dv :lua require("dapui").float_element()<CR>
 
 " theHamsta/nvim-dap-virtual-text and mfussenegger/nvim-dap
 " let g:dap_virtual_text = v:true
+]]

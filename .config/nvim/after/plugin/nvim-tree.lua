@@ -1,4 +1,5 @@
-lua << EOF
+local nnoremap = require("keymap").nnoremap
+
 require("nvim-tree").setup({
   update_cwd = true,
   respect_buf_cwd = true,
@@ -21,10 +22,6 @@ require("nvim-tree").setup({
     }
   }
 })
-EOF
 
-nnoremap <leader>n :NvimTreeToggle<CR>
-" nnoremap <leader>m :NvimTreeRefresh<CR>:NvimTreeFindFile<CR>
-
-" au BufEnter,WinEnter NvimTree_1 setlocal laststatus=0
-" au BufLeave,WinLeave NvimTree_1 setlocal laststatus=2
+nnoremap("<leader>n", ":NvimTreeToggle<CR>")
+-- nnoremap("<leader>m", ":NvimTreeRefresh<CR>:NvimTreeFindFile<CR>")
