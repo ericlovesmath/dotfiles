@@ -47,8 +47,8 @@ require("packer").startup(function(use)
 	})
 
 	use("norcalli/nvim-colorizer.lua")
-	use("kyazdani42/nvim-tree.lua")
-	use("kyazdani42/nvim-web-devicons")
+	-- use("kyazdani42/nvim-tree.lua")
+	-- use("kyazdani42/nvim-web-devicons")
 	-- use 'lukas-reineke/indent-blankline.nvim'
 
 	use("navarasu/onedark.nvim")

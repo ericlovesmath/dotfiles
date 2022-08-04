@@ -42,7 +42,7 @@ require("mason-lspconfig").setup_handlers({
 		nvim_lsp[server_name].setup(config())
 	end,
 	["sumneko_lua"] = function()
-		nvim_lsp.sumneko_lua.setup({
+		nvim_lsp.sumneko_lua.setup(config({
 			settings = {
 				Lua = {
 					runtime = {
@@ -60,17 +60,13 @@ require("mason-lspconfig").setup_handlers({
 					},
 				},
 			},
-		})
+		}))
 	end,
 })
 
 -- LSPs not installed with mason.nvim
 nvim_lsp.gdscript.setup(config())
-
--- Prepare for Ultisnips config
-vim.g.UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
-vim.g.UltiSnipsJumpForwardTrigger = "<Plug>(ultisnips_jump_forward)"
-vim.g.UltiSnipsJumpBackwardTrigger = "<Plug>(ultisnips_jump_backward)"
+nvim_lsp.ccls.setup(config())
 
 -- Setup nvim-cmp.
 local cmp = require("cmp")
@@ -133,6 +129,7 @@ local sources = {
 	b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
 	b.formatting.isort,
 	b.formatting.stylua,
+	b.formatting.clang_format,
 
 	b.diagnostics.eslint_d,
 	-- b.diagnostics.flake8,

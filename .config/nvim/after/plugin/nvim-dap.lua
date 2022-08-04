@@ -1,4 +1,5 @@
 local dap = require('dap')
+
 dap.adapters.firefox = {
   type = 'executable',
   command = 'node',

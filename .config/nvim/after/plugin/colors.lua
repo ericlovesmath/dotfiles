@@ -1,18 +1,22 @@
+local onedark = require("onedark")
+
+onedark.setup({
+	style = "dark",
+	ending_tildes = true,
+	transparent = false,
+	toggle_style_key = "<Nop>",
+	toggle_style_list = { "warm", "cool", "dark" },
+    diagnostics = {
+        darker = false,
+        background = false,
+    }
+})
+
+onedark.load()
+
 vim.cmd([[
 " Onedark Color Scheme
 " hi Normal ctermfg=NONE ctermbg=NONE
-let g:onedark_config = {
-  \ 'style': 'dark', 
-  \ 'ending_tildes': v:true,
-  \ 'transparent': v:true,
-  \ 'toggle_style_key': '<Nop>',
-  \ 'toggle_style_list': ['warm', 'cool', 'dark'],
-  \ 'diagnostics': {
-    \ 'darker': v:false,
-    \ 'background': v:false,
-  \ },
-\ }
-colorscheme onedark
 
 " Gruvbox Color Scheme
 " let g:gruvbox_sign_column='none'
