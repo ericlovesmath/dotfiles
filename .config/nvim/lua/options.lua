@@ -19,6 +19,7 @@ o.signcolumn = "yes:2"
 o.updatetime = 50
 o.splitright = true
 o.laststatus = 3
+o.lazyredraw = true
 o.completeopt = {
 	"menu",
 	"menuone",

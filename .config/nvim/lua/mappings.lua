@@ -5,7 +5,6 @@ local vnoremap = Remap.vnoremap
 local tnoremap = Remap.tnoremap
 local silent = { silent = true }
 
-
 vim.g.mapleader = " "
 
 --- Ultisnips

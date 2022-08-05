@@ -39,7 +39,7 @@ require("packer").startup(function(use)
 	})
 
 	use("SirVer/ultisnips")
-	use("honza/vim-snippets")
+	-- use("honza/vim-snippets")
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -72,13 +72,13 @@ require("packer").startup(function(use)
 	use("junegunn/goyo.vim")
 	use("numToStr/Comment.nvim")
 
-	use({
+	--[[ use({
 		"mfussenegger/nvim-dap",
 		requires = {
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
 		},
-	})
+	}) ]]
 
 	use("mattn/emmet-vim")
 	use("jose-elias-alvarez/null-ls.nvim")
@@ -87,8 +87,8 @@ require("packer").startup(function(use)
 
 	use("lewis6991/gitsigns.nvim")
 	use("sindrets/diffview.nvim")
+	use("lewis6991/impatient.nvim")
 	-- use 'habamax/vim-godot'
-	-- use 'puremourning/vimspector'
 
 	if is_bootstrap then
 		require("packer").sync()

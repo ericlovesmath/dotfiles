@@ -1,25 +1,24 @@
 local nvim_lsp = require("lspconfig")
+
 local on_attach = function(client, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
 
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
-	buf_set_keymap("n", "<leader>vd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "<leader>vh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "<leader>vi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "<leader>vsh", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<leader>vrr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "<leader>vrn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	buf_set_keymap("n", "<leader>vca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap("n", "<leader>vsd", "<cmd>lua vim.diagnostic.open_float(nil, {})<CR>", opts)
-	buf_set_keymap("n", "<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-	buf_set_keymap("n", "<space>vf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	local function buf_set_keymap(lhs, rhs)
+		vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
+	end
+
+	buf_set_keymap("<leader>vd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+	buf_set_keymap("<leader>vh", "<cmd>lua vim.lsp.buf.hover()<CR>")
+	buf_set_keymap("<leader>vi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+	buf_set_keymap("<leader>vsh", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+	buf_set_keymap("<leader>vrr", "<cmd>lua vim.lsp.buf.references()<CR>")
+	buf_set_keymap("<leader>vrn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+	buf_set_keymap("<leader>vca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+	buf_set_keymap("<leader>vsd", "<cmd>lua vim.diagnostic.open_float(nil, {})<CR>")
+	buf_set_keymap("<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
+	buf_set_keymap("<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
+	buf_set_keymap("<space>vf", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 	-- 0.8.0 buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', opts)
 end
 
@@ -120,6 +119,8 @@ cmp.setup({
 	},
 })
 
+-- Null LS
+
 local null_ls = require("null-ls")
 local b = null_ls.builtins
 
@@ -134,7 +135,7 @@ local sources = {
 	b.diagnostics.eslint_d,
 	-- b.diagnostics.flake8,
 
-	b.hover.dictionary,
+	-- b.hover.dictionary,
 }
 
 null_ls.setup({

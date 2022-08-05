@@ -114,6 +114,11 @@ _G.packer_plugins = {
     path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/gruvbox-community/gruvbox"
   },
+  ["impatient.nvim"] = {
+    loaded = true,
+    path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -138,21 +143,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
-  },
-  ["nvim-dap"] = {
-    loaded = true,
-    path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/nvim-dap",
-    url = "https://github.com/mfussenegger/nvim-dap"
-  },
-  ["nvim-dap-ui"] = {
-    loaded = true,
-    path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
-    url = "https://github.com/rcarriga/nvim-dap-ui"
-  },
-  ["nvim-dap-virtual-text"] = {
-    loaded = true,
-    path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/nvim-dap-virtual-text",
-    url = "https://github.com/theHamsta/nvim-dap-virtual-text"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -205,11 +195,6 @@ _G.packer_plugins = {
     only_cond = false,
     path = "/Users/ericlee/.local/share/nvim/site/pack/packer/opt/vim-latex-live-preview",
     url = "https://github.com/xuhdev/vim-latex-live-preview"
-  },
-  ["vim-snippets"] = {
-    loaded = true,
-    path = "/Users/ericlee/.local/share/nvim/site/pack/packer/start/vim-snippets",
-    url = "https://github.com/honza/vim-snippets"
   },
   ["vim-startuptime"] = {
     loaded = true,
