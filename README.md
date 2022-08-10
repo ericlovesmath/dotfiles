@@ -2,7 +2,7 @@
 
 ![Neovim Configuration](bin/img/neovim.png)
 
-![Firefox Configuration](bin/img/firefox.png)
+![Firefox and Dock Configuration](bin/img/firefox.png)
 
 Personalized Dotfiles for MacOS with Yabai and Neovim. Shortcuts managed with [skhd](https://github.com/koekeishiya/skhd), [karabiner-elements](https://karabiner-elements.pqrs.org/), [Alfred](https://www.alfredapp.com/)
 
@@ -12,19 +12,16 @@ Personalized Dotfiles for MacOS with Yabai and Neovim. Shortcuts managed with [s
 
 Neovim Installation
 
- - Copy `.config/nvim` to machine
- - Run `nvim`, `:PlugInstall`
- - Restart neovim, `:LspInstall <LSP>`, `TSInstall <TreeSitter Lang>`
+- Copy `.config/nvim` to machine
+- Run `nvim +PackerSync` to install packages
+- `:Mason` to install LSPs, `:TSInstall <Lang>` to install parsers
 
 Neovim Features
 
- - Notetaking configuration with LaTeX or Markdown
- - Native LSP config for many programming languages with Treesitter
- - Nice Statusline and Bufferline
- - < 100ms startup time
+- Notetaking configuration with LaTeX or Markdown
+- Simple and quick LSP configuration and installer
+- < 100ms startup time (On Macbook Pro 2018)
 
 ## Window Management
 
-Window management utilizes Yabai and skhd. 
-
-## TODO
+Window management utilizes [yabai](https://github.com/koekeishiya/yabai) and [skhd](https://github.com/koekeishiya/skhd). [sketchybar](https://github.com/FelixKratz/SketchyBar) creates a simple bar above, with easily configurable modules.
