@@ -58,7 +58,7 @@ yabai -m rule --add app="^Mail$" manage=off
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
-# HEIGHT=$(sketchybar --query bar | jq -r '[.[]][0].height')
-# Y_OFFSET=$(sketchybar --query bar | jq -r '[.[]][0].y_offset')
-#
-# yabai -m config external_bar all:"$(($HEIGHT + $Y_OFFSET))":0
+HEIGHT=$(sketchybar --query bar | jq -r '.height')
+Y_OFFSET=$(sketchybar --query bar | jq -r '.y_offset')
+yabai -m config external_bar all:"$(($HEIGHT + $Y_OFFSET))":0
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"

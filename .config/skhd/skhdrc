@@ -123,9 +123,10 @@ hyper - q : skhd -k "ctrl + shift - pageup"
 meh - e : skhd -k "ctrl - tab"
 hyper - e : skhd -k "ctrl + shift - pagedown"
 
-# Toggles floating window
+# Toggles floating window and centers
 meh - u : yabai -m window --toggle float; \
-        yabai -m window --grid 8:8:1:1:6:6
+        yabai -m window --grid 10:10:1:1:8:8
+hyper - u : yabai -m window --grid 10:10:1:1:8:8
 
 # restart yabai
 hyper - r : \
@@ -133,7 +134,7 @@ hyper - r : \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
     brew services restart yabai; \
    # brew services restart spacebar; \
-    # brew services restart sketchybar; \
+    brew services restart sketchybar; \
     brew services restart skhd
 
 # meh - c : open -na /Applications/Google\ Chrome.app 
@@ -143,7 +144,10 @@ meh - c : /Applications/Firefox.app/Contents/MacOS/firefox
 hyper - c : /Applications/Firefox.app/Contents/MacOS/firefox --args -private-window
 # meh - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox"
 # hyper - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox" --args -private-window
-delete : osascript ~/bin/spotify-toggle.scpt
+
+# Spotify Music
+insert : osascript ~/bin/spotify-toggle.scpt
+delete : osascript ~/bin/spotify-next.scpt
 
 hyper - u : yabai -m window --toggle sticky;\
           yabai -m window --toggle topmost

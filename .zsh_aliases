@@ -55,11 +55,13 @@ alias {mus,music}='~/bin/music-player.sh'
 alias o='open .'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 alias clip='$_ | kitty +kitten clipboard'
+alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 
 hash -d school=$HOME/Desktop/Academics/School-21-22
 hash -d usaco=$HOME/Desktop/Programming/competitive-programming
 hash -d rust=$HOME/Desktop/Programming/rust
 hash -d blog=$HOME/Desktop/Programming/portfolio-eric-lee
+hash -d leetcode=$HOME/Desktop/Programming/leetcode
 hash -d ubersicht=$HOME/Library/Application\ Support/Übersicht/widgets
 hash -d tutor=$HOME/Desktop/Academics/Tutoring
 hash -d caltech=$HOME/Desktop/Academics/Caltech/prefrosh
