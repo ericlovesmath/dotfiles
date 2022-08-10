@@ -20,25 +20,25 @@ require("packer").startup(function(use)
 		},
 	})
 
-	use("neovim/nvim-lspconfig")
+	use({
+		"neovim/nvim-lspconfig",
+		requires = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
+	})
 
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
+			"SirVer/ultisnips",
 			"quangnguyen30192/cmp-nvim-ultisnips",
 		},
 	})
 
-	use({
-		"williamboman/mason.nvim",
-		requires = {
-			"williamboman/mason-lspconfig.nvim",
-		},
-	})
-
-	use("SirVer/ultisnips")
 	-- use("honza/vim-snippets")
 
 	use({
@@ -81,7 +81,6 @@ require("packer").startup(function(use)
 	}) ]]
 
 	use("mattn/emmet-vim")
-	use("jose-elias-alvarez/null-ls.nvim")
 	-- use 'nvim-lua/lsp_extensions.nvim'
 	-- use 'rmagatti/auto-session'
 

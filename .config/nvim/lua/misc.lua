@@ -1,3 +1,4 @@
+-- Disable some builtin vim plugins
 local disabled_built_ins = {
     "netrw",
     "netrwPlugin",

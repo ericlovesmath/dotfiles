@@ -1,7 +1,9 @@
-local nvim_lsp = require("lspconfig")
+local ok, nvim_lsp = pcall(require, "lspconfig")
+if not ok then
+	return
+end
 
 local on_attach = function(client, bufnr)
-
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
 	local function buf_set_keymap(lhs, rhs)
@@ -18,8 +20,8 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("<leader>vsd", "<cmd>lua vim.diagnostic.open_float(nil, {})<CR>")
 	buf_set_keymap("<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
 	buf_set_keymap("<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
-	buf_set_keymap("<space>vf", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-	-- 0.8.0 buf_set_keymap('n', '<space>vf', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', opts)
+	buf_set_keymap("<space>vf", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>")
+	-- < 0.8.0 buf_set_keymap("<space>vf", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 end
 
 -- Required for html/cssls because Microsoft :/
@@ -67,60 +69,7 @@ require("mason-lspconfig").setup_handlers({
 nvim_lsp.gdscript.setup(config())
 nvim_lsp.ccls.setup(config())
 
--- Setup nvim-cmp.
-local cmp = require("cmp")
-cmp.setup({
-	performance = {
-		debounce = 150,
-	},
-	snippet = {
-		expand = function(args)
-			vim.fn["UltiSnips#Anon"](args.body)
-		end,
-	},
-	mapping = {
-		["<Tab>"] = function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-			elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-				vim.api.nvim_feedkeys(
-					vim.api.nvim_replace_termcodes("<Plug>(ultisnips_jump_forward)", true, true, true),
-					"m",
-					true
-				)
-			else
-				fallback()
-			end
-		end,
-		["<S-Tab>"] = function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-			elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-				vim.api.nvim_feedkeys(
-					vim.api.nvim_replace_termcodes("<Plug>(ultisnips_jump_backward)", true, true, true),
-					"m",
-					true
-				)
-			else
-				fallback()
-			end
-		end,
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.close(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-	},
-	sources = {
-		{ name = "ultisnips" },
-		{ name = "nvim_lsp" },
-		{ name = "path" },
-		-- { name = 'nvim_lsp', max_item_count = 10, keyword_length = 3 },
-	},
-})
-
 -- Null LS
-
 local null_ls = require("null-ls")
 local b = null_ls.builtins
 

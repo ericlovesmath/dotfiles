@@ -1,3 +1,8 @@
+setlocal wrap
+setlocal linebreak
+map j gj
+map k gk
+
 let maplocalleader = " "
 
 let g:vimtex_compiler_progname = 'nvr'
@@ -8,6 +13,7 @@ let g:vimtex_complete_enabled = 0
 set conceallevel=1
 let g:tex_conceal='abdmg'
 " highlight Conceal ctermfg=<fg color> ctermbg=<bg color>
+highlight Conceal guifg=#d19a66 guibg=NONE
 
 
 " Default is 500 lines and gave me lags on missed key presses
@@ -59,11 +65,10 @@ function! ImageFromClipboard() abort
   endif
 endfunction
 
-" augroup vimtex_config
-"   au!
-"   au User VimtexEventInitPost VimtexCompile
-"   au User VimtexEventQuit call vimtex#compiler#clean(1)
-" augroup END
+augroup vimtex_config
+    au!
+    au User VimtexEventQuit call vimtex#compiler#clean(0)
+augroup END
 
 set foldmethod=marker
 set fmr=<<<,>>>
