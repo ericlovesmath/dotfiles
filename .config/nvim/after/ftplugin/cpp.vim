@@ -9,3 +9,6 @@ nnoremap <leader>r :w<CR>:vsp<CR>:term cd %:p:h && g++ -std=c++17 %:p -o a.out -
 " nnoremap     <leader>rt    :!for f in %:r.*.test; do echo "TEST: $f"; ./%:r < $f; done<CR>
 
 set foldmethod=marker
+setlocal shiftwidth=4
+setlocal tabstop=4
+setlocal softtabstop=4
