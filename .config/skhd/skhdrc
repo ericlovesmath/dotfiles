@@ -156,4 +156,5 @@ meh - r: osascript ~/bin/click-notification.scpt
 
 # Toggle desktop on macos
 meh - t: ~/bin/toggle-desktop.sh
+meh - v: skhd -k f11
 

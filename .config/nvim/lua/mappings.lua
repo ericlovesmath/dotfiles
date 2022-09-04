@@ -38,8 +38,8 @@ nnoremap("+", "<C-a>")
 nnoremap("-", "<C-x>")
 
 -- Reselecting when indenting multiple times
-nnoremap("<", "<gv")
-nnoremap("<", ">gv")
+vnoremap("<", "<gv")
+vnoremap(">", ">gv")
 
 -- Center screen when moving fast
 nnoremap("n", "nzz")

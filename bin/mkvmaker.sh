@@ -24,3 +24,5 @@ mkv_maker() {
 
     unset LOCAL_SUB LOCAL_SUB_SHORT
 }
+
+mkv_maker

@@ -25,7 +25,6 @@ alias periods='echo "Period 1: AP Mandarin\nPeriod 2: AP Language\nPeriod 3: AP 
 alias mba='ssh Eric@eric-mba.local'
 alias logirestart='pkill LogiVCCoreService; pkill LogiMgrDaemon'
 alias serverbackup='rsync -avz ~/Desktop/ Eric@eric-mba.lan:~/Desktop/MBPDesktopBackup'
-alias ytaudio='~/bin/youtube-audio.bash'
 alias {sched,schedule}='c;py3 ~/bin/bell_schedules.py'
 alias wordclock='py3 ~/bin/word-clock.py'
 alias kalistart='prlctl start "Kali Linux";ssh -l kali -p 2200 127.0.0.1'
@@ -56,6 +55,8 @@ alias o='open .'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 alias clip='$_ | kitty +kitten clipboard'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
+alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
+alias mkvmaker='~/bin/mkvmaker.sh'
 
 hash -d school=$HOME/Desktop/Academics/School-21-22
 hash -d usaco=$HOME/Desktop/Programming/competitive-programming
