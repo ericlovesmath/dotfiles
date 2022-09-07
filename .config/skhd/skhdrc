@@ -134,7 +134,7 @@ hyper - r : \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
     brew services restart yabai; \
    # brew services restart spacebar; \
-    brew services restart sketchybar; \
+    # brew services restart sketchybar; \
     brew services restart skhd
 
 # meh - c : open -na /Applications/Google\ Chrome.app 
