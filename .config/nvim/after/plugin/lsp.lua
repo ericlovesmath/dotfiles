@@ -82,7 +82,7 @@ local sources = {
 	b.formatting.clang_format,
     -- b.formatting.asmfmt,
 
-	b.diagnostics.eslint_d,
+	-- b.diagnostics.eslint_d,
 	-- b.diagnostics.flake8,
 
 	-- b.hover.dictionary,

@@ -10,5 +10,5 @@ require("plugins")
 require("misc")
 
 -- lewis6991/impatient.nvim
--- Speeds up config by ~23%
+-- Speeds up config by ~25%
 require("impatient")

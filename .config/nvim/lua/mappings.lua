@@ -36,6 +36,10 @@ nnoremap("<leader>yy", '"+yy')
 -- Increment and Decrement mapping
 nnoremap("+", "<C-a>")
 nnoremap("-", "<C-x>")
+vnoremap("+", "<C-a>")
+vnoremap("-", "<C-x>")
+vnoremap("g+", "g<C-a>")
+vnoremap("g-", "g<C-x>")
 
 -- Reselecting when indenting multiple times
 vnoremap("<", "<gv")
