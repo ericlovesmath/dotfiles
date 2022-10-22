@@ -26,7 +26,7 @@ yabai -m config window_border_width 3
 yabai -m config active_window_border_color   0xff8E83B8
 yabai -m config insert_window_border_color   0xff8E83B8
 yabai -m config normal_window_border_color   0xff8E83B8
-#yabai -m config normal_window_border_color   0xff51425C
+# yabai -m config normal_window_border_color   0xff51425C
 
 yabai -m config window_placement second_child
 #yabai -m rule --add app=Terminal border=off
@@ -64,6 +64,8 @@ HEIGHT=$(sketchybar --query bar | jq -r '.height')
 Y_OFFSET=$(sketchybar --query bar | jq -r '.y_offset')
 yabai -m config external_bar all:"$(($HEIGHT + $Y_OFFSET))":0
 yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+
+yabai -m config window_animation_duration    0.10
 
 # mouse stuff
 # yabai -m config mouse_modifier             cmd

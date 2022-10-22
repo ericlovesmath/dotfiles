@@ -12,5 +12,3 @@ for(1..<>){chomp($x=<>);print(index($x,$k)!=-1?"yes
 read;awk '{m=$2-$1;m=m<0?-m:m;print(m>50?100-m:m)}'
 
 sed -r "s/\b(\w'?\w)+\b/\U&/g"
-
-

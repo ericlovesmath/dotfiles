@@ -20,7 +20,7 @@ Neovim Features
 
 - Notetaking configuration with LaTeX or Markdown
 - Simple and quick LSP configuration and installer
-- < 100ms startup time (On Macbook Pro 2018)
+- <50ms startup time (On M1 Macbook)
 
 ## Window Management
 

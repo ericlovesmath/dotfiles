@@ -132,9 +132,8 @@ hyper - u : yabai -m window --grid 10:10:1:1:8:8
 hyper - r : \
     osascript -e \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
+    brew services restart sketchybar; \
     brew services restart yabai; \
-   # brew services restart spacebar; \
-    # brew services restart sketchybar; \
     brew services restart skhd
 
 # meh - c : open -na /Applications/Google\ Chrome.app 

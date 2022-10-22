@@ -8,6 +8,8 @@ hide_cursor() { tput civis; }
 trap show_cursor INT TERM
 hide_cursor
 
+sleep 1;
+
 # Internal settings
 REDIRECT_URL="https://localhost:8888/callback"
 
