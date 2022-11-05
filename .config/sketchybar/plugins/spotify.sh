@@ -23,5 +23,5 @@ if [ $RUNNING -eq 0 ] && [ $PLAYING -eq 0 ]; then
     sketchybar --set $NAME label=" $TRACK - $ARTIST" --set '/spotify.*/' drawing=on
   fi
 else
-  sketchybar --set $NAME label="" --set '/spotify.*/' drawing=on
+  sketchybar --set $NAME label="" --set '/spotify.*/' drawing=on
 fi
