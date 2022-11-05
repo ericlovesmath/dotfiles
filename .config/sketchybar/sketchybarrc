@@ -65,11 +65,11 @@ source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/calendar.sh"
 # source "$ITEM_DIR/spotify.sh"
 
-sketchybar --add item spotify right \
-           --set spotify update_freq=10 \
-                      icon.drawing=off \
-                      updates=on \
-                      script="$PLUGIN_DIR/spotify.sh" \
+sketchybar --add        event     spotify_change "com.spotify.client.PlaybackStateChanged"
+sketchybar --add        item      spotify right                   \
+           --subscribe  spotify   spotify_change                  \
+           --set        spotify   icon.drawing=off                \
+                                  script="$PLUGIN_DIR/spotify.sh" \
 
 ############## FINALIZING THE SETUP ##############
 sketchybar --update

@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# osascript -e 'display notification "Lorem ipsum dolor sit amet" with title "Alert"'
+
 RUNNING=$(osascript -e 'if application "Spotify" is running then return 0')
 if [ "$RUNNING" == "" ]; then
   RUNNING=1
@@ -16,10 +18,10 @@ if [ "$(osascript -e 'if application "Spotify" is running then tell application 
 fi
 if [ $RUNNING -eq 0 ] && [ $PLAYING -eq 0 ]; then
   if [ "$ARTIST" == "" ]; then
-    sketchybar --set $NAME label=" $TRACK - $ALBUM" --set '/spot.*/' drawing=on
+    sketchybar --set $NAME label=" $TRACK - $ALBUM" --set '/spotify.*/' drawing=on
   else
-    sketchybar --set $NAME label=" $TRACK - $ARTIST" --set '/spot.*/' drawing=on
+    sketchybar --set $NAME label=" $TRACK - $ARTIST" --set '/spotify.*/' drawing=on
   fi
 else
-  sketchybar --set '/spot.*/' drawing=off
+  sketchybar --set $NAME label="" --set '/spotify.*/' drawing=on
 fi
