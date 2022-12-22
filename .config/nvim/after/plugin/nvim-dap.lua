@@ -6,6 +6,23 @@ dap.adapters.firefox = {
   args = {vim.fn.stdpath("data") .. '/dap/vscode-firefox-debug/dist/adapter.bundle.js'},
 }
 
+dap.adapters.java = function(callback)
+  callback({
+    type = 'server';
+    host = '127.0.0.1';
+  })
+end
+
+dap.configurations.java = {
+  {
+    type = 'java';
+    request = 'attach';
+    name = "Debug (Attach) - Remote";
+    hostName = "127.0.0.1";
+    port = 5005;
+  },
+}
+
 dap.configurations.typescript = {
   {
   name = 'Debug with Firefox',
@@ -14,12 +31,11 @@ dap.configurations.typescript = {
   reAttach = true,
   url = 'http://localhost:3000',
   webRoot = '${workspaceFolder}',
-  -- firefoxExecutable = '/usr/bin/firefox'
   firefoxExecutable = '/Applications/Firefox Nightly.app/Contents/MacOS/firefox'
-  -- firefoxExecutable = '/usr/bin/firefox'
   -- firefoxExecutable = '/Applications/Firefox.app/Contents/MacOS/firefox'
   },
 }
+
 -- vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
 -- vim.fn.sign_define('DapStopped', {text='⭐️', texthl='', linehl='', numhl=''})
 

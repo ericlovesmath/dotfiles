@@ -75,13 +75,13 @@ require("packer").startup(function(use)
 	use("junegunn/goyo.vim")
 	use("numToStr/Comment.nvim")
 
-	--[[ use({
+	use({
 		"mfussenegger/nvim-dap",
 		requires = {
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
 		},
-	}) ]]
+	})
 
 	use("mattn/emmet-vim")
 	-- use 'nvim-lua/lsp_extensions.nvim'

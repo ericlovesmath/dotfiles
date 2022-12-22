@@ -46,15 +46,23 @@ vnoremap("<", "<gv")
 vnoremap(">", ">gv")
 
 -- Center screen when moving fast
-nnoremap("n", "nzz")
-nnoremap("N", "Nzz")
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
 nnoremap("J", "mzJ`z")
+
+-- Move Blocks of Code
+vnoremap("J", ":m '>+1<CR>gv=gv")
+vnoremap("K", ":m '<-2<CR>gv=gv")
 
 -- Breaks undo chain on punctuation
 inoremap(",", ",<C-g>u")
 inoremap(".", ".<C-g>u")
 inoremap("!", "!<C-g>u")
 inoremap("?", "?<C-g>u")
+
+-- Centers Scrolling
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("<C-u>", "<C-u>zz")
 
 -- Quick buffer nav
 nnoremap("<leader><leader>", "<C-^>", silent)
