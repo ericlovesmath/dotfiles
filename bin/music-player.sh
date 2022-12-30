@@ -32,7 +32,7 @@ case $1 in
         fi;;
 esac # > /dev/null
 
-spt playback --status -f "%t - %a"
+# spt playback --status -f "%t - %a"
 #spt playback --status -f "%r // %f %s"
 
 # Notes
