@@ -66,6 +66,7 @@ yabai -m config external_bar all:"$(($HEIGHT + $Y_OFFSET))":0
 yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
 
 yabai -m config window_animation_duration    0.10
+yabai -m config window_border_blur off
 
 # mouse stuff
 # yabai -m config mouse_modifier             cmd

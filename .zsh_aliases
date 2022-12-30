@@ -64,4 +64,4 @@ hash -d blog=$HOME/Desktop/Programming/portfolio-eric-lee
 hash -d leetcode=$HOME/Desktop/Programming/leetcode
 hash -d ubersicht=$HOME/Library/Application\ Support/Übersicht/widgets
 hash -d tutor=$HOME/Desktop/Academics/Tutoring
-hash -d caltech=$HOME/Desktop/Academics/Caltech/prefrosh/fall-2022/
+hash -d caltech=$HOME/Desktop/Academics/Caltech/prefrosh/courses/fall-2022
