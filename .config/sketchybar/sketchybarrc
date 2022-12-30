@@ -6,7 +6,7 @@ source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
 
-FONT="MesloLGS NF" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
+FONT="MesloLGS Nerd Font" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 ICON_FONT="Font Awesome 5 Free" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null" # The script that is run for clicking on space components
 
@@ -63,30 +63,8 @@ source "$ITEM_DIR/battery.sh"
 # source "$ITEM_DIR/cpu_temp.sh"
 # source "$ITEM_DIR/mail.sh"
 source "$ITEM_DIR/calendar.sh"
-# source "$ITEM_DIR/spotify.sh"
+source "$ITEM_DIR/spotify.sh"
 
-SPOTIFY_PLAY="osascript -e 'tell application \"Spotify\" to playpause'"
-SPOTIFY_NEXT="osascript -e 'tell application \"Spotify\" to play next track'"
-SPOTIFY_PREV="osascript -e 'tell application \"Spotify\" to play previous track'"
-sketchybar --add        event     spotify_change "com.spotify.client.PlaybackStateChanged"
-
-sketchybar --add        item           spotify_next right           \
-           --subscribe  spotify_next   spotify_change               \
-           --set        spotify_next   label=""                    \
-                                       icon.drawing=off                \
-                                       click_script="$SPOTIFY_NEXT"
-
-sketchybar --add        item      spotify right                   \
-           --subscribe  spotify   spotify_change                  \
-           --set        spotify   icon.drawing=off                \
-                                  script="$PLUGIN_DIR/spotify.sh" \
-                                  click_script="$SPOTIFY_PLAY"
-
-sketchybar --add        item           spotify_prev right           \
-           --subscribe  spotify_prev   spotify_change               \
-           --set        spotify_prev   label=""                    \
-                                       icon.drawing=off            \
-                                       click_script="$SPOTIFY_PREV"
 
 ############## FINALIZING THE SETUP ##############
 sketchybar --update
