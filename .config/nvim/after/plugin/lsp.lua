@@ -4,7 +4,7 @@ if not ok then
 end
 
 local on_attach = function(client, bufnr)
-	-- Mappings.
+	-- Mappings
 	local opts = { noremap = true, silent = true }
 	local function buf_set_keymap(lhs, rhs)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
@@ -21,16 +21,14 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
 	buf_set_keymap("<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
 	buf_set_keymap("<space>vf", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>")
-	-- < 0.8.0 buf_set_keymap("<space>vf", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 end
 
--- Required for html/cssls because Microsoft :/
--- local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- Required for html/cssls because Microsoft
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local function config(_config)
 	return vim.tbl_deep_extend("force", {
-		-- capabilities = capabilities,
 		on_attach = on_attach,
 	}, _config or {})
 end
@@ -63,6 +61,17 @@ require("mason-lspconfig").setup_handlers({
 			},
 		}))
 	end,
+	["jdtls"] = function() end, -- Use nvim-jdtls instead
+	["html"] = function()
+		nvim_lsp.html.setup(config({
+			capabilities = capabilities,
+		}))
+	end,
+	["cssls"] = function()
+		nvim_lsp.cssls.setup(config({
+			capabilities = capabilities,
+		}))
+	end,
 })
 
 -- LSPs not installed with mason.nvim
@@ -73,22 +82,18 @@ nvim_lsp.ccls.setup(config())
 local null_ls = require("null-ls")
 local b = null_ls.builtins
 
-local sources = {
-	b.formatting.prettierd,
-	b.formatting.shfmt,
-	b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
-	b.formatting.isort,
-	b.formatting.stylua,
-	b.formatting.clang_format,
-    -- b.formatting.asmfmt,
-
-	-- b.diagnostics.eslint_d,
-	-- b.diagnostics.flake8,
-
-	-- b.hover.dictionary,
-}
-
 null_ls.setup({
-	sources = sources,
+	sources = {
+		b.formatting.prettierd,
+		b.formatting.shfmt,
+		b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
+		b.formatting.isort,
+		b.formatting.stylua,
+		b.formatting.clang_format,
+		b.formatting.asmfmt,
+
+		-- b.diagnostics.eslint_d,
+		-- b.diagnostics.flake8,
+	},
 	on_attach = on_attach,
 })

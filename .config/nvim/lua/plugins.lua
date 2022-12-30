@@ -26,6 +26,7 @@ require("packer").startup(function(use)
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
+			"mfussenegger/nvim-jdtls",
 		},
 	})
 
@@ -39,12 +40,10 @@ require("packer").startup(function(use)
 		},
 	})
 
-	-- use("honza/vim-snippets")
-
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		requires = {
-            "nvim-treesitter/nvim-treesitter-context",
+			"nvim-treesitter/nvim-treesitter-context",
 		},
 		run = ":TSUpdate",
 	})
@@ -84,8 +83,6 @@ require("packer").startup(function(use)
 	})
 
 	use("mattn/emmet-vim")
-	-- use 'nvim-lua/lsp_extensions.nvim'
-	-- use 'rmagatti/auto-session'
 
 	use("lewis6991/gitsigns.nvim")
 	use("sindrets/diffview.nvim")
