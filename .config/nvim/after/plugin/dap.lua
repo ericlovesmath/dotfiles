@@ -43,12 +43,12 @@ require("dapui").setup({
 				{ id = "scopes", size = 0.35 },
 				{ id = "watches", size = 0.35 },
 			},
-			size = 50,
+			size = 40,
 			position = "left",
 		},
 		{
 			elements = { "repl" },
-			size = 10,
+			size = 1,
 			position = "bottom",
 		},
 	},
@@ -74,6 +74,7 @@ nnoremap("<leader>dt", ":lua require('dap').repl.open({}, 'vsplit')<CR><C-w>l")
 
 nnoremap("<leader>dk", ":lua require('dap').up()<CR>")
 nnoremap("<leader>dj", ":lua require('dap').down()<CR>")
+
 -- nnoremap <S-k> :lua require'dap'.step_out()<CR>
 -- nnoremap <S-l> :lua require'dap'.step_into()<CR>
 -- nnoremap <S-j> :lua require'dap'.step_over()<CR>
