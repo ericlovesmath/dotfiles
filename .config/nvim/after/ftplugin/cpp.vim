@@ -1,4 +1,4 @@
-"nnoremap <leader>r :w<CR>:vsp<CR>:term python3 "%:p"<CR><C-\><C-n>
+" nnoremap <leader>r :w<CR>:vsp<CR>:term python3 "%:p"<CR><C-\><C-n>
 " set makeprg=g++\ -o\ %<\ %
 " nnoremap <leader>r :make<cr>
 nnoremap <leader>r :w<CR>:vsp<CR>:term cd %:p:h && g++ -std=c++17 %:p -o a.out -Wall -Wextra -Wshadow && ./a.out<CR><C-\><C-n>
