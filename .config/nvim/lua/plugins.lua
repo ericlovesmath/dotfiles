@@ -89,6 +89,13 @@ require("packer").startup(function(use)
 	use("lewis6991/impatient.nvim")
 	-- use 'habamax/vim-godot'
 
+	use({
+		"folke/zen-mode.nvim",
+		requires = {
+			"folke/twilight.nvim",
+		},
+	})
+
 	if is_bootstrap then
 		require("packer").sync()
 	end

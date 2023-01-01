@@ -16,7 +16,7 @@ dap.adapters.codelldb = {
 	},
 }
 
-dap.configurations.cpp = {
+local CODELLDB_CONFIG = {
 	{
 		name = "Launch file",
 		type = "codelldb",
@@ -29,8 +29,9 @@ dap.configurations.cpp = {
 	},
 }
 
-dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
+dap.configurations.cpp = CODELLDB_CONFIG
+dap.configurations.c = CODELLDB_CONFIG
+dap.configurations.rust = CODELLDB_CONFIG
 
 dap.adapters.firefox = {
 	type = "executable",
@@ -99,7 +100,6 @@ nnoremap("<leader>d_", ":lua require('dap').disconnect();require('dap').close();
 nnoremap("<leader>db", ":lua require('dap').toggle_breakpoint()<CR>")
 nnoremap("<leader>ds", ":lua require('dap').terminate()<CR>")
 nnoremap("<leader>dn", ":lua require('dap').continue()<CR>")
-nnoremap("<leader>dt", ":lua require('dap').repl.open({}, 'vsplit')<CR><C-w>l")
 
 nnoremap("<leader>dk", ":lua require('dap').up()<CR>")
 nnoremap("<leader>dj", ":lua require('dap').down()<CR>")
