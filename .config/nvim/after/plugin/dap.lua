@@ -1,3 +1,5 @@
+--[[ DISABLE
+
 local dap = require("dap")
 
 local Remap = require("keymap")
@@ -78,7 +80,7 @@ require("dapui").setup({
 		},
 		{
 			elements = { "repl" },
-			size = 1,
+			size = 10,
 			position = "bottom",
 		},
 	},
@@ -113,3 +115,5 @@ nnoremap("<leader>dh", ":lua require('dapui').eval()<CR>")
 nnoremap("<leader>dv", ":lua require('dapui').float_element()<CR>")
 
 -- nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+
+]]--

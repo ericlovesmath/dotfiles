@@ -11,6 +11,6 @@ require("zen-mode").setup({
 		},
 	},
 	plugins = {
-		twilight = { enabled = true },
+		twilight = { enabled = false },
 	},
 })
