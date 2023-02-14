@@ -40,8 +40,8 @@ require("mason-lspconfig").setup_handlers({
 	function(server_name)
 		nvim_lsp[server_name].setup(config())
 	end,
-	["sumneko_lua"] = function()
-		nvim_lsp.sumneko_lua.setup(config({
+	["lua_ls"] = function()
+		nvim_lsp.lua_ls.setup(config({
 			settings = {
 				Lua = {
 					runtime = {
