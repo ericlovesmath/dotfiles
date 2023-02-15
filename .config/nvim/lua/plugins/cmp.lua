@@ -1,4 +1,14 @@
-local function config()
+local M = {
+	"hrsh7th/nvim-cmp",
+	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-path",
+		"SirVer/ultisnips",
+		"quangnguyen30192/cmp-nvim-ultisnips",
+	},
+}
+
+function M.config()
 	local cmp = require("cmp")
 
 	cmp.setup({
@@ -56,13 +66,4 @@ local function config()
 	})
 end
 
-return {
-	"hrsh7th/nvim-cmp",
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-path",
-		"SirVer/ultisnips",
-		"quangnguyen30192/cmp-nvim-ultisnips",
-	},
-	config = config,
-}
+return M
