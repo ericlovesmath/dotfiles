@@ -4,10 +4,9 @@
     Github: https://github.com/ericlovesmath
 --]]
 
-require("options")
-require("mappings")
-require("plugins")
-require("misc")
+require("config.options")
+require("config.mappings")
+require("config.lazy")
 
 -- lewis6991/impatient.nvim
 -- Speeds up config by ~25%
