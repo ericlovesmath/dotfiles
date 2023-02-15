@@ -1,38 +1,4 @@
-local ok, onedark = pcall(require, "onedark")
-if not ok then
-	return
-end
-
-onedark.setup({
-	style = "dark",
-	ending_tildes = true,
-	transparent = false,
-	toggle_style_key = "<Nop>",
-	toggle_style_list = { "warm", "cool", "dark" },
-    diagnostics = {
-        darker = false,
-        background = false,
-    }
-})
-
-onedark.load()
-
 vim.cmd([[
-" Onedark Color Scheme
-" hi Normal ctermfg=NONE ctermbg=NONE
-
-" Gruvbox Color Scheme
-" let g:gruvbox_sign_column='none'
-" let g:gruvbox_color_column='none'
-" let g:gruvbox_italic=1
-" let g:gruvbox_termcolors=16
-" colorscheme gruvbox
-
-" hi SignColumn guibg=none
-" hi CursorLineNR guibg=none
-" hi Normal guibg=none
-" hi TelescopeBorder guifg=#5eacd3
-
 " Status Line
 let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL",
     \ "V": "V·LINE", "\<C-V>": "V·BLOCK", "s": "SELECT", "S": "S·LINE", "^S": "S·BLOCK",

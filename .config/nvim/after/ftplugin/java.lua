@@ -1,8 +1,5 @@
 local nnoremap = require("keymap").nnoremap
 
--- nnoremap("<leader>r", ":w<CR>:vsp<CR>:term javac %:p;java %:p<CR><C-\\><C-n>")
-nnoremap("<leader>r", ":w<CR>:vsp<CR>:term javac %:p:h/*.java && java %:p<CR><C-\\><C-n>")
-
 -- Java Test Debugger Keybinds
 nnoremap("<leader>df", ":lua require('jdtls').test_class()<CR>")
 nnoremap("<leader>dm", ":lua require('jdtls').test_nearest_method()<CR>")

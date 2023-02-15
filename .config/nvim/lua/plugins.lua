@@ -1,102 +1,14 @@
--- Install packer if not installed
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local is_bootstrap = false
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	is_bootstrap = true
-	vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-	vim.cmd([[packadd packer.nvim]])
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Packer installations
-require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-
-	use({
-		"nvim-telescope/telescope.nvim",
-		requires = {
-			"nvim-lua/popup.nvim",
-			"nvim-lua/plenary.nvim",
-		},
-	})
-
-	use({
-		"neovim/nvim-lspconfig",
-		requires = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-			"mfussenegger/nvim-jdtls",
-		},
-	})
-
-	use({
-		"hrsh7th/nvim-cmp",
-		requires = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
-			"SirVer/ultisnips",
-			"quangnguyen30192/cmp-nvim-ultisnips",
-		},
-	})
-
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		requires = {
-			"nvim-treesitter/nvim-treesitter-context",
-		},
-		run = ":TSUpdate",
-	})
-
-	use("norcalli/nvim-colorizer.lua")
-	-- use("kyazdani42/nvim-tree.lua")
-	-- use("kyazdani42/nvim-web-devicons")
-	-- use 'lukas-reineke/indent-blankline.nvim'
-
-	use("navarasu/onedark.nvim")
-	use("gruvbox-community/gruvbox")
-	-- use 'sainnhe/sonokai'
-
-	use("tpope/vim-surround")
-	use("ahmedkhalf/project.nvim")
-	use("dstein64/vim-startuptime")
-
-	use({
-		"lervag/vimtex",
-		ft = { "tex", "markdown" },
-	})
-
-	use({
-		"xuhdev/vim-latex-live-preview",
-		ft = { "tex" },
-	})
-
-	use("junegunn/goyo.vim")
-	use("numToStr/Comment.nvim")
-
-	use({
-		"mfussenegger/nvim-dap",
-		requires = {
-			"rcarriga/nvim-dap-ui",
-			"theHamsta/nvim-dap-virtual-text",
-		},
-	})
-
-	use("mattn/emmet-vim")
-
-	use("lewis6991/gitsigns.nvim")
-	use("sindrets/diffview.nvim")
-	use("lewis6991/impatient.nvim")
-	-- use 'habamax/vim-godot'
-
-	use({
-		"folke/zen-mode.nvim",
-		requires = {
-			"folke/twilight.nvim",
-		},
-	})
-
-	if is_bootstrap then
-		require("packer").sync()
-	end
-end)
+require("lazy").setup("plugins")
