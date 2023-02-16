@@ -62,6 +62,6 @@ for _, ft in pairs({ "cpp" }) do
     autocmd("Filetype", {
         group = "EnableFolding",
         pattern = ft,
-        command = "setlocal foldmethod=marker"
+        command = "setlocal foldmethod=marker",
     })
 end
