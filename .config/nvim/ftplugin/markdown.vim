@@ -1,8 +1,7 @@
 setlocal wrap
 setlocal linebreak
-" setlocal spell
-setlocal spellsuggest+=5
 setlocal breakindent
+
 " setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
 setlocal breakindentopt=shift:0,list:-1
 
@@ -16,8 +15,6 @@ syntax match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 " nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
 nnoremap <leader>r :w<CR>:!~/bin/buildnote.sh "%:p"<CR>
 nnoremap <leader>o :silent exec "!open -a Skim.app %:r.pdf"<CR>
-
-"autocmd BufWritePre !~/bin/buildnote.sh "%:p"<CR>
 
 nnoremap <silent> <leader>i :call ImageFromClipboard()<CR>
 
@@ -125,6 +122,3 @@ nnoremap <Leader>c :call ToggleCheckbox()<CR>
 
 set conceallevel=2
 autocmd BufNewFile,BufRead *.md call vimtex#init()
-
-" Abbreviations
-" ab short_string Longer Description

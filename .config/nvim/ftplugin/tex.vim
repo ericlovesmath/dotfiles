@@ -79,19 +79,3 @@ augroup END
 set foldmethod=marker
 set fmr=<<<,>>>
 set fillchars=fold:\ 
-
-" Key maps for VimTex
-
-" <localleader>lI Show Vimtex Info
-" <localleader>lt Show Table of Contents
-" <localleader>lv Show current line on pdf
-" <localleader>ll Compiler Start
-" <localleader>lk Compiler Stop
-" <localleader>le Show Errors
-" <localleader>lc Clean Compiler
-
-" dse Delete Surrounding Environment
-" dsc Delete Surrounding Command
-" ds$ Delete Surrounding Math
-" ]] [[ [] ][
-" % ac ic ad id

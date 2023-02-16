@@ -8,7 +8,5 @@ setlocal breakindentopt=shift:0,list:-1
 
 syntax match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
-au TermOpen * setlocal nospell
-
 map j gj
 map k gk
