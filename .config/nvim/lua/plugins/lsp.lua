@@ -21,6 +21,9 @@ function M.config()
 			vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
 		end
 
+        -- Disable highlighting from LSP as TreeSitter takes care of it
+        client.server_capabilities.semanticTokensProvider = nil
+
 		buf_set_keymap("<leader>vd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 		buf_set_keymap("<leader>vh", "<cmd>lua vim.lsp.buf.hover()<CR>")
 		buf_set_keymap("<leader>vi", "<cmd>lua vim.lsp.buf.implementation()<CR>")

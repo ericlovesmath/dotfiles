@@ -6,6 +6,7 @@ setlocal breakindent
 setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
 setlocal breakindentopt=shift:0,list:-1
 
+syntax match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
 au TermOpen * setlocal nospell
 

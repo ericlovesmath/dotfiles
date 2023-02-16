@@ -1,24 +1,21 @@
-local function onedark_config()
-	require("onedark").setup({
-		style = "dark",
-		ending_tildes = true,
-		transparent = false,
-		toggle_style_key = "<Nop>",
-		toggle_style_list = { "warm", "cool", "dark" },
-		diagnostics = {
-			darker = false,
-			background = false,
-		},
-	})
-
-	require("onedark").load()
-end
-
 return {
 	{
 		"navarasu/onedark.nvim",
 		priority = 1000,
-		config = onedark_config,
+		config = function()
+			require("onedark").setup({
+				style = "dark",
+				ending_tildes = true,
+				transparent = false,
+				toggle_style_key = "<Nop>",
+				toggle_style_list = { "warm", "cool", "dark" },
+				diagnostics = {
+					darker = false,
+					background = false,
+				},
+			})
+			require("onedark").load()
+		end,
 	},
 	{
 		"gruvbox-community/gruvbox",
