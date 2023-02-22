@@ -34,6 +34,7 @@ alias vrc='cd ~/.config/nvim'
 alias ctfread='touch README.md;echo -e "# TITLE\nPoints: POINTS\n## Problem Statement\n> PROBLEM\n## Hints\n> None used\n## Solution\nSOLUTION\n## Flag\n\`FLAG\`" >> README.md; nvim README.md'
 alias ..='cd ./..'
 alias ...='cd ./../..'
+alias ....='cd ./../../..'
 alias {:q,:q!,:wq,:wq!,:Q}='exit'
 alias {dotfiles,dots}='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias sus='function _sus(){echo " 　.　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　.\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n　　ﾟ　　 $1 was not An Impostor.　 。　.\n　　'"'"'　　　 1 Impostor remains 　 　　。\n　　ﾟ　　　.　　　. ,　　　　.　 ."};_sus'
@@ -56,6 +57,9 @@ alias clip='$_ | kitty +kitten clipboard'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
 alias mkvmaker='~/bin/mkvmaker.sh'
+alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G"'
+alias food="open 'https://dining.caltech.edu/where-to-eat-#browne-dining-hall-a2962b99-tab' 'https://dining.caltech.edu/board-program#updates-3c945037-tab'"
+alias ohio="open 'https://www.youtube.com/watch?v=ZgymWemivLQ'"
 
 hash -d school=$HOME/Desktop/Academics/School-21-22
 hash -d usaco=$HOME/Desktop/Programming/competitive-programming
@@ -64,4 +68,4 @@ hash -d blog=$HOME/Desktop/Programming/portfolio-eric-lee
 hash -d leetcode=$HOME/Desktop/Programming/leetcode
 hash -d ubersicht=$HOME/Library/Application\ Support/Übersicht/widgets
 hash -d tutor=$HOME/Desktop/Academics/Tutoring
-hash -d caltech=$HOME/Desktop/Academics/Caltech/prefrosh/courses/fall-2022
+hash -d caltech=$HOME/Desktop/Academics/Caltech/frosh/winter-2022
