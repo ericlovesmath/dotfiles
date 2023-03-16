@@ -5,7 +5,7 @@ POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
 
 sketchybar --add item           apple.logo left                             \
                                                                             \
-           --set apple.logo     icon=~/$(whoami) \                           \
+           --set apple.logo     icon=~/$(whoami) \                          \
                                 icon.font="$FONT:Bold:16.0"                 \
                                 icon.color=$GREEN                           \
                                 background.padding_left=5                   \

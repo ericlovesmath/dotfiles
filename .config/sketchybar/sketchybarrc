@@ -61,11 +61,10 @@ source "$ITEM_DIR/messages.sh"
 source "$ITEM_DIR/mail.sh"
 
 # Right
-source "$ITEM_DIR/battery.sh"
 # source "$ITEM_DIR/cpu_temp.sh"
+source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/calendar.sh"
 source "$ITEM_DIR/spotify.sh"
-
 
 ############## FINALIZING THE SETUP ##############
 sketchybar --update
