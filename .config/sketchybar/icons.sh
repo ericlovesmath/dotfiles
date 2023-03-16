@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+MESSAGE=
+
 # General Icons
 LOADING=􀖇
 PREFERENCES=􀺽
