@@ -120,5 +120,5 @@ endf
 
 nnoremap <Leader>c :call ToggleCheckbox()<CR>
 
-set conceallevel=2
-autocmd BufNewFile,BufRead *.md call vimtex#init()
+" set conceallevel=2
+" autocmd BufNewFile,BufRead *.md call vimtex#init()

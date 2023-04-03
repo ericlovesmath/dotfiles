@@ -2,7 +2,8 @@
 
 sketchybar --add item  messages left                          \
            --subscribe messages system_woke                   \
-           --set       messages update_freq=120               \
+           --set       messages update_freq=60                \
+                       updates=on                             \
                        script="$PLUGIN_DIR/messages.sh"       \
                        click_script="$PLUGIN_DIR/messages.sh" \
                        icon.padding_left=22                   \

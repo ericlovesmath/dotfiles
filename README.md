@@ -13,14 +13,14 @@ Personalized Dotfiles for MacOS with Yabai and Neovim. Shortcuts managed with [s
 Neovim Installation
 
 - Copy `.config/nvim` to machine
-- Run `nvim +PackerSync` to install packages
+- Run `:Lazy` to install packages
 - `:Mason` to install LSPs, `:TSInstall <Lang>` to install parsers
 
 Neovim Features
 
 - Notetaking configuration with LaTeX or Markdown
 - Simple and quick LSP configuration and installer
-- <50ms startup time (On M1 Macbook)
+- <20ms startup time (On M1 Macbook)
 
 ## Window Management
 

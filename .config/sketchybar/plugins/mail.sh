@@ -12,6 +12,6 @@ if [ "$RUNNING" = "0" ]; then
     sketchybar --set $NAME drawing=off
   fi
 else
-  sketchybar --set $NAME label="!" icon=$MAIL
+  sketchybar --set $NAME label="!" icon=$MAIL drawing=on
 fi
 

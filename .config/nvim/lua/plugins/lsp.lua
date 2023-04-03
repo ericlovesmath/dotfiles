@@ -86,6 +86,25 @@ function M.config()
                 capabilities = capabilities,
             }))
         end,
+        ["rust_analyzer"] = function()
+            nvim_lsp.rust_analyzer.setup(config({
+                settings = {
+                    ["rust-analyzer"] = {
+                        check = {
+                            allFeatures = true,
+                            overrideCommand = {
+                                "cargo",
+                                "clippy",
+                                "--workspace",
+                                "--message-format=json",
+                                "--all-targets",
+                                "--all-features",
+                            },
+                        },
+                    },
+                },
+            }))
+        end,
     })
 
     -- LSPs not installed with mason.nvim

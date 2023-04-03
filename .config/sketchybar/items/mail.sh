@@ -2,7 +2,8 @@
 
 sketchybar --add item  mail left                          \
            --subscribe mail system_woke                   \
-           --set       mail update_freq=120               \
+           --set       mail update_freq=60                \
+                       updates=on                         \
                        script="$PLUGIN_DIR/mail.sh"       \
                        click_script="$PLUGIN_DIR/mail.sh" \
                        icon.padding_left=22               \
