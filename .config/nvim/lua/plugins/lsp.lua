@@ -124,6 +124,7 @@ function M.config()
             b.formatting.stylua,
             b.formatting.clang_format,
             b.formatting.asmfmt,
+            b.formatting.ocamlformat,
 
             -- b.diagnostics.eslint_d,
             -- b.diagnostics.flake8,
