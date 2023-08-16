@@ -69,3 +69,6 @@ export PATH="/Users/ericlee/.cargo/bin:$PATH"
 
 PROMPT_EOL_MARK=''
 source $HOME/.zsh_aliases
+
+# opam configuration
+[[ ! -r /Users/ericlee/.opam/opam-init/init.zsh ]] || source /Users/ericlee/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
