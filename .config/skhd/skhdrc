@@ -110,9 +110,9 @@ meh - f : yabai -m window --toggle zoom-fullscreen
 #ctrl + alt - a : yabai -m space --layout bsp
 #ctrl + alt - d : yabai -m space --layout float
 
-# opens iTerm2
-#meh - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
-meh - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+# opens terminal
+meh - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+# meh - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 
 #Opens youtube
 meh - p : python3 "${HOME}"/bin/youtube-window.py
@@ -133,7 +133,8 @@ hyper - r : \
     osascript -e \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
     brew services restart sketchybar; \
-    brew services restart yabai; \
+    yabai --stop-service; \
+    yabai --start-service; \
     brew services restart skhd
 
 # meh - c : open -na /Applications/Google\ Chrome.app 
@@ -156,4 +157,7 @@ meh - r: osascript ~/bin/click-notification.scpt
 # Toggle desktop on macos
 meh - t: ~/bin/toggle-desktop.sh
 meh - v: skhd -k f11
+
+meh - n: skhd -k "pagedown"
+meh - m: skhd -k "pageup"
 
