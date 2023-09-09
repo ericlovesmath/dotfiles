@@ -68,3 +68,6 @@ nnoremap("<C-u>", "<C-u>zz")
 nnoremap("<leader><leader>", "<C-^>", silent)
 nnoremap("<Tab>", ":bn<CR>", silent)
 nnoremap("<S-Tab>", ":bp<CR>", silent)
+for i = 1, 9 do
+    nnoremap("<leader>" .. i, ":buffer " .. i .. "<CR>", silent)
+end
