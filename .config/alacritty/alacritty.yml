@@ -11,9 +11,10 @@ window:
     columns: 100
     lines: 30
   padding:
-    x: 17
-    y: 17
-  decorations: none
+    x: 6
+    y: 6
+  decorations: buttonless
+  opacity: 0.97
 scrolling:
   history: 10000
   multiplier: 1
@@ -67,14 +68,19 @@ cursor:
   style: Block
 
 key_bindings:
-    - { key: D,     mods: Command,       chars: "\x01\x76" } 
-    - { key: D,     mods: Command|Shift, chars: "\x01\x73" }
-    - { key: W,     mods: Command,       chars: "\x01\x78" }
-    - { key: H,     mods: Command,       chars: "\x01\x68" }
-    - { key: J,     mods: Command,       chars: "\x01\x6a" }
-    - { key: K,     mods: Command,       chars: "\x01\x6b" }
-    - { key: L,     mods: Command,       chars: "\x01\x6c" }
-    - { key: T,     mods: Command,       chars: "\x01\x63" }
+    - { key: W,     mods: Command,       chars: "\x01\x78" } # Close window
+    - { key: D,     mods: Command,       chars: "\x01\x7c" } # Split window
+
+    - { key: T,     mods: Command,       chars: "\x01\x63" } # New window
+    - { key: T,     mods: Command|Shift, chars: "\x01\x74" } # New window, same dir
+
+    - { key: Tab,   mods: Control|Shift, chars: "\x01\x70" } # Move to left window
+    - { key: Tab,   mods: Control,       chars: "\x01\x6e" } # Move to right window
+
+    - { key: PageUp,   mods: Control|Shift, chars: "\x01\x3c" } # Swap to left window
+    - { key: PageDown, mods: Control|Shift, chars: "\x01\x3e" } # Swap to right window
+
+    # Navigate to tab
     - { key: Key1,  mods: Command,       chars: "\x01\x31" }
     - { key: Key2,  mods: Command,       chars: "\x01\x32" }
     - { key: Key3,  mods: Command,       chars: "\x01\x33" }
@@ -84,7 +90,7 @@ key_bindings:
     - { key: Key7,  mods: Command,       chars: "\x01\x37" }
     - { key: Key8,  mods: Command,       chars: "\x01\x38" }
     - { key: Key9,  mods: Command,       chars: "\x01\x39" }
-    - { key: Left,  mods: Command,       chars: "\x01\x48" }
-    - { key: Down,  mods: Command,       chars: "\x01\x4a" }
-    - { key: Up,    mods: Command,       chars: "\x01\x4b" }
-    - { key: Right, mods: Command,       chars: "\x01\x4c" }
+
+    # Switch Sessions
+    - { key: Left,  mods: Command,       chars: "\x01\x28" }
+    - { key: Right, mods: Command,       chars: "\x01\x29" }
