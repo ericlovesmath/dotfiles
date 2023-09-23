@@ -1,11 +1,12 @@
 env:
   TERM: xterm-256color
-  #shell:
-  #program: /bin/zsh
-  #args:
-  #  - -l
-  #  - -c
-  #  - "tmux"
+shell:
+  program: /opt/homebrew/bin/tmux
+  args:
+    - new-session
+    - -A
+    - -s
+    - Main
 window:
   dimensions:
     columns: 100
@@ -14,14 +15,18 @@ window:
     x: 6
     y: 6
   decorations: buttonless
-  opacity: 0.97
+  opacity: 0.98
 scrolling:
   history: 10000
   multiplier: 1
 font:
   normal:
     family: "MesloLGS Nerd Font"
-    style: Regular
+    # family: "JetBrainsMono Nerd Font"
+    # family: "Monocraft"
+    # family: "Comic Code Ligatures"
+    # family: "BQN386 Unicode"
+    # style: Regular
   size: 20.0
   offset:
     x: 0
@@ -94,3 +99,5 @@ key_bindings:
     # Switch Sessions
     - { key: Left,  mods: Command,       chars: "\x01\x28" }
     - { key: Right, mods: Command,       chars: "\x01\x29" }
+
+    - { key: N,     mods: Command,       chars: "\x01\x53" } # New Sessions
