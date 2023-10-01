@@ -13,7 +13,8 @@ return {
         name = "project_nvim",
         opts = {
             manual_mode = false,
-            detection_methods = { "lsp", "pattern" },
+            detection_methods = { "lsp" },
+            -- detection_methods = { "lsp", "pattern" },
             show_hidden = false,
         },
     },

@@ -105,6 +105,16 @@ function M.config()
                 },
             }))
         end,
+        ["hls"] = function()
+            nvim_lsp.hls.setup(config({
+                settings = {
+                    haskell = {
+                        cabalFormattingProvider = "cabalfmt",
+                        formattingProvider = "fourmolu"
+                    }
+                },
+            }))
+        end,
     })
 
     -- LSPs not installed with mason.nvim
@@ -125,6 +135,7 @@ function M.config()
             b.formatting.clang_format,
             b.formatting.asmfmt,
             b.formatting.ocamlformat,
+            b.formatting.rustfmt,
 
             -- b.diagnostics.eslint_d,
             -- b.diagnostics.flake8,

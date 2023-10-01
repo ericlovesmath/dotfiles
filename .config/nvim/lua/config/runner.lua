@@ -7,6 +7,7 @@ local config = {
         go = "go run $fileName",
         python = "python3 $fileName",
         javascript = "node $fileName",
+        haskell = "runhaskell $fileName",
         rust = "cargo run",
         typescript = "deno run",
         c = "cd $folder && gcc $fileName -o $fileNoExt.out && ./$fileNoExt.out",
