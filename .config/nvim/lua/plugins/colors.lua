@@ -6,7 +6,7 @@ return {
             require("onedark").setup({
                 style = "dark",
                 ending_tildes = true,
-                transparent = false,
+                transparent = true,
                 toggle_style_key = "<Nop>",
                 toggle_style_list = { "warm", "cool", "dark" },
                 diagnostics = {
