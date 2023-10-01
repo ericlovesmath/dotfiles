@@ -24,7 +24,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
-setopt appendhistory
+setopt incappendhistory
 setopt extendedglob local_options
 
 autoload -Uz promptinit && promptinit
@@ -47,8 +47,6 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*'            use-cache yes
 zstyle ':completion::complete:*'  cache-path ~/
 
-timezsh() { repeat 10 { time zsh -i -c exit } }
-
 # Exports for various programs
 source $HOME/.cargo/env
 export EDITOR="nvim"
@@ -62,6 +60,7 @@ PERL_MM_OPT="INSTALL_BASE=/Users/ericlee/perl5"; export PERL_MM_OPT;
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/Users/ericlee/.cargo/bin:$PATH"
+export PATH="/Users/ericclee/.ghcup/bin:$PATH"
 #export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 # export PATH="$PATH:$(brew --prefix)/opt/llvm/bin"
 
