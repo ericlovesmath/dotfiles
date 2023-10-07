@@ -1,15 +1,3 @@
-setlocal wrap
-setlocal linebreak
-setlocal breakindent
-
-" setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
-setlocal breakindentopt=shift:0,list:-1
-
-map j gj
-map k gk
-
-au TermOpen * setlocal nospell
-
 syntax match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
 " nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
@@ -119,6 +107,3 @@ function! ToggleCheckbox()
 endf
 
 nnoremap <Leader>c :call ToggleCheckbox()<CR>
-
-" set conceallevel=2
-" autocmd BufNewFile,BufRead *.md call vimtex#init()
