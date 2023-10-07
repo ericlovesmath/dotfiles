@@ -71,12 +71,14 @@ for _, ft in pairs({ "tex", "text", "markdown" }) do
     autocmd("Filetype", {
         group = "PlaintextFormats",
         pattern = ft,
-        command = [[
-            setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
-            setlocal breakindentopt=shift:0,list:-1
-            setlocal wrap linebreak breakindent spellsuggest+=5
-            map j gj
-            map k gk
-        ]],
+        callback = function()
+            vim.cmd([[
+                setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
+                setlocal breakindentopt=shift:0,list:-1
+                setlocal wrap linebreak breakindent spellsuggest+=5
+                map j gj
+                map k gk
+            ]])
+        end,
     })
 end
