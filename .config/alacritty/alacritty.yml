@@ -3,6 +3,7 @@ env:
 shell:
   program: /opt/homebrew/bin/tmux
   args:
+    - -u
     - new-session
     - -A
     - -s
@@ -22,6 +23,8 @@ scrolling:
 font:
   normal:
     family: "MesloLGS Nerd Font"
+    # family: "JuliaMono"
+    # family: "Maple Mono"
     # family: "JetBrainsMono Nerd Font"
     # family: "Monocraft"
     # family: "Comic Code Ligatures"
@@ -101,3 +104,6 @@ key_bindings:
     - { key: Right, mods: Command,       chars: "\x01\x29" }
 
     - { key: N,     mods: Command,       chars: "\x01\x53" } # New Sessions
+    - { key: N,     mods: Command|Shift, command: {
+        program: "nohup", args: ["alacritty", "-e", "zsh"]
+      }}

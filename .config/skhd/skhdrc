@@ -133,9 +133,10 @@ hyper - r : \
     osascript -e \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
     brew services restart sketchybar; \
+    brew services restart skhd; \
+    brew services restart borders; \
     yabai --stop-service; \
-    yabai --start-service; \
-    brew services restart skhd
+    yabai --start-service
 
 # meh - c : open -na /Applications/Google\ Chrome.app 
 # hyper - c : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito

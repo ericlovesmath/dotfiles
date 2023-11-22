@@ -12,7 +12,6 @@ alias restartaudio='sudo killall coreaudiod'
 alias zoom='~/bin/zoom-code.bash'
 alias weather='~/bin/weather.py'
 alias cal='gcalcli agenda today 23h59m59s'
-alias notes='nvim ~/bin/notes/*.md; cat ~/bin/notes/*.md | sed -n "/# Currently Working/,$ p" | sed "1d"' 
 alias zrc='nvim ~/.zshrc -c "e ~/.zsh_aliases" -c "bp"; exec zsh'
 alias {owo,uwu}='echo -e "What'"'"'s this?"'
 alias school='python3 ~/bin/cdm-calendar.py'
@@ -40,7 +39,7 @@ alias {dotfiles,dots}='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias sus='function _sus(){echo " 　.　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　.\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n　　ﾟ　　 $1 was not An Impostor.　 。　.\n　　'"'"'　　　 1 Impostor remains 　 　　。\n　　ﾟ　　　.　　　. ,　　　　.　 ."};_sus'
 alias {sptmini,spotmini}='~/bin/spotify-mini/launch_kitty.sh'
 alias chegg='py3 ~/Desktop/Programming/Chegg/chegg.py'
-alias matlab='/Applications/MATLAB_R2022a.app/bin/matlab -nodisplay -nosplash'
+alias matlab='/Applications/MATLAB_R2023b.app/bin/matlab -nodisplay -nosplash'
 alias s='ls'
 alias {help,duck}='curl -sL https://i.redd.it/zgdnh7q9u9t41.jpg | kitty +kitten icat'
 alias duck2='open https://i.kym-cdn.com/photos/images/original/002/429/796/96c.gif'
@@ -60,6 +59,7 @@ alias mkvmaker='~/bin/mkvmaker.sh'
 alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G" +ZenMode'
 alias food="open 'https://dining.caltech.edu/where-to-eat-#browne-dining-hall-a2962b99-tab' 'https://dining.caltech.edu/student-meal-plan#updates-3c945037-tab'; ~/bin/food/browne.py"
 alias ohio="open 'https://www.youtube.com/watch?v=ZgymWemivLQ'"
+alias please="sudo"
 
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }

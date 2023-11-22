@@ -1,5 +1,5 @@
 #!/bin/sh
-LANGUAGES=$(echo "golang lua cpp typescript python java csharp rust" | tr ' ' '\n')
+LANGUAGES=$(echo "golang lua cpp typescript python java csharp rust css" | tr ' ' '\n')
 CORE_UTILS=$(echo "xargs find mv sed awk" | tr ' ' '\n')
 
 SELECTED=$(printf "$LANGUAGES\n$CORE_UTILS" | fzf)
