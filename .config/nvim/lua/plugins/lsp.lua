@@ -91,14 +91,14 @@ function M.config()
                 settings = {
                     ["rust-analyzer"] = {
                         check = {
-                            allFeatures = true,
                             overrideCommand = {
                                 "cargo",
                                 "clippy",
+                                "--all-features",
+                                "--all-targets",
                                 "--workspace",
                                 "--message-format=json",
-                                "--all-targets",
-                                "--all-features",
+                                -- "--target=wasm32-unknown-unknown",
                             },
                         },
                     },

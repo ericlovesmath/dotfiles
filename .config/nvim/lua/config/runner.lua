@@ -8,6 +8,7 @@ local config = {
         python = "python3 $fileName",
         javascript = "node $fileName",
         haskell = "runhaskell $fileName",
+        ocaml = "ocaml $fileName",
         rust = "cargo run",
         typescript = "deno run",
         c = "cd $folder && gcc $fileName -o $fileNoExt.out && ./$fileNoExt.out",

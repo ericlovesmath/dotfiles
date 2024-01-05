@@ -47,6 +47,9 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*'            use-cache yes
 zstyle ':completion::complete:*'  cache-path ~/
 
+timezsh() { repeat 10 { time zsh -i -c exit } }
+0x0() { curl -F "file=@$1" https://0x0.st }
+
 # Exports for various programs
 source $HOME/.cargo/env
 export EDITOR="nvim"

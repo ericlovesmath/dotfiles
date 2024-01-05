@@ -1,6 +1,6 @@
-html{
+html {
   display: flex;
-  flex-flow: row nowrap;  
+  flex-flow: row nowrap;
   justify-content: center;
   align-content: center;
   align-items: center;
@@ -8,12 +8,12 @@ html{
   width: 100%;
   margin: 0;
   padding: 0;
-  background:#263238;
-    }
+  background: #263238;
+}
 
 body {
   background: #263238;
-  color: #BBC4C8;
+  color: #bbc4c8;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -47,13 +47,13 @@ body {
 .bookmarks {
   display: flex;
   flex-direction: column;
-  border: #191C1E;
+  border: #191c1e;
   border-radius: 3px;
-  box-shadow: 0px 4px 5px #171D20;
+  box-shadow: 0px 4px 5px #171d20;
   align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  background: #222D32;
+  background: #222d32;
 }
 
 .logo {
@@ -66,7 +66,6 @@ body {
   justify-content: center;
   margin: 15px;
 }
-
 
 .input_box {
   border: none;
@@ -111,12 +110,12 @@ form {
 
 .search_box {
   display: flex;
-  background: #222D32;
+  background: #222d32;
   width: 600px;
   padding: 0px;
   margin-bottom: 40px;
   border-radius: 3px 3px 3px 3px;
-  box-shadow: 0px 4px 5px #171D20;
+  box-shadow: 0px 4px 5px #171d20;
   align-self: center;
   height: 70px;
 }
@@ -135,38 +134,38 @@ li {
   font-family: "MesloLGS NF";
   font-size: 16px;
   list-style-type: none;
-  padding: 5px
+  padding: 5px;
 }
 
 a:link {
   text-decoration: none;
-  color: #8F9191;
+  color: #8f9191;
 }
 
 a:visited {
-  color: #8F9191;
+  color: #8f9191;
 }
 
 a:hover {
-  color: #BD3CD3;
+  color: #bd3cd3;
 }
 
 div.bookmarks.cod a:hover {
-  color: #00CF35;
+  color: #00cf35;
 }
 
 div.bookmarks.doc a:hover {
-  color: #FF8A00;
+  color: #ff8a00;
 }
 
 div.bookmarks.ent a:hover {
-  color: #FF492F;
+  color: #ff492f;
 }
 
 div.bookmarks.mus a:hover {
-  color: #00B8FF;
+  color: #00b8ff;
 }
 
 div.bookmarks.art a:hover {
-  color: #FF62CE;
+  color: #ff62ce;
 }

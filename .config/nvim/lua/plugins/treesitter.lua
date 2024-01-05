@@ -9,6 +9,9 @@ return {
     },
     build = ":TSUpdate",
     config = function()
+        -- Vim doesn't recognize WGSL as a filetype yet
+        vim.filetype.add({ extension = { wgsl = "wgsl" } })
+
         require("nvim-treesitter.configs").setup({
             highlight = {
                 enable = true,
