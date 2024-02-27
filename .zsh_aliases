@@ -1,7 +1,6 @@
 alias c='clear'
 alias ttyclock='tty-clock -bt -C2'
 alias ttyclockc='tty-clock -cbt -C2'
-alias blank="printf '\n%.0s' {1..100}"
 alias lt='du -sh * | sort -hr'
 alias ls='gls -N --group-directories-first --color=auto'
 alias gh='history 1 |grep'
@@ -11,7 +10,6 @@ alias {sm,startmenu}='~/bin/tmux-launch.bash'
 alias restartaudio='sudo killall coreaudiod'
 alias zoom='~/bin/zoom-code.bash'
 alias weather='~/bin/weather.py'
-alias cal='gcalcli agenda today 23h59m59s'
 alias zrc='nvim ~/.zshrc -c "e ~/.zsh_aliases" -c "bp"; exec zsh'
 alias {owo,uwu}='echo -e "⣿⣿⣿⣿⣿⣿⣿⣿⣿⢫⣟⡛⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⢋⣭⣭⣭⣭⣭⣉⣙⣻⡆⠻⣿⣿⣮⣻⠿⢟⣛⣋⣭⣭⣭⣿⣿
@@ -23,22 +21,14 @@ alias {owo,uwu}='echo -e "⣿⣿⣿⣿⣿⣿⣿⣿⣿⢫⣟⡛⠻⢿⣿⣿⣿⣿
 ⣿⣿⣏⣛⣯⣛⠿⢿⣿⣷⣮⠻⢾⣿⢿⠿⣋⣭⣿⣭⣼⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣧⡐⢶⣾⣿⣿⣿⣿⣶⡹⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⡿⠡⢻⣿⣿⣿⣿⣿⣿⣷⢹⣿⣿⣿⣿⣿⣿⣿"'
-alias school='python3 ~/bin/cdm-calendar.py'
 alias randint='jot -r 1 $1 $2'
-alias currency='python3 ~/bin/currency-conv.py'
 alias py='python'
 alias {python,py3}='python3'
 alias mba='ssh Eric@eric-mba.local'
 alias logirestart='pkill LogiVCCoreService; pkill LogiMgrDaemon'
 alias serverbackup='rsync -avz ~/Desktop/ Eric@eric-mba.lan:~/Desktop/MBPDesktopBackup'
-alias {sched,schedule}='c;py3 ~/bin/bell_schedules.py'
 alias wordclock='py3 ~/bin/word-clock.py'
-alias kalistart='prlctl start "Kali Linux";ssh -l kali -p 2200 127.0.0.1'
-alias kalistop='prlctl stop "Kali Linux"'
-alias mintstart='prlctl start "Mint Linux";ssh -l ericlee-vm -p 2200 127.0.0.1'
-alias mintstop='prlctl stop "Mint Linux"'
 alias vrc='cd ~/.config/nvim'
-alias ctfread='touch README.md;echo -e "# TITLE\nPoints: POINTS\n## Problem Statement\n> PROBLEM\n## Hints\n> None used\n## Solution\nSOLUTION\n## Flag\n\`FLAG\`" >> README.md; nvim README.md'
 alias ..='cd ./..'
 alias ...='cd ./../..'
 alias ....='cd ./../../..'
@@ -48,7 +38,7 @@ alias sus='function _sus(){echo " 　.　　。　　　　•　 　ﾟ　　�
 alias {sptmini,spotmini}='~/bin/spotify-mini/launch_kitty.sh'
 alias matlab='/Applications/MATLAB_R2023b.app/bin/matlab -nodisplay -nosplash'
 alias s='ls'
-alias {help,duck}='curl -sL https://i.redd.it/zgdnh7q9u9t41.jpg | kitty +kitten icat'
+alias {help,duck}='open https://i.redd.it/zgdnh7q9u9t41.jpg'
 alias duck2='open https://i.kym-cdn.com/photos/images/original/002/429/796/96c.gif'
 alias tm='~/bin/tmuxsessions.sh'
 alias aseprite='nohup /Applications/aseprite/build/bin/aseprite > /dev/null 2>&1&'
@@ -59,14 +49,14 @@ alias gh="open \`git remote -v | grep fetch | awk '{print \$2}' | sed 's/git@/ht
 alias {mus,music}='~/bin/music-player.sh'
 alias o='open .'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor 2>&1 | grep -v "^  /usr/local/include/node"'
-alias clip='$_ | kitty +kitten clipboard'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
 alias mkvmaker='~/bin/mkvmaker.sh'
 alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G" +ZenMode'
 alias food="open 'https://dining.caltech.edu/where-to-eat-#browne-dining-hall-a2962b99-tab' 'https://dining.caltech.edu/student-meal-plan#updates-3c945037-tab'; ~/bin/food/browne.py"
-alias ohio="open 'https://www.youtube.com/watch?v=ZgymWemivLQ'"
 alias please="sudo"
+alias chem="osascript -e 'mount volume \"smb://chem3:chem3labpassword@meadlab.caltech.edu/chem3/Chem3X/2024_Winter/Eric Lee Brady Bhalla/\"' && cd ~smb_chem"
+alias unchem="cd $HOME && umount ~smb_chem"
 
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
@@ -79,3 +69,4 @@ hash -d ubersicht=$HOME/Library/Application\ Support/Übersicht/widgets
 hash -d tutor=$HOME/Desktop/Academics/Tutoring
 hash -d caltech=$HOME/Desktop/Academics/Caltech/sophmore/winter-2024
 hash -d visuals=$HOME/Desktop/Programming/generative-art/src
+hash -d smb_chem="/Volumes/Eric Lee Brady Bhalla"

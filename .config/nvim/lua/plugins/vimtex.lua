@@ -10,8 +10,9 @@ return {
 
         let g:vimtex_compiler_progname = "nvr"
         let g:vimtex_view_method = "skim"
-        let g:vimtex_imaps_enabled = 0           
-        let g:vimtex_complete_enabled = 0        
+        let g:vimtex_imaps_enabled = 1
+        let g:vimtex_complete_enabled = 0
+        " let g:vimtex_quickfix_enabled = 0
 
         call vimtex#init()
 

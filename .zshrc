@@ -9,7 +9,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 ZSH_THEME="powerlevel10k/powerlevel10k"
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Faster searching through history
@@ -63,7 +63,8 @@ PERL_MM_OPT="INSTALL_BASE=/Users/ericlee/perl5"; export PERL_MM_OPT;
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/Users/ericlee/.cargo/bin:$PATH"
-export PATH="/Users/ericclee/.ghcup/bin:$PATH"
+export PATH="/Users/ericlee/.ghc/bin:$PATH"
+export PATH="/Users/ericlee/.ghcup/bin:$PATH"
 #export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 # export PATH="$PATH:$(brew --prefix)/opt/llvm/bin"
 

@@ -9,7 +9,6 @@ require("config.mappings")
 require("config.lazy")
 require("config.status")
 require("config.runner")
+require("config.utils")
 
--- lewis6991/impatient.nvim
--- Speeds up config by ~25%
-require("impatient")
+vim.loader.enable()

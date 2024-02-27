@@ -1,6 +1,4 @@
 return {
-    "lewis6991/impatient.nvim",
-
     {
         "numToStr/Comment.nvim",
         config = true,

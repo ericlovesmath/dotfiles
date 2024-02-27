@@ -34,7 +34,10 @@ function M.config()
         buf_set_keymap("<leader>vsd", "<cmd>lua vim.diagnostic.open_float(nil, {})<CR>")
         buf_set_keymap("<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
         buf_set_keymap("<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
-        buf_set_keymap("<space>vf", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>")
+        buf_set_keymap(
+            "<leader>vf",
+            '<cmd>lua vim.lsp.buf.format{ filter = function(client) return client.name ~= "hls" end }<CR>'
+        )
     end
 
     -- Required for html/cssls because Microsoft
@@ -105,21 +108,22 @@ function M.config()
                 },
             }))
         end,
-        ["hls"] = function()
-            nvim_lsp.hls.setup(config({
-                settings = {
-                    haskell = {
-                        cabalFormattingProvider = "cabalfmt",
-                        formattingProvider = "fourmolu"
-                    }
-                },
-            }))
-        end,
+        -- ["hls"] = function()
+        --     nvim_lsp.hls.setup(config({
+        --         settings = {
+        --             haskell = {
+        --                 cabalFormattingProvider = "cabalfmt",
+        --                 formattingProvider = "fourmolu"
+        --             }
+        --         },
+        --     }))
+        -- end,
     })
 
     -- LSPs not installed with mason.nvim
     nvim_lsp.gdscript.setup(config())
     nvim_lsp.ccls.setup(config())
+    nvim_lsp.hls.setup(config())
 
     -- Null LS
     local null_ls = require("null-ls")
@@ -136,6 +140,7 @@ function M.config()
             b.formatting.asmfmt,
             b.formatting.ocamlformat,
             b.formatting.rustfmt,
+            b.formatting.fourmolu,
 
             -- b.diagnostics.eslint_d,
             -- b.diagnostics.flake8,
