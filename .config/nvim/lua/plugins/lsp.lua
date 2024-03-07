@@ -124,6 +124,7 @@ function M.config()
     nvim_lsp.gdscript.setup(config())
     nvim_lsp.ccls.setup(config())
     nvim_lsp.hls.setup(config())
+    nvim_lsp.ocamllsp.setup(config())
 
     -- Null LS
     local null_ls = require("null-ls")
