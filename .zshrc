@@ -26,6 +26,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt incappendhistory
 setopt extendedglob local_options
+setopt completealiases
 
 autoload -Uz promptinit && promptinit
 
