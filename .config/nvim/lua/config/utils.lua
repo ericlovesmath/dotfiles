@@ -5,18 +5,17 @@ function JournalEntry()
     local y, m, d = date:match("(%d%d%d%d)-(%d%d)-(%d%d)")
     local path = y .. "_" .. m .. "_" .. d
 
-    -- Make it easy for user to rename images in Desktop then add to folder
-    vim.fn.setreg("+", path .. "_")
-    vim.cmd("silent! !open ./imgs &")
-    vim.fn.input("Press Enter to continue... ")
-
     -- Add Journal Date
     vim.cmd("normal! G")
     vim.api.nvim_put({ "", "# " .. date, "" }, "l", true, true)
 
+    -- Make it easy for user to rename images in Desktop then add to folder
     if vim.fn.input("Add images? (y/n): ") ~= "y" then
         return
     end
+    vim.fn.setreg("+", path .. "_")
+    vim.cmd("silent! !open ./imgs &")
+    vim.fn.input("Press Enter to continue... ")
 
     -- Add links to images in Markdown format
     local images = vim.fn.glob(os.date("./imgs/" .. path .. "*"))
