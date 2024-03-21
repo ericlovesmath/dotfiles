@@ -1,0 +1,231 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+%    Eric Lee's LaTeX Preamble
+%    Primarily for Problem Sets and Beamer Presentations
+%    Email: ericlovesmath@gmail.com
+%    Github: https://github.com/ericlovesmath
+%    Much thanks to Gilles Castel (https://castel.dev/)
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Basic Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in,footskip=0.25in]{geometry}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{emptypage}
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{hyperref}
+\usepackage{url}
+\hypersetup{
+    colorlinks,
+    linkcolor={black},
+    citecolor={black},
+    urlcolor={blue!80!black}
+}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[inline]{enumitem}
+
+% Math Mode Packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{siunitx}
+
+% Fix Parskip bug with Amsthm (removes gap before theorem envs)
+% https://tex.stackexchange.com/questions/450551/theorems-and-parskip
+\usepackage{parskip}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\deferred@thm@head
+  {\addvspace{-\parskip}}
+  {}
+  {}{\typeout{\string\deferred@thm@head patch failed!}}
+\makeatother 
+
+
+% TikZ and Plotting
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\usetikzlibrary{intersections, angles, quotes, calc, positioning}
+\usetikzlibrary{arrows.meta}
+\tikzset{ force/.style={thick, {Circle[length=2pt]}-stealth, shorten <=-1pt} }
+\pgfplotsset{compat=1.13}
+
+% Code Formatting
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0.0, 0.6, 0.0}
+\definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codepurple}{rgb}{0.58, 0.0, 0.82}
+\definecolor{backcolour}{rgb}{1.0, 1.0, 1.0}
+% \definecolor{backcolour}{rgb}{0.95, 0.95, 0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codepurple},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=none,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% Misc
+\pdfminorversion=7
+\pdfsuppresswarningpagegroup=1
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Math Mode Mappings
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+\newcommand{\op}[1]{\left\|#1\right\|_\text{op}}
+\newcommand{\E}{\operatorname{\mathbb{E}}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Bias}{\operatorname{Bias}}
+\newcommand{\MSE}{\operatorname{MSE}}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+\DeclareMathOperator{\sgn}{sgn}
+\let\svlim\lim\def\lim{\svlim\limits}
+
+% Horizontal Rule
+\newcommand\hr{ \noindent\rule[0.5ex]{\linewidth}{0.5pt} }
+
+% Dark Mode (Temp)
+\newcommand{\darkmode}{
+    \pagecolor[rgb]{0.2,0.2,0.2}
+    \color[rgb]{1,1,1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Shiny Environments
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em}
+
+\theoremstyle{definition}
+
+\newcommand{\thmstyle}[3]{%
+    \declaretheoremstyle[
+        headfont=\bfseries\sffamily\color{#2!70!black},
+        bodyfont=\normalfont,
+        mdframed={
+            linewidth=2pt,
+            rightline=false, topline=false, bottomline=false,
+            linecolor=#2, backgroundcolor=#2!#3
+        }
+    ]{#1}
+}
+
+% Defining Environment Styles {name}{color}{bg opacity}
+\thmstyle{thmgreenbox}{ForestGreen}{5}
+\thmstyle{thmbluebox}{NavyBlue}{5}
+\thmstyle{thmredbox}{RawSienna}{5}
+
+\thmstyle{thmblueline}{NavyBlue}{0}
+\thmstyle{thmproofbox}{RawSienna}{1}
+\thmstyle{thmexplanationbox}{NavyBlue}{1}
+
+% Standard environments
+\declaretheorem[style=thmgreenbox, name=Definition]{definition}
+\declaretheorem[style=thmgreenbox, name=Problem]{problem}
+\declaretheorem[style=thmredbox, name=Proposition]{prop}
+\declaretheorem[style=thmredbox, name=Theorem]{theorem}
+\declaretheorem[style=thmredbox, name=Lemma]{lemma}
+\declaretheorem[style=thmbluebox, numbered=no, name=Context]{context}
+\declaretheorem[style=thmredbox, name=Corollary, numbered=no]{corollary}
+\declaretheorem[style=thmbluebox, name=Example, numbered=no]{eg}
+\declaretheorem[style=thmblueline, name=Remark, numbered=no]{remark}
+
+% Environments that attach to the above environments
+\declaretheorem[style=thmproofbox, name=Proof, numbered=no]{tmpboxproof}
+\declaretheorem[style=thmexplanationbox, name=Proof, numbered=no]{tmpboxexplanation}
+\newenvironment{boxproof}[1][\proofname]{\vspace{-10pt}\begin{tmpboxproof}[#1]}{\end{tmpboxproof}}
+\newenvironment{boxexplanation}{\vspace{-10pt}\begin{tmpboxexplanation}}{\end{tmpboxexplanation}}
+
+% TODO: Fix Code Environment, syntax highlighting
+\declaretheorem[style=thmblueline, numbered=no, name=Code]{tmpcode}
+\newenvironment{code}[1][]{\begin{tmpcode}[#1]}{\end{tmpcode}}
+
+\newtheorem*{notation}{Notation}
+\newtheorem*{prevseen}{As previously seen}
+\newtheorem*{observe}{Observe}
+\newtheorem*{property}{Property}
+\newtheorem*{intuition}{Intuition}
+\newtheorem*{discuss}{Discussion}
+\newtheorem*{solution}{Solution}
+\declaretheorem[style=definition, numbered=no, name=Proof, qed=$\qedsymbol$]{lineproof}
+
+% Generic Comment Box
+\usepackage{todonotes}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\newenvironment{note}[1][]{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=white!60!black,
+    title=#1,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+
+% Correction [Wrong -> Right]
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{
+    \ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}
+}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Eric Lee}
+
+% \problemset{course}{term}{title}{author}{date}
+\newcommand{\problemset}[5]{
+    \pagestyle{myheadings}
+    \thispagestyle{plain}
+    \begin{center}
+    \framebox{
+        \vbox{
+            \vspace{2mm}
+            \hbox to 6in { {\bf #1 \hfill #2} }
+            \vspace{4mm}
+            \hbox to 6in { {\Large \hfill #3  \hfill} }
+            \vspace{2mm}
+            \hbox to 6in { {\it #4 \hfill Due: #5} }
+          \vspace{2mm}
+        }
+    }
+    \end{center}
+    \vspace{4mm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

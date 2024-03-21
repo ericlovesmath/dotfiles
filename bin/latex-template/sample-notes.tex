@@ -1,0 +1,77 @@
+\documentclass[a4paper]{article}
+\input{./preamble.tex}
+
+\begin{document}
+
+\problemset
+    {Ma~100~~Introduction~to~Math}
+    {Spring 2024}
+    {Sample \LaTeX\ Showcase}
+    {Eric Lee}
+    {2024-01-01}
+
+\section{Sample Showcase}
+
+\begin{note}[Sample Comment]
+    All of the environments are typically used in problem sets or notes.
+
+    Corrections:
+    $$
+        \correct{x = 2}{x = 5}
+    $$
+\end{note}
+
+% PROBLEM 1
+\begin{problem}[Introduction]
+    Solve for $x$ in each of the following:
+    \begin{enumerate}[label=\alph*)]
+        \item $x = 17 + \frac{1}{2}$
+        \item $x + 1 = x^2 + x + 1$
+    \end{enumerate}
+\end{problem}
+
+\begin{lineproof}[1a]
+    $$
+        x = 17 + \frac{1}{2} = \frac{35}{2}
+    $$
+\end{lineproof}
+
+\begin{lineproof}[1b]
+    \begin{align*}
+        \cancel{x + 1} &= x^2 + \cancel{x + 1} \\
+        \implies 0 &= x^2 \\
+        \implies x &= 0
+    \end{align*}
+\end{lineproof}
+
+\begin{eg}[Problem]
+    Details
+\end{eg}
+\begin{boxexplanation}
+    Answer
+\end{boxexplanation}
+
+\begin{lemma}[Name]
+    Problem
+\end{lemma}
+\begin{boxproof}
+    Many of these types of paired environments are listed in the preamble, and can be used separately if desired.
+\end{boxproof}
+
+\begin{remark}
+    Single line theorem environments are available
+\end{remark}
+
+\begin{code}[Sample Code Formatting]\,
+    \begin{lstlisting}[language=C]
+
+        #include <stdio.h>
+
+        int main() {
+            printf("Hello World!\n");
+            return 0;
+        }
+    \end{lstlisting}
+\end{code}
+
+\end{document}
