@@ -1,0 +1,45 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in,footskip=0.25in]{geometry}
+\usepackage{newtxtext}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage[indent=1cm]{parskip}
+\usepackage{indentfirst}
+\usepackage{setspace}
+
+\usepackage{csquotes}
+\usepackage[style=verbose-ibid]{biblatex}
+\bibliography{citations}
+\doublespacing
+
+\title{Title}
+\author{Eric C. Lee, History 101} \date{Jan 01, 2024}
+
+\begin{document}
+
+    \maketitle
+
+    \section*{Section 1}
+
+    Lorem ipsum\autocite[pg 114-153]{Kramer_1967} dolor sit amet, consectetur adipiscing elit. Nulla fermentum congue magna, in malesuada felis pharetra non. Donec et porta orci. Nam posuere nulla vel justo vestibulum, ut faucibus velit porttitor.
+
+    Sed a vestibulum lacus. Donec dapibus lectus ut est laoreet accumsan. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at magna vel lacus iaculis lacinia id in ex. Nulla molestie vestibulum ornare. Suspendisse mattis quam leo, semper faucibus odio blandit.
+
+    \section*{Section 2}
+
+    Cras eu lorem enim. Suspendisse sed orci sit amet neque tempus laoreet. Sed quis nulla quis ligula venenatis commodo. Donec turpis elit, molestie in cursus nec, tincidunt sit amet mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam dui nunc, laoreet at convallis sed, posuere ut quam.
+
+    \newpage
+
+    % Use https://www.doi2bib.org/
+    % \hfuzz=5.002pt
+    \printbibliography
+
+\end{document}
