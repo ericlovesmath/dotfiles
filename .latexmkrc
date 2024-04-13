@@ -9,5 +9,6 @@ push @generated_exts, "brf";
 push @generated_exts, "nlg";
 push @generated_exts, "nlo";
 push @generated_exts, "nls";
+push @generated_exts, "bbl";
 push @generated_exts, "synctex.gz";
 push @generated_exts, "run.xml";
