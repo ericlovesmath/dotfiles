@@ -8,6 +8,7 @@ return {
 
     {
         "ahmedkhalf/project.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         name = "project_nvim",
         opts = {
             manual_mode = false,
@@ -19,6 +20,7 @@ return {
 
     {
         "lewis6991/gitsigns.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "sindrets/diffview.nvim", cmd = "DiffviewOpen" },
         },

@@ -1,11 +1,12 @@
 local M = {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    cmd = { "LspInfo", "LspStart", "LspRestart" },
+    cmd = { "LspInfo", "LspStart", "LspRestart", "Mason" },
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "jose-elias-alvarez/null-ls.nvim",
+        { "folke/neodev.nvim", opts = {} },
         { "mfussenegger/nvim-jdtls", ft = { "java" } },
     },
 }
@@ -59,27 +60,6 @@ function M.config()
         function(server_name)
             nvim_lsp[server_name].setup(config())
         end,
-        ["lua_ls"] = function()
-            nvim_lsp.lua_ls.setup(config({
-                settings = {
-                    Lua = {
-                        runtime = {
-                            version = "LuaJIT",
-                            path = vim.split(package.path, ";"),
-                        },
-                        diagnostics = {
-                            globals = { "vim" },
-                        },
-                        workspace = {
-                            library = {
-                                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                            },
-                        },
-                    },
-                },
-            }))
-        end,
         ["jdtls"] = function() end, -- Use nvim-jdtls instead
         ["html"] = function()
             nvim_lsp.html.setup(config({
@@ -110,16 +90,6 @@ function M.config()
                 },
             }))
         end,
-        -- ["hls"] = function()
-        --     nvim_lsp.hls.setup(config({
-        --         settings = {
-        --             haskell = {
-        --                 cabalFormattingProvider = "cabalfmt",
-        --                 formattingProvider = "fourmolu"
-        --             }
-        --         },
-        --     }))
-        -- end,
     })
 
     -- LSPs not installed with mason.nvim
