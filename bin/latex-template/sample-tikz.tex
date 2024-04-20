@@ -1,0 +1,16 @@
+\documentclass[a4paper]{article}
+\input{./preamble.tex}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \node[draw, circle] (A) at (0, 0) {A};
+    \node[draw, circle] (B) at (2, 0) {B};
+    \node[draw, circle] (C) at (1, {sqrt(3)}) {C};
+
+    \path[->, bend right] (A) edge (B);
+    \path[->, bend right] (B) edge (C);
+    \path[->, bend right] (C) edge (A);
+\end{tikzpicture}
+
+\end{document}

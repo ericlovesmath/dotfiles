@@ -37,7 +37,7 @@ alias {:q,:q!,:wq,:wq!,:Q}='exit'
 alias {dotfiles,dots}='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias sus='function _sus(){echo " 　.　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　.\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n　　ﾟ　　 $1 was not An Impostor.　 。　.\n　　'"'"'　　　 1 Impostor remains 　 　　。\n　　ﾟ　　　.　　　. ,　　　　.　 ."};_sus'
 alias {sptmini,spotmini}='~/bin/spotify-mini/launch_kitty.sh'
-alias matlab='/Applications/MATLAB_R2023b.app/bin/matlab -nodisplay -nosplash'
+alias matlab='/Applications/MATLAB_R2024a.app/bin/matlab -nodisplay -nosplash'
 alias s='ls'
 alias {help,duck}='open https://i.redd.it/zgdnh7q9u9t41.jpg'
 alias duck2='open https://i.kym-cdn.com/photos/images/original/002/429/796/96c.gif'
@@ -54,10 +54,13 @@ alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/be
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
 alias mkvmaker='~/bin/mkvmaker.sh'
 alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G" +ZenMode'
-alias food="open 'https://dining.caltech.edu/where-to-eat-#browne-dining-hall-a2962b99-tab' 'https://dining.caltech.edu/student-meal-plan#updates-3c945037-tab'; ~/bin/food/browne.py"
+alias food="open 'https://caltechdining.my.canva.site/browne-comfort-equation' 'https://caltechdining.my.canva.site/plant-based-station' 'https://caltechdining.my.canva.site/week-meal-plan-menu'"
 alias please="sudo"
 alias chem="osascript -e 'mount volume \"smb://chem3:chem3labpassword@meadlab.caltech.edu/chem3/Chem3X/2024_Winter/Eric Lee Brady Bhalla/\"' && cd ~smb_chem"
 alias unchem="cd $HOME && umount ~smb_chem"
+alias ff="open -a firefox"
+
+pset() { $HOME/bin/latex-template/generate_set.py "$@" | pbcopy }
 
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
@@ -66,8 +69,7 @@ hash -d usaco=$HOME/Desktop/Programming/competitive-programming
 hash -d rust=$HOME/Desktop/Programming/rust
 hash -d portfolio=$HOME/Desktop/Programming/portfolio-eric-lee
 hash -d leetcode=$HOME/Desktop/Programming/leetcode
-hash -d ubersicht=$HOME/Library/Application\ Support/Übersicht/widgets
 hash -d tutor=$HOME/Desktop/Academics/Tutoring
-hash -d caltech=$HOME/Desktop/Academics/Caltech/sophmore/winter-2024
+hash -d caltech=$HOME/Desktop/Academics/Caltech/sophmore/spring-2024
 hash -d visuals=$HOME/Desktop/Programming/generative-art/src
-hash -d smb_chem="/Volumes/Eric Lee Brady Bhalla"
+hash -d firefox="$HOME/Library/Application Support/Firefox/Profiles/wwpdd487.default-release"
