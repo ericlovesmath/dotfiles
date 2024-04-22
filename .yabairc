@@ -32,8 +32,8 @@ yabai -m config window_placement second_child
 #yabai -m rule --add app=Terminal border=off
 
 # global settings
-yabai -m config mouse_follows_focus          off
-yabai -m config focus_follows_mouse          autoraise
+# yabai -m config mouse_follows_focus          off
+# yabai -m config focus_follows_mouse          autoraise
 
 # floating windows are always on top (default: off)
 yabai -m config window_topmost               on
@@ -51,6 +51,8 @@ yabai -m rule --add app="^Mail$" manage=off
 yabai -m rule --add app="^Transmission$" manage=off
 # yabai -m rule --add app="^Messages$" manage=off
 # yabai -m rule --add app="^Godot$" title="^.*(DEBUG)$" manage=off
+
+# yabai -m rule --add app="^Spotify$" scratchpad=spotify grid=10:10:1:1:8:8
 
 # Spacebar
 # SPACEBAR_HEIGHT=$(spacebar -m config height)

@@ -133,8 +133,9 @@ hyper - r : \
     osascript -e \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
     brew services restart sketchybar; \
-    brew services restart skhd; \
     brew services restart borders; \
+    skhd --stop-service; \
+    skhd --start-service; \
     yabai --stop-service; \
     yabai --start-service
 
@@ -153,7 +154,7 @@ delete : osascript ~/bin/spotify-toggle.scpt
 hyper - u : yabai -m window --toggle sticky;\
           yabai -m window --toggle topmost
 
-meh - r: osascript ~/bin/click-notification.scpt
+# meh - r: osascript ~/bin/click-notification.scpt
 
 # Toggle desktop on macos
 meh - t: ~/bin/toggle-desktop.sh
@@ -162,3 +163,4 @@ meh - v: skhd -k f11
 meh - n: skhd -k "pagedown"
 meh - m: skhd -k "pageup"
 
+# meh - r : yabai -m window --toggle spotify || open -a Spotify
