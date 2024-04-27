@@ -74,6 +74,3 @@ yabai -m config window_border_blur off
 # yabai -m config mouse_modifier             cmd
 # yabai -m config mouse_action1              move
 # yabai -m config mouse_action2              resize
-
-borders active_color=0xff8E83B8 inactive_color=0xff494d64 width=4.0 2>/dev/null 1>&2 &
-borders "active_color=gradient(top_left=0xff8E83B8,bottom_right=0xffF8C8DC)" 2>/dev/null 1>&2 &
