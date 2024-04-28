@@ -34,7 +34,7 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 augroup("TwoTabWidth", { clear = true })
-for _, ft in pairs({ "c", "css", "html", "javascript", "typescript", "ocaml" }) do
+for _, ft in pairs({ "c", "css", "html", "javascript", "typescript", "ocaml", "javascriptreact", "typescripreact" }) do
     autocmd("Filetype", {
         group = "TwoTabWidth",
         pattern = ft,
