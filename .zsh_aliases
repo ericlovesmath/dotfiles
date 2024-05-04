@@ -73,3 +73,4 @@ hash -d tutor=$HOME/Desktop/Academics/Tutoring
 hash -d caltech=$HOME/Desktop/Academics/Caltech/sophmore/spring-2024
 hash -d visuals=$HOME/Desktop/Programming/generative-art/src
 hash -d firefox="$HOME/Library/Application Support/Firefox/Profiles/wwpdd487.default-release"
+hash -d surf=$HOME/Desktop/Academics/Caltech/sophmore/SURF
