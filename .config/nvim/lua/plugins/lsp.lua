@@ -37,6 +37,8 @@ function M.config()
         buf_set_keymap("<leader>vsd", "<cmd>lua vim.diagnostic.open_float(nil, {})<CR>")
         buf_set_keymap("<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
         buf_set_keymap("<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
+
+        -- TODO: LSP config needs to be rewritten to be better
         buf_set_keymap(
             "<leader>vf",
             '<cmd>lua vim.lsp.buf.format{ filter = function(client) return client.name ~= "hls" end }<CR>'
@@ -90,6 +92,14 @@ function M.config()
                 },
             }))
         end,
+        ["tsserver"] = function()
+            nvim_lsp.tsserver.setup(config({
+                settings = {
+                    typescript = { format = { semicolons = "insert" } },
+                    javascript = { format = { semicolons = "insert" } }
+                }
+            }))
+        end,
     })
 
     -- LSPs not installed with mason.nvim
@@ -106,7 +116,8 @@ function M.config()
         sources = {
             b.formatting.prettierd,
             b.formatting.shfmt,
-            b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
+            b.formatting.black,
+            -- b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
             b.formatting.isort,
             b.formatting.stylua,
             b.formatting.clang_format,

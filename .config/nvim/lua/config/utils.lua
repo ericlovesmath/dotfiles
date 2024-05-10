@@ -27,3 +27,38 @@ function JournalEntry()
         end
     end
 end
+
+local substitutions = {
+    { src = "π", dst = [[\pi ]] },
+    { src = "Ω", dst = [[\Omega ]] },
+    { src = "ω", dst = [[\omega ]] },
+    { src = "′", dst = "'" },
+    { src = "≥", dst = [[\geq ]] },
+    { src = "≤", dst = [[\leq ]] },
+    { src = "×", dst = [[\times ]] },
+    { src = "→", dst = [[\to ]] },
+    { src = "·", dst = [[\cdot ]] },
+    { src = "∈", dst = [[\in ]] },
+    { src = "θ", dst = [[\theta ]] },
+    { src = "∪", dst = [[\cup ]] },
+    { src = "∩", dst = [[\cap ]] },
+    { src = "⊆", dst = [[\subseteq ]] },
+    { src = "⊂", dst = [[\subset ]] },
+    { src = "∅", dst = [[\emptyset ]] },
+    { src = "“", dst = "``" },
+    { src = "”", dst = "''" },
+    { src = "−", dst = "-" }, -- The bane of my existence
+    { src = [[\. \. \.]], dst = [[\ldots ]] },
+}
+
+-- Utility function to replace unicode character when copying from PDF
+function LatexSubstituteUnicode()
+    if not vim.bo.filetype == "tex" then
+        print("Warning: This is not a LaTeX file.")
+        return
+    end
+
+    for _, sub in ipairs(substitutions) do
+        vim.cmd(":silent! %s/" .. sub.src .. "/" .. sub.dst:gsub([[\]], [[\\]]) .. "/g")
+    end
+end
