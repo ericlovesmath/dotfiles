@@ -23,6 +23,7 @@ o.lazyredraw = true
 o.spellsuggest = "5"
 o.guitablabel = "%t"
 o.pumheight = 10
+-- o.textwidth = 88
 -- o.cmdheight = 0
 o.completeopt = {
     "menu",
