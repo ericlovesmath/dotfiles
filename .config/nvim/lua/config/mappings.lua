@@ -1,73 +1,64 @@
-local Remap = require("keymap")
-local nnoremap = Remap.nnoremap
-local inoremap = Remap.inoremap
-local vnoremap = Remap.vnoremap
-local tnoremap = Remap.tnoremap
+local set = vim.keymap.set
 local silent = { silent = true }
-
-vim.g.mapleader = " "
 
 --- Ultisnips
 vim.g.UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
 vim.g.UltiSnipsJumpForwardTrigger = "<Plug>(ultisnips_jump_forward)"
 vim.g.UltiSnipsJumpBackwardTrigger = "<Plug>(ultisnips_jump_backward)"
 
--- Fast terminal and save
-nnoremap("<leader>t", ":vsp<CR>:term<CR>:startinsert<CR>", silent)
-nnoremap("<leader>w", ":w<CR>", silent)
+-- Fast terminal
+set("n", "<leader>t", ":vsp<CR>:term<CR>:startinsert<CR>", silent)
 
 -- Using <C-hjkl> to navigate panes
-nnoremap("<C-h>", ":wincmd h<CR>")
-nnoremap("<C-j>", ":wincmd j<CR>")
-nnoremap("<C-k>", ":wincmd k<CR>")
-nnoremap("<C-l>", ":wincmd l<CR>")
-tnoremap("<C-h>", "<C-\\><C-n><C-w>h")
-tnoremap("<C-j>", "<C-\\><C-n><C-w>j")
-tnoremap("<C-k>", "<C-\\><C-n><C-w>k")
-tnoremap("<C-l>", "<C-\\><C-n><C-w>l")
-tnoremap("<Esc>", "<C-\\><C-n>")
+set("n", "<C-h>", ":wincmd h<CR>")
+set("n", "<C-j>", ":wincmd j<CR>")
+set("n", "<C-k>", ":wincmd k<CR>")
+set("n", "<C-l>", ":wincmd l<CR>")
+set("t", "<C-h>", "<C-\\><C-n><C-w>h")
+set("t", "<C-j>", "<C-\\><C-n><C-w>j")
+set("t", "<C-k>", "<C-\\><C-n><C-w>k")
+set("t", "<C-l>", "<C-\\><C-n><C-w>l")
+set("t", "<Esc>", "<C-\\><C-n>")
 
 -- Yank to clipboard
-vnoremap("<leader>y", '"+y')
-nnoremap("<leader>y", '"+y')
-nnoremap("<leader>Y", '"+y$')
-nnoremap("<leader>yy", '"+yy')
+set("v", "<leader>y", '"+y')
+set("n", "<leader>y", '"+y')
+set("n", "<leader>Y", '"+y$')
+set("n", "<leader>yy", '"+yy')
 
 -- Increment and Decrement mapping
-nnoremap("+", "<C-a>")
-nnoremap("-", "<C-x>")
-vnoremap("+", "<C-a>")
-vnoremap("-", "<C-x>")
-vnoremap("g+", "g<C-a>")
-vnoremap("g-", "g<C-x>")
+set({ "n", "v" }, "+", "<C-a>")
+set({ "n", "v" }, "-", "<C-x>")
+set("v", "g+", "g<C-a>")
+set("v", "g-", "g<C-x>")
 
 -- Reselecting when indenting multiple times
-vnoremap("<", "<gv")
-vnoremap(">", ">gv")
+set("v", "<", "<gv")
+set("v", ">", ">gv")
 
 -- Center screen when moving fast
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
-nnoremap("J", "mzJ`z")
+set("n", "n", "nzzzv")
+set("n", "N", "Nzzzv")
+set("n", "J", "mzJ`z")
 
 -- Move Blocks of Code
-vnoremap("J", ":m '>+1<CR>gv=gv")
-vnoremap("K", ":m '<-2<CR>gv=gv")
+set("v", "J", ":m '>+1<CR>gv=gv")
+set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Breaks undo chain on punctuation
-inoremap(",", ",<C-g>u")
-inoremap(".", ".<C-g>u")
-inoremap("!", "!<C-g>u")
-inoremap("?", "?<C-g>u")
+set("i", ",", ",<C-g>u")
+set("i", ".", ".<C-g>u")
+set("i", "!", "!<C-g>u")
+set("i", "?", "?<C-g>u")
 
 -- Centers Scrolling
-nnoremap("<C-d>", "<C-d>zz")
-nnoremap("<C-u>", "<C-u>zz")
+set("n", "<C-d>", "<C-d>zz")
+set("n", "<C-u>", "<C-u>zz")
 
 -- Quick buffer nav
-nnoremap("<leader><leader>", "<C-^>", silent)
-nnoremap("<Tab>", ":bn<CR>", silent)
-nnoremap("<S-Tab>", ":bp<CR>", silent)
+set("n", "<leader><leader>", "<C-^>", silent)
+set("n", "<Tab>", ":bn<CR>", silent)
+set("n", "<S-Tab>", ":bp<CR>", silent)
 for i = 1, 9 do
-    nnoremap("<leader>" .. i, ":buffer " .. i .. "<CR>", silent)
+    set("n", "<leader>" .. i, ":buffer " .. i .. "<CR>", silent)
 end

@@ -7,8 +7,7 @@ local config = {
         go = "go run $fileName",
         python = "python3 $fileName",
         javascript = "node $fileName",
-        -- haskell = "runhaskell $fileName",
-        haskell = "cabal run",
+        haskell = "cabal run", -- "runhaskell $fileName",
         ocaml = "ocaml $fileName",
         rust = "cargo run",
         typescript = "deno run",
@@ -33,12 +32,13 @@ local function parseCmd(ft)
 end
 
 vim.api.nvim_create_augroup("CodeRunner", { clear = true })
-
 for ft, _ in pairs(config.filetypes) do
     local cmd = ":w<CR>:vsp<CR>:term " .. parseCmd(ft) .. "<CR><C-\\><C-n>"
     vim.api.nvim_create_autocmd("Filetype", {
         group = "CodeRunner",
         pattern = ft,
-        command = "nnoremap <buffer> " .. config.key .. " " .. cmd,
+        callback = function()
+            vim.keymap.set("n", config.key, cmd, { buffer = true })
+        end,
     })
 end

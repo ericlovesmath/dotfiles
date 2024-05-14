@@ -23,63 +23,59 @@ o.lazyredraw = true
 o.spellsuggest = "5"
 o.guitablabel = "%t"
 o.pumheight = 10
--- o.textwidth = 88
+o.completeopt = { "menu", "menuone", "noselect" }
 -- o.cmdheight = 0
-o.completeopt = {
-    "menu",
-    "menuone",
-    "noselect",
-}
 
+local ol = vim.opt_local
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
-augroup("TwoTabWidth", { clear = true })
-for _, ft in pairs({ "c", "css", "html", "javascript", "typescript", "ocaml", "javascriptreact", "typescripreact" }) do
-    autocmd("Filetype", {
-        group = "TwoTabWidth",
-        pattern = ft,
-        command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2",
-    })
-end
-
-augroup("CleanTerminal", { clear = true })
-autocmd("TermOpen", {
-    group = "CleanTerminal",
-    pattern = "term://*",
-    command = "setlocal nonumber norelativenumber nospell | setfiletype terminal",
+autocmd("Filetype", {
+    group = augroup("TwoTabWidth", {}),
+    pattern = { "c", "css", "html", "ocaml", "javascript*", "typescript*" },
+    callback = function()
+        ol.shiftwidth = 2
+        ol.tabstop = 2
+        ol.softtabstop = 2
+    end,
 })
 
-augroup("YankHighlight", { clear = true })
+autocmd("TermOpen", {
+    group = augroup("CleanTerminal", {}),
+    pattern = "term://*",
+    callback = function()
+        ol.number = false
+        ol.relativenumber = false
+        ol.spell = false
+    end,
+})
+
 autocmd("TextYankPost", {
-    group = "YankHighlight",
+    group = augroup("YankHighlight", {}),
     callback = function()
         vim.highlight.on_yank({ higroup = "IncSearch", timeout = "150" })
     end,
 })
 
-augroup("EnableFolding", { clear = true })
-for _, ft in pairs({ "cpp" }) do
-    autocmd("Filetype", {
-        group = "EnableFolding",
-        pattern = ft,
-        command = "setlocal foldmethod=marker",
-    })
-end
+autocmd("Filetype", {
+    group = augroup("EnableFolding", {}),
+    pattern = { "cpp" },
+    callback = function()
+        ol.foldmethod = "marker"
+    end,
+})
 
-augroup("PlaintextFormats", { clear = true })
-for _, ft in pairs({ "tex", "text", "markdown" }) do
-    autocmd("Filetype", {
-        group = "PlaintextFormats",
-        pattern = ft,
-        callback = function()
-            vim.cmd([[
-                setlocal formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
-                setlocal breakindentopt=shift:0,list:-1
-                setlocal wrap linebreak breakindent spellsuggest+=5
-                map j gj
-                map k gk
-            ]])
-        end,
-    })
-end
+autocmd("Filetype", {
+    group = augroup("PlaintextFormats", {}),
+    pattern = { "tex", "text", "markdown" },
+    callback = function()
+        vim.keymap.set("n", "j", "gj", { silent = true, buffer = true })
+        vim.keymap.set("n", "k", "gk", { silent = true, buffer = true })
+        ol.formatlistpat = [[^\s*\d\+[\]:.)}\t ]\s*]]
+        ol.breakindentopt = "shift:0,list:-1"
+        ol.spell = true
+        ol.wrap = true
+        ol.linebreak = true
+        ol.breakindent = true
+    end,
+})
