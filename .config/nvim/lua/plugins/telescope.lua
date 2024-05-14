@@ -6,13 +6,11 @@ return {
     },
     cmd = "Telescope",
     init = function()
-        local nnoremap = require("keymap").nnoremap
-
-        nnoremap("<leader>fp", "<cmd>Telescope projects<CR>")
-        nnoremap("<leader>ff", "<cmd>Telescope find_files<CR>")
-        nnoremap("<leader>fg", "<cmd>Telescope live_grep<CR>")
-        nnoremap("<leader>fb", "<cmd>Telescope buffers<CR>")
-        nnoremap("<leader>fh", "<cmd>Telescope help_tags<CR>")
+        vim.keymap.set("n", "<leader>fp", "<cmd>Telescope projects<CR>")
+        vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
+        vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
+        vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
+        vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<CR>")
     end,
     opts = {
         defaults = {

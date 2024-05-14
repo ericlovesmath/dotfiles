@@ -116,8 +116,6 @@ function M.config()
         sources = {
             b.formatting.prettierd,
             b.formatting.shfmt,
-            b.formatting.black,
-            -- b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
             b.formatting.isort,
             b.formatting.stylua,
             b.formatting.clang_format,
@@ -125,7 +123,8 @@ function M.config()
             b.formatting.ocamlformat,
             b.formatting.rustfmt,
             b.formatting.fourmolu,
-
+            b.formatting.black,
+            -- b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
             -- b.diagnostics.eslint_d,
             -- b.diagnostics.flake8,
         },

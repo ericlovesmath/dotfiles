@@ -1,5 +1,8 @@
 local o = vim.opt
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 o.tabstop = 4
 o.softtabstop = 4
 o.shiftwidth = 4

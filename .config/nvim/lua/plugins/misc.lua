@@ -6,7 +6,7 @@ return {
         "neovim/nvim-lspconfig",
         "nvim-lua/plenary.nvim",
     },
-    -- see details below for full configuration options
+
     opts = {
         lsp = {
             on_attach = function(client, bufnr)
@@ -26,10 +26,7 @@ return {
                 buf_set_keymap("<leader>vsd", "<cmd>lua vim.diagnostic.open_float(nil, {})<CR>")
                 buf_set_keymap("<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
                 buf_set_keymap("<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
-                buf_set_keymap(
-                    "<leader>vf",
-                    '<cmd>lua vim.lsp.buf.format{ filter = function(client) return client.name ~= "hls" end }<CR>'
-                )
+                buf_set_keymap("<leader>vf", "<cmd>lua vim.lsp.buf.format()<CR>")
             end,
         },
         mappings = true,

@@ -10,9 +10,6 @@ local M = {
 function M.config()
     local dap = require("dap")
 
-    local Remap = require("keymap")
-    local nnoremap = Remap.nnoremap
-
     -- Debugger installation location
     local MASON = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/"
     local CODELLDB = MASON .. "codelldb/codelldb"
@@ -61,7 +58,21 @@ function M.config()
         },
     }
 
-    require("nvim-dap-virtual-text").setup()
+    require("nvim-dap-virtual-text").setup({
+        display_callback = function(variable)
+            local name = string.lower(variable.name)
+            local value = string.lower(variable.value)
+            if name:match("secret") or name:match("api") or value:match("secret") or value:match("api") then
+                return "*****"
+            end
+
+            if #variable.value > 15 then
+                return " " .. string.sub(variable.value, 1, 15) .. "... "
+            end
+
+            return " " .. variable.value
+        end,
+    })
 
     require("dapui").setup({
         icons = { expanded = "▾", collapsed = "▸" },
@@ -106,21 +117,21 @@ function M.config()
     vim.fn.sign_define("DapBreakpoint", { text = "●" })
     vim.fn.sign_define("DapStopped", { text = "" })
 
-    nnoremap("<leader>d_", ":lua require('dap').disconnect();require('dap').close();require('dap').run_last()<CR>")
-    nnoremap("<leader>db", ":lua require('dap').toggle_breakpoint()<CR>")
-    nnoremap("<leader>ds", ":lua require('dap').terminate()<CR>")
-    nnoremap("<leader>dn", ":lua require('dap').continue()<CR>")
+    vim.keymap.set("n", "<leader>d_", ":lua require('dap').disconnect();require('dap').close();require('dap').run_last()<CR>")
+    vim.keymap.set("n", "<leader>db", ":lua require('dap').toggle_breakpoint()<CR>")
+    vim.keymap.set("n", "<leader>ds", ":lua require('dap').terminate()<CR>")
+    vim.keymap.set("n", "<leader>dn", ":lua require('dap').continue()<CR>")
 
-    nnoremap("<leader>dk", ":lua require('dap').up()<CR>")
-    nnoremap("<leader>dj", ":lua require('dap').down()<CR>")
+    vim.keymap.set("n", "<leader>dk", ":lua require('dap').up()<CR>")
+    vim.keymap.set("n", "<leader>dj", ":lua require('dap').down()<CR>")
+
+    vim.keymap.set("n", "<leader>dt", ":lua require('dapui').toggle()<CR>")
+    vim.keymap.set("n", "<leader>dh", ":lua require('dapui').eval()<CR>")
+    vim.keymap.set("n", "<leader>dv", ":lua require('dapui').float_element()<CR>")
 
     -- nnoremap <S-k> :lua require'dap'.step_out()<CR>
     -- nnoremap <S-l> :lua require'dap'.step_into()<CR>
     -- nnoremap <S-j> :lua require'dap'.step_over()<CR>
-
-    nnoremap("<leader>dt", ":lua require('dapui').toggle()<CR>")
-    nnoremap("<leader>dh", ":lua require('dapui').eval()<CR>")
-    nnoremap("<leader>dv", ":lua require('dapui').float_element()<CR>")
 
     -- nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 end
