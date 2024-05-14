@@ -5,76 +5,57 @@ local M = {
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "jose-elias-alvarez/null-ls.nvim",
-        { "folke/neodev.nvim", opts = {} },
+        "stevearc/conform.nvim",
+        { "folke/neodev.nvim", ft = "lua", opts = {} },
         { "mfussenegger/nvim-jdtls", ft = { "java" } },
     },
 }
 
 function M.config()
-    local ok, nvim_lsp = pcall(require, "lspconfig")
-    if not ok then
-        return
-    end
+    local nvim_lsp = require("lspconfig")
 
-    local on_attach = function(client, bufnr)
-        -- Mappings
-        local opts = { noremap = true, silent = true }
-        local function buf_set_keymap(lhs, rhs)
-            vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
-        end
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("LspKeybinds", {}),
+        callback = function(args)
+            local function set_local(lhs, rhs)
+                vim.keymap.set("n", lhs, rhs, { silent = true, buffer = 0 })
+            end
 
-        -- Disable highlighting from LSP as TreeSitter takes care of it
-        client.server_capabilities.semanticTokensProvider = nil
+            set_local("<leader>vd", vim.lsp.buf.definition)
+            set_local("<leader>vh", vim.lsp.buf.hover)
+            set_local("<leader>vi", vim.lsp.buf.implementation)
+            set_local("<leader>vsh", vim.lsp.buf.signature_help)
+            set_local("<leader>vrr", vim.lsp.buf.references)
+            set_local("<leader>vrn", vim.lsp.buf.rename)
+            set_local("<leader>vca", vim.lsp.buf.code_action)
+            set_local("<leader>vsd", vim.diagnostic.open_float)
+            set_local("<leader>vp", vim.diagnostic.goto_prev)
+            set_local("<leader>vn", vim.diagnostic.goto_next)
 
-        buf_set_keymap("<leader>vd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-        buf_set_keymap("<leader>vh", "<cmd>lua vim.lsp.buf.hover()<CR>")
-        buf_set_keymap("<leader>vi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-        buf_set_keymap("<leader>vsh", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-        buf_set_keymap("<leader>vrr", "<cmd>lua vim.lsp.buf.references()<CR>")
-        buf_set_keymap("<leader>vrn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-        buf_set_keymap("<leader>vca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-        buf_set_keymap("<leader>vsd", "<cmd>lua vim.diagnostic.open_float(nil, {})<CR>")
-        buf_set_keymap("<leader>vp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
-        buf_set_keymap("<leader>vn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
+            -- Treesitter over LSP
+            local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "invalid client")
+            client.server_capabilities.semanticTokensProvider = nil
+        end,
+    })
 
-        -- TODO: LSP config needs to be rewritten to be better
-        buf_set_keymap(
-            "<leader>vf",
-            '<cmd>lua vim.lsp.buf.format{ filter = function(client) return client.name ~= "hls" end }<CR>'
-        )
-    end
-
-    -- Required for html/cssls because Microsoft
-    local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-    local function config(_config)
-        return vim.tbl_deep_extend("force", {
-            on_attach = on_attach,
-        }, _config or {})
-    end
 
     -- Mason.nvim config
     require("mason").setup()
     require("mason-lspconfig").setup()
     require("mason-lspconfig").setup_handlers({
         function(server_name)
-            nvim_lsp[server_name].setup(config())
+            nvim_lsp[server_name].setup({})
         end,
-        ["jdtls"] = function() end, -- Use nvim-jdtls instead
         ["html"] = function()
-            nvim_lsp.html.setup(config({
-                capabilities = capabilities,
-            }))
+            nvim_lsp.html.setup({ capabilities = capabilities })
         end,
         ["cssls"] = function()
-            nvim_lsp.cssls.setup(config({
-                capabilities = capabilities,
-            }))
+            nvim_lsp.cssls.setup({ capabilities = capabilities })
         end,
         ["rust_analyzer"] = function()
-            nvim_lsp.rust_analyzer.setup(config({
+            nvim_lsp.rust_analyzer.setup({
                 settings = {
                     ["rust-analyzer"] = {
                         check = {
@@ -90,46 +71,45 @@ function M.config()
                         },
                     },
                 },
-            }))
+            })
         end,
         ["tsserver"] = function()
-            nvim_lsp.tsserver.setup(config({
+            nvim_lsp.tsserver.setup({
                 settings = {
                     typescript = { format = { semicolons = "insert" } },
-                    javascript = { format = { semicolons = "insert" } }
-                }
-            }))
+                    javascript = { format = { semicolons = "insert" } },
+                },
+            })
         end,
+        ["jdtls"] = function() end, -- Use nvim-jdtls instead
     })
 
     -- LSPs not installed with mason.nvim
-    nvim_lsp.gdscript.setup(config())
-    nvim_lsp.ccls.setup(config())
-    nvim_lsp.hls.setup(config())
-    nvim_lsp.ocamllsp.setup(config())
+    nvim_lsp.gdscript.setup({})
+    nvim_lsp.ccls.setup({})
+    nvim_lsp.hls.setup({})
+    nvim_lsp.ocamllsp.setup({})
 
-    -- Null LS
-    local null_ls = require("null-ls")
-    local b = null_ls.builtins
-
-    null_ls.setup({
-        sources = {
-            b.formatting.prettierd,
-            b.formatting.shfmt,
-            b.formatting.isort,
-            b.formatting.stylua,
-            b.formatting.clang_format,
-            b.formatting.asmfmt,
-            b.formatting.ocamlformat,
-            b.formatting.rustfmt,
-            b.formatting.fourmolu,
-            b.formatting.black,
-            -- b.formatting.black.with({ extra_args = { "--fast", "--line-length", "79" } }),
-            -- b.diagnostics.eslint_d,
-            -- b.diagnostics.flake8,
+    -- Formatters and Linters with conform.nvim
+    local conform = require("conform")
+    conform.setup({
+        formatters_by_ft = {
+            asm = { "asmfmt" },
+            bash = { "shfmt" },
+            lua = { "stylua" },
+            ocaml = { "ocamlformat" },
+            haskell = { "ormolu" },
+            python = { "isort", "flake8", "black" },
+            cpp = { "clang-format" },
+            javascript = { "eslint_d", { "prettierd", "prettier" } },
+            typescript = { "eslint_d", { "prettierd", "prettier" } },
+            javascriptreact = { "eslint_d", { "prettierd", "prettier" } },
+            typescriptreact = { "eslint_d", { "prettierd", "prettier" } },
         },
-        on_attach = on_attach,
     })
+    vim.keymap.set("n", "<leader>vf", function()
+        conform.format({ lsp_fallback = true })
+    end)
 end
 
 return M

@@ -60,9 +60,7 @@ function M.config()
             -- { name = 'nvim_lsp', max_item_count = 10, keyword_length = 3 },
             { name = "path" },
         },
-        --[[ experimental = {
-            ghost_text = true
-        }, ]]
+        -- experimental = { ghost_text = true },
     })
 end
 
