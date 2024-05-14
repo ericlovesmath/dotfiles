@@ -13,8 +13,8 @@ decorations = "buttonless"
 history = 10000
 multiplier = 1
 
-[cursor]
-style = "Block"
+[env]
+TERM = "xterm-256color"
 
 [font]
 size = 20.0

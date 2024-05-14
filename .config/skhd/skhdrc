@@ -112,6 +112,7 @@ meh - f : yabai -m window --toggle zoom-fullscreen
 
 # opens terminal
 meh - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+hyper - return : nohup /Applications/Alacritty.app/Contents/MacOS/alacritty -e zsh
 # meh - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 
 #Opens youtube
