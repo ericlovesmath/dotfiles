@@ -1,115 +1,129 @@
-local M = {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    cmd = { "LspInfo", "LspStart", "LspRestart", "Mason" },
-    dependencies = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "stevearc/conform.nvim",
-        { "folke/neodev.nvim", ft = "lua", opts = {} },
-        { "mfussenegger/nvim-jdtls", ft = { "java" } },
+return {
+    {
+        "mfussenegger/nvim-jdtls",
+        ft = { "java" },
     },
-}
+    {
+        "Julian/lean.nvim",
+        event = { "BufReadPre *.lean", "BufNewFile *.lean" },
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-lua/plenary.nvim",
+        },
+        config = true,
+    },
+    {
+        "neovim/nvim-lspconfig",
+        event = { "BufReadPre", "BufNewFile" },
+        cmd = { "LspInfo", "LspStart", "LspRestart", "Mason" },
+        dependencies = {
+            "folke/neodev.nvim",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "stevearc/conform.nvim",
+        },
+        config = function()
+            require("neodev").setup()
 
-function M.config()
-    local nvim_lsp = require("lspconfig")
+            local nvim_lsp = require("lspconfig")
 
-    vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("LspKeybinds", {}),
-        callback = function(args)
-            local function set_local(lhs, rhs)
-                vim.keymap.set("n", lhs, rhs, { silent = true, buffer = 0 })
-            end
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-            set_local("<leader>vd", vim.lsp.buf.definition)
-            set_local("<leader>vh", vim.lsp.buf.hover)
-            set_local("<leader>vi", vim.lsp.buf.implementation)
-            set_local("<leader>vsh", vim.lsp.buf.signature_help)
-            set_local("<leader>vrr", vim.lsp.buf.references)
-            set_local("<leader>vrn", vim.lsp.buf.rename)
-            set_local("<leader>vca", vim.lsp.buf.code_action)
-            set_local("<leader>vsd", vim.diagnostic.open_float)
-            set_local("<leader>vp", vim.diagnostic.goto_prev)
-            set_local("<leader>vn", vim.diagnostic.goto_next)
-
-            -- Treesitter over LSP
-            local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "invalid client")
-            client.server_capabilities.semanticTokensProvider = nil
-        end,
-    })
-
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-    -- Mason.nvim config
-    require("mason").setup()
-    require("mason-lspconfig").setup()
-    require("mason-lspconfig").setup_handlers({
-        function(server_name)
-            nvim_lsp[server_name].setup({})
-        end,
-        ["html"] = function()
-            nvim_lsp.html.setup({ capabilities = capabilities })
-        end,
-        ["cssls"] = function()
-            nvim_lsp.cssls.setup({ capabilities = capabilities })
-        end,
-        ["rust_analyzer"] = function()
-            nvim_lsp.rust_analyzer.setup({
-                settings = {
-                    ["rust-analyzer"] = {
-                        check = {
-                            overrideCommand = {
-                                "cargo",
-                                "clippy",
-                                "--all-features",
-                                "--all-targets",
-                                "--workspace",
-                                "--message-format=json",
-                                -- "--target=wasm32-unknown-unknown",
+            -- Mason.nvim config
+            require("mason").setup()
+            require("mason-lspconfig").setup()
+            require("mason-lspconfig").setup_handlers({
+                function(server_name)
+                    nvim_lsp[server_name].setup({})
+                end,
+                ["html"] = function()
+                    nvim_lsp.html.setup({ capabilities = capabilities })
+                end,
+                ["cssls"] = function()
+                    nvim_lsp.cssls.setup({ capabilities = capabilities })
+                end,
+                ["rust_analyzer"] = function()
+                    nvim_lsp.rust_analyzer.setup({
+                        settings = {
+                            ["rust-analyzer"] = {
+                                check = {
+                                    overrideCommand = {
+                                        "cargo",
+                                        "clippy",
+                                        "--all-features",
+                                        "--all-targets",
+                                        "--workspace",
+                                        "--message-format=json",
+                                        -- "--target=wasm32-unknown-unknown",
+                                    },
+                                },
                             },
                         },
-                    },
+                    })
+                end,
+                ["tsserver"] = function()
+                    nvim_lsp.tsserver.setup({
+                        settings = {
+                            typescript = { format = { semicolons = "insert" } },
+                            javascript = { format = { semicolons = "insert" } },
+                        },
+                    })
+                end,
+                ["jdtls"] = function() end, -- Use nvim-jdtls instead
+            })
+
+            -- LSPs not installed with mason.nvim
+            nvim_lsp.gdscript.setup({})
+            nvim_lsp.ccls.setup({})
+            nvim_lsp.hls.setup({})
+            nvim_lsp.ocamllsp.setup({})
+
+            -- Create Keybinds for LSP
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("LspKeybinds", {}),
+                callback = function(args)
+                    local function set_local(lhs, rhs)
+                        vim.keymap.set("n", lhs, rhs, { silent = true, buffer = 0 })
+                    end
+
+                    set_local("<leader>vd", vim.lsp.buf.definition)
+                    set_local("<leader>vh", vim.lsp.buf.hover)
+                    set_local("<leader>vi", vim.lsp.buf.implementation)
+                    set_local("<leader>vsh", vim.lsp.buf.signature_help)
+                    set_local("<leader>vrr", vim.lsp.buf.references)
+                    set_local("<leader>vrn", vim.lsp.buf.rename)
+                    set_local("<leader>vca", vim.lsp.buf.code_action)
+                    set_local("<leader>vsd", vim.diagnostic.open_float)
+                    set_local("<leader>vp", vim.diagnostic.goto_prev)
+                    set_local("<leader>vn", vim.diagnostic.goto_next)
+
+                    -- Use Treesitter instead of LSP
+                    local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "invalid client")
+                    client.server_capabilities.semanticTokensProvider = nil
+                end,
+            })
+
+            -- Formatters and Linters with conform.nvim, replacing LSP
+            local conform = require("conform")
+            conform.setup({
+                formatters_by_ft = {
+                    asm = { "asmfmt" },
+                    bash = { "shfmt" },
+                    lua = { "stylua" },
+                    ocaml = { "ocamlformat" },
+                    haskell = { "ormolu" },
+                    python = { "isort", "flake8", "black" },
+                    cpp = { "clang-format" },
+                    javascript = { "eslint_d", { "prettierd", "prettier" } },
+                    typescript = { "eslint_d", { "prettierd", "prettier" } },
+                    javascriptreact = { "eslint_d", { "prettierd", "prettier" } },
+                    typescriptreact = { "eslint_d", { "prettierd", "prettier" } },
                 },
             })
+            vim.keymap.set("n", "<leader>vf", function()
+                conform.format({ lsp_fallback = true })
+            end)
         end,
-        ["tsserver"] = function()
-            nvim_lsp.tsserver.setup({
-                settings = {
-                    typescript = { format = { semicolons = "insert" } },
-                    javascript = { format = { semicolons = "insert" } },
-                },
-            })
-        end,
-        ["jdtls"] = function() end, -- Use nvim-jdtls instead
-    })
-
-    -- LSPs not installed with mason.nvim
-    nvim_lsp.gdscript.setup({})
-    nvim_lsp.ccls.setup({})
-    nvim_lsp.hls.setup({})
-    nvim_lsp.ocamllsp.setup({})
-
-    -- Formatters and Linters with conform.nvim
-    local conform = require("conform")
-    conform.setup({
-        formatters_by_ft = {
-            asm = { "asmfmt" },
-            bash = { "shfmt" },
-            lua = { "stylua" },
-            ocaml = { "ocamlformat" },
-            haskell = { "ormolu" },
-            python = { "isort", "flake8", "black" },
-            cpp = { "clang-format" },
-            javascript = { "eslint_d", { "prettierd", "prettier" } },
-            typescript = { "eslint_d", { "prettierd", "prettier" } },
-            javascriptreact = { "eslint_d", { "prettierd", "prettier" } },
-            typescriptreact = { "eslint_d", { "prettierd", "prettier" } },
-        },
-    })
-    vim.keymap.set("n", "<leader>vf", function()
-        conform.format({ lsp_fallback = true })
-    end)
-end
-
-return M
+    },
+}
