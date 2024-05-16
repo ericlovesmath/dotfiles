@@ -52,7 +52,7 @@ local substitutions = {
 }
 
 -- Utility function to replace unicode character when copying from PDF
-function LatexSubstituteUnicode()
+vim.api.nvim_create_user_command("LatexSubstituteUnicode", function()
     if not vim.bo.filetype == "tex" then
         print("Warning: This is not a LaTeX file.")
         return
@@ -61,4 +61,4 @@ function LatexSubstituteUnicode()
     for _, sub in ipairs(substitutions) do
         vim.cmd(":silent! %s/" .. sub.src .. "/" .. sub.dst:gsub([[\]], [[\\]]) .. "/g")
     end
-end
+end, {})

@@ -24,10 +24,10 @@ o.splitright = true
 o.laststatus = 3
 o.lazyredraw = true
 o.spellsuggest = "5"
-o.guitablabel = "%t"
 o.pumheight = 10
 o.completeopt = { "menu", "menuone", "noselect" }
 -- o.cmdheight = 0
+-- o.guitablabel = "%t"
 
 local ol = vim.opt_local
 local augroup = vim.api.nvim_create_augroup
@@ -72,13 +72,21 @@ autocmd("Filetype", {
     group = augroup("PlaintextFormats", {}),
     pattern = { "tex", "text", "markdown" },
     callback = function()
-        vim.keymap.set("n", "j", "gj", { silent = true, buffer = true })
-        vim.keymap.set("n", "k", "gk", { silent = true, buffer = true })
+        vim.keymap.set({ "n", "v" }, "j", "gj", { silent = true, buffer = true })
+        vim.keymap.set({ "n", "v" }, "k", "gk", { silent = true, buffer = true })
         ol.formatlistpat = [[^\s*\d\+[\]:.)}\t ]\s*]]
         ol.breakindentopt = "shift:0,list:-1"
         ol.spell = true
         ol.wrap = true
         ol.linebreak = true
         ol.breakindent = true
+    end,
+})
+
+autocmd("FileType", {
+    group = augroup("CommentstringAddSpace", {}),
+    callback = function(event)
+        local cs = vim.bo[event.buf].commentstring
+        vim.bo[event.buf].commentstring = cs:gsub("(%S)%%s", "%1 %%s"):gsub("%%s(%S)", "%%s %1")
     end,
 })
