@@ -5,7 +5,7 @@ args = ["-u", "new-session", "-A", "-s", "Main"]
 [window]
 opacity = 0.98
 dimensions = { columns = 180, lines = 40 }
-padding = { x = 6, y = 6 }
+padding = { x = 5, y = 5 }
 dynamic_padding = true
 decorations = "buttonless"
 

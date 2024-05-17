@@ -7,26 +7,16 @@ yabai -m config layout bsp
 # Override default layout for space 2 only
 #yabai -m config --space 3 layout float
 
-# Set all padding and gaps to 20pt (default: 0)
-yabai -m config top_padding    50
-yabai -m config top_padding    10
-yabai -m config bottom_padding 10
-yabai -m config left_padding   10
-yabai -m config right_padding  10
-yabai -m config window_gap     10
+# Set all padding and gaps (default: 0)
+yabai -m config top_padding    5
+yabai -m config bottom_padding 5
+yabai -m config left_padding   5
+yabai -m config right_padding  5
+yabai -m config window_gap     7
 
 # floating windows are always on top (default: off)
 yabai -m config window_topmost on
 yabai -m config window_shadow off
-
-# yabai -m config active_window_border_topmost on
-# yabai -m config window_border off
-# yabai -m config window_border_width 2
-
-# yabai -m config active_window_border_color   0xff8E83B8
-# yabai -m config insert_window_border_color   0xff8E83B8
-# yabai -m config normal_window_border_color   0xff8E83B8
-# yabai -m config normal_window_border_color   0xff51425C
 
 yabai -m config window_placement second_child
 #yabai -m rule --add app=Terminal border=off
@@ -44,11 +34,11 @@ yabai -m rule --add title="^About This Mac$" manage=off
 yabai -m rule --add app="^About This Mac$" manage=off
 yabai -m rule --add app="^Macs Fan Control$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
-yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Godot$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 yabai -m rule --add app="^Mail$" manage=off
 yabai -m rule --add app="^Transmission$" manage=off
+# yabai -m rule --add app="^Spotify$" manage=off
 # yabai -m rule --add app="^Messages$" manage=off
 # yabai -m rule --add app="^Godot$" title="^.*(DEBUG)$" manage=off
 
