@@ -45,15 +45,12 @@ return {
         end,
     },
     {
-        "morhetz/gruvbox",
+        "sainnhe/gruvbox-material",
         config = function()
-            vim.g.gruvbox_contrast_dark = "soft"
-            vim.g.gruvbox_transparent_bg = 1
-            vim.cmd("autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE")
-            -- vim.g.gruvbox_sign_column = "none"
-            -- vim.g.gruvbox_color_column = "none"
-            -- vim.g.gruvbox_italic = 1
-            -- vim.g.gruvbox_termcolors = 16
+            vim.g.gruvbox_material_foreground = "mix"
+            vim.g.gruvbox_material_background = "medium"
+            vim.g.gruvbox_material_better_performance = 1
+            vim.g.gruvbox_material_transparent_background = 1
         end,
     },
     "sainnhe/sonokai",

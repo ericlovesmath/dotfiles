@@ -36,12 +36,16 @@ set statusline+=%1*\ %3p%%\                        " Percentage of document
 set statusline+=%0*\ %{%WordCountOrRowCol()%}\     " Word Count for Markdown, Row/Col for all else
 
 " Status Bar Colors
-hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
-hi User1 guifg=#adadad guibg=#4e4e4e ctermfg=007 ctermbg=239
-hi User2 guifg=#adadad guibg=#303030 ctermfg=007 ctermbg=236
+function SetStatusBarColors()
+    hi statusline guifg=black   guibg=#8fbfdc ctermfg=black ctermbg=cyan
+    hi User1      guifg=#adadad guibg=#4e4e4e ctermfg=007 ctermbg=239
+    hi User2      guifg=#adadad guibg=#303030 ctermfg=007 ctermbg=236
+endfunction
+
+call SetStatusBarColors()
+autocmd ColorScheme * call SetStatusBarColors()
 au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
 au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
-
 
 " Tabline
 function! Tabline()

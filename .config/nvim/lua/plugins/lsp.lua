@@ -17,18 +17,20 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         cmd = { "LspInfo", "LspStart", "LspRestart", "Mason" },
         dependencies = {
-            "folke/neodev.nvim",
+            { "folke/lazydev.nvim", ft = "lua" },
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "stevearc/conform.nvim",
         },
         config = function()
-            require("neodev").setup()
+            require("lazydev").setup()
 
             local nvim_lsp = require("lspconfig")
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+            -- vim.diagnostic.config({ virtual_text = false })
 
             -- Mason.nvim config
             require("mason").setup()
@@ -75,7 +77,6 @@ return {
 
             -- LSPs not installed with mason.nvim
             nvim_lsp.gdscript.setup({})
-            nvim_lsp.ccls.setup({})
             nvim_lsp.hls.setup({})
             nvim_lsp.ocamllsp.setup({})
 
@@ -103,6 +104,9 @@ return {
                     client.server_capabilities.semanticTokensProvider = nil
                 end,
             })
+
+            -- Use Semantic Tokens AFTER Treesitter (see above to disable semantic tokens)
+            -- vim.highlight.priorities.semantic_tokens = 95
 
             -- Formatters and Linters with conform.nvim, replacing LSP
             local conform = require("conform")
