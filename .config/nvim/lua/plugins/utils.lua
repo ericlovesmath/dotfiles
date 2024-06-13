@@ -12,6 +12,14 @@ return {
             show_hidden = false,
         },
     },
+    {
+        "Wansmer/treesj",
+        keys = { "<space>m", "<space>j", "<space>s" },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+            require("treesj").setup()
+        end,
+    },
 
     {
         "lewis6991/gitsigns.nvim",
@@ -26,10 +34,10 @@ return {
         "jpalardy/vim-slime",
         event = "VeryLazy",
         config = function()
-          vim.g.slime_target = "tmux"
-          vim.g.slime_bracketed_paste = 1
-          -- vim.g.slime_default_config = { socket_name = "default", target_pane = "{last}" }
-          -- vim.g.slime_dont_ask_default = 1
+            vim.g.slime_target = "tmux"
+            vim.g.slime_bracketed_paste = 1
+            -- vim.g.slime_default_config = { socket_name = "default", target_pane = "{last}" }
+            -- vim.g.slime_dont_ask_default = 1
         end,
     },
 }

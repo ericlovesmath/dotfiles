@@ -119,10 +119,10 @@ return {
                     haskell = { "ormolu" },
                     python = { "isort", "flake8", "black" },
                     cpp = { "clang-format" },
-                    javascript = { "eslint_d", { "prettierd", "prettier" } },
-                    typescript = { "eslint_d", { "prettierd", "prettier" } },
-                    javascriptreact = { "eslint_d", { "prettierd", "prettier" } },
-                    typescriptreact = { "eslint_d", { "prettierd", "prettier" } },
+                    javascript = {{ "prettierd", "prettier" },  "eslint_d" },
+                    typescript = {{ "prettierd", "prettier" },  "eslint_d" },
+                    javascriptreact = {{ "prettierd", "prettier" },  "eslint_d" },
+                    typescriptreact = {{ "prettierd", "prettier" },  "eslint_d" },
                 },
             })
             vim.keymap.set("n", "<leader>vf", function()

@@ -1,5 +1,5 @@
 -- For adding journal entries in my Markdown format
-function JournalEntry()
+vim.api.nvim_create_user_command("JournalEntry", function()
     -- Input custom date if desired
     local date = vim.fn.input("Date (YYYY-MM-DD): ", os.date("%Y-%m-%d"))
     local y, m, d = date:match("(%d%d%d%d)-(%d%d)-(%d%d)")
@@ -26,13 +26,14 @@ function JournalEntry()
             vim.api.nvim_put({ "![](" .. img .. ")" }, "l", true, true)
         end
     end
-end
+end, {})
 
 local substitutions = {
     { src = "π", dst = [[\pi ]] },
     { src = "Ω", dst = [[\Omega ]] },
     { src = "ω", dst = [[\omega ]] },
     { src = "′", dst = "'" },
+    { src = "’", dst = "'" },
     { src = "≥", dst = [[\geq ]] },
     { src = "≤", dst = [[\leq ]] },
     { src = "×", dst = [[\times ]] },
@@ -45,6 +46,10 @@ local substitutions = {
     { src = "⊆", dst = [[\subseteq ]] },
     { src = "⊂", dst = [[\subset ]] },
     { src = "∅", dst = [[\emptyset ]] },
+    { src = "ℜ", dst = [[\mathfrak{R}]] },
+    { src = "ℓ", dst = [[\ell ]] },
+    { src = "μ", dst = [[\mu ]] },
+    { src = "ε", dst = [[\epsilon ]] },
     { src = "“", dst = "``" },
     { src = "”", dst = "''" },
     { src = "−", dst = "-" }, -- The bane of my existence
