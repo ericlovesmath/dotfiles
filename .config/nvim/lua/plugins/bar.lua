@@ -14,13 +14,13 @@ return {
         }
 
         local TablineFileFlags = {
+            provider = "• ",
             condition = function(self)
                 return vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
             end,
-            provider = "• ",
         }
 
-        local TablineBlock = {
+        local TablineBlockInner = {
             init = function(self)
                 local fname = vim.api.nvim_buf_get_name(self.bufnr)
                 self.fname = fname == "" and "[No Name]" or vim.fn.fnamemodify(fname, ":t")
@@ -50,14 +50,17 @@ return {
                         return vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
                     end, vim.api.nvim_list_bufs())
 
-                    if #buflist_cache > 1 then
-                        vim.o.showtabline = 2
-                    elseif vim.o.showtabline ~= 1 then
-                        vim.o.showtabline = 1
-                    end
+                    vim.o.showtabline = #buflist_cache > 1 and 2 or 0
                 end)
             end,
         })
+
+        local TablineBlock = {
+            provider = function (self)
+                return buflist_cache[1] ~= self.bufnr and "|" or ""
+            end,
+            { TablineBlockInner }
+        }
 
         local BufferLine = utils.make_buflist(
             TablineBlock,
@@ -72,3 +75,4 @@ return {
         require("heirline").setup({ tabline = BufferLine })
     end,
 }
+
