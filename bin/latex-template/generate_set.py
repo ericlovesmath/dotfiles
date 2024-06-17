@@ -22,10 +22,12 @@ def generate_problem(number, count=1):
     print(problem(number, count))
     print()
     if count == 1:
+        print(r"\medskip")
         print(lineproof(number))
         print()
     else:
         for i in range(count):
+            print(r"\medskip" if i == 0 else r"\bigskip")
             print(lineproof(str(number) + chr(97 + i)))
             print()
 
