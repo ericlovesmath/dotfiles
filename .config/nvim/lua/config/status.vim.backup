@@ -1,4 +1,3 @@
-vim.cmd([[
 " Status Line
 let g:currentmode={"n": "NORMAL", "no": "NORMAL·OPERATOR PENDING", "v": "VISUAL",
     \ "V": "V·LINE", "\<C-V>": "V·BLOCK", "s": "SELECT", "S": "S·LINE", "^S": "S·BLOCK",
@@ -69,4 +68,3 @@ function! Tabline()
 endfunction
 
 set tabline=%!Tabline()
-]])

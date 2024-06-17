@@ -26,16 +26,16 @@ o.lazyredraw = true
 o.spellsuggest = "5"
 o.pumheight = 10
 o.completeopt = { "menu", "menuone", "noselect" }
--- o.cmdheight = 0
--- o.guitablabel = "%t"
 
 local ol = vim.opt_local
-local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local augroup = function(name)
+    vim.api.nvim_create_augroup(name, { clear = true })
+end
 
 autocmd("Filetype", {
-    group = augroup("TwoTabWidth", {}),
-    pattern = { "c", "css", "html", "ocaml", "javascript*", "typescript*" },
+    group = augroup("TwoTabWidth"),
+    pattern = { "c", "css", "cpp", "html", "ocaml", "javascript*", "typescript*" },
     callback = function()
         ol.shiftwidth = 2
         ol.tabstop = 2
@@ -44,24 +44,33 @@ autocmd("Filetype", {
 })
 
 autocmd("TermOpen", {
-    group = augroup("CleanTerminal", {}),
+    group = augroup("CleanTerminal"),
     pattern = "term://*",
     callback = function()
         ol.number = false
         ol.relativenumber = false
         ol.spell = false
+        ol.buflisted = false
+    end,
+})
+
+autocmd("Filetype", {
+    group = augroup("DisableQuickfixFromBuflisted"),
+    pattern = "qf",
+    callback = function()
+        ol.buflisted = false
     end,
 })
 
 autocmd("TextYankPost", {
-    group = augroup("YankHighlight", {}),
+    group = augroup("YankHighlight"),
     callback = function()
         vim.highlight.on_yank({ higroup = "IncSearch", timeout = "150" })
     end,
 })
 
 autocmd("Filetype", {
-    group = augroup("EnableFolding", {}),
+    group = augroup("EnableFolding"),
     pattern = { "cpp" },
     callback = function()
         ol.foldmethod = "marker"
@@ -69,7 +78,7 @@ autocmd("Filetype", {
 })
 
 autocmd("Filetype", {
-    group = augroup("PlaintextFormats", {}),
+    group = augroup("PlaintextFormats"),
     pattern = { "tex", "text", "markdown" },
     callback = function()
         vim.keymap.set({ "n", "v" }, "j", "gj", { silent = true, buffer = true })
@@ -84,7 +93,7 @@ autocmd("Filetype", {
 })
 
 autocmd("FileType", {
-    group = augroup("CommentstringAddSpace", {}),
+    group = augroup("CommentstringAddSpace"),
     callback = function(event)
         local cs = vim.bo[event.buf].commentstring
         vim.bo[event.buf].commentstring = cs:gsub("(%S)%%s", "%1 %%s"):gsub("%%s(%S)", "%%s %1")
