@@ -14,7 +14,7 @@ return {
                     n = "NORMAL", i = "INSERT", c = "COMMAND", R = "REPLACE",
                     v = "VISUAL", V = "V·LINE", ["\22"] = "V·BLOCK",
                     s = "SELECT", S = "S·LINE", ["\19"] = "S·BLOCK",
-                    r = "...", ["!"] = "!", t = "TERM",
+                    t = "TERM",   r = "...",    ["!"]   = "!",
                 },
             },
             provider = function(self)
@@ -32,10 +32,10 @@ return {
             },
         }
 
-        local Filename = {
+        local FileName = {
             -- Filename cut off, modified flag, readonly
             provider = " %<%t%m%r ",
-            hl = { fg = "#adadad", bg = "#4e4e4e" },
+            hl = "StatusLine"
         }
 
         local Diagnostics = {
@@ -53,11 +53,11 @@ return {
 
         local AlignRight = { provider = "%=" }
 
-        local Filetype = { provider = "%Y " }
+        local FileType = { provider = "%Y " }
 
         local Percentage = {
             provider = " %3p%% ",
-            hl = { fg = "#adadad", bg = "#4e4e4e" },
+            hl = "StatusLine"
         }
 
         local RulerOrWordCount = {
@@ -79,26 +79,18 @@ return {
             init = function(self)
                 self.mode = vim.fn.mode(1):sub(1, 1)
                 self.mode_color = function()
+                    -- stylua: ignore
                     local to_color = {
-                        n = utils.get_highlight("Function").fg,
-                        i = utils.get_highlight("Statement").fg,
-                        c = utils.get_highlight("@constant").fg,
-                        v = utils.get_highlight("String").fg,
-                        V = utils.get_highlight("String").fg,
-                        t = utils.get_highlight("Function").fg,
-                        R = utils.get_highlight("@constant").fg,
-                        ["\22"] = utils.get_highlight("String").fg,
-                        ["\19"] = "white",
-                        s = "white",
-                        S = "white",
-                        r = "white",
-                        ["!"] = "red",
+                        n = "func",   i = "statement", c = "constant", R = "constant",
+                        v = "string", V = "string",    ["\22"] = "string",
+                        s = "white",  S = "white",     ["\19"] = "white",
+                        t = "func",   r = "white",     ["!"] = "red",
                     }
                     return to_color[self.mode]
                 end
             end,
-            hl = { bg = "#303030" },
-            { ViMode, Filename, Diagnostics, AlignRight, Filetype, Percentage, RulerOrWordCount },
+            hl = { fg = "None" },
+            { ViMode, FileName, Diagnostics, AlignRight, FileType, Percentage, RulerOrWordCount },
         }
 
         -- [[ BUFFERLINE CONFIGURATION ]] --
@@ -140,7 +132,7 @@ return {
                 self.fname = fname == "" and "[No Name]" or vim.fn.fnamemodify(fname, ":t")
             end,
             hl = function(self)
-                local c = { fg = "black", bg = utils.get_highlight("Function").fg }
+                local c = { fg = "black", bg = "func" }
                 return self.is_active and c or "TabLine"
             end,
             on_click = {
@@ -174,9 +166,31 @@ return {
             false
         )
 
+        -- [[ COLORSCHEME ]] --
+
+        local function setup_colors()
+            return {
+                func = utils.get_highlight("Function").fg,
+                statement = utils.get_highlight("Statement").fg,
+                constant = utils.get_highlight("@constant").fg,
+                string = utils.get_highlight("String").fg,
+                comment = utils.get_highlight("@comment").fg,
+            }
+        end
+
         require("heirline").setup({
             statusline = StatusLine,
             tabline = BufferLine,
+            opts = {
+                colors = setup_colors,
+            },
+        })
+
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            group = vim.api.nvim_create_augroup("HeirlineColorscheme", { clear = true }),
+            callback = function()
+                utils.on_colorscheme(setup_colors)
+            end,
         })
     end,
 }
