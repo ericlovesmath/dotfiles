@@ -1,9 +1,14 @@
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
-        "rcarriga/nvim-dap-ui",
+        {
+            "rcarriga/nvim-dap-ui",
+            dependencies = "nvim-neotest/nvim-nio",
+        },
         "theHamsta/nvim-dap-virtual-text",
     },
+    ft = { "c", "cpp" },
+    event = "VeryLazy",
     enabled = false,
     config = function()
         local dap = require("dap")
@@ -30,6 +35,7 @@ return {
                 program = function()
                     return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
                 end,
+                -- args = { "200", "100" },
                 cwd = "${workspaceFolder}",
                 stopOnEntry = false,
             },
@@ -37,27 +43,27 @@ return {
 
         dap.configurations.cpp = CODELLDB_CONFIG
         dap.configurations.c = CODELLDB_CONFIG
-        dap.configurations.rust = CODELLDB_CONFIG
+        -- dap.configurations.rust = CODELLDB_CONFIG
 
-        dap.adapters.firefox = {
-            type = "executable",
-            command = "node",
-            args = { vim.fn.stdpath("data") .. "/dap/vscode-firefox-debug/dist/adapter.bundle.js" },
-        }
+        -- dap.adapters.firefox = {
+        --     type = "executable",
+        --     command = "node",
+        --     args = { vim.fn.stdpath("data") .. "/dap/vscode-firefox-debug/dist/adapter.bundle.js" },
+        -- }
+        --
+        -- dap.configurations.typescript = {
+        --     {
+        --         name = "Debug with Firefox",
+        --         type = "firefox",
+        --         request = "launch",
+        --         reAttach = true,
+        --         url = "http://localhost:3000",
+        --         webRoot = "${workspaceFolder}",
+        --         firefoxExecutable = "/Applications/Firefox.app/Contents/MacOS/firefox",
+        --     },
+        -- }
 
-        dap.configurations.typescript = {
-            {
-                name = "Debug with Firefox",
-                type = "firefox",
-                request = "launch",
-                reAttach = true,
-                url = "http://localhost:3000",
-                webRoot = "${workspaceFolder}",
-                firefoxExecutable = "/Applications/Firefox.app/Contents/MacOS/firefox",
-            },
-        }
-
-        require("nvim-dap-virtual-text").setup()
+        require("nvim-dap-virtual-text").setup({})
 
         dapui.setup({
             icons = { expanded = "▾", collapsed = "▸" },
@@ -102,21 +108,37 @@ return {
         vim.fn.sign_define("DapBreakpoint", { text = "●" })
         vim.fn.sign_define("DapStopped", { text = "" })
 
+        vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
+        vim.keymap.set("n", "<leader>dn", dap.continue)
+        vim.keymap.set("n", "<leader>dh", dapui.eval)
+
+        -- Emergency Hard Reset
         vim.keymap.set("n", "<leader>d_", function()
             dap.disconnect()
             dap.close()
             dap.run_last()
         end)
-        vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
-        vim.keymap.set("n", "<leader>ds", dap.terminate)
-        vim.keymap.set("n", "<leader>dn", dap.continue)
 
+        -- Misc Keybinds, probably not used
         vim.keymap.set("n", "<leader>dk", dap.up)
         vim.keymap.set("n", "<leader>dj", dap.down)
-
+        vim.keymap.set("n", "<leader>ds", dap.terminate)
         vim.keymap.set("n", "<leader>dt", dapui.toggle)
-        vim.keymap.set("n", "<leader>dh", dapui.eval)
         vim.keymap.set("n", "<leader>dv", dapui.float_element)
+
+        -- Automatic dap-ui
+        dap.listeners.before.attach.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.launch.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
+            dapui.close()
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+            dapui.close()
+        end
 
         -- vim.keymap.set("n", "<S-k>", dap.step_out)
         -- vim.keymap.set("n", "<S-l>", dap.step_into)

@@ -26,6 +26,7 @@ o.lazyredraw = true
 o.spellsuggest = "5"
 o.pumheight = 10
 o.completeopt = { "menu", "menuone", "noselect" }
+o.cmdheight = 0
 
 local ol = vim.opt_local
 local autocmd = vim.api.nvim_create_autocmd

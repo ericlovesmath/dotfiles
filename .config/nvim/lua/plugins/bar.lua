@@ -1,9 +1,12 @@
 return {
     "rebelot/heirline.nvim",
-    event = { "BufReadPre", "BufNewFile" },
     config = function()
         local utils = require("heirline.utils")
         local conds = require("heirline.conditions")
+
+        local right_sep = ""
+        local left_sep = ""
+        local right_sep_thin = ""
 
         -- [[ STATUSLINE CONFIGURATION ]] --
 
@@ -30,12 +33,22 @@ return {
                     vim.cmd("redrawstatus")
                 end),
             },
+            {
+                provider = right_sep,
+                hl = function(self)
+                    return { fg = self.mode_color(), bg = "visual" }
+                end,
+            },
         }
 
         local FileName = {
             -- Filename cut off, modified flag, readonly
             provider = " %<%t%m%r ",
-            hl = "StatusLine"
+            hl = "Visual",
+            {
+                provider = right_sep,
+                hl = { fg = "visual", bg = "None" },
+            },
         }
 
         local Diagnostics = {
@@ -53,11 +66,23 @@ return {
 
         local AlignRight = { provider = "%=" }
 
-        local FileType = { provider = "%Y " }
+        local FileType = {
+            provider = "%Y ",
+            {
+                provider = left_sep,
+                hl = { fg = "visual", bg = "None" },
+            },
+        }
 
         local Percentage = {
             provider = " %3p%% ",
-            hl = "StatusLine"
+            hl = "Visual",
+            {
+                provider = left_sep,
+                hl = function(self)
+                    return { fg = self.mode_color(), bg = "visual" }
+                end,
+            },
         }
 
         local RulerOrWordCount = {
@@ -104,7 +129,6 @@ return {
                     buflist_cache = vim.tbl_filter(function(bufnr)
                         return vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
                     end, vim.api.nvim_list_bufs())
-
                     vim.o.showtabline = #buflist_cache > 1 and 2 or 0
                 end)
             end,
@@ -126,14 +150,47 @@ return {
             end,
         }
 
+        local BuflineLeftSep = {
+            condition = function(self)
+                return self.is_active and buflist_cache[1] ~= self.bufnr
+            end,
+            provider = right_sep,
+            hl = function(self)
+                local c = { fg = "visual", bg = "func" }
+                return self.is_active and c or "Visual"
+            end,
+        }
+
+        local BuflineRightSep = {
+            condition = function(self)
+                return self.is_active or buflist_cache[self.active_id - 1] ~= self.bufnr
+            end,
+            provider = function(self)
+                return self.is_active and right_sep or right_sep_thin
+            end,
+            hl = function(self)
+                local c = { fg = "func", bg = "visual" }
+                return self.is_active and c or "Visual"
+            end,
+        }
+
         local BuflineBlock = {
             init = function(self)
                 local fname = vim.api.nvim_buf_get_name(self.bufnr)
                 self.fname = fname == "" and "[No Name]" or vim.fn.fnamemodify(fname, ":t")
+
+                self.active_id = 0
+                local curr_buf = vim.api.nvim_get_current_buf()
+                for i, v in ipairs(buflist_cache) do
+                    if v == curr_buf then
+                        self.active_id = i
+                        return
+                    end
+                end
             end,
             hl = function(self)
                 local c = { fg = "black", bg = "func" }
-                return self.is_active and c or "TabLine"
+                return self.is_active and c or "Visual"
             end,
             on_click = {
                 callback = function(_, minwid, _, _)
@@ -144,22 +201,13 @@ return {
                 end,
                 name = "heirline_tabline_click",
             },
-            { BuflineFileName, BuflineFileFlags },
-        }
-
-        -- Adds extra gap between buffers
-        local BuflineBlockWrapped = {
-            provider = function(self)
-                return buflist_cache[1] ~= self.bufnr and " " or ""
-            end,
-            hl = "TabLine",
-            { BuflineBlock },
+            { BuflineLeftSep, BuflineFileName, BuflineFileFlags, BuflineRightSep },
         }
 
         local BufferLine = utils.make_buflist(
-            BuflineBlockWrapped,
-            { provider = "", hl = "TabLine" },
-            { provider = " ", hl = "TabLine" },
+            BuflineBlock,
+            { provider = "", hl = "Visual" },
+            { provider = " ", hl = "Visual" },
             function()
                 return buflist_cache
             end,
@@ -175,6 +223,7 @@ return {
                 constant = utils.get_highlight("@constant").fg,
                 string = utils.get_highlight("String").fg,
                 comment = utils.get_highlight("@comment").fg,
+                visual = utils.get_highlight("Visual").bg,
             }
         end
 
@@ -186,6 +235,7 @@ return {
             },
         })
 
+        vim.api.nvim_set_hl(0, "TablineFill", { link = "Visual" })
         vim.api.nvim_create_autocmd("ColorScheme", {
             group = vim.api.nvim_create_augroup("HeirlineColorscheme", { clear = true }),
             callback = function()
