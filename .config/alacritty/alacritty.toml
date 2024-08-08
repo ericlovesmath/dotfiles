@@ -21,6 +21,8 @@ size = 20.0
 normal = { family = "MesloLGS Nerd Font" }
 # normal = { family = "Julia Mono" }
 # normal = { family = "Comic Code Ligatures" }
+# normal = { family = "JetBrainsMono Nerd Font" }
+# normal = { family = "Monocraft" }
 
 [keyboard]
 bindings = [

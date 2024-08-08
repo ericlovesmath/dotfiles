@@ -42,8 +42,6 @@ alias mkvmaker='~/bin/mkvmaker.sh'
 alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G" +ZenMode'
 alias food="open 'https://caltechdining.my.canva.site/browne-comfort-equation' 'https://caltechdining.my.canva.site/plant-based-station' 'https://caltechdining.my.canva.site/week-meal-plan-menu'"
 alias please="sudo"
-alias chem="osascript -e 'mount volume \"smb://chem3:chem3labpassword@meadlab.caltech.edu/chem3/Chem3X/2024_Winter/Eric Lee Brady Bhalla/\"' && cd ~smb_chem"
-alias unchem="cd $HOME && umount ~smb_chem"
 alias ff="open -a firefox"
 alias {owo,uwu}='echo -e "⣿⣿⣿⣿⣿⣿⣿⣿⣿⢫⣟⡛⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⢋⣭⣭⣭⣭⣭⣉⣙⣻⡆⠻⣿⣿⣮⣻⠿⢟⣛⣋⣭⣭⣭⣿⣿
@@ -69,3 +67,7 @@ hash -d caltech=$HOME/Desktop/Academics/Caltech/junior/fall-2024
 hash -d visuals=$HOME/Desktop/Programming/generative-art/src
 hash -d firefox="$HOME/Library/Application Support/Firefox/Profiles/wwpdd487.default-release"
 hash -d surf=$HOME/Desktop/Academics/Caltech/sophmore/SURF
+
+alias chem="osascript -e 'mount volume \"smb://reismangroup@files.stoltz.caltech.edu\"' && cd ~reisman"
+alias unchem="cd $HOME && umount ~reisman"
+hash -d reisman="/Volumes/Reisman Group Server"
