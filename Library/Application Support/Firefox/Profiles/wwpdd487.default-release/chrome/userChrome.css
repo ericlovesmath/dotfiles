@@ -40,39 +40,105 @@ or menubar/customization is open
     opacity: 100;
 }
 
-/*
-tabbrowser tabpanels { background-color: rgb(39,50,55) !important; }
-browser { background-color: #273237 !important; }
+/* SIDEBERRY */
+/* https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_osx.css */
 
-#tabbrowser-tabpanels,
-#content,
-browser[type=content-primary],
-browser[type=content] > html {
-background: var(--lwt-accent-color) !important;
+/* Modify these values to match your preferences
+These reserve extra space on both sides of the nav-bar to be able to drag the window */
+:root:is([tabsintitlebar], [sizemode="fullscreen"]) {
+  --uc-window-drag-space-pre: 30px; /* left side*/
+  --uc-window-drag-space-post: 30px; /* right side*/
 }
 
-#tabbrowser-tabpanels {
-  background: var(--toolbar-bgcolor) !important;
+:root:is([tabsintitlebar][sizemode="maximized"], [sizemode="fullscreen"]) {
+  --uc-window-drag-space-pre: 0px; /* Remove pre space */
 }
 
-panelview,  
-.panel-arrowcontent{ 
-  background:#15141a !important;  
-  color: #afafab !important; }
-*/
-/*css part of the prismatic night theme. visit https://github.com/dbuxy218/Prismatic-Night*/
-/*MANDATORY*/
-/*
-@import url("patches/tabs-custom.css");
-@import url("patches/nav-bar-custom.css");
-@import url("patches/tabs-below-nav-bar.css");
-@import url("patches/transition-color.css");
-*/
-/*OPTIONAL*/
-/*@import url("patches/tabs-below-content.css");*/
-/*@import url("patches/multirow-bookmark-bar.css");*/
+/* Default width - used on Windows10+ */
+:root:is([tabsintitlebar], [sizemode="fullscreen"]) {
+  --uc-window-control-width: 138px;
+}
 
-/*USE ANY ONE at once*/
-/*@import url("patches/ctrl+l-access.css");*/
-/*@import url("patches/hover-access.css");*/
+@media  (-moz-platform: windows-win7),
+        (-moz-platform: windows-win8){
+  :root:is([tabsintitlebar], [sizemode="fullscreen"]) {
+    --uc-window-control-width: 105px;
+  }
+}
+/* On linux set width based on number of caption buttons.
+One button */
+@media (-moz-gtk-csd-minimize-button), (-moz-gtk-csd-maximize-button), (-moz-gtk-csd-close-button) {
+  :root:is([tabsintitlebar],[sizemode="fullscreen"]) {
+    --uc-window-control-width: 28px;
+  }
+}
+/* Two buttons */
+@media (-moz-gtk-csd-minimize-button) and (-moz-gtk-csd-maximize-button),
+       (-moz-gtk-csd-minimize-button) and (-moz-gtk-csd-close-button),
+       (-moz-gtk-csd-maximize-button) and (-moz-gtk-csd-close-button) {
+  :root:is([tabsintitlebar],[sizemode="fullscreen"]) {
+    --uc-window-control-width: 56px;
+  }
+}
+/* Three buttons */
+@media (-moz-gtk-csd-minimize-button) and (-moz-gtk-csd-maximize-button) and (-moz-gtk-csd-close-button) {
+  :root:is([tabsintitlebar],[sizemode="fullscreen"]) {
+    --uc-window-control-width: 84px;
+  }
+}
 
+@media (-moz-platform: macos){
+  :root:is([tabsintitlebar]) {
+    --uc-window-control-width: 72px;
+  }
+  :root:is([tabsintitlebar][sizemode="fullscreen"]) {
+    --uc-window-control-width: 0;
+  }
+}
+
+.titlebar-buttonbox{ color: var(--toolbar-color) }
+:root[sizemode="fullscreen"] .titlebar-buttonbox-container{ display: none }
+
+:root[sizemode="fullscreen"] #TabsToolbar > .titlebar-buttonbox-container:last-child{
+  position: absolute;
+  display: flex;
+  top: 0;
+  right:0;
+  height: 40px;
+}
+
+:root[sizemode="fullscreen"] #TabsToolbar > .titlebar-buttonbox-container:last-child{ height: 32px }
+
+#nav-bar{
+  border-inline: var(--uc-window-drag-space-pre,0px) solid transparent;
+  border-inline-style: solid !important;
+  border-right-width: calc(var(--uc-window-control-width,0px) + var(--uc-window-drag-space-post,0px));
+  background-clip: border-box !important;
+}
+
+/* Rules for window controls on left layout */
+@media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"),
+       (-moz-gtk-csd-reversed-placement),
+       (-moz-platform: macos){
+  :root[tabsintitlebar="true"] #nav-bar{
+    border-inline-width: calc(var(--uc-window-control-width,0px) + var(--uc-window-drag-space-post,0px)) var(--uc-window-drag-space-pre,0px)
+  }
+  :root[sizemode="fullscreen"] #TabsToolbar > .titlebar-buttonbox-container:last-child{ right: unset }
+}
+@media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"){
+  .titlebar-buttonbox-container{
+    order: -1 !important;
+  }
+  .titlebar-buttonbox{
+    flex-direction: row-reverse;
+  }
+}
+
+#TabsToolbar, #sidebar-header, #sidebar-splitter {
+  display: none;
+}
+
+#nav-bar{
+  margin-top: calc(0px - var(--uc-toolbar-height));
+}
+:root[inFullscreen] #navigator-toolbox{ margin-top: 11px }
