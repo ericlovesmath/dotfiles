@@ -1,24 +1,23 @@
 # Eric Lee's Dotfiles
 
-![Neovim Configuration](bin/img/neovim.png)
-![Firefox and Dock Configuration](bin/img/firefox.png)
+![Neovim Configuration](./imgs/desktop.png)
 
 ## Overview of Dotfiles:
 
 - Personalized for MacOS using [yabai](https://github.com/koekeishiya/yabai) + [skhd](https://github.com/koekeishiya/skhd) + [karabiner-elements](https://karabiner-elements.pqrs.org/)
 - [Neovim](https://github.com/neovim/neovim) configuration, optimized for startup time
 - [Alacritty](https://github.com/alacritty/alacritty) with zsh + [powerlevel10k](https://github.com/romkatv/powerlevel10k) prompt
-- Dotfiles symlinked & applications installed with nix-darwin and home-manager
+- Dotfiles symlinked & applications installed with [nix-darwin](github.com/LnL7/nix-darwin) and home-manager
 
 ## Installation:
 
-- Install [Nix](https://nixos.org/download/)
+- Install [Nix](https://nixos.org/download/) (if Nix is not an option, see contents of nix flake to see proper symlinks)
 
-    - If Nix is not an option, see contents of nix flake to see proper symlinks
-
-- `> mkdir ~/dotfiles & cd ~/dotfiles`
-- `> git clone https://github.com/ericlovesmath/dotfiles.git ~/dotfiles`
-- `> nix run nix-darwin -- switch --flake ~/dotfiles\#macos`
+```
+> mkdir ~/dotfiles & cd ~/dotfiles
+> git clone https://github.com/ericlovesmath/dotfiles.git ~/dotfiles
+> nix run nix-darwin -- switch --flake ~/dotfiles\#macos
+```
 
 ## General Style
 
