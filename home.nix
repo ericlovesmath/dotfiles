@@ -19,7 +19,6 @@ in
     ".config/nvim".source = ./nvim;
     ".config/borders/bordersrc".source = ./bordersrc;
     ".config/sketchybar".source = ./sketchybar;
-    ".config/kitty/kitty.conf".source = ./kitty.conf;
     ".config/skhd/skhdrc".source = ./skhdrc;
     ".config/alacritty/alacritty.toml".source = ./alacritty.toml;
     ".config/karabiner".source = ./karabiner;
