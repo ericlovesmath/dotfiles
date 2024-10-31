@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   firefoxApp = "Applications/Firefox.app/Contents/Resources";
@@ -10,7 +10,7 @@ in
   home.stateVersion = "24.11";
 
   # Makes sense for user specific applications that shouldn't be available system-wide
-  home.packages = [];
+  # home.packages = with pkgs; [ ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

@@ -1,0 +1,159 @@
+# focus window
+#alt - x : yabai -m window --focus recent
+meh - h : yabai -m window --focus west
+meh - j : yabai -m window --focus south
+meh - k : yabai -m window --focus north
+meh - l : yabai -m window --focus east
+
+# swap window
+#ctrl + alt - x : yabai -m window --swap recent
+hyper - h : yabai -m window --swap west
+hyper - j : yabai -m window --swap south
+hyper - k : yabai -m window --swap north
+hyper - l : yabai -m window --swap east
+
+# move window
+#shift + cmd - h : yabai -m window --warp west
+#shift + cmd - j : yabai -m window --warp south
+#shift + cmd - k : yabai -m window --warp north
+#shift + cmd - l : yabai -m window --warp east
+
+# balance size of windows
+meh - 0 : yabai -m space --balance
+
+# create desktop, move window and follow focus
+#shift + cmd - n : yabai -m space --create;\
+#                  id=$(yabai -m query --displays --display | grep "spaces");\
+#                  yabai -m window --space $(echo ${id:10:${#id}-10});\
+#                  yabai -m space --focus $(echo ${id:10:${#id}-10})
+
+# create desktop and follow focus
+#cmd + alt - n : yabai -m space --create;\
+#                id=$(yabai -m query --displays --display | grep "spaces");\
+#                yabai -m space --focus $(echo ${id:10:${#id}-10})
+
+# destroy desktop
+#cmd + alt - w : yabai -m space --destroy
+
+# Move focus container to workspace
+#ctrl + alt - m : yabai -m window --space last; yabai -m space --focus last
+
+# Only move focus container to prev/next if in current display
+hyper - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && (yabai -m window --space prev; yabai -m space --focus prev)
+hyper - d : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && ( yabai -m window --space next; yabai -m space --focus next )
+#ctrl + alt - z : yabai -m window --space prev || yabai -m window --space last; yabai -m space --focus prev || yabai -m space --focus last
+#ctrl + alt - x : yabai -m window --space next || yabai -m window --space first; yabai -m space --focus next || yabai -m space --focus first
+hyper - 1 : yabai -m window --space 1; yabai -m space --focus 1
+hyper - 2 : yabai -m window --space 2; yabai -m space --focus 2
+hyper - 3 : yabai -m window --space 3; yabai -m space --focus 3
+hyper - 4 : yabai -m window --space 4; yabai -m space --focus 4
+hyper - 5 : yabai -m window --space 5; yabai -m space --focus 5
+hyper - 6 : yabai -m window --space 6; yabai -m space --focus 6
+hyper - 7 : yabai -m window --space 7; yabai -m space --focus 7
+hyper - 8 : yabai -m window --space 8; yabai -m space --focus 8
+hyper - 9 : yabai -m window --space 9; yabai -m space --focus 9
+
+# Move focus container to workspace
+# Only move focus to prev/next if in current display
+# FOR WHEN PAYLOAD IS FINE
+meh - a : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[0]') ]] && yabai -m space --focus prev
+meh - d : [[ $(yabai -m query --spaces --space | jq '.index' ) != $(yabai -m query --displays --display | jq '.spaces[-1]') ]] && yabai -m space --focus next
+# FOR WHEN PAYLOAD BREAKS
+# meh - a : skhd -k "ctrl - left"
+# meh - d : skhd -k "ctrl - right"
+#shift + ctrl - z : yabai -m space --focus prev || yabai -m space --focus last
+#shift + ctrl - x : yabai -m space --focus next || yabai -m space --focus first
+meh - 1 : yabai -m space --focus 1
+meh - 2 : yabai -m space --focus 2
+meh - 3 : yabai -m space --focus 3
+meh - 4 : yabai -m space --focus 4
+meh - 5 : yabai -m space --focus 5
+meh - 6 : yabai -m space --focus 6
+meh - 7 : yabai -m space --focus 7
+meh - 8 : yabai -m space --focus 8
+meh - 9 : yabai -m space --focus 9
+
+# focus monitor
+meh - w  : yabai -m display --focus prev
+meh - s  : yabai -m display --focus next
+meh - 1  : yabai -m display --focus 1
+meh - 2  : yabai -m display --focus 2
+
+# send window to monitor and follow focus
+#ctrl + alt - c  : yabai -m window --display recent; yabai -m display --focus recent
+hyper - w  : yabai -m window --display prev; yabai -m display --focus prev
+hyper - s  : yabai -m window --display next; yabai -m display --focus next
+
+# resize window
+meh - left : yabai -m window --resize left:-50:0; \
+                  yabai -m window --resize right:-50:0
+meh - down : yabai -m window --resize bottom:0:50; \
+                  yabai -m window --resize top:0:50
+meh - up : yabai -m window --resize top:0:-50; \
+                  yabai -m window --resize bottom:0:-50
+meh - right : yabai -m window --resize right:50:0; \
+                  yabai -m window --resize left:50:0
+
+# rotate tree
+alt - r : yabai -m space --rotate 90
+
+# mirror tree y-axis
+alt - y : yabai -m space --mirror y-axis
+
+# mirror tree x-axis
+alt - x : yabai -m space --mirror x-axis
+
+# toggle window native fullscreen
+meh - f : yabai -m window --toggle zoom-fullscreen
+
+# change layout of desktop
+#ctrl + alt - a : yabai -m space --layout bsp
+#ctrl + alt - d : yabai -m space --layout float
+
+# opens iTerm2
+#meh - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+meh - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+
+#Opens youtube
+meh - p : python3 "${HOME}"/bin/youtube-window.py
+
+# Navigate browser tabs
+meh - q : skhd -k "ctrl + shift - tab"
+hyper - q : skhd -k "ctrl + shift - pageup"
+meh - e : skhd -k "ctrl - tab"
+hyper - e : skhd -k "ctrl + shift - pagedown"
+
+# Toggles floating window and centers
+meh - u : yabai -m window --toggle float; \
+        yabai -m window --grid 10:10:1:1:8:8
+hyper - u : yabai -m window --grid 10:10:1:1:8:8
+
+# restart yabai
+hyper - r : \
+    osascript -e \
+        "display notification \"Restarting Yabai\" with title \"Yabai\""; \
+    brew services restart sketchybar; \
+    brew services restart yabai; \
+    brew services restart skhd
+
+# meh - c : open -na /Applications/Google\ Chrome.app 
+# hyper - c : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito
+
+meh - c : /Applications/Firefox.app/Contents/MacOS/firefox
+hyper - c : /Applications/Firefox.app/Contents/MacOS/firefox --args -private-window
+# meh - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox"
+# hyper - c : "/Applications/Firefox Nightly.app/Contents/MacOS/firefox" --args -private-window
+
+# Spotify Music
+insert : osascript ~/bin/spotify-toggle.scpt
+delete : osascript ~/bin/spotify-next.scpt
+
+hyper - u : yabai -m window --toggle sticky;\
+          yabai -m window --toggle topmost
+
+meh - r: osascript ~/bin/click-notification.scpt
+
+# Toggle desktop on macos
+meh - t: ~/bin/toggle-desktop.sh
+meh - v: skhd -k f11
+
