@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="scripts/search.js"></script>
+    <script src="scripts/load.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="head">
+        <div class="logo"><img src="icons/fox.svg" /></div>
+        <div class="search_box">
+
+          <img class="engine" id="engineLogo" src="icons/google.svg" onclick="toggleEngine()" style="cursor:pointer" />
+
+          <div id="gSearch" style="display:block;">
+            <form id="textField" class="google" action="https://google.com/search" method="get">
+              <input class="input_box" type="text" name="q" placeholder="Search with Google">
+              <button class="button"> <img src="icons/search.svg" style="cursor:pointer" /></button>
+            </form>
+          </div>
+
+          <div id="dSearch" style="display:none;">
+            <form class="duck" action="https://duckduckgo.com/" method="get">
+              <input class="input_box" type="text" name="q" placeholder="Search with DuckDuckGo">
+              <button class="button"> <img src="icons/search.svg" style="cursor:pointer" /></button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="bookmark">
+        <div class="category">
+          <div class="icon"><img src="icons/code.svg" /></div>
+          <div class="bookmarks cod">
+            <li><a class="bm" href="https://github.com/ericlovesmath">GitHub</a></li>
+            <li><a class="bm" href="https://leetcode.com/problemset/algorithms/">LeetCode</a></li>
+            <li><a class="bm" href="https://stackoverflow.com/">StackOverflow</a></li>
+            <li><a class="bm" href="https://www.codingame.com/multiplayer/clashofcode">CodingGame</a></li>
+            <li><a class="bm" href="https://www.vimgolf.com/">VimGolf</a></li>
+          </div>
+        </div>
+
+        <div class="category">
+          <div class="icon"><img src="icons/docs.svg" /></div>
+          <div class="bookmarks doc">
+            <li><a class="bm" href="https://calendar.proton.me/u/6/">Calendar</a></li>
+            <li><a class="bm" href="https://mail.proton.me/u/6/inbox">Mail</a></li>
+            <li><a class="bm" href="https://drive.google.com/drive/u/0/">Drive</a></li>
+            <li><a class="bm" href="https://caltech.instructure.com/">Canvas</a></li>
+            <li><a class="bm" href="https://piazza.com/class/m1zad4xdkzc328">Piazza</a></li>
+          </div>
+        </div>
+
+        <div class="category">
+          <div class="icon"><img src="icons/entertainment.svg" /></div>
+          <div class="bookmarks ent">
+            <li><a class="bm" href="https://www.youtube.com/">Youtube</a></li>
+            <li><a class="bm" href="https://www.reddit.com/">Reddit</a></li>
+            <li><a class="bm" href="https://www.netflix.com/browse">Netflix</a></li>
+            <li><a class="bm" href="https://sudokuexchange.com/">Sudoku</a></li>
+            <li><a class="bm" href="https://xkcd.com/">xkcd</a></li>
+          </div>
+        </div>
+
+        <div class="category">
+          <div class="icon"><img src="icons/art.svg" /></div>
+          <div class="bookmarks art">
+            <li><a class="bm" href="https://caltech.instructure.com/courses/7759/files">Ma/CS 117a</a></li>
+            <li><a class="bm" href="https://caltech.instructure.com/courses/7441/assignments">Ma 5a</a></li>
+            <li><a class="bm" href="https://mvanier.github.io/cs164/Fall2024/book/">CS 164</a></li>
+            <li><a class="bm" href="https://arxiv.org/pdf/2405.18782">CS 163</a></li>
+            <li><a class="bm" href="https://caltech.instructure.com/courses/7728/assignments/syllabus">En 100</a></li>
+          </div>
+        </div>
+
+        <div class="category">
+          <div class="icon"><img src="icons/music.svg" /></div>
+          <div class="bookmarks mus">
+            <li><a class="bm" href="https://www.gradescope.com/">Gradescope</a></li>
+            <li><a class="bm" href="https://www.wolframalpha.com/">WolframAlpha</a></li>
+            <li><a class="bm" href="https://unsplash.com/">Unsplash</a></li>
+            <li><a class="bm" href="https://access.caltech.edu/pls/regis/f?p=2000:24.:8190393709972:::::">REGIS</a></li>
+            <li><a class="bm" href="https://access.caltech.edu/home/home.s">Caltech</a></li>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+
+</html>

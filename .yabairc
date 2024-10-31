@@ -1,0 +1,59 @@
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# bsp or float (default: bsp)
+yabai -m config layout bsp
+
+# Override default layout for space 2 only
+# yabai -m config --space 3 layout float
+
+# Set all padding and gaps (default: 0)
+yabai -m config top_padding    5
+yabai -m config bottom_padding 5
+yabai -m config left_padding   5
+yabai -m config right_padding  5
+yabai -m config window_gap     7
+
+# floating windows are always on top (default: off)
+yabai -m config window_topmost on
+yabai -m config window_shadow off
+
+yabai -m config window_placement second_child
+#yabai -m rule --add app=Terminal border=off
+
+# global settings
+# yabai -m config mouse_follows_focus          off
+# yabai -m config focus_follows_mouse          autoraise
+
+# floating windows are always on top (default: off)
+yabai -m config window_topmost               on
+
+# float system preferences
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add title="^About This Mac$" manage=off
+yabai -m rule --add app="^About This Mac$" manage=off
+yabai -m rule --add app="^Macs Fan Control$" manage=off
+yabai -m rule --add app="^Alfred Preferences$" manage=off
+yabai -m rule --add app="^Godot$" manage=off
+yabai -m rule --add app="^Steam$" manage=off
+yabai -m rule --add app="^Mail$" manage=off
+yabai -m rule --add app="^Transmission$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+# yabai -m rule --add app="^Spotify$" manage=off
+# yabai -m rule --add app="^Godot$" title="^.*(DEBUG)$" manage=off
+
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+
+HEIGHT=$(sketchybar --query bar | jq -r '.height')
+Y_OFFSET=$(sketchybar --query bar | jq -r '.y_offset')
+yabai -m config external_bar all:"$(($HEIGHT + $Y_OFFSET))":0
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+
+yabai -m config window_animation_duration    0.00
+yabai -m config window_border_blur off
+
+# mouse stuff
+# yabai -m config mouse_modifier             cmd
+# yabai -m config mouse_action1              move
+# yabai -m config mouse_action2              resize

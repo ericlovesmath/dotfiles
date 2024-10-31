@@ -1,0 +1,85 @@
+[terminal.shell]
+program = "tmux"
+args = ["-u", "new-session", "-A", "-s", "Main"]
+
+[window]
+opacity = 0.98
+dimensions = { columns = 180, lines = 40 }
+padding = { x = 5, y = 5 }
+dynamic_padding = true
+decorations = "buttonless"
+
+[scrolling]
+history = 10000
+multiplier = 1
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 20.0
+normal = { family = "MesloLGS Nerd Font" }
+# normal = { family = "Julia Mono" }
+# normal = { family = "Comic Code Ligatures" }
+# normal = { family = "JetBrainsMono Nerd Font" }
+# normal = { family = "Monocraft" }
+
+[keyboard]
+bindings = [
+    { key = "W",         mods = "Command",        chars = "\u0001x" },
+    { key = "D",         mods = "Command",        chars = "\u0001|" },
+    { key = "T",         mods = "Command",        chars = "\u0001c" },
+    { key = "T",         mods = "Command|Shift",  chars = "\u0001t" },
+    { key = "Tab",       mods = "Control|Shift",  chars = "\u0001p" },
+    { key = "Tab",       mods = "Control",        chars = "\u0001n" },
+    { key = "PageUp",    mods = "Control|Shift",  chars = "\u0001<" },
+    { key = "PageDown",  mods = "Control|Shift",  chars = "\u0001>" },
+    { key = "Key1",      mods = "Command",        chars = "\u00011" },
+    { key = "Key2",      mods = "Command",        chars = "\u00012" },
+    { key = "Key3",      mods = "Command",        chars = "\u00013" },
+    { key = "Key4",      mods = "Command",        chars = "\u00014" },
+    { key = "Key5",      mods = "Command",        chars = "\u00015" },
+    { key = "Key6",      mods = "Command",        chars = "\u00016" },
+    { key = "Key7",      mods = "Command",        chars = "\u00017" },
+    { key = "Key8",      mods = "Command",        chars = "\u00018" },
+    { key = "Key9",      mods = "Command",        chars = "\u00019" },
+    { key = "Left",      mods = "Command",        chars = "\u0001(" },
+    { key = "Right",     mods = "Command",        chars = "\u0001)" },
+    { key = "N",         mods = "Command",        chars = "\u0001S" },
+    { key = "N",         mods = "Command|Shift",  command = { program = "nohup", args = ["alacritty", "-e", "zsh"] } },
+]
+
+# Onedark / Pastel theme
+
+[colors.bright]
+black = "#767676"
+blue = "#61afef"
+cyan = "#56b6c2"
+green = "#98c379"
+magenta = "#c678dd"
+red = "#e06c75"
+white = "#abb2bf"
+yellow = "#e5c07b"
+
+[colors.cursor]
+cursor = "#eeeeee"
+text = "#000000"
+
+[colors.normal]
+black = "#21252b"
+blue = "#61afef"
+cyan = "#56b6c2"
+green = "#98c379"
+magenta = "#c678dd"
+red = "#e06c75"
+white = "#abb2bf"
+yellow = "#e5c07b"
+
+[colors.primary]
+background = "#282c32"
+foreground = "#c9cdd5"
+
+[colors.selection]
+background = "#323844"
+text = "#abb2bf"
+

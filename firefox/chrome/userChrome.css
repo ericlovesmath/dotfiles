@@ -1,0 +1,150 @@
+/* Hides "This time: search with" bar */
+#urlbar .search-one-offs:not([hidden]) {
+    display: none !important;
+}
+
+/* Removes white loading page */
+
+@-moz-document url(about:blank), url(about:newtab), url(about:home) {
+    html:not(#ublock0-epicker), html:not(#ublock0-epicker) body, #newtab-customize-overlay {
+      background: black !important;
+    }
+  }
+  
+/* This removes the tab separators */
+.tabbrowser-tab::before,
+.tabbrowser-tab::after {
+    display: none !important;
+}
+
+/* hide navbar */
+#nav-bar:not([customizing]){
+	visibility: visible;
+	margin-top: -42px;
+   	transition-delay: 1s;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    transition: visibility, ease 0.5s, margin-top, ease 0.5s, opacity, ease 0.5s !important;
+}
+
+/* 
+keep visible when urlbar is focused
+navbar is hovered
+or menubar/customization is open
+*/
+
+:root:not([customizing]) :hover > #nav-bar,
+:root:not([customizing]) :hover > #nav-bar::after,
+#nav-bar:focus-within,
+#urlbar[focused="true"],
+#identity-box[open="true"],
+#navigator-toolbox:hover > #nav-bar:not([customizing]),
+#toolbar-menubar:not([inactive="true"]) ~ #nav-bar:not([customizing]) {
+	visibility: visible;
+	margin-top: 0;
+    filter: alpha(opacity=100);
+    opacity: 100;
+}
+
+/* SIDEBERRY */
+/* https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_osx.css */
+
+/* Modify these values to match your preferences
+These reserve extra space on both sides of the nav-bar to be able to drag the window */
+:root:is([tabsintitlebar], [sizemode="fullscreen"]) {
+  --uc-window-drag-space-pre: 30px; /* left side*/
+  --uc-window-drag-space-post: 30px; /* right side*/
+}
+
+:root:is([tabsintitlebar][sizemode="maximized"], [sizemode="fullscreen"]) {
+  --uc-window-drag-space-pre: 0px; /* Remove pre space */
+}
+
+/* Default width - used on Windows10+ */
+:root:is([tabsintitlebar], [sizemode="fullscreen"]) {
+  --uc-window-control-width: 138px;
+}
+
+@media  (-moz-platform: windows-win7),
+        (-moz-platform: windows-win8){
+  :root:is([tabsintitlebar], [sizemode="fullscreen"]) {
+    --uc-window-control-width: 105px;
+  }
+}
+/* On linux set width based on number of caption buttons.
+One button */
+@media (-moz-gtk-csd-minimize-button), (-moz-gtk-csd-maximize-button), (-moz-gtk-csd-close-button) {
+  :root:is([tabsintitlebar],[sizemode="fullscreen"]) {
+    --uc-window-control-width: 28px;
+  }
+}
+/* Two buttons */
+@media (-moz-gtk-csd-minimize-button) and (-moz-gtk-csd-maximize-button),
+       (-moz-gtk-csd-minimize-button) and (-moz-gtk-csd-close-button),
+       (-moz-gtk-csd-maximize-button) and (-moz-gtk-csd-close-button) {
+  :root:is([tabsintitlebar],[sizemode="fullscreen"]) {
+    --uc-window-control-width: 56px;
+  }
+}
+/* Three buttons */
+@media (-moz-gtk-csd-minimize-button) and (-moz-gtk-csd-maximize-button) and (-moz-gtk-csd-close-button) {
+  :root:is([tabsintitlebar],[sizemode="fullscreen"]) {
+    --uc-window-control-width: 84px;
+  }
+}
+
+@media (-moz-platform: macos){
+  :root:is([tabsintitlebar]) {
+    --uc-window-control-width: 72px;
+  }
+  :root:is([tabsintitlebar][sizemode="fullscreen"]) {
+    --uc-window-control-width: 0;
+  }
+}
+
+.titlebar-buttonbox{ color: var(--toolbar-color) }
+:root[sizemode="fullscreen"] .titlebar-buttonbox-container{ display: none }
+
+:root[sizemode="fullscreen"] #TabsToolbar > .titlebar-buttonbox-container:last-child{
+  position: absolute;
+  display: flex;
+  top: 0;
+  right:0;
+  height: 40px;
+}
+
+:root[sizemode="fullscreen"] #TabsToolbar > .titlebar-buttonbox-container:last-child{ height: 32px }
+
+#nav-bar{
+  border-inline: var(--uc-window-drag-space-pre,0px) solid transparent;
+  border-inline-style: solid !important;
+  border-right-width: calc(var(--uc-window-control-width,0px) + var(--uc-window-drag-space-post,0px));
+  background-clip: border-box !important;
+}
+
+/* Rules for window controls on left layout */
+@media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"),
+       (-moz-gtk-csd-reversed-placement),
+       (-moz-platform: macos){
+  :root[tabsintitlebar="true"] #nav-bar{
+    border-inline-width: calc(var(--uc-window-control-width,0px) + var(--uc-window-drag-space-post,0px)) var(--uc-window-drag-space-pre,0px)
+  }
+  :root[sizemode="fullscreen"] #TabsToolbar > .titlebar-buttonbox-container:last-child{ right: unset }
+}
+@media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"){
+  .titlebar-buttonbox-container{
+    order: -1 !important;
+  }
+  .titlebar-buttonbox{
+    flex-direction: row-reverse;
+  }
+}
+
+#TabsToolbar, #sidebar-header, #sidebar-splitter {
+  display: none;
+}
+
+#nav-bar{
+  margin-top: calc(0px - var(--uc-toolbar-height));
+}
+:root[inFullscreen] #navigator-toolbox{ margin-top: 11px }

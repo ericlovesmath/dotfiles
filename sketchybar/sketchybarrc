@@ -1,0 +1,72 @@
+#!/usr/bin/env sh
+
+source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
+source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+
+ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
+
+FONT="MesloLGS Nerd Font" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
+ICON_FONT="Font Awesome 5 Free" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
+SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null" # The script that is run for clicking on space components
+
+PADDINGS=3 # All paddings use this value (icon, label, background and bar paddings)
+
+POPUP_BORDER_WIDTH=2
+POPUP_CORNER_RADIUS=11
+
+SHADOW=off
+
+# Setting up the general bar appearance and default values
+sketchybar --bar     height=30                                           \
+                     corner_radius=9                                     \
+                     border_width=0                                      \
+                     margin=5                                            \
+                     blur_radius=0                                       \
+                     position=top                                        \
+                     padding_left=10                                     \
+                     padding_right=10                                    \
+                     color=$BAR_COLOR                                    \
+                     topmost=off                                         \
+                     sticky=on                                           \
+                     font_smoothing=off                                  \
+                     y_offset=5                                          \
+                     shadow=$SHADOW                                      \
+                     border_width=2   \
+                     border_color=0xff8e83b8 \
+                     notch_width=200                                     \
+                                                                         \
+           --default drawing=on                                          \
+                     updates=when_shown                                  \
+                     label.font="$FONT:Bold:13.0"                        \
+                     icon.font="$FONT:Bold:14.0"                         \
+                     icon.color=$ICON_COLOR                              \
+                     label.color=$LABEL_COLOR                            \
+                     icon.padding_left=$PADDINGS                         \
+                     icon.padding_right=$PADDINGS                        \
+                     label.padding_left=$PADDINGS                        \
+                     label.padding_right=$PADDINGS                       \
+                     background.padding_right=$PADDINGS                  \
+                     background.padding_left=$PADDINGS                   \
+                     popup.background.border_width=$POPUP_BORDER_WIDTH   \
+                     popup.background.corner_radius=$POPUP_CORNER_RADIUS \
+                     popup.background.border_color=$POPUP_BORDER_COLOR   \
+                     popup.background.color=$POPUP_BACKGROUND_COLOR      \
+                     popup.background.shadow.drawing=$SHADOW
+
+# Left
+source "$ITEM_DIR/apple.sh"
+source "$ITEM_DIR/spaces.sh"
+source "$ITEM_DIR/messages.sh"
+source "$ITEM_DIR/mail.sh"
+
+# Right
+# source "$ITEM_DIR/cpu_temp.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/calendar.sh"
+source "$ITEM_DIR/spotify.sh"
+
+############## FINALIZING THE SETUP ##############
+sketchybar --update
+
+echo "sketchybar configuation loaded.."
