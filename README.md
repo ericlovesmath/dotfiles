@@ -1,27 +1,28 @@
 # Eric Lee's Dotfiles
 
 ![Neovim Configuration](bin/img/neovim.png)
-
 ![Firefox and Dock Configuration](bin/img/firefox.png)
 
-Personalized Dotfiles for MacOS with Yabai and Neovim. Shortcuts managed with [skhd](https://github.com/koekeishiya/skhd), [karabiner-elements](https://karabiner-elements.pqrs.org/), [Alfred](https://www.alfredapp.com/)
+## Overview of Dotfiles:
 
-## Terminal Workflow
+- Personalized for MacOS using [yabai](https://github.com/koekeishiya/yabai) + [skhd](https://github.com/koekeishiya/skhd) + [karabiner-elements](https://karabiner-elements.pqrs.org/)
+- [Neovim](https://github.com/neovim/neovim) configuration, optimized for startup time
+- [Alacritty](https://github.com/alacritty/alacritty) with zsh + [powerlevel10k](https://github.com/romkatv/powerlevel10k) prompt
+- Dotfiles symlinked & applications installed with nix-darwin and home-manager
 
-[Neovim](https://github.com/neovim/neovim) is my editor of choice, due to customizability, Native LSP, universal versatility, and performance. [Kitty](https://github.com/kovidgoyal/kitty) is my choice of terminal emulator, as it is much faster than iTerm. Terminal theme is [powerlevel10k](https://github.com/romkatv/powerlevel10k) with zsh.
+## Installation:
 
-Neovim Installation
+- Install [Nix](https://nixos.org/download/)
 
-- Copy `.config/nvim` to machine
-- Run `:Lazy` to install packages
-- `:Mason` to install LSPs, `:TSInstall <Lang>` to install parsers
+    - If Nix is not an option, see contents of nix flake to see proper symlinks
 
-Neovim Features
+- `> mkdir ~/dotfiles & cd ~/dotfiles`
+- `> git clone https://github.com/ericlovesmath/dotfiles.git ~/dotfiles`
+- `> nix run nix-darwin -- switch --flake ~/dotfiles\#macos`
 
-- Notetaking configuration with LaTeX or Markdown
-- Simple and quick LSP configuration and installer
-- <20ms startup time (On M1 Macbook)
+## General Style
 
-## Window Management
-
-Window management utilizes [yabai](https://github.com/koekeishiya/yabai) and [skhd](https://github.com/koekeishiya/skhd). [sketchybar](https://github.com/FelixKratz/SketchyBar) creates a simple bar above, with easily configurable modules.
+- Yabai: Tiling WM uses Capslock as a `meh/hyper` global prefix, mimicking vim keybindings
+- Neovim: `Lazy` to install packages, `Mason` to install LSPs
+- Alacritty: Keybindings set such that intuitive `cmd + _` key combinations works with `tmux`
+- Nix: Currently only used as a declarative package manager and symlink-er
