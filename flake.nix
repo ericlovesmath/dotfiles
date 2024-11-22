@@ -26,55 +26,16 @@
   let
     configuration = { pkgs, config, ... }: {
 
-      # List packages installed in system profile. To search by name, run:
-      environment.systemPackages = with pkgs; [
-        neovim tmux
-        ripgrep lazygit jq
-        skhd yabai sketchybar jankyborders
-        imagemagick htop fzf fd ffmpeg
-        tree wget nmap croc curl rlwrap fastfetch
-        spicetify-cli coq deno pandoc
-        nasm pandoc yt-dlp glow hugo docker gh
-        julia-bin slides maven openjdk opam
-        micromamba texliveFull
-        nodejs python3 coreutils
-        ghc haskell-language-server
-      ];
-
-      # TODO: POWERLEVEL10k
-
       environment.variables.HOMEBREW_NO_ANALYTICS = "1";
-
-      homebrew = {
-        enable = true;
-        taps = builtins.attrNames config.nix-homebrew.taps;
-
-        onActivation = {
-          autoUpdate = true;
-          cleanup = "zap";
-          upgrade = true;
-        };
-
-        casks = [
-          "alacritty" "iina" "anki" "obs" "skim" "transmission" "blender"
-          "discord" "zoom" "spotify" "google-chrome" "vnc-viewer" "onyx"
-          "qlmarkdown" "dyalog" "slack" "godot" "minecraft" "rar" "steam"
-          "appcleaner" "lulu" "protonmail-bridge" "karabiner-elements"
-          "omnidisksweeper" "visual-studio-code" "alfred" "zotero" "firefox"
-          "protonvpn"
-        ];
-
-        masApps = {
-          "Things3" = 904280696;
-          "Goodnotes" = 1444383602;
-        };
-      };
+      homebrew = import ./nix/homebrew.nix { inherit config; };
 
       users.users.ericlee.home = "/Users/ericlee";
       home-manager.backupFileExtension = "backup";
+
+      # Managed in home-manager
       programs.zsh = {
         enable = true;
-        enableCompletion = false;  # Managed in home-manager
+        enableCompletion = false;
       };
 
       services.yabai.enable = true;
@@ -84,7 +45,6 @@
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
-      # nix.package = pkgs.nix;
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
@@ -93,7 +53,6 @@
       system.configurationRevision = self.rev or self.dirtyRev or null;
 
       # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
       system.stateVersion = 5;
 
       # The platform the configuration will be used on.

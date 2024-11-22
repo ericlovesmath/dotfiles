@@ -1,17 +1,31 @@
 { config, pkgs, ... }:
 
 let
-  # firefoxApp = "Applications/Firefox.app/Contents/Resources";
   # TODO: This isn't working because thats the home path
   firefoxProfile = "Library/Application Support/Firefox/Profiles/wwpdd487.default-release";
+  # firefoxApp = "Applications/Firefox.app/Contents/Resources";
 in
 {
+  programs.home-manager.enable = true;
   home.username = "ericlee";
   home.homeDirectory = "/Users/ericlee";
   home.stateVersion = "24.11";
 
-  # Makes sense for user specific applications that shouldn't be available system-wide
-  # home.packages = with pkgs; [ ];
+  # TODO: meslo-lgs-nf
+  home.packages = with pkgs; [
+    neovim tmux
+    ripgrep lazygit jq
+    skhd yabai sketchybar jankyborders
+    imagemagick htop fzf fd ffmpeg
+    tree wget nmap croc curl rlwrap fastfetch
+    spicetify-cli coq deno pandoc
+    nasm pandoc yt-dlp glow hugo docker gh
+    julia-bin slides maven openjdk opam
+    micromamba texliveFull
+    nodejs python3 coreutils
+    ghc haskell-language-server
+    zsh-powerlevel10k
+  ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -43,27 +57,17 @@ in
     # "${firefoxApp}/mozilla.cfg".source = ./firefox/mozilla.cfg;
   };
 
-  # TODO: meslo-lgs-nf
-  home.packages = with pkgs; [ zsh-powerlevel10k ];
-
   programs.zsh = {
     enable = true;
     enableCompletion = false;
-    plugins = [
-      {
-        name = "zsh-powerlevel10k";
-        src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
-        file = "powerlevel10k.zsh-theme";
-      }];
+    plugins = [{
+      name = "zsh-powerlevel10k";
+      src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
+      file = "powerlevel10k.zsh-theme";
+    }];
     initExtra = ''
       . "$HOME/.p10k.zsh"
       . "$HOME/dotfiles/.zshrc"
     '';
   };
-
-  home.sessionVariables = {
-    HAA = "vim";
-  };
-
-  programs.home-manager.enable = true;
 }
