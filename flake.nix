@@ -1,27 +1,25 @@
 {
-  description = "Eric's Darwin system flake for MacOS";
+  description = "Eric's MacOS nix-darwin Flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+    homebrew-core.url = "github:homebrew/homebrew-core";
+    homebrew-core.flake = false;
+
+    homebrew-cask.url = "github:homebrew/homebrew-cask";
+    homebrew-cask.flake = false;
+
+    homebrew-bundle.url = "github:homebrew/homebrew-bundle";
+    homebrew-bundle.flake = false;
   };
 
   outputs = { self, nix-darwin, nix-homebrew, homebrew-core, homebrew-cask, homebrew-bundle, home-manager, nixpkgs }:
@@ -37,10 +35,10 @@
         tree wget nmap croc curl rlwrap fastfetch
         spicetify-cli coq deno pandoc
         nasm pandoc yt-dlp glow hugo docker gh
-        julia-bin gcc slides maven openjdk opam
+        julia-bin slides maven openjdk opam
         micromamba texliveFull
         nodejs python3 coreutils
-        stack cabal-install ghc haskell-language-server
+        ghc haskell-language-server
       ];
 
       # TODO: POWERLEVEL10k
@@ -58,44 +56,26 @@
         };
 
         casks = [
-          "alacritty"
-          "iina"
-          "anki"
-          "obs"
-          "skim"
-          "transmission"
-          "blender"
-          "discord"
-          "zoom"
-          "spotify"
-          "google-chrome"
-          "vnc-viewer"
-          "onyx"
-          "qlmarkdown"
-          "dyalog"
-          "slack"
-          "godot"
-          "minecraft"
-          "rar"
-          "steam"
-          "appcleaner"
-          "lulu"
-          "protonmail-bridge"
-          "karabiner-elements"
-          "omnidisksweeper"
-          "visual-studio-code"
-          "alfred"
-          "zotero"
-          "firefox"
+          "alacritty" "iina" "anki" "obs" "skim" "transmission" "blender"
+          "discord" "zoom" "spotify" "google-chrome" "vnc-viewer" "onyx"
+          "qlmarkdown" "dyalog" "slack" "godot" "minecraft" "rar" "steam"
+          "appcleaner" "lulu" "protonmail-bridge" "karabiner-elements"
+          "omnidisksweeper" "visual-studio-code" "alfred" "zotero" "firefox"
+          "protonvpn"
         ];
 
         masApps = {
           "Things3" = 904280696;
+          "Goodnotes" = 1444383602;
         };
       };
 
       users.users.ericlee.home = "/Users/ericlee";
       home-manager.backupFileExtension = "backup";
+      programs.zsh = {
+        enable = true;
+        enableCompletion = false;  # Managed in home-manager
+      };
 
       services.yabai.enable = true;
       services.skhd.enable = true;
@@ -146,7 +126,7 @@
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.ericlee = import ./home.nix;
+          home-manager.users.ericlee = import ./nix/home.nix;
         }
       ];
     };

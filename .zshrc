@@ -1,17 +1,3 @@
-# Trans rights
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-ZSH_THEME="powerlevel10k/powerlevel10k"
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # Faster searching through history
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -74,11 +60,9 @@ alias va='source ./venv/bin/activate'
 alias vd='deactivate'
 alias restartaudio='sudo killall coreaudiod'
 alias restartlogi='pkill LogiVCCoreService; pkill LogiMgrDaemon'
-alias zrc='nvim ~/.zshrc -c "e ~/.zsh_aliases" -c "bp"; exec zsh'
 alias randint='jot -r 1 $1 $2'
 alias py='python'
 alias {python,py3}='python3'
-alias vrc='cd ~/.config/nvim'
 alias ..='cd ./..'
 alias ...='cd ./../..'
 alias ....='cd ./../../..'
@@ -122,6 +106,7 @@ hash -d visuals=$HOME/Desktop/Programming/generative-art/src
 hash -d firefox="$HOME/Library/Application Support/Firefox/Profiles/wwpdd487.default-release"
 hash -d surf=$HOME/Desktop/Academics/Caltech/sophmore/SURF
 hash -d jane="$HOME/Desktop/Important/Jane Street"
+hash -d finance="$HOME/Desktop/Important/finance"
 
 alias chem="osascript -e 'mount volume \"smb://reismangroup@files.stoltz.caltech.edu\"' && cd ~reisman"
 alias unchem="cd $HOME && umount ~reisman"
