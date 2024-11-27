@@ -1,6 +1,11 @@
 { config, ... }: {
   enable = true;
-  taps = builtins.attrNames config.nix-homebrew.taps;
+
+  taps = [
+      "homebrew/homebrew-core"
+      "homebrew/homebrew-cask"
+      "homebrew/homebrew-bundle"
+  ];
 
   onActivation = {
     autoUpdate = true;

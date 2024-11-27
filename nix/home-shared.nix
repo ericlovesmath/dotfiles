@@ -11,11 +11,9 @@ in
   home.homeDirectory = "/Users/ericlee";
   home.stateVersion = "24.11";
 
-  # TODO: meslo-lgs-nf
   home.packages = with pkgs; [
     neovim tmux
     ripgrep lazygit jq
-    skhd yabai sketchybar jankyborders
     imagemagick htop fzf fd ffmpeg
     tree wget nmap croc curl rlwrap fastfetch
     spicetify-cli coq deno pandoc
@@ -27,19 +25,13 @@ in
     zsh-powerlevel10k
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
     ".tmux.conf".source = ../.tmux.conf;
     ".config/nvim".source = ../nvim;
-    ".config/borders/bordersrc".source = ../bordersrc;
-    ".config/sketchybar".source = ../sketchybar;
-    ".config/skhd/skhdrc".source = ../skhdrc;
     ".config/alacritty/alacritty.toml".source = ../alacritty.toml;
     ".config/karabiner".source = ../karabiner;
     ".aerospace.toml".source = ../.aerospace.toml;
     ".latexmkrc".source = ../.latexmkrc;
-    ".yabairc".source = ../.yabairc;
 
     "${firefoxProfile}/startpage".source = ../firefox/startpage;
     "${firefoxProfile}/chrome".source = ../firefox/chrome;
@@ -57,9 +49,30 @@ in
     # "${firefoxApp}/mozilla.cfg".source = ./firefox/mozilla.cfg;
   };
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.opam.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = false;
+    dirHashes = {
+      jane      = "$HOME/Desktop/Important/Jane Street";
+      caltech   = "$HOME/Desktop/Academics/Caltech/junior/fall-2024";
+      tutor     = "$HOME/Desktop/Academics/Tutoring";
+      surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";
+      firefox   = "$HOME/Library/Application Support/Firefox/Profiles/wwpdd487.default-release";
+      finance   = "$HOME/Desktop/Important/finance";
+      portfolio = "$HOME/Desktop/Programming/portfolio-eric-lee";
+      usaco     = "$HOME/Desktop/Programming/competitive-programming";
+    };
     plugins = [{
       name = "zsh-powerlevel10k";
       src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";

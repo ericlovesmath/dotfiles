@@ -34,21 +34,7 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*'            use-cache yes
 zstyle ':completion::complete:*'  cache-path ~/
 
-# Exports for various programs
-export EDITOR="nvim"
-source $HOME/.cargo/env
-export PATH="/Users/ericlee/.cargo/bin:$PATH"
-
-if [ -n "${commands[fzf-share]}" ]; then
-  source "$(fzf-share)/key-bindings.zsh"
-  source "$(fzf-share)/completion.zsh"
-fi
-
 PROMPT_EOL_MARK=''
-
-# opam configuration
-[[ ! -r /Users/ericlee/.opam/opam-init/init.zsh ]] || source /Users/ericlee/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
 
 # Aliases
 
@@ -79,7 +65,7 @@ alias o='open .'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
 alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G" +ZenMode'
-alias food="open 'https://caltechdining.my.canva.site/browne-comfort-equation' 'https://caltechdining.my.canva.site/plant-based-station' 'https://caltechdining.my.canva.site/week-meal-plan-menu'"
+alias food="open 'https://caltechdining.my.canva.site/browne-comfort-equation' 'https://caltechdining.my.canva.site/plant-based-station' 'https://caltechdining.my.canva.site/mealplanmenu'"
 alias ff="open -a firefox"
 alias {owo,uwu}='echo -e "⣿⣿⣿⣿⣿⣿⣿⣿⣿⢫⣟⡛⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⢋⣭⣭⣭⣭⣭⣉⣙⣻⡆⠻⣿⣿⣮⣻⠿⢟⣛⣋⣭⣭⣭⣿⣿
@@ -95,19 +81,3 @@ alias {owo,uwu}='echo -e "⣿⣿⣿⣿⣿⣿⣿⣿⣿⢫⣟⡛⠻⢿⣿⣿⣿⣿
 pset() { $HOME/bin/latex-template/generate_set.py "$@" | pbcopy }
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
-
-hash -d usaco=$HOME/Desktop/Programming/competitive-programming
-hash -d rust=$HOME/Desktop/Programming/rust
-hash -d portfolio=$HOME/Desktop/Programming/portfolio-eric-lee
-hash -d leetcode=$HOME/Desktop/Programming/leetcode
-hash -d tutor=$HOME/Desktop/Academics/Tutoring
-hash -d caltech=$HOME/Desktop/Academics/Caltech/junior/fall-2024
-hash -d visuals=$HOME/Desktop/Programming/generative-art/src
-hash -d firefox="$HOME/Library/Application Support/Firefox/Profiles/wwpdd487.default-release"
-hash -d surf=$HOME/Desktop/Academics/Caltech/sophmore/SURF
-hash -d jane="$HOME/Desktop/Important/Jane Street"
-hash -d finance="$HOME/Desktop/Important/finance"
-
-alias chem="osascript -e 'mount volume \"smb://reismangroup@files.stoltz.caltech.edu\"' && cd ~reisman"
-alias unchem="cd $HOME && umount ~reisman"
-hash -d reisman="/Volumes/Reisman Group Server"

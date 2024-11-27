@@ -9,27 +9,17 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-
-    homebrew-core.url = "github:homebrew/homebrew-core";
-    homebrew-core.flake = false;
-
-    homebrew-cask.url = "github:homebrew/homebrew-cask";
-    homebrew-cask.flake = false;
-
-    homebrew-bundle.url = "github:homebrew/homebrew-bundle";
-    homebrew-bundle.flake = false;
   };
 
-  outputs = { self, nix-darwin, nix-homebrew, homebrew-core, homebrew-cask, homebrew-bundle, home-manager, nixpkgs }:
+  outputs = { self, nix-darwin, home-manager, nixpkgs }:
   let
-    configuration = { pkgs, config, ... }: {
+    user = "ericlee";
+    darwinConfiguration = { pkgs, config, ... }: {
 
       environment.variables.HOMEBREW_NO_ANALYTICS = "1";
-      homebrew = import ./nix/homebrew.nix { inherit config; };
+      homebrew = import ./nix/brew.nix { inherit config; };
 
-      users.users.ericlee.home = "/Users/ericlee";
+      users.users.${user}.home = "/Users/${user}";
       home-manager.backupFileExtension = "backup";
 
       # Managed in home-manager
@@ -60,37 +50,31 @@
     };
   in
   {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#macos
+    # Command: nix run nix-darwin -- switch --flake ~/dotfiles\#macos
     darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
       modules = [
-        configuration
-
-        nix-homebrew.darwinModules.nix-homebrew {
-          nix-homebrew = {
-            enable = true;
-            enableRosetta = true;
-            user = "ericlee";
-
-            taps = {
-              "homebrew/homebrew-core" = homebrew-core;
-              "homebrew/homebrew-cask" = homebrew-cask;
-              "homebrew/homebrew-bundle" = homebrew-bundle;
-            };
-
-            mutableTaps = false;
-          };
-        }
+        darwinConfiguration
 
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.ericlee = import ./nix/home.nix;
+          home-manager.users.${user} = import ./nix/home-darwin.nix;
         }
       ];
     };
 
+    # nixosConfigurations."asahi" = nixpkgs.lib.nixosSystem {
+    #   modules = [
+    #     home-manager.linuxModules.home-manager {
+    #       home-manager.useGlobalPkgs = true;
+    #       home-manager.useUserPackages = true;
+    #       home-manager.users.${user} = import ./nix/home-shared.nix;
+    #     }
+    #   ];
+    # };
+
     # Expose the package set, including overlays, for convenience.
     darwinPackages = self.darwinConfigurations."macos".pkgs;
+    linuxPackages = self.nixosConfigurations."fedora".pkgs;
   };
 }

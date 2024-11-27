@@ -26,6 +26,6 @@ nix run nix-darwin -- switch --flake ~/dotfiles\#macos
 - Yabai: Tiling WM uses Capslock as a `meh/hyper` global prefix, mimicking vim keybindings
 - Neovim: `Lazy` to install packages, `Mason` to install LSPs
 - Alacritty: Keybindings set such that intuitive `cmd + _` key combinations works with `tmux`
-- Nix: Currently only used as a declarative package manager and symlink-er
+- Nix: Currently mostly just used as a declarative package manager and symlink-er
 
-    - Nix is good, but shouldn't be required to use this repository
+    - Nix is good, but shouldn't be required
