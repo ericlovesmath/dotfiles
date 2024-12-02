@@ -1,11 +1,7 @@
 { config, ... }: {
   enable = true;
 
-  taps = [
-      "homebrew/homebrew-core"
-      "homebrew/homebrew-cask"
-      "homebrew/homebrew-bundle"
-  ];
+  taps = [];
 
   onActivation = {
     autoUpdate = true;

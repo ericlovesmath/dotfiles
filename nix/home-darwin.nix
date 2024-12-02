@@ -3,9 +3,9 @@
 {
   imports = [ ./home-shared.nix ];
 
-  # TODO: meslo-lgs-nf?
   home.packages = with pkgs; [
     skhd yabai sketchybar jankyborders
+    meslo-lgs-nf font-awesome
   ];
 
   home.file = {

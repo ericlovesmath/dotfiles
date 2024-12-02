@@ -2,7 +2,7 @@
 
 let
   # TODO: This isn't working because thats the home path
-  firefoxProfile = "Library/Application Support/Firefox/Profiles/wwpdd487.default-release";
+  firefoxProfile = "Library/Application Support/Firefox/Profiles/0lcdwvwo.default-release";
   # firefoxApp = "Applications/Firefox.app/Contents/Resources";
 in
 {
@@ -22,7 +22,7 @@ in
     micromamba texliveFull
     nodejs python3 coreutils
     ghc haskell-language-server
-    zsh-powerlevel10k
+    zsh zsh-powerlevel10k
   ];
 
   home.file = {
@@ -80,6 +80,7 @@ in
     }];
     initExtra = ''
       . "$HOME/.p10k.zsh"
+      eval $(/opt/homebrew/bin/brew shellenv)
       . "$HOME/dotfiles/.zshrc"
     '';
   };
