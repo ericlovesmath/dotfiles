@@ -14,8 +14,7 @@
     "discord" "zoom" "spotify" "google-chrome" "vnc-viewer" "onyx"
     "qlmarkdown" "dyalog" "slack" "godot" "minecraft" "rar" "steam"
     "appcleaner" "lulu" "protonmail-bridge" "karabiner-elements"
-    "omnidisksweeper" "visual-studio-code" "alfred" "zotero" "firefox"
-    "protonvpn"
+    "omnidisksweeper" "visual-studio-code" "alfred" "zotero" "protonvpn"
   ];
 
   masApps = {

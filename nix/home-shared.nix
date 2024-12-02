@@ -1,14 +1,9 @@
 { config, pkgs, ... }:
-
-let
-  # TODO: This isn't working because thats the home path
-  firefoxProfile = "Library/Application Support/Firefox/Profiles/0lcdwvwo.default-release";
-  # firefoxApp = "Applications/Firefox.app/Contents/Resources";
-in
 {
   programs.home-manager.enable = true;
   home.username = "ericlee";
   home.homeDirectory = "/Users/ericlee";
+  home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
@@ -29,24 +24,7 @@ in
     ".tmux.conf".source = ../.tmux.conf;
     ".config/nvim".source = ../nvim;
     ".config/alacritty/alacritty.toml".source = ../alacritty.toml;
-    ".config/karabiner".source = ../karabiner;
-    ".aerospace.toml".source = ../.aerospace.toml;
     ".latexmkrc".source = ../.latexmkrc;
-
-    "${firefoxProfile}/startpage".source = ../firefox/startpage;
-    "${firefoxProfile}/chrome".source = ../firefox/chrome;
-    "${firefoxProfile}/user.js".source = ../firefox/user.js;
-
-    # TODO: Firefox
-    # Firefox Extensions: Auto Tab Discard, Bitwarden, Bypass Paywalls Clean,
-    # Dark Reader, Forest, h254ify, OneTab, Return Youtube Dislike, Sidebery,
-    # SponserBlock, Tweaks for YouTube, uBlock Origin, Zotero Connector.
-
-    # 1. Edit mozilla.cfg to put the location of the startpage
-    # 2. Update [Betterfox](https://github.com/yokoffing/Betterfox)
-
-    # Newtab Loader
-    # "${firefoxApp}/mozilla.cfg".source = ./firefox/mozilla.cfg;
   };
 
   home.sessionVariables = {

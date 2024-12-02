@@ -9,9 +9,12 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nix-darwin, home-manager, nixpkgs }:
+  outputs = { self, nix-darwin, home-manager, nixpkgs, nixpkgs-firefox-darwin }:
   let
     user = "ericlee";
   in
@@ -23,6 +26,7 @@
         ./nix/nix-darwin.nix
 
         home-manager.darwinModules.home-manager {
+          nixpkgs.overlays = [ nixpkgs-firefox-darwin.overlay ];
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.${user} = import ./nix/home-darwin.nix;
