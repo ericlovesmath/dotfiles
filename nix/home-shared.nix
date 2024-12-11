@@ -15,9 +15,14 @@
     nasm pandoc yt-dlp glow hugo docker gh
     julia-bin slides maven openjdk opam
     micromamba texliveFull
-    nodejs python3 coreutils
+    nodejs coreutils
     ghc haskell-language-server
     zsh zsh-powerlevel10k
+    openjdk
+
+    (python3.withPackages (pkgs: with pkgs; [
+      pandas scipy numpy jupyterlab
+    ]))
   ];
 
   home.file = {

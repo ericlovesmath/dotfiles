@@ -15,6 +15,7 @@
     "qlmarkdown" "dyalog" "slack" "godot" "minecraft" "rar" "steam"
     "appcleaner" "lulu" "protonmail-bridge" "karabiner-elements"
     "omnidisksweeper" "visual-studio-code" "alfred" "zotero" "protonvpn"
+    "logi-options+" "libreoffice"
   ];
 
   masApps = {
