@@ -2,11 +2,14 @@
 
 let
   # TODO: This isn't working because thats the home path
-  firefoxProfile = "Library/Application Support/Firefox/Profiles/0lcdwvwo.default-release";
-  # firefoxApp = "Applications/Firefox.app/Contents/Resources";
+  firefoxProfile = "Library/Application Support/Firefox/Profiles/nixprofile";
+  # firefoxApp = "Applications/Home Manager Trampolines/Firefox.app/Contents/Resources";
+  # firefoxApp = "Applications/Home Manager Apps/Firefox.app/Contents/Resources";
 in
 {
   imports = [ ./home-shared.nix ];
+
+  home.homeDirectory = "/Users/ericlee";
 
   home.packages = with pkgs; [
     skhd yabai sketchybar jankyborders
@@ -25,21 +28,35 @@ in
     "${firefoxProfile}/chrome".source = ../firefox/chrome;
     "${firefoxProfile}/user.js".source = ../firefox/user.js;
 
-    # TODO: Firefox
-    # Firefox Extensions: Auto Tab Discard, Bitwarden, Bypass Paywalls Clean,
-    # Dark Reader, Forest, h254ify, OneTab, Return Youtube Dislike, Sidebery,
-    # SponserBlock, Tweaks for YouTube, uBlock Origin, Zotero Connector.
-
     # 1. Edit mozilla.cfg to put the location of the startpage
     # 2. Update [Betterfox](https://github.com/yokoffing/Betterfox)
 
     # Newtab Loader
-    # "${firefoxApp}/mozilla.cfg".source = ./firefox/mozilla.cfg;
+    # "${firefoxApp}/autoconfig.cfg".source = ../firefox/local-settings.js;
+    # "${firefoxApp}/mozilla.cfg".source = ../firefox/mozilla.cfg;
   };
 
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-bin;
+    profiles.nixprofile = {
+      search = {
+        engines = {
+          "Kagi" = {
+            urls = [{
+              template = "https://kagi.com/search";
+              params = [ { name = "q"; value = "{searchTerms}"; } ];
+            }];
+            iconUpdateURL = "https://assets.kagi.com/v1/kagi_assets/logos/yellow_3.svg";
+            updateInterval = 24 * 60 * 60 * 1000; # Daily
+            definedAliases = [ "@kagi" ];
+          };
+        };
+        default = "Kagi";
+        privateDefault = "DuckDuckGo";
+        force = true;
+      };
+    };
   };
 
   # Hack to link NixOS Application to be searchable on MacOS

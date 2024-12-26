@@ -2,7 +2,6 @@
 {
   programs.home-manager.enable = true;
   home.username = "ericlee";
-  home.homeDirectory = "/Users/ericlee";
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "24.11";
 
@@ -18,7 +17,7 @@
     nodejs coreutils
     ghc haskell-language-server
     zsh zsh-powerlevel10k
-    openjdk
+    openjdk cargo
 
     (python3.withPackages (pkgs: with pkgs; [
       pandas scipy numpy jupyterlab
