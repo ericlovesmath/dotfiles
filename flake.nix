@@ -12,12 +12,21 @@
 
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixgl.url = "github:nix-community/nixGL";
+    nixgl.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
-  outputs = { self, nix-darwin, home-manager, nixpkgs, nixpkgs-firefox-darwin }:
+  outputs = { self, nix-darwin, home-manager, nixpkgs, nixpkgs-firefox-darwin, nixgl }:
   let
     user = "ericlee";
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    # pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [ nixgl.overlay ];
+    };
   in
   {
     # Made for M1 Macbook Pro
@@ -40,7 +49,7 @@
     # Command: nix run home-manager -- switch --flake "~/dotfiles#fedora"
     homeConfigurations."fedora" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [ ./nix/home-fedora.nix ];
+      modules = [ (import ./nix/home-fedora.nix { nixgl = nixgl; }) ];
     };
 
     # Expose the package set, including overlays, for convenience.
