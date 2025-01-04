@@ -22,13 +22,14 @@ in
   };
 
   home.packages = with pkgs; [
-    gcc gnumake unrar kanata powertop
+    gcc gnumake unrar kanata
     discord spotify slack ollama kmonad
     protonmail-bridge protonvpn-gui zotero libreoffice
     gimp solaar everest-mons transmission_4 lunar-client
     thunderbird-bin meslo-lgs-nf
     spotify-player spotifyd
-    waybar wofi mako
+    waybar swww wofi mako grim slurp
+    networkmanager bluez bluez-tools blueman
     (config.lib.nixGL.wrap alacritty)
     (config.lib.nixGL.wrap mpv)
     (config.lib.nixGL.wrap obs-studio)
@@ -38,6 +39,9 @@ in
   home.file = {
     "${firefoxProfile}/chrome".source = ../firefox/chrome;
     "${firefoxProfile}/user.js".source = ../firefox/user.js;
+
+    ".config/hypr/hyprland.conf".source = ../hyprland.conf;
+    ".config/waybar".source = ../waybar;
   };
 
   programs.firefox = {
