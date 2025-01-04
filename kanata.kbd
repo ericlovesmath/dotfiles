@@ -1,0 +1,11 @@
+(defcfg
+  process-unmapped-keys yes)
+
+(defsrc
+  caps lmeta lalt)
+
+(deflayer default
+  @cap lalt lmeta)
+
+(defalias
+  cap (tap-hold-press 200 200 esc lctl))

@@ -1,5 +1,9 @@
 { nixgl }:
 { config, pkgs, lib, ... }:
+
+let
+  firefoxProfile = ".mozilla/firefox/nixprofile";
+in
 {
   imports = [ ./home-shared.nix ];
 
@@ -18,19 +22,48 @@
   };
 
   home.packages = with pkgs; [
-    gcc gnumake unrar kmonad
-    discord spotify firefox slack ollama kmonad
+    gcc gnumake unrar kanata powertop
+    discord spotify slack ollama kmonad
     protonmail-bridge protonvpn-gui zotero libreoffice
     gimp solaar everest-mons transmission_4 lunar-client
     thunderbird-bin meslo-lgs-nf
+    spotify-player spotifyd
+    waybar wofi mako
     (config.lib.nixGL.wrap alacritty)
     (config.lib.nixGL.wrap mpv)
     (config.lib.nixGL.wrap obs-studio)
     (config.lib.nixGL.wrap steam)
-    (config.lib.nixGL.wrap hyprland)
   ];
+
+  home.file = {
+    "${firefoxProfile}/chrome".source = ../firefox/chrome;
+    "${firefoxProfile}/user.js".source = ../firefox/user.js;
+  };
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox;
+    profiles.nixprofile = {
+      search = {
+        engines = {
+          "Kagi" = {
+            urls = [{
+              template = "https://kagi.com/search";
+              params = [ { name = "q"; value = "{searchTerms}"; } ];
+            }];
+            iconUpdateURL = "https://assets.kagi.com/v1/kagi_assets/logos/yellow_3.svg";
+            updateInterval = 24 * 60 * 60 * 1000; # Daily
+            definedAliases = [ "@kagi" ];
+          };
+        };
+        default = "Kagi";
+        privateDefault = "DuckDuckGo";
+        force = true;
+      };
+    };
+  };
   
-  # TODO: Minecraft, KVM
+  # TODO: KVM
   # Need to add desktop to Gnome Login
   # https://gist.github.com/AntonFriberg/1dcb1ee6bf2c92c5f641a6f764d582d9
   # wayland.windowManager.hyprland = {

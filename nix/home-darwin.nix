@@ -13,7 +13,6 @@ in
 
   home.packages = with pkgs; [
     skhd yabai sketchybar jankyborders
-    meslo-lgs-nf font-awesome
   ];
 
   home.file = {

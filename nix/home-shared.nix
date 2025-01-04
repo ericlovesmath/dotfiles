@@ -12,12 +12,13 @@
     tree wget nmap croc curl rlwrap fastfetch
     spicetify-cli coq deno pandoc
     nasm pandoc yt-dlp glow hugo docker gh
-    julia-bin slides maven openjdk opam
+    julia-bin slides maven openjdk opam gnupatch
     micromamba texliveFull
     nodejs coreutils
     ghc haskell-language-server
     zsh zsh-powerlevel10k
     openjdk cargo
+    meslo-lgs-nf font-awesome
 
     (python3.withPackages (pkgs: with pkgs; [
       pandas scipy numpy jupyterlab
@@ -50,7 +51,6 @@
       caltech   = "$HOME/Desktop/Academics/Caltech/junior/fall-2024";
       tutor     = "$HOME/Desktop/Academics/Tutoring";
       surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";
-      firefox   = "$HOME/Library/Application Support/Firefox/Profiles/wwpdd487.default-release";
       finance   = "$HOME/Desktop/Important/finance";
       portfolio = "$HOME/Desktop/Programming/portfolio-eric-lee";
       usaco     = "$HOME/Desktop/Programming/competitive-programming";
@@ -62,7 +62,6 @@
     }];
     initExtra = ''
       . "$HOME/.p10k.zsh"
-      eval $(/opt/homebrew/bin/brew shellenv)
       . "$HOME/dotfiles/.zshrc"
     '';
   };
