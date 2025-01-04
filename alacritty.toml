@@ -3,11 +3,11 @@ program = "tmux"
 args = ["-u", "new-session", "-A", "-s", "Main"]
 
 [window]
-opacity = 0.98
+# opacity = 0.98
 dimensions = { columns = 180, lines = 40 }
 padding = { x = 5, y = 5 }
 dynamic_padding = true
-decorations = "buttonless"
+decorations = "none"
 
 [scrolling]
 history = 10000
@@ -17,7 +17,7 @@ multiplier = 1
 TERM = "xterm-256color"
 
 [font]
-size = 20.0
+size = 16.0
 normal = { family = "MesloLGS NF" }
 # normal = { family = "Julia Mono" }
 # normal = { family = "Comic Code Ligatures" }

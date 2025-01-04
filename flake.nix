@@ -30,7 +30,7 @@
   in
   {
     # Made for M1 Macbook Pro
-    # Command: nix run nix-darwin -- switch --flake "~/dotfiles#macos"
+    # Command: nix run nix-darwin -- switch --flake "$HOME/dotfiles#macos"
     darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
       specialArgs.user = user;
       modules = [
@@ -46,7 +46,7 @@
     };
 
     # Made for Framework 13 with AMD CPU
-    # Command: nix run home-manager -- switch --flake "~/dotfiles#fedora"
+    # Command: nix run home-manager -- switch --flake "$HOME/dotfiles#fedora"
     homeConfigurations."fedora" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = [ (import ./nix/home-fedora.nix { nixgl = nixgl; }) ];
