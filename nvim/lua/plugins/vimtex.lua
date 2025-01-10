@@ -7,7 +7,7 @@ return {
     config = function()
         vim.cmd([[
         let g:vimtex_compiler_progname = "nvr"
-        let g:vimtex_view_method = "skim"
+        let g:vimtex_view_method = "zathura"   " skim on MacOS
         let g:vimtex_imaps_enabled = 1
         let g:vimtex_complete_enabled = 0
         let g:vimtex_indent_on_ampersands = 0

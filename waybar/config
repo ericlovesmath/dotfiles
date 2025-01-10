@@ -11,11 +11,9 @@
             "format-icons": {
                 "active": "",
                 "default": "",
-                "empty": ""
+                "empty": "",
+                "persistent": ""
             },
-            "persistent-workspaces": {
-                "*": 9
-            }
         },
         "clock": {
             "format": "{:%I:%M:%S %p} ",
