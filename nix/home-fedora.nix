@@ -22,14 +22,14 @@ in
   };
 
   home.packages = with pkgs; [
-    gcc gnumake unrar kanata
+    gcc gnumake unrar kanata qemu_kvm virt-manager
     discord spotify slack ollama kmonad
-    protonmail-bridge protonvpn-gui zotero libreoffice
+    protonmail-bridge protonvpn-cli_2 zotero libreoffice
     gimp solaar everest-mons transmission_4 lunar-client
-    thunderbird-bin meslo-lgs-nf
-    spotify-player spotifyd
+    thunderbird-bin meslo-lgs-nf signal-desktop
+    spotify-player spotifyd zathura
     waybar swww wofi mako grim slurp
-    networkmanager bluez bluez-tools blueman
+    networkmanager bluez bluez-tools blueman pavucontrol
     (config.lib.nixGL.wrap alacritty)
     (config.lib.nixGL.wrap mpv)
     (config.lib.nixGL.wrap obs-studio)

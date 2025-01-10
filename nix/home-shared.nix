@@ -48,7 +48,7 @@
     enableCompletion = false;
     dirHashes = {
       jane      = "$HOME/Desktop/Important/Jane Street";
-      caltech   = "$HOME/Desktop/Academics/Caltech/junior/fall-2024";
+      caltech   = "$HOME/Desktop/Academics/Caltech/junior/winter-2025";
       tutor     = "$HOME/Desktop/Academics/Tutoring";
       surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";
       finance   = "$HOME/Desktop/Important/finance";

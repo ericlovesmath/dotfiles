@@ -2,30 +2,45 @@
 
 ![Neovim Configuration](./imgs/desktop.png)
 
-## Overview of Dotfiles
+- Dual configuration for MacOS and Fedora
+- Personal [Neovim](https://github.com/neovim/neovim) configuration
+- [Alacritty](https://github.com/alacritty/alacritty) with `zsh`
 
-- Personalized for MacOS using [yabai](https://github.com/koekeishiya/yabai) + [skhd](https://github.com/koekeishiya/skhd) + [karabiner-elements](https://karabiner-elements.pqrs.org/)
-- [Neovim](https://github.com/neovim/neovim) configuration, optimized for startup time
-- [Alacritty](https://github.com/alacritty/alacritty) with zsh + [powerlevel10k](https://github.com/romkatv/powerlevel10k) prompt
-- Dotfiles symlinked & applications installed with [nix-darwin](github.com/LnL7/nix-darwin) and home-manager
+## Installation (MacOS)
 
-## Installation
+- Overview: [yabai](https://github.com/koekeishiya/yabai) + [skhd](https://github.com/koekeishiya/skhd) + [karabiner-elements](https://karabiner-elements.pqrs.org/)
 
-- Install [Nix](https://nixos.org/download/)
+    - Dotfiles symlinked & applications installed with [nix-darwin](github.com/LnL7/nix-darwin) and home-manager
+    - Yabai: Tiling WM uses Capslock as a `meh/hyper` global prefix, mimicking vim keybindings
+    - Neovim: `Lazy` to install packages, `Mason` to install LSPs
+    - Alacritty: Keybindings set such that intuitive `cmd + _` key combinations works with `tmux`
 
-    - If Nix is not an option, see contents of `home.nix` flake to see proper symlinks
+- [Nix](https://github.com/DeterminateSystems/nix-installer): Mostly just used as a declarative package manager and symlink tool
 
-```
+    - If Nix is not an option, see contents of `home-darwin.nix` and `brew.nix` to see symlinks
+- Install [Nix]
+
+```bash
 mkdir ~/dotfiles & cd ~/dotfiles
 git clone https://github.com/ericlovesmath/dotfiles.git ~/dotfiles
-nix run nix-darwin -- switch --flake ~/dotfiles\#macos
+nix run nix-darwin -- switch --flake "$HOME/dotfiles\#macos"
 ```
 
-## General Style
+## Installation (Fedora, Hyprland)
 
-- Yabai: Tiling WM uses Capslock as a `meh/hyper` global prefix, mimicking vim keybindings
-- Neovim: `Lazy` to install packages, `Mason` to install LSPs
-- Alacritty: Keybindings set such that intuitive `cmd + _` key combinations works with `tmux`
-- Nix: Currently mostly just used as a declarative package manager and symlink-er
+Overview:
 
-    - Nix is good, but shouldn't be required
+- Compositor/WM: hyprland
+- Bar: Waybar
+- Launcher: wofi
+- Notification utility: mako
+- Network Control: nmtui
+- Bluetooth Control: bluez + bluez-tools + blueman (primarily just use bluetoothctl)
+- File Manager: nautilus (GNOME default, rarely used)
+- Wallpaper: swww
+- Screen Lock: hyprlock
+- Screenshot: grim + slurp
+
+See `INSTALLATION_GUIDE.md`
+
+- Tested on the AMD Framework 13 Laptop
