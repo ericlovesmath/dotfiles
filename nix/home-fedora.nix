@@ -40,7 +40,7 @@ in
     "${firefoxProfile}/chrome".source = ../firefox/chrome;
     "${firefoxProfile}/user.js".source = ../firefox/user.js;
 
-    ".config/hypr/hyprland.conf".source = ../hyprland.conf;
+    ".config/hypr".source = ../hypr;
     ".config/waybar".source = ../waybar;
   };
 
