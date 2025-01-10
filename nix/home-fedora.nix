@@ -28,7 +28,7 @@ in
     gimp solaar everest-mons transmission_4 lunar-client
     thunderbird-bin meslo-lgs-nf signal-desktop
     spotify-player spotifyd zathura
-    waybar swww wofi mako grim slurp
+    waybar swww wofi mako grim slurp hypridle
     networkmanager bluez bluez-tools blueman pavucontrol
     (config.lib.nixGL.wrap alacritty)
     (config.lib.nixGL.wrap mpv)
