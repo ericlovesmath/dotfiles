@@ -13,6 +13,24 @@ return {
         config = true,
     },
     {
+        "whonore/Coqtail",
+        ft = { "coq" },
+        config = function()
+            vim.cmd([[
+            let g:coqtail_noimap = 1
+            nmap <buffer> <leader>cl <Plug>CoqToLine
+
+            imap <buffer> <S-Down> <Plug>CoqNext
+            imap <buffer> <S-Left> <Plug>CoqToLine
+            imap <buffer> <S-Up>  <Plug>CoqUndo
+
+            nmap <buffer> <S-Down> <Plug>CoqNext
+            nmap <buffer> <S-Left> <Plug>CoqToLine
+            nmap <buffer> <S-Up>  <Plug>CoqUndo
+            ]])
+        end
+    },
+    {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         cmd = { "LspInfo", "LspStart", "LspRestart", "Mason" },
@@ -76,6 +94,7 @@ return {
             })
 
             -- LSPs not installed with mason.nvim
+            nvim_lsp.coq_lsp.setup({})
             nvim_lsp.gdscript.setup({})
             nvim_lsp.hls.setup({})
             nvim_lsp.ocamllsp.setup({})

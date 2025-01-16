@@ -36,7 +36,7 @@ end
 
 autocmd("Filetype", {
     group = augroup("TwoTabWidth"),
-    pattern = { "c", "css", "cpp", "html", "ocaml", "javascript*", "typescript*" },
+    pattern = { "c", "css", "cpp", "html", "ocaml", "javascript*", "typescript*", "coq" },
     callback = function()
         ol.shiftwidth = 2
         ol.tabstop = 2
