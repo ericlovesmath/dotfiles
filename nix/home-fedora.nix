@@ -9,7 +9,7 @@ in
 
   home.homeDirectory = "/home/ericlee";
 
-  # Make Nix apps show in GNOME
+  # Make Nix apps show in various DEs
   targets.genericLinux.enable = true;
   xdg.mime.enable = true;
   xdg.systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share/applications" ];
@@ -23,12 +23,12 @@ in
 
   home.packages = with pkgs; [
     gcc gnumake unrar kanata qemu_kvm virt-manager
-    discord spotify slack ollama kmonad
+    discord spotify slack ollama godot_4
     protonmail-bridge protonvpn-cli_2 zotero libreoffice
     gimp solaar everest-mons transmission_4 lunar-client
     thunderbird-bin meslo-lgs-nf signal-desktop
     spotify-player spotifyd zathura
-    waybar swww wofi mako grim slurp hypridle
+    waybar swww rofi-wayland mako grim slurp hypridle
     networkmanager bluez bluez-tools blueman pavucontrol
     (config.lib.nixGL.wrap alacritty)
     (config.lib.nixGL.wrap mpv)
@@ -63,6 +63,14 @@ in
         default = "Kagi";
         privateDefault = "DuckDuckGo";
         force = true;
+      };
+
+      # https://wiki.archlinux.org/title/Firefox#Hardware_video_acceleration
+      settings = {
+        "layers.acceleration.force-enabled" = true;
+        "media.ffmpeg.vaapi.enabled" = true;
+        "gfx.webrender.all" = true;
+        "webgl.force-enabled" = true;
       };
     };
   };
