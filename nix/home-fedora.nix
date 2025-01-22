@@ -46,7 +46,7 @@ in
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox;
+    package = (config.lib.nixGL.wrap pkgs.firefox);
     profiles.nixprofile = {
       search = {
         engines = {
@@ -71,6 +71,7 @@ in
         "media.ffmpeg.vaapi.enabled" = true;
         "gfx.webrender.all" = true;
         "webgl.force-enabled" = true;
+        "media.hardware-video-decoding.force-enabled" = true;
       };
     };
   };
