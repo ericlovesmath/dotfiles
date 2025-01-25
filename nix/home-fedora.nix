@@ -21,20 +21,22 @@ in
     defaultWrapper = "mesa";
   };
 
-  home.packages = with pkgs; [
-    gcc gnumake unrar kanata qemu_kvm virt-manager
-    discord spotify slack ollama godot_4
-    protonmail-bridge protonvpn-cli_2 zotero libreoffice
-    gimp solaar everest-mons transmission_4 lunar-client
-    thunderbird-bin meslo-lgs-nf signal-desktop
-    spotify-player spotifyd zathura
-    waybar swww rofi-wayland mako grim slurp hypridle
-    networkmanager bluez bluez-tools blueman pavucontrol
-    (config.lib.nixGL.wrap alacritty)
-    (config.lib.nixGL.wrap mpv)
-    (config.lib.nixGL.wrap obs-studio)
-    (config.lib.nixGL.wrap steam)
-  ];
+  home.packages =
+    with pkgs;
+    [
+      gcc gnumake unrar kanata qemu_kvm virt-manager
+      protonmail-bridge protonvpn-cli_2 zotero libreoffice
+      gimp solaar everest-mons transmission_4 lunar-client
+      thunderbird-bin meslo-lgs-nf
+      spotify-player spotifyd zathura
+      waybar swww rofi-wayland mako grim slurp hypridle
+      networkmanager bluez bluez-tools blueman pavucontrol
+      ollama godot_4
+    ] ++
+    (builtins.map config.lib.nixGL.wrap [
+      obs-studio slack steam spotify mpv
+      signal-desktop webcord alacritty
+    ]);
 
   home.file = {
     "${firefoxProfile}/chrome".source = ../firefox/chrome;
@@ -76,18 +78,6 @@ in
     };
   };
   
-  # TODO: KVM
-  # Need to add desktop to Gnome Login
-  # https://gist.github.com/AntonFriberg/1dcb1ee6bf2c92c5f641a6f764d582d9
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   package = config.lib.nixGL.wrap pkgs.hyprland;
-  #   settings = {
-  #     general = {
-  #       gaps_in = 0;
-  #       gaps_out = 0;
-  #       border_size = 20;
-  #     };
-  #   };
-  # };
+  # TODO: KVM?
+  # TODO: Nix only with https://gist.github.com/AntonFriberg/1dcb1ee6bf2c92c5f641a6f764d582d9
 }

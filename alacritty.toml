@@ -4,7 +4,7 @@ args = ["-u", "new-session", "-A", "-s", "Main"]
 
 [window]
 # opacity = 0.98
-dimensions = { columns = 180, lines = 40 }
+# dimensions = { columns = 180, lines = 40 }
 padding = { x = 5, y = 5 }
 dynamic_padding = true
 decorations = "none"
@@ -17,7 +17,7 @@ multiplier = 1
 TERM = "xterm-256color"
 
 [font]
-size = 16.0
+size = 14.0
 normal = { family = "MesloLGS NF" }
 # normal = { family = "Julia Mono" }
 # normal = { family = "Comic Code Ligatures" }
@@ -82,4 +82,3 @@ foreground = "#c9cdd5"
 [colors.selection]
 background = "#323844"
 text = "#abb2bf"
-
