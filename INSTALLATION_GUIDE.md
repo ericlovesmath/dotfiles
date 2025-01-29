@@ -17,6 +17,7 @@
 
 - Multimedia Codecs: `sudo dnf group install multimedia`
 - Uninstall Firefox: `sudo dnf remove firefox`
+- Use ppd instead of tuned (for AMD): `sudo dnf swap tuned-ppd power-profiles-daemon`
 
 ## Nix
 

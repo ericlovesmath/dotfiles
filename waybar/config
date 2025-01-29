@@ -2,10 +2,20 @@
     "layer": "top",
         "position": "top",
         "reload_style_on_change": true,
-        "modules-left": ["clock", "power-profiles-daemon", "tray"],
-        "modules-center": ["hyprland/workspaces"],
-        "modules-right": ["group/expand","bluetooth","network","battery"],
-
+        "modules-left": [
+            "clock",
+            "tray"
+        ],
+        "modules-center": [
+            "hyprland/workspaces"
+        ],
+        "modules-right": [
+            "group/expand",
+            "bluetooth",
+            "network",
+            "power-profiles-daemon",
+            "battery"
+        ],
         "hyprland/workspaces": {
             "format": "{icon}",
             "format-icons": {

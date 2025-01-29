@@ -27,8 +27,8 @@ in
       gcc gnumake unrar kanata qemu_kvm virt-manager
       protonmail-bridge protonvpn-cli_2 zotero libreoffice
       gimp solaar everest-mons transmission_4 lunar-client
-      thunderbird-bin meslo-lgs-nf
-      spotify-player spotifyd zathura
+      thunderbird-bin meslo-lgs-nf aseprite
+      spotify-player spotifyd zathura tesseract ydotool
       waybar swww rofi-wayland mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
       ollama godot_4
