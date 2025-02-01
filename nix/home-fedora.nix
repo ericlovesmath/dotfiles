@@ -29,11 +29,12 @@ in
       gimp solaar everest-mons transmission_4 lunar-client
       thunderbird-bin meslo-lgs-nf aseprite
       spotify-player spotifyd zathura tesseract ydotool
-      waybar swww rofi-wayland mako grim slurp hypridle
+      swww rofi-wayland mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
       ollama godot_4
     ] ++
     (builtins.map config.lib.nixGL.wrap [
+      waybar
       obs-studio slack steam spotify mpv
       signal-desktop webcord alacritty
     ]);

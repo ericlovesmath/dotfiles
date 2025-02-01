@@ -17,6 +17,7 @@
 
 - Multimedia Codecs: `sudo dnf group install multimedia`
 - Uninstall Firefox: `sudo dnf remove firefox`
+- Keyboard Language: `sudo dnf install fcitx5 fcitx5-hangul fcitx5-chinese-addons fcitx5-mozc`
 - Use ppd instead of tuned (for AMD): `sudo dnf swap tuned-ppd power-profiles-daemon`
 
 ## Nix
