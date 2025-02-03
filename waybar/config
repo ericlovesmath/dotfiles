@@ -11,10 +11,11 @@
         ],
         "modules-right": [
             "group/expand",
+            "custom/spotify",
             "bluetooth",
             "network",
             "power-profiles-daemon",
-            "battery"
+            "battery",
         ],
         "hyprland/workspaces": {
             "format": "{icon}",
@@ -41,6 +42,14 @@
                 "on-click": "shift_up"
             }
         },
+        "custom/spotify": {
+            "format": " {}",
+            "interval": 5,
+            "exec": "~/.config/waybar/music.sh",
+            "on-click": "playerctl -p spotify play-pause",
+            "on-scroll-up": "playerctl -p spotify next",
+            "on-scroll-down": "playerctl -p spotify previous",
+        },
         "network": {
             "format-wifi": "",
             "format-ethernet":"",
@@ -65,12 +74,17 @@
             "format-on": "󰂯",
             "format-off": "BT-off",
             "format-disabled": "󰂲",
+            "format-connected": "{num_connections} 󰂯",
             "format-connected-battery": "{device_battery_percentage}% 󰂯",
             "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
             "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
             "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
             "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
-            "on-click-right": "blueman-manager"
+            "on-click": "rfkill toggle bluetooth",
+
+            // Earphone Connection
+            // "on-click-right": "blueman-manager"
+            "on-click-right": "bluetoothctl connect 30:82:16:98:3B:D6",
         }, 
         "battery": {
             "interval": 60,
@@ -98,7 +112,13 @@
                 "transition-to-left": true,
                 "click-to-reveal": true
             },
-            "modules": ["custom/expand","cpu","memory","temperature","custom/endpoint"]
+            "modules": [
+                "custom/expand",
+                "cpu",
+                "memory",
+                "temperature",
+                "custom/endpoint",
+            ]
         },
         "cpu": {
             "format": "󰻠",
@@ -115,5 +135,5 @@
         "tray": {
             "icon-size": 14,
             "spacing": 10
-        }
+        },
 } 
