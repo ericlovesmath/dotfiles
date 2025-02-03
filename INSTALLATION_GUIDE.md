@@ -43,9 +43,18 @@ sudo dnf install Hyprland hyprlock
 - `hyprlock` can also be installed with Nix fine, I just don't know enough about `/etc/pam.d` to care
 - `hyprland.conf` may have manual `$HOME` paths set that need to be modified
 
-## Manual Configuration Needed?
+## Virtualisation (QEMU + KVM + virt-manager)
 
-- Audio Level (Set to 50% for Framework laptop)
+```bash
+grep -cE '(vmx|svm)' /proc/cpuinfo  # Verify cores exist (> 0)
+sudo dnf install @virtualization    # Don't want to bother with Nix issues
+sudo usermod -aG libvirt $USER
+sudo usermod -aG kvm $USER
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+sudo systemctl status libvirtd
+virt-manager
+```
 
 ## TODO
 
@@ -57,4 +66,3 @@ sudo dnf install Hyprland hyprlock
 - Spotifyd / spotify-player (When OAuth is fixed)
 - Sound effects on key presses
 - Hyprlock on sleep or laptop close
-- Force Todoist to open in one tab only and in the right workspace on startup
