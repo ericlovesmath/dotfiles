@@ -45,6 +45,7 @@ in
 
     ".config/hypr".source = ../hypr;
     ".config/waybar".source = ../waybar;
+    ".config/rofi/config.rasi".source = ../rofi.rasi;
   };
 
   programs.firefox = {
