@@ -14,7 +14,7 @@ vim.api.nvim_create_user_command("JournalEntry", function()
         return
     end
     vim.fn.setreg("+", path .. "_")
-    vim.cmd("silent! !open ./imgs &")
+    vim.cmd("silent! !xdg-open $HOME/Downloads & xdg-open ./imgs &")
     vim.fn.input("Press Enter to continue... ")
 
     -- Add links to images in Markdown format
@@ -29,6 +29,8 @@ vim.api.nvim_create_user_command("JournalEntry", function()
 end, {})
 
 local substitutions = {
+    { src = "σ", dst = [[\sigma ]] },
+    { src = "τ", dst = [[\tau ]] },
     { src = "π", dst = [[\pi ]] },
     { src = "Ω", dst = [[\Omega ]] },
     { src = "ω", dst = [[\omega ]] },
@@ -54,6 +56,13 @@ local substitutions = {
     { src = "”", dst = "''" },
     { src = "−", dst = "-" }, -- The bane of my existence
     { src = [[\. \. \.]], dst = [[\ldots ]] },
+    { src = "∀", dst = [[\forall ]] },
+    { src = "∃", dst = [[\exists ]] },
+    { src = "⇒", dst = [[\implies ]] },
+    { src = "∨", dst = [[\lor ]] },
+    { src = "∧", dst = [[\land ]] },
+    { src = "⟨", dst = [[\left< ]] },
+    { src = "⟩", dst = [[\right> ]] },
 }
 
 -- Utility function to replace unicode character when copying from PDF

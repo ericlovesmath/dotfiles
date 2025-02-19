@@ -138,10 +138,10 @@ return {
                     haskell = { "fourmolu" },
                     python = { "isort", "flake8", "black" },
                     cpp = { "clang-format" },
-                    javascript = {{ "prettierd", "prettier" },  "eslint_d" },
-                    typescript = {{ "prettierd", "prettier" },  "eslint_d" },
-                    javascriptreact = {{ "prettierd", "prettier" },  "eslint_d" },
-                    typescriptreact = {{ "prettierd", "prettier" },  "eslint_d" },
+                    javascript = { "prettierd",  "eslint_d" },
+                    typescript = { "prettierd",  "eslint_d" },
+                    javascriptreact = { "prettierd", "eslint_d" },
+                    typescriptreact = { "prettierd", "eslint_d" },
                 },
             })
             vim.keymap.set("n", "<leader>vf", function()
