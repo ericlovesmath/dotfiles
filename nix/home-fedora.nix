@@ -11,8 +11,16 @@ in
 
   # Make Nix apps show in various DEs
   targets.genericLinux.enable = true;
+  xdg.enable = true;
   xdg.mime.enable = true;
   xdg.systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share/applications" ];
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = ["zathura.desktop" "org.gnome.Evince.desktop" "firefox.desktop"];
+      "x-scheme-handler/http" = "firefox.desktop";
+    };
+  };
   
   nixpkgs.config.allowUnfree = true;
 
@@ -27,16 +35,17 @@ in
       gcc gnumake unrar kanata qemu_kvm virt-manager
       protonmail-bridge protonvpn-cli_2 zotero libreoffice
       gimp solaar everest-mons transmission_4 lunar-client
-      thunderbird-bin meslo-lgs-nf aseprite
-      spotify-player spotifyd zathura tesseract ydotool
+      thunderbird-bin meslo-lgs-nf aseprite zathura
+      spotify-player spotifyd tesseract ydotool libqalculate
       swww rofi-wayland mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
-      ollama godot_4
+      ollama godot_4 realvnc-vnc-viewer cryptomator
     ] ++
     (builtins.map config.lib.nixGL.wrap [
       waybar
       obs-studio slack steam spotify mpv
       signal-desktop webcord alacritty
+      jellyfin-media-player
     ]);
 
   home.file = {
@@ -46,6 +55,7 @@ in
     ".config/hypr".source = ../hypr;
     ".config/waybar".source = ../waybar;
     ".config/rofi/config.rasi".source = ../rofi.rasi;
+    ".config/mako/config".source = ../mako.cfg;
   };
 
   programs.firefox = {
@@ -79,7 +89,4 @@ in
       };
     };
   };
-  
-  # TODO: KVM?
-  # TODO: Nix only with https://gist.github.com/AntonFriberg/1dcb1ee6bf2c92c5f641a6f764d582d9
 }
