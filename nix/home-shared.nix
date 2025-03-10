@@ -21,7 +21,7 @@
     meslo-lgs-nf font-awesome
 
     (python3.withPackages (pkgs: with pkgs; [
-      pandas scipy numpy jupyterlab
+      pandas scipy numpy jupyterlab matplotlib
     ]))
   ];
 
