@@ -18,7 +18,11 @@
 - Multimedia Codecs: `sudo dnf group install multimedia`
 - Uninstall Firefox: `sudo dnf remove firefox`
 - Keyboard Language: `sudo dnf install fcitx5 fcitx5-hangul fcitx5-chinese-addons fcitx5-mozc`
-- Use ppd instead of tuned (for AMD): `sudo dnf swap tuned-ppd power-profiles-daemon`
+- Consider using `ppd` instead of `tuned` (for AMD): `sudo dnf swap tuned-ppd power-profiles-daemon`
+
+    - It was not an improvement for me
+
+- Turn down Mic input to ~50%
 
 ## Nix
 
@@ -26,8 +30,42 @@
 
     - ZSH: `chsh -s $(which zsh)` (may need need to add to `/etc/shells`
 
-- Kanata Configuration: https://github.com/jtroo/kanata/wiki/Avoid-using-sudo-on-Linux
 - Solaar Configuration: https://pwr-solaar.github.io/Solaar/rules
+
+## keyd
+
+- Keyboard Daemon, simple Vim and Firefox bindings
+
+    - Nix on Fedora can't manage `/etc`, manual configuration
+
+```bash
+sudo dnf copr enable alternateved/keyd
+sudo dnf install keyd
+sudo systemctl enable --now keyd
+```
+
+Contents of `/etc/keyd/default.conf`:
+
+```toml
+[ids]
+*
+
+[main]
+capslock = overload(capslock, esc)
+leftalt = leftmeta
+leftmeta = leftalt
+esc = `
+
+[capslock:C]
+1 = C-S-tab
+2 = C-S-pageup
+3 = C-S-pagedown
+4 = C-tab
+```
+
+```bash
+sudo keyd reload
+```
 
 ## Hyprland
 
@@ -42,6 +80,11 @@ sudo dnf install Hyprland hyprlock
 - Note that Hyprland can probably be installed with a custom `systemctl` through Nix. I could not figure it out. Let me know if you do.
 - `hyprlock` can also be installed with Nix fine, I just don't know enough about `/etc/pam.d` to care
 - `hyprland.conf` may have manual `$HOME` paths set that need to be modified
+
+## SwayWM
+
+- `sudo dnf install sway`
+- Launching from `tty` instead of GDM is suggested, not sure why, seems fine either way
 
 ## Virtualisation (QEMU + KVM + virt-manager)
 

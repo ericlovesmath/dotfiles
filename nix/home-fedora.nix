@@ -43,7 +43,7 @@ in
   home.packages =
     with pkgs;
     [
-      gcc gnumake unrar kanata qemu_kvm virt-manager
+      gcc gnumake unrar qemu_kvm virt-manager
       protonmail-bridge protonvpn-cli_2 zotero libreoffice
       gimp solaar everest-mons transmission_4 lunar-client
       thunderbird-bin meslo-lgs-nf aseprite zathura
