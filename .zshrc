@@ -57,7 +57,7 @@ alias o='nautilus . &'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
 alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G" +ZenMode'
-alias ocr="grim -g \"\$(slurp -d)\" - | tesseract stdin stdout | wl-copy"
+alias ocr="grim -g \"\$(slurp -d)\" - | tesseract stdin stdout | wl-copy && exit"
 
 pset() { $HOME/Desktop/bin/latex-template/generate_set.py "$@" | wl-copy }
 timezsh() { repeat 10 { time zsh -i -c exit } }
