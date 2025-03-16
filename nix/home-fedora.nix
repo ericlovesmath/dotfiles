@@ -62,6 +62,7 @@ in
     "${firefoxProfile}/chrome".source = ../firefox/chrome;
     "${firefoxProfile}/user.js".source = ../firefox/user.js;
 
+    ".config/sway/config".source = ../sway.cfg;
     ".config/hypr".source = ../hypr;
     ".config/waybar".source = ../waybar;
     ".config/rofi/config.rasi".source = ../rofi.rasi;

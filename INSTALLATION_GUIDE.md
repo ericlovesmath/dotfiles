@@ -27,9 +27,6 @@
 ## Nix
 
 - Install nix through [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer)
-
-    - ZSH: `chsh -s $(which zsh)` (may need need to add to `/etc/shells`
-
 - Solaar Configuration: https://pwr-solaar.github.io/Solaar/rules
 
 ## keyd

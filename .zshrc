@@ -62,6 +62,7 @@ alias ocr="grim -g \"\$(slurp -d)\" - | tesseract stdin stdout | wl-copy && exit
 pset() { $HOME/Desktop/bin/latex-template/generate_set.py "$@" | wl-copy }
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
+runbg() { $@ & disown && exit }
 
 # Stupid Aliases
 
