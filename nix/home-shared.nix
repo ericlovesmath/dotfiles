@@ -26,6 +26,7 @@
   ];
 
   home.file = {
+    "bin".source = ../scripts;
     ".tmux.conf".source = ../.tmux.conf;
     ".config/nvim".source = ../nvim;
     ".config/alacritty/alacritty.toml".source = ../alacritty.toml;
