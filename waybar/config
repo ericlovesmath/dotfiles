@@ -7,7 +7,9 @@
             "tray"
         ],
         "modules-center": [
-            "hyprland/workspaces"
+            "sway/mode",
+            "sway/workspaces"
+            // "hyprland/workspaces"
         ],
         "modules-right": [
             "group/expand",
@@ -25,6 +27,19 @@
                 "empty": "",
                 "persistent": ""
             },
+        },
+        "sway/workspaces": {
+            "persistent-workspaces": {
+                "1": [], "2": [], "3": [], "4": [], "5": []
+            },
+            "disable-scroll": true,
+            "all-outputs": true,
+            "format": "{icon}",
+            "format-icons": {
+                "urgent": "",
+                "focused": "",
+                "default": "",
+            }
         },
         "clock": {
             "format": "{:%I:%M:%S %p} ",
