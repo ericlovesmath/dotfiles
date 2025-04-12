@@ -56,10 +56,9 @@ alias gh="xdg-open \`git remote -v | grep fetch | awk '{print \$2}' | sed 's/git
 alias o='nautilus . &'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
-alias journal='cd ~/Desktop/Recreation/2023-journal && nvim ~/Desktop/Recreation/2023-journal/journal.md +"norm G" +ZenMode'
 alias ocr="grim -g \"\$(slurp -d)\" - | tesseract stdin stdout | wl-copy && exit"
 
-pset() { $HOME/Desktop/bin/latex-template/generate_set.py "$@" | wl-copy }
+pset() { $HOME/Desktop/Important/latex-template/generate_set.py "$@" | wl-copy }
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
 runbg() { $@ & disown && exit }

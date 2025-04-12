@@ -98,6 +98,7 @@ return {
             nvim_lsp.gdscript.setup({})
             nvim_lsp.hls.setup({})
             nvim_lsp.ocamllsp.setup({})
+            nvim_lsp.roc_ls.setup({})
 
             -- Create Keybinds for LSP
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -119,8 +120,8 @@ return {
                     set_local("<leader>vn", vim.diagnostic.goto_next)
 
                     -- Use Treesitter instead of LSP
-                    -- local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "invalid client")
-                    -- client.server_capabilities.semanticTokensProvider = nil
+                    local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "invalid client")
+                    client.server_capabilities.semanticTokensProvider = nil
                 end,
             })
 
