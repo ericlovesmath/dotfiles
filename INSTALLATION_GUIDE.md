@@ -101,8 +101,3 @@ virt-manager
 - Install [Easy Effects](https://github.com/FrameworkComputer/linux-docs/tree/main/easy-effects#for-fedora-users-on-their-framework-laptop-13)
 
     - curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Fedora-easy-effects-13-installer.sh | bash
-
-- AirMessage / BlueBubble
-- Spotifyd / spotify-player (When OAuth is fixed)
-- Sound effects on key presses
-- Hyprlock on sleep or laptop close

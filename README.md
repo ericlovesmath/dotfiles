@@ -26,21 +26,6 @@ git clone https://github.com/ericlovesmath/dotfiles.git ~/dotfiles
 nix run nix-darwin -- switch --flake "$HOME/dotfiles\#macos"
 ```
 
-## Installation (Fedora, Hyprland)
+## Installation (Fedora, Sway and Hyprland)
 
-Overview:
-
-- Compositor/WM: hyprland
-- Bar: Waybar
-- Launcher: wofi
-- Notification utility: mako
-- Network Control: nmtui
-- Bluetooth Control: bluez + bluez-tools + blueman (primarily just use bluetoothctl)
-- File Manager: nautilus (GNOME default, rarely used)
-- Wallpaper: swww
-- Screen Lock: hyprlock
-- Screenshot: grim + slurp
-
-See `INSTALLATION_GUIDE.md`
-
-- Tested on the AMD Framework 13 Laptop
+See `INSTALLATION_GUIDE.md`, tested on the AMD Framework 13 Laptop
