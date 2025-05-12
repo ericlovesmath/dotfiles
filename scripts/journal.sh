@@ -3,8 +3,9 @@
 # Personal journaling script so I can download my images and label them faster
 # Previews all images in ~/Downloads and quickly converts and moves them
 
-JOURNAL_FILE="$HOME/Desktop/Recreation/2023-journal/journal.md"
-IMAGE_DIR="$HOME/Desktop/Recreation/2023-journal/imgs"
+JOURNAL_FOLDER="$HOME/Desktop/Recreation/2023-journal"
+JOURNAL_FILE="$JOURNAL_FOLDER/journal.md"
+IMAGE_DIR="$JOURNAL_FOLDER/imgs"
 
 shopt -s nocaseglob
 
@@ -38,6 +39,24 @@ if [[ $ADD_IMAGES == "y" ]]; then
         mv "$CONVERTED_IMAGE" "$IMAGE_DIR/$IMAGE_NAME"
 
         echo "![${IMAGE_LABEL}](${IMAGE_DIR}/${IMAGE_NAME})" >> "$JOURNAL_FILE"
+      fi
+    fi
+  done
+
+  for VIDEO in "$HOME/Downloads"/*.{mov,mp4}; do
+    if [ -f "$VIDEO" ]; then
+      mpv "$VIDEO"
+
+      read -p "Do you want to add $VIDEO? (y/n): " ADD_THIS_VIDEO
+
+      if [[ $ADD_THIS_VIDEO == "y" ]]; then
+
+        read -p "Enter a label for the image: " VIDEO_LABEL
+
+        VIDEO_NAME="${ENTRY_DATE}_${VIDEO_LABEL}.mov"
+        mv "$VIDEO" "$IMAGE_DIR/$VIDEO_NAME"
+
+        echo "![${VIDEO}](${IMAGE_DIR}/${VIDEO_NAME})" >> "$JOURNAL_FILE"
       fi
     fi
   done

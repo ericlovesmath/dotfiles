@@ -44,7 +44,7 @@ in
     with pkgs;
     [
       gcc gnumake unrar qemu_kvm virt-manager
-      protonmail-bridge protonvpn-cli_2 zotero libreoffice
+      protonmail-bridge protonvpn-gui zotero libreoffice
       gimp solaar everest-mons transmission_4 lunar-client
       thunderbird-bin meslo-lgs-nf aseprite zathura
       tesseract libqalculate copyq feh
