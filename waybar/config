@@ -113,6 +113,12 @@
             "format-charging": "󰂄 {capacity}%",
             "format-icons": [ "󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹" ],
         },
+        "custom/mako": {
+            "exec": "~/.config/waybar/togglednd.sh",
+            "format": "{}",
+            "tooltip": true,
+            "tooltip-format": "Toggle DND on/off",
+        },
         "custom/expand": {
             "format": "",
             "tooltip": false
@@ -130,6 +136,7 @@
             },
             "modules": [
                 "custom/expand",
+                // "custom/mako",
                 "cpu",
                 "memory",
                 "temperature",
