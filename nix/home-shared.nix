@@ -18,7 +18,7 @@
     ghc haskell-language-server
     zsh zsh-powerlevel10k
     openjdk cargo
-    meslo-lgs-nf font-awesome
+    meslo-lgs-nf font-awesome hledger
 
     (python3.withPackages (pkgs: with pkgs; [
       pandas scipy numpy jupyterlab matplotlib

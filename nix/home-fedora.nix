@@ -25,6 +25,17 @@ in
   xdg.enable = true;
   xdg.mime.enable = true;
   xdg.systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share/applications" ];
+
+  xdg.desktopEntries.obsidian = {
+    name = "Obsidian";
+    type = "Application";
+    comment = "Knowledge base";
+    categories = [ "Office"];
+    exec = "obsidian --no-sandbox --ozone-platform=wayland --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U";
+    icon = "obsidian";
+    mimeType = ["x-scheme-handler/obsidian"];
+  };
+
   # xdg.mimeApps = {
   #   enable = true;
   #   defaultApplications = {
@@ -45,17 +56,18 @@ in
     [
       gcc gnumake unrar qemu_kvm virt-manager
       protonmail-bridge protonvpn-gui zotero libreoffice
-      gimp solaar everest-mons transmission_4 lunar-client
+      gimp solaar everest-mons transmission_4
       thunderbird-bin meslo-lgs-nf aseprite zathura
       tesseract libqalculate copyq feh
       swww rofi-wayland mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
       ollama godot_4 realvnc-vnc-viewer cryptomator
+      emacs-pgtk
     ] ++
     (builtins.map config.lib.nixGL.wrap [
       waybar obs-studio slack steam spotify mpv
       signal-desktop webcord alacritty telegram-desktop
-      jellyfin-media-player
+      jellyfin-media-player lunar-client obsidian
     ]);
 
   home.file = {
