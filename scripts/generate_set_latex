@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # Script to automatically generate template for problem sets
-# Usage: ./generate_set.py <number of parts for each problem> | wl-copy
+# Usage: ./<script> <number of parts for each problem> | wl-copy
 
 import sys
 

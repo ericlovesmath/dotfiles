@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+# Set Wallpaper
+
 cd $HOME/dotfiles/wallpapers
 
 MONITORS=$(hyprctl monitors all | grep Monitor | cut -d ' ' -f 2 | tr '\n' ' ')

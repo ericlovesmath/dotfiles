@@ -26,7 +26,6 @@
   ];
 
   home.file = {
-    "bin".source = ../scripts;
     ".tmux.conf".source = ../.tmux.conf;
     ".config/nvim".source = ../nvim;
     ".config/alacritty/alacritty.toml".source = ../alacritty.toml;
@@ -35,6 +34,13 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+  };
+
+  programs.script-directory = {
+    enable = true;
+    settings = {
+      SD_ROOT = "${config.home.homeDirectory}/dotfiles/scripts";
+    };
   };
 
   programs.fzf = {
@@ -49,7 +55,7 @@
     enableCompletion = false;
     dirHashes = {
       jane      = "$HOME/Desktop/Important/Jane Street";
-      caltech   = "$HOME/Desktop/Academics/Caltech/junior/spring-2025";
+      caltech   = "$HOME/Desktop/Academics/Caltech/senior/fall-2025";
       tutor     = "$HOME/Desktop/Academics/Tutoring";
       surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";
       finance   = "$HOME/Desktop/Important/finance";

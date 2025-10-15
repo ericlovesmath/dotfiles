@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Control Volume and Backlight
+
 SINK="@DEFAULT_AUDIO_SINK@"
 SOURCE="@DEFAULT_AUDIO_SOURCE@"
 STEP="5%"

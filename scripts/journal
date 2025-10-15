@@ -5,11 +5,11 @@
 
 JOURNAL_FOLDER="$HOME/Desktop/Recreation/2023-journal"
 JOURNAL_FILE="$JOURNAL_FOLDER/journal.md"
-IMAGE_DIR="$JOURNAL_FOLDER/imgs"
+IMAGE_DIR="imgs"
 
 shopt -s nocaseglob
 
-mkdir -p "$IMAGE_DIR"
+mkdir -p "$JOURNAL_FOLDER/$IMAGE_DIR"
 
 DEFAULT_DATE=$(date +"%Y_%m_%d")
 read -e -p "Enter the date of entry: " -i "$DEFAULT_DATE" ENTRY_DATE
@@ -31,14 +31,18 @@ if [[ $ADD_IMAGES == "y" ]]; then
 
         # Convert the image to PNG
         CONVERTED_IMAGE="${IMAGE%.*}.png"
-        magick "$IMAGE" "$CONVERTED_IMAGE"
+
+        if [[ $CONVERTED_IMAGE != $IMAGE ]]; then
+            magick "$IMAGE" "$CONVERTED_IMAGE"
+            rm "$IMAGE"
+        fi
 
         read -p "Enter a label for the image: " IMAGE_LABEL
 
         IMAGE_NAME="${ENTRY_DATE}_${IMAGE_LABEL}.png"
-        mv "$CONVERTED_IMAGE" "$IMAGE_DIR/$IMAGE_NAME"
+        mv "$CONVERTED_IMAGE" "$JOURNAL_FOLDER/$IMAGE_DIR/$IMAGE_NAME"
 
-        echo "![${IMAGE_LABEL}](${IMAGE_DIR}/${IMAGE_NAME})" >> "$JOURNAL_FILE"
+        echo "![${IMAGE_LABEL}](./${IMAGE_DIR}/${IMAGE_NAME})" >> "$JOURNAL_FILE"
       fi
     fi
   done
@@ -53,10 +57,11 @@ if [[ $ADD_IMAGES == "y" ]]; then
 
         read -p "Enter a label for the image: " VIDEO_LABEL
 
-        VIDEO_NAME="${ENTRY_DATE}_${VIDEO_LABEL}.mov"
-        mv "$VIDEO" "$IMAGE_DIR/$VIDEO_NAME"
+        EXT="${VIDEO##*.}"
+        VIDEO_NAME="${ENTRY_DATE}_${VIDEO_LABEL}.${EXT}"
+        mv "$VIDEO" "$JOURNAL_FOLDER/$IMAGE_DIR/$VIDEO_NAME"
 
-        echo "![${VIDEO}](${IMAGE_DIR}/${VIDEO_NAME})" >> "$JOURNAL_FILE"
+        echo "![${VIDEO}](./${IMAGE_DIR}/${VIDEO_NAME})" >> "$JOURNAL_FILE"
       fi
     fi
   done

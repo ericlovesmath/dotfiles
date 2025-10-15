@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TMUX Session Handler
+
 # abort if we're already inside a TMUX session
 [ "$TMUX" == "" ] || exit 0
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Simple [spotifyd] based player
+
 if ! pgrep -x "Spotify|spotifyd" > /dev/null; then
     echo "Spotify Device not found, launching spotifyd..."
     spotifyd
