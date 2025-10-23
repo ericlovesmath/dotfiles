@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+
+# A script to set wallpapers for Hyprland (using swww) or Sway (using swaymsg).
+
+# --- Configuration ---
+# Set the directory where your wallpapers are stored.
+WALLPAPER_DIR="$HOME/dotfiles/wallpapers"
+
+# --- Functions ---
+usage() {
+    echo "Usage: $(basename "$0") [OPTIONS] [MONITOR]"
+    echo "Interactively set a wallpaper for Hyprland or Sway."
+    echo
+    echo "Options:"
+    echo "  -a, --all    Set the wallpaper for all connected monitors."
+    echo "  [MONITOR]    Specify a single monitor to change (e.g., DP-1)."
+    echo "  (no args)    Interactively select a single monitor to change."
+    echo "  -h, --help   Show this help message."
+    exit 0
+}
+
+# --- Pre-flight Checks ---
+# Check for dependencies
+if ! command -v fzf &> /dev/null; then
+    echo "Error: fzf is not installed. Please install it to use this script." >&2
+    exit 1
+fi
+
+# Check if the wallpaper directory exists
+if [ ! -d "$WALLPAPER_DIR" ]; then
+    echo "Error: Wallpaper directory not found at '$WALLPAPER_DIR'" >&2
+    exit 1
+fi
+
+# --- Argument Parsing ---
+TARGET_MODE="interactive"
+SPECIFIC_MONITOR=""
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    usage
+elif [[ "$1" == "-a" || "$1" == "--all" ]]; then
+    TARGET_MODE="all"
+elif [ -n "$1" ]; then
+    TARGET_MODE="specific"
+    SPECIFIC_MONITOR="$1"
+fi
+
+# --- Environment Detection ---
+WM=""
+if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+    WM="hyprland"
+elif [ -n "$SWAYSOCK" ]; then
+    WM="sway"
+else
+    echo "Error: Could not detect a Hyprland or Sway environment." >&2
+    exit 1
+fi
+
+# --- Get Monitor List ---
+ALL_MONITORS=""
+case "$WM" in
+    hyprland)
+        if ! command -v hyprctl &> /dev/null || ! command -v swww &> /dev/null; then
+            echo "Error: 'hyprctl' or 'swww' not found. Please install them for Hyprland support." >&2
+            exit 1
+        fi
+        ALL_MONITORS=$(hyprctl monitors all | grep 'Monitor ' | awk '{print $2}')
+        ;;
+    sway)
+        if ! command -v swaymsg &> /dev/null || ! command -v jq &> /dev/null; then
+            echo "Error: 'swaymsg' or 'jq' not found. Please install them for Sway support." >&2
+            exit 1
+        fi
+        ALL_MONITORS=$(swaymsg -t get_outputs | jq -r '.[] | select(.active) | .name')
+        ;;
+esac
+
+if [ -z "$ALL_MONITORS" ]; then
+    echo "Error: No active monitors found." >&2
+    exit 1
+fi
+
+# --- Determine Target Monitors ---
+TARGET_MONITORS=""
+case "$TARGET_MODE" in
+    all)
+        TARGET_MONITORS="$ALL_MONITORS"
+        ;;
+    specific)
+        # Check if the specified monitor exists
+        if ! echo "$ALL_MONITORS" | grep -wq "$SPECIFIC_MONITOR"; then
+            echo "Error: Monitor '$SPECIFIC_MONITOR' not found." >&2
+            echo "Available monitors:" >&2
+            echo "$ALL_MONITORS" >&2
+            exit 1
+        fi
+        TARGET_MONITORS="$SPECIFIC_MONITOR"
+        ;;
+    interactive)
+        TARGET_MONITORS=$(echo "$ALL_MONITORS" | fzf --prompt="Select a monitor > ")
+        ;;
+esac
+
+if [ -z "$TARGET_MONITORS" ]; then
+    echo "No monitor selected. Exiting."
+    exit 0
+fi
+
+# --- Select Wallpaper ---
+cd "$WALLPAPER_DIR" || exit
+
+SELECTED_WALLPAPER=$(find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | sed 's|^\./||' | fzf --header "Select a wallpaper for ${TARGET_MONITORS//$'\n'/, }")
+
+if [ -z "$SELECTED_WALLPAPER" ]; then
+    echo "No wallpaper selected. Exiting."
+    exit 0
+fi
+
+FULL_WALLPAPER_PATH="$WALLPAPER_DIR/$SELECTED_WALLPAPER"
+
+# --- Set Wallpaper ---
+for MONITOR in $TARGET_MONITORS; do
+    echo "Setting wallpaper for $MONITOR..."
+    case "$WM" in
+        hyprland)
+            swww query >/dev/null || swww init
+            swww img -o "$MONITOR" "$FULL_WALLPAPER_PATH" --transition-type center
+            ;;
+        sway)
+            swaymsg output "$MONITOR" bg "$FULL_WALLPAPER_PATH" fill
+            ;;
+    esac
+    echo "Successfully set wallpaper for $MONITOR to '$SELECTED_WALLPAPER'"
+done
+
+echo "All tasks complete."
