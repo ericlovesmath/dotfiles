@@ -59,7 +59,7 @@
             }
         },
         "custom/spotify": {
-            "format": " {}",
+            "format": "{}",
             "interval": 5,
             "exec": "~/.config/waybar/music.sh",
             "on-click": "playerctl -p spotify play-pause",
