@@ -37,68 +37,36 @@ return {
         dependencies = {
             { "folke/lazydev.nvim", ft = "lua" },
             "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
             "stevearc/conform.nvim",
         },
         config = function()
             require("lazydev").setup()
 
-            local nvim_lsp = require("lspconfig")
-
+            -- Used to be used for html and cssls?
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-            -- vim.diagnostic.config({ virtual_text = false })
-
-            -- Mason.nvim config
+            vim.diagnostic.config({ virtual_text = false })
             require("mason").setup()
-            require("mason-lspconfig").setup()
-            require("mason-lspconfig").setup_handlers({
-                function(server_name)
-                    nvim_lsp[server_name].setup({})
-                end,
-                ["html"] = function()
-                    nvim_lsp.html.setup({ capabilities = capabilities })
-                end,
-                ["cssls"] = function()
-                    nvim_lsp.cssls.setup({ capabilities = capabilities })
-                end,
-                ["rust_analyzer"] = function()
-                    nvim_lsp.rust_analyzer.setup({
-                        settings = {
-                            ["rust-analyzer"] = {
-                                check = {
-                                    overrideCommand = {
-                                        "cargo",
-                                        "clippy",
-                                        "--all-features",
-                                        "--all-targets",
-                                        "--workspace",
-                                        "--message-format=json",
-                                        -- "--target=wasm32-unknown-unknown",
-                                    },
-                                },
-                            },
-                        },
-                    })
-                end,
-                ["ts_ls"] = function()
-                    nvim_lsp.ts_ls.setup({
-                        settings = {
-                            typescript = { format = { semicolons = "insert" } },
-                            javascript = { format = { semicolons = "insert" } },
-                        },
-                    })
-                end,
-                ["jdtls"] = function() end, -- Use nvim-jdtls instead
-            })
 
-            -- LSPs not installed with mason.nvim
-            nvim_lsp.coq_lsp.setup({})
-            nvim_lsp.gdscript.setup({})
-            nvim_lsp.hls.setup({})
-            nvim_lsp.ocamllsp.setup({})
-            nvim_lsp.roc_ls.setup({})
+            vim.lsp.enable({ "pyright", "ts_ls", "coq_lsp", "gdscript", "hls",
+                             "ocamllsp", "rocls", "lua_ls", "html", "cssls" })
+
+            local function switch_impl_intf()
+              local bufnr = vim.api.nvim_get_current_buf()
+              local uri = vim.uri_from_bufnr(bufnr)
+
+              vim.lsp.buf_request(bufnr, "ocamllsp/switchImplIntf", { uri },
+                function(err, result)
+                  if err then
+                    vim.notify("Failed to switch implementation/interface: " .. err.message, vim.log.levels.ERROR)
+                    return
+                  end
+                  local target_path = vim.uri_to_fname(result[1])
+                  target_path = vim.fn.resolve(vim.fn.fnameescape(target_path))
+                  vim.api.nvim_command("edit " .. target_path)
+                end)
+            end
 
             -- Create Keybinds for LSP
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -121,6 +89,11 @@ return {
 
                     -- Use Treesitter instead of LSP
                     local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "invalid client")
+
+                    if client.name == "ocamllsp" then
+                        set_local("<leader>vsi", switch_impl_intf)
+                    end
+
                     client.server_capabilities.semanticTokensProvider = nil
                 end,
             })
