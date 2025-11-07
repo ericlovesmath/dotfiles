@@ -49,6 +49,24 @@ return {
             vim.diagnostic.config({ virtual_text = false })
             require("mason").setup()
 
+            vim.lsp.config("rust_analyzer", {
+                settings = {
+                    ["rust-analyzer"] = {
+                        check = {
+                            overrideCommand = {
+                                "cargo",
+                                "clippy",
+                                "--all-features",
+                                "--all-targets",
+                                "--workspace",
+                                "--message-format=json",
+                                -- "--target=wasm32-unknown-unknown",
+                            },
+                        },
+                    },
+                },
+            })
+
             vim.lsp.enable({ "pyright", "ts_ls", "coq_lsp", "gdscript", "hls",
                              "ocamllsp", "rocls", "lua_ls", "html", "cssls" })
 
