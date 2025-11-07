@@ -1,4 +1,9 @@
 { config, pkgs, ... }:
+
+let
+  # Allows neovim to write to folder as well, like lazy.lock
+  mkSymlink = link : config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/${link}";
+in
 {
   programs.home-manager.enable = true;
   home.username = "ericlee";
@@ -12,9 +17,9 @@
     tree wget nmap croc curl rlwrap fastfetch
     spicetify-cli coq deno pandoc
     nasm pandoc yt-dlp glow hugo docker gh
-    julia-bin slides maven openjdk opam gnupatch
-    micromamba texliveFull
-    nodejs coreutils
+    julia-bin slides maven openjdk opam gnupatch elan
+    # micromamba
+    texliveFull nodejs coreutils
     ghc haskell-language-server
     zsh zsh-powerlevel10k
     openjdk cargo
@@ -27,7 +32,7 @@
 
   home.file = {
     ".tmux.conf".source = ../.tmux.conf;
-    ".config/nvim".source = ../nvim;
+    ".config/nvim".source = mkSymlink "nvim";
     ".config/alacritty/alacritty.toml".source = ../alacritty.toml;
     ".latexmkrc".source = ../.latexmkrc;
   };
@@ -46,6 +51,7 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    enableBashIntegration = true;
   };
 
   programs.opam.enable = true;
