@@ -20,8 +20,15 @@ in
 
   home.homeDirectory = "/home/ericlee";
 
+  targets.genericLinux = {
+    enable = true;
+    nixGL = {
+      packages = nixgl.packages;
+      defaultWrapper = "mesa";
+    };
+  };
+
   # Make Nix apps show in various DEs
-  targets.genericLinux.enable = true;
   xdg.enable = true;
   xdg.mime.enable = true;
   xdg.systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share/applications" ];
@@ -39,17 +46,16 @@ in
   # xdg.mimeApps = {
   #   enable = true;
   #   defaultApplications = {
+  #     "image/png" = "org.gnome.Loupe.desktop";
+  #     "image/gif" = "org.gnome.Loupe.desktop";
+  #     "image/jpeg" = "org.gnome.Loupe.desktop";
+  #     "image/jpg" = "org.gnome.Loupe.desktop";
   #     "application/pdf" = ["zathura.desktop" "org.gnome.Evince.desktop" "firefox.desktop"];
   #     "x-scheme-handler/http" = "firefox.desktop";
   #   };
   # };
   
   nixpkgs.config.allowUnfree = true;
-
-  nixGL = {
-    packages = nixgl.packages;
-    defaultWrapper = "mesa";
-  };
 
   home.packages =
     with pkgs;
@@ -58,8 +64,10 @@ in
       protonmail-bridge protonvpn-gui zotero libreoffice
       gimp solaar everest-mons transmission_4
       thunderbird-bin meslo-lgs-nf aseprite zathura
-      tesseract libqalculate copyq feh
-      swww rofi-wayland mako grim slurp hypridle
+      tesseract libqalculate
+      # copyq
+      feh
+      swww rofi mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
       ollama godot_4 realvnc-vnc-viewer cryptomator
       emacs-pgtk
@@ -67,7 +75,9 @@ in
     (builtins.map config.lib.nixGL.wrap [
       waybar obs-studio slack steam spotify mpv
       signal-desktop webcord alacritty telegram-desktop
-      jellyfin-media-player lunar-client obsidian
+      wezterm
+      # jellyfin-media-player
+      lunar-client obsidian bluebubbles
     ]);
 
   home.file = {
@@ -79,6 +89,7 @@ in
     ".config/waybar".source = ../waybar;
     ".config/rofi/config.rasi".source = ../rofi.rasi;
     ".config/mako/config".source = ../mako.cfg;
+    ".config/wezterm/wezterm.lua".source = ../wezterm.lua;
   };
 
   programs.firefox = {

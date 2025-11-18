@@ -1,5 +1,5 @@
 {
-  description = "Eric's nix-darwin Flake";
+  description = "ericlovesmath's nix-darwin + home-manager Flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -49,7 +49,16 @@
     # Command: nix run home-manager -- switch --flake "$HOME/dotfiles#fedora"
     homeConfigurations."fedora" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [ (import ./nix/home-fedora.nix { nixgl = nixgl; }) ];
+      modules = [
+        # For WebCord
+        ({
+          nixpkgs.config.permittedInsecurePackages = [
+            "electron-36.9.5"
+          ];
+        })
+
+        (import ./nix/home-fedora.nix { nixgl = nixgl; })
+      ];
     };
 
     # Expose the package set, including overlays, for convenience.
