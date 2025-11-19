@@ -6,17 +6,18 @@ return {
         "hrsh7th/cmp-path",
         "SirVer/ultisnips",
         "quangnguyen30192/cmp-nvim-ultisnips",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
     },
     config = function()
         local cmp = require("cmp")
+        local luasnip = require("luasnip")
 
         cmp.setup({
-            performance = {
-                debounce = 150,
-            },
             snippet = {
                 expand = function(args)
                     vim.fn["UltiSnips#Anon"](args.body)
+                    luasnip.lsp_expand(args.body)
                 end,
             },
             mapping = {
@@ -29,6 +30,8 @@ return {
                             "m",
                             true
                         )
+                    elseif luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump()
                     else
                         fallback()
                     end
@@ -42,6 +45,8 @@ return {
                             "m",
                             true
                         )
+                    elseif luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
                     else
                         fallback()
                     end
@@ -54,11 +59,18 @@ return {
             },
             sources = {
                 { name = "ultisnips" },
+                { name = "luasnip" },
                 { name = "nvim_lsp" },
-                -- { name = 'nvim_lsp', max_item_count = 10, keyword_length = 3 },
                 { name = "path" },
             },
-            -- experimental = { ghost_text = true },
         })
+
+        luasnip.config.setup({
+            history = true,
+            enable_autosnippets = true,
+            update_events = "TextChanged,TextChangedI",
+        })
+
+        require("luasnip.loaders.from_lua").lazy_load()
     end,
 }
