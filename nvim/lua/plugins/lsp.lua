@@ -28,16 +28,15 @@ return {
             nmap <buffer> <S-Left> <Plug>CoqToLine
             nmap <buffer> <S-Up>  <Plug>CoqUndo
             ]])
-        end
+        end,
     },
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
-        cmd = { "LspInfo", "LspStart", "LspRestart", "Mason" },
+        cmd = { "LspInfo", "LspStart", "LspRestart" },
         dependencies = {
-            { "folke/lazydev.nvim", ft = "lua" },
-            "williamboman/mason.nvim",
             "stevearc/conform.nvim",
+            { "folke/lazydev.nvim", ft = "lua" },
         },
         config = function()
             require("lazydev").setup()
@@ -47,7 +46,6 @@ return {
             capabilities.textDocument.completion.completionItem.snippetSupport = true
 
             vim.diagnostic.config({ virtual_text = false })
-            require("mason").setup()
 
             vim.lsp.config("rust_analyzer", {
                 settings = {
@@ -67,22 +65,29 @@ return {
                 },
             })
 
-            vim.lsp.enable({ "pyright", "ts_ls", "coq_lsp", "gdscript", "hls",
-                             "ocamllsp", "rocls", "lua_ls", "html", "cssls" })
+            vim.lsp.enable({
+                "pyright",
+                "ts_ls",
+                "gdscript",
+                "hls",
+                "ocamllsp",
+                "lua_ls",
+                "html",
+                "cssls",
+            })
 
             local function switch_impl_intf()
-              local bufnr = vim.api.nvim_get_current_buf()
-              local uri = vim.uri_from_bufnr(bufnr)
+                local bufnr = vim.api.nvim_get_current_buf()
+                local uri = vim.uri_from_bufnr(bufnr)
 
-              vim.lsp.buf_request(bufnr, "ocamllsp/switchImplIntf", { uri },
-                function(err, result)
-                  if err then
-                    vim.notify("Failed to switch implementation/interface: " .. err.message, vim.log.levels.ERROR)
-                    return
-                  end
-                  local target_path = vim.uri_to_fname(result[1])
-                  target_path = vim.fn.resolve(vim.fn.fnameescape(target_path))
-                  vim.api.nvim_command("edit " .. target_path)
+                vim.lsp.buf_request(bufnr, "ocamllsp/switchImplIntf", { uri }, function(err, result)
+                    if err then
+                        vim.notify("Failed to switch implementation/interface: " .. err.message, vim.log.levels.ERROR)
+                        return
+                    end
+                    local target_path = vim.uri_to_fname(result[1])
+                    target_path = vim.fn.resolve(vim.fn.fnameescape(target_path))
+                    vim.api.nvim_command("edit " .. target_path)
                 end)
             end
 
@@ -102,8 +107,12 @@ return {
                     set_local("<leader>vrn", vim.lsp.buf.rename)
                     set_local("<leader>vca", vim.lsp.buf.code_action)
                     set_local("<leader>vsd", vim.diagnostic.open_float)
-                    set_local("<leader>vp", vim.diagnostic.goto_prev)
-                    set_local("<leader>vn", vim.diagnostic.goto_next)
+                    set_local("<leader>vp", function()
+                        vim.diagnostic.jump({ count = -1, float = true })
+                    end)
+                    set_local("<leader>vn", function()
+                        vim.diagnostic.jump({ count = 1, float = true })
+                    end)
 
                     -- Use Treesitter instead of LSP
                     local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "invalid client")
@@ -130,8 +139,8 @@ return {
                     haskell = { "fourmolu" },
                     python = { "isort", "flake8", "black" },
                     cpp = { "clang-format" },
-                    javascript = { "prettierd",  "eslint_d" },
-                    typescript = { "prettierd",  "eslint_d" },
+                    javascript = { "prettierd", "eslint_d" },
+                    typescript = { "prettierd", "eslint_d" },
                     javascriptreact = { "prettierd", "eslint_d" },
                     typescriptreact = { "prettierd", "eslint_d" },
                 },

@@ -1,38 +1,38 @@
 local substitutions = {
-    { src = "−", dst = "-" }, -- The bane of my existence
-    { src = "σ", dst = [[\sigma ]] },
-    { src = "τ", dst = [[\tau ]] },
-    { src = "π", dst = [[\pi ]] },
-    { src = "Ω", dst = [[\Omega ]] },
-    { src = "ω", dst = [[\omega ]] },
-    { src = "′", dst = "'" },
-    { src = "’", dst = "'" },
-    { src = "≥", dst = [[\geq ]] },
-    { src = "≤", dst = [[\leq ]] },
-    { src = "×", dst = [[\times ]] },
-    { src = "→", dst = [[\to ]] },
-    { src = "·", dst = [[\cdot ]] },
-    { src = "∈", dst = [[\in ]] },
-    { src = "θ", dst = [[\theta ]] },
-    { src = "∪", dst = [[\cup ]] },
-    { src = "∩", dst = [[\cap ]] },
-    { src = "⊆", dst = [[\subseteq ]] },
-    { src = "⊂", dst = [[\subset ]] },
-    { src = "∅", dst = [[\emptyset ]] },
-    { src = "ℜ", dst = [[\mathfrak{R}]] },
-    { src = "ℓ", dst = [[\ell ]] },
-    { src = "μ", dst = [[\mu ]] },
-    { src = "ε", dst = [[\epsilon ]] },
-    { src = "“", dst = "``" },
-    { src = "”", dst = "''" },
-    { src = [[\. \. \.]], dst = [[\ldots ]] },
-    { src = "∀", dst = [[\forall ]] },
-    { src = "∃", dst = [[\exists ]] },
-    { src = "⇒", dst = [[\implies ]] },
-    { src = "∨", dst = [[\lor ]] },
-    { src = "∧", dst = [[\land ]] },
-    { src = "⟨", dst = [[\left< ]] },
-    { src = "⟩", dst = [[\right> ]] },
+    { "−", "-" },
+
+    { "α", [[\alpha ]] }, { "β", [[\beta ]] }, { "γ", [[\gamma ]] },
+    { "δ", [[\delta ]] }, { "Δ", [[\Delta ]] }, { "ε", [[\epsilon ]] },
+    { "ζ", [[\zeta ]] },  { "η", [[\eta ]] },   { "θ", [[\theta ]] },
+    { "Θ", [[\Theta ]] }, { "κ", [[\kappa ]] }, { "λ", [[\lambda ]] },
+    { "Λ", [[\Lambda ]] },{ "μ", [[\mu ]] },    { "ξ", [[\xi ]] },
+    { "π", [[\pi ]] },    { "Π", [[\Pi ]] },    { "ρ", [[\rho ]] },
+    { "σ", [[\sigma ]] }, { "Σ", [[\Sigma ]] }, { "τ", [[\tau ]] },
+    { "φ", [[\varphi ]] },{ "Φ", [[\Phi ]] },   { "ψ", [[\psi ]] },
+    { "Ψ", [[\Psi ]] },   { "ω", [[\omega ]] }, { "Ω", [[\Omega ]] },
+
+    { "≠", [[\neq ]] },   { "≤", [[\leq ]] },   { "≥", [[\geq ]] },
+    { "×", [[\times ]] }, { "·", [[\cdot ]] },  { "÷", [[\div ]] },
+    { "±", [[\pm ]] },    { "mp", [[\mp ]] },   { "≈", [[\approx ]] },
+    { "≡", [[\equiv ]] }, { "∝", [[\propto ]] },
+    { "∞", [[\infty ]] }, { "∂", [[\partial ]] }, { "∇", [[\nabla ]] },
+    { "∀", [[\forall ]] },{ "∃", [[\exists ]] },{ "∄", [[\nexists ]] },
+    { "∈", [[\in ]] },    { "∉", [[\notin ]] }, { "∋", [[\ni ]] },
+    { "⊂", [[\subset ]] },{ "⊆", [[\subseteq ]] },
+    { "∪", [[\cup ]] },   { "∩", [[\cap ]] },
+    { "∅", [[\emptyset ]] },
+    { "→", [[\to ]] },    { "⇒", [[\implies ]] }, { "⇔", [[\iff ]] },
+    { "↦", [[\mapsto ]] },
+    { "⟨", [[\langle ]] }, { "⟩", [[\rangle ]] },
+    { "∨", [[\lor ]] },    { "∧", [[\land ]] },
+
+    { "ℕ", [[\mathbb{N}]] }, { "ℤ", [[\mathbb{Z}]] },
+    { "ℚ", [[\mathbb{Q}]] }, { "ℝ", [[\mathbb{R}]] },
+    { "ℂ", [[\mathbb{C}]] },
+    { "ℓ", [[\ell ]] },   { "ℜ", [[\Re]] },     { "ℑ", [[\Im]] },
+    { "…", [[\dots ]] },  { "⋯", [[\cdots ]] }, { [[\. \. \.]], [[\ldots ]] },
+
+    { "′", "'" }, { "’", "'" }, { "“", "``" }, { "”", "''" },
 }
 
 -- Utility function to replace unicode character when copying from PDF
@@ -43,6 +43,8 @@ vim.api.nvim_create_user_command("LatexSubstituteUnicode", function()
     end
 
     for _, sub in ipairs(substitutions) do
-        vim.cmd(":silent! %s/" .. sub.src .. "/" .. sub.dst:gsub([[\]], [[\\]]) .. "/g")
+        local src = sub[1]
+        local dst = sub[2]:gsub([[\]], [[\\]])
+        vim.cmd(":silent! %s/" .. src .. "/" .. dst .. "/g")
     end
 end, {})

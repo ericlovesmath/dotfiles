@@ -18,15 +18,23 @@ in
     spicetify-cli coq deno pandoc
     nasm pandoc yt-dlp glow hugo docker gh
     julia-bin slides maven openjdk opam gnupatch elan
-    # micromamba
+    # mamba-cpp micromamba https://github.com/NixOS/nixpkgs/pull/460788
     texliveFull nodejs coreutils
-    ghc haskell-language-server
     zsh zsh-powerlevel10k
-    openjdk cargo
+    openjdk cargo ghc
     meslo-lgs-nf font-awesome hledger
+
+    # LSPs
+    pyright haskell-language-server clojure-lsp clang-tools
+    rust-analyzer svelte-language-server typescript-language-server
+    lua-language-server vscode-langservers-extracted
+
+    # Linters and Formatters
+    clj-kondo eslint_d prettierd asmfmt shfmt stylua fourmolu
 
     (python3.withPackages (pkgs: with pkgs; [
       pandas scipy numpy jupyterlab matplotlib
+      flake8 black isort
     ]))
   ];
 

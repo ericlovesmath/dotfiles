@@ -7,15 +7,9 @@ return {
         end,
     },
     {
-        "ahmedkhalf/project.nvim",
+        "DrKJeff16/project.nvim",
         event = { "BufReadPre", "BufNewFile" },
         name = "project_nvim",
-        opts = {
-            manual_mode = false,
-            detection_methods = { "lsp" },
-            -- detection_methods = { "lsp", "pattern" },
-            show_hidden = false,
-        },
     },
     {
         "Wansmer/treesj",
