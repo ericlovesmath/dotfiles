@@ -2,6 +2,7 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
+local f = ls.function_node
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
@@ -34,6 +35,8 @@ return {
     -- TODO: If in enumerate / itemize, auto add \item
     -- TODO: Rewrite generate_pset
     -- TODO: \text, \texttt, \textbb
+    -- TODO: sum, limit, prod, int
+    -- TODO: Tabular
 
     math("=>", [[\implies]]),
     math("=<", [[\impliedby]]),
@@ -115,5 +118,49 @@ return {
             <>
         ]],
         { i(1), i(0) }
+    ),
+
+    s(
+        "figure",
+        fmta(
+            [[
+                \begin{figure}[htpb]
+                    \centering
+                    \includegraphics[width=0.8\textwidth]{<>}
+                    \caption{<>}
+                \end{figure}
+                <>
+            ]],
+            { i(2), i(3), i(0) }
+        )
+    ),
+
+    -- Expand x1 to x_1, for example
+    s({ trig = "([%a])([%d])", regTrig = true, snippetType = "autosnippet", condition = in_mathzone }, {
+        f(function(_, parent)
+            return parent.captures[1] .. "_" .. parent.captures[2]
+        end),
+    }),
+
+    -- Expands symbols like `x_1`, `\alpha`, or `y^{10}` followed by `/`. into \frac form
+    s(
+        { trig = "([%w\\%_%^{}]+)/", regTrig = true, snippetType = "autosnippet", condition = in_mathzone },
+        fmta("\\frac{<>}{<>}", {
+            f(function(_, parent)
+                return parent.captures[1]
+            end),
+            i(1),
+        })
+    ),
+
+    -- Expand (<any>)/<cursor> to \frac{<any>}/{<cursor}
+    s(
+        { trig = "(%b())/", regTrig = true, snippetType = "autosnippet", condition = in_mathzone },
+        fmta("\\frac{<>}{<>}", {
+            f(function(_, parent)
+                return string.sub(parent.captures[1], 2, -2)
+            end),
+            i(1),
+        })
     ),
 }
