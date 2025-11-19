@@ -9,28 +9,31 @@ local function in_mathzone()
     return vim.fn["vimtex#syntax#in_mathzone"]() == 1
 end
 
-local function math(trigger, text)
-    return s({ trig = trigger, snippetType = "autosnippet", condition = in_mathzone }, { t(text) })
+local function simple(trig, condition, nodes, opts)
+    return s({ trig = trig, snippetType = "autosnippet", condition = condition }, nodes, opts)
 end
 
-local function math_fmt(trigger, fmt, nodes)
-    return s({ trig = trigger, snippetType = "autosnippet", condition = in_mathzone }, fmta(fmt, nodes))
+local function math(trig, text)
+    return simple(trig, in_mathzone, { t(text) }, nil)
 end
 
-local function auto_fmt(trigger, fmt, nodes)
-    return s({ trig = trigger, snippetType = "autosnippet" }, fmta(fmt, nodes))
+local function math_fmt(trig, fmt, nodes)
+    return simple(trig, in_mathzone, fmta(fmt, nodes), nil)
 end
 
-local function left_right(trigger, l, r)
-    return s(
-        { trig = trigger, snippetType = "autosnippet", condition = in_mathzone },
-        fmta([[\left]] .. l .. " DM " .. [[\right]] .. r, { i(1) }, { delimiters = "DM" })
-    )
+local function auto_fmt(trig, fmt, nodes)
+    return simple(trig, nil, fmta(fmt, nodes), nil)
+end
+
+local function left_right(trig, l, r)
+    local fmt = [[\left]] .. l .. " DM " .. [[\right]] .. r
+    return simple(trig, in_mathzone, fmta(fmt, { i(1) }, { delimiters = "DM" }))
 end
 
 return {
     -- TODO: If in enumerate / itemize, auto add \item
     -- TODO: Rewrite generate_pset
+    -- TODO: \text, \texttt, \textbb
 
     math("=>", [[\implies]]),
     math("=<", [[\impliedby]]),
@@ -50,8 +53,13 @@ return {
     math("lll", [[\ell]]),
     math("~~", [[\sim]]),
     math("->", [[\to]]),
+    math("<->", [[\leftrightarrow]]),
     math("cc", [[\subset]]),
     math("CC", [[\subseteq]]),
+    -- math("notin", [[\not\in]]),
+    -- math("inn", [[\in]]),
+    -- math("Nn", [[\cap]]),
+    -- math("UU", [[\cup]]),
 
     left_right("ceil", [[\lceil]], [[\rceil ]]),
     left_right("floor", [[\lfloor]], [[\rfloor ]]),
@@ -72,6 +80,20 @@ return {
     math_fmt("norm", [[\|<>\|]], { i(1) }),
     math_fmt("pmat", [[\begin{pmatrix} <> \end{pmatrix}]], { i(1) }),
     math_fmt("bmat", [[\begin{bmatrix} <> \end{bmatrix}]], { i(1) }),
+    math_fmt("==", [[&= <> \\]], { i(1) }),
+
+    math_fmt(
+        "cases",
+        [[
+            \begin{cases}
+                <>
+            \end{cases}
+            <>
+        ]],
+        { i(1), i(0) }
+    ),
+
+    auto_fmt("mk", "$<>$", { i(1) }),
 
     auto_fmt(
         "beg",
