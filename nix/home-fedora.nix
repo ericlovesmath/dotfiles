@@ -106,6 +106,14 @@ in
     ".config/wezterm/wezterm.lua".source = ../wezterm.lua;
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    config.global.hide_env_diff = true;
+  };
+
   programs.firefox = {
     enable = true;
     package = (config.lib.nixGL.wrap pkgs.firefox);

@@ -28,6 +28,7 @@ in
     pyright haskell-language-server clojure-lsp clang-tools
     rust-analyzer svelte-language-server typescript-language-server
     lua-language-server vscode-langservers-extracted
+    bash-language-server shellcheck
 
     # Linters and Formatters
     clj-kondo eslint_d prettierd asmfmt shfmt stylua fourmolu
