@@ -102,9 +102,9 @@ autocmd("FileType", {
 })
 
 autocmd("BufEnter", {
-    group = augroup("FiletypeCurry"),
-    pattern = { "*.curry" },
+    group = augroup("FiletypeUiua"),
+    pattern = { "*.ua" },
     callback = function()
-        ol.filetype = "scheme"
+        ol.filetype = "uiua"
     end,
 })

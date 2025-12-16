@@ -14,6 +14,8 @@ local config = {
         typescript = "deno run",
         c = "cd $folder && gcc $fileName -o $fileNoExt.out && ./$fileNoExt.out",
         cpp = "cd $folder && g++ -std=c++17 %:p -o $fileNoExt.out -Wall -Wextra -Wshadow && ./$fileNoExt.out",
+        zig = "zig run $fileName",
+        uiua = "uiua run $fileName",
     },
 }
 

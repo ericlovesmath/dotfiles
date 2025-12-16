@@ -65,7 +65,17 @@ return {
                 },
             })
 
+            vim.lsp.config("zls", {
+                settings = {
+                    zls = {
+                        enable_build_on_save = true,
+                        build_on_save_step = "check",
+                    },
+                },
+            })
+
             vim.lsp.enable({
+                "clangd",
                 "pyright",
                 "ts_ls",
                 "gdscript",
@@ -74,6 +84,8 @@ return {
                 "lua_ls",
                 "html",
                 "cssls",
+                "zls",
+                "uiua",
             })
 
             local function switch_impl_intf()
@@ -143,6 +155,8 @@ return {
                     typescript = { "prettierd", "eslint_d" },
                     javascriptreact = { "prettierd", "eslint_d" },
                     typescriptreact = { "prettierd", "eslint_d" },
+                    json = { "jq" },
+                    zig = { "zls" },
                 },
             })
             vim.keymap.set("n", "<leader>vf", function()

@@ -31,6 +31,10 @@ local function left_right(trig, l, r)
     return simple(trig, in_mathzone, fmta(fmt, { i(1) }, { delimiters = "DM" }))
 end
 
+local function math_regex(trig, nodes)
+    return s({ trig = trig, regTrig = true, snippetType = "autosnippet", condition = in_mathzone }, nodes)
+end
+
 return {
     -- TODO: If in enumerate / itemize, auto add \item
     -- TODO: Rewrite generate_pset
@@ -115,9 +119,8 @@ return {
             \[
                 <>
             \]
-            <>
         ]],
-        { i(1), i(0) }
+        { i(1) }
     ),
 
     s(
@@ -136,15 +139,15 @@ return {
     ),
 
     -- Expand x1 to x_1, for example
-    s({ trig = "([%a])([%d])", regTrig = true, snippetType = "autosnippet", condition = in_mathzone }, {
+    math_regex("([%a])([%d])", {
         f(function(_, parent)
             return parent.captures[1] .. "_" .. parent.captures[2]
         end),
     }),
 
     -- Expands symbols like `x_1`, `\alpha`, or `y^{10}` followed by `/`. into \frac form
-    s(
-        { trig = "([%w\\%_%^{}]+)/", regTrig = true, snippetType = "autosnippet", condition = in_mathzone },
+    math_regex(
+        "([%w\\%_%^{}]+)/",
         fmta("\\frac{<>}{<>}", {
             f(function(_, parent)
                 return parent.captures[1]
@@ -154,11 +157,22 @@ return {
     ),
 
     -- Expand (<any>)/<cursor> to \frac{<any>}/{<cursor}
-    s(
-        { trig = "(%b())/", regTrig = true, snippetType = "autosnippet", condition = in_mathzone },
+    math_regex(
+        "(%b())/",
         fmta("\\frac{<>}{<>}", {
             f(function(_, parent)
                 return string.sub(parent.captures[1], 2, -2)
+            end),
+            i(1),
+        })
+    ),
+
+    -- Expands `()` to `\left(\right)` even when preceded by a word (like `sin()`)
+    math_regex(
+        "([%w\\]+)%(%)",
+        fmta("<>\\left(<>\\right)", {
+            f(function(_, parent)
+                return parent.captures[1]
             end),
             i(1),
         })
