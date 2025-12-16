@@ -13,7 +13,7 @@ in
   home.packages = with pkgs; [
     neovim tmux
     ripgrep lazygit jq
-    imagemagick htop fzf fd ffmpeg
+    imagemagick htop fzf fd ffmpeg zstd
     tree wget nmap croc curl rlwrap fastfetch
     spicetify-cli coq deno pandoc
     nasm pandoc yt-dlp glow hugo docker gh
@@ -47,6 +47,7 @@ in
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    MOZ_ENABLE_WAYLAND = "1";
   };
 
   programs.script-directory = {
@@ -59,6 +60,11 @@ in
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    enableBashIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
     enableBashIntegration = true;
   };
 
@@ -85,5 +91,19 @@ in
       . "$HOME/.p10k.zsh"
       . "$HOME/dotfiles/.zshrc"
     '';
+  };
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      c = "clear";
+      lt = "du -sh * | sort -hr";
+      ls = "ls -N --group-directories-first --color=auto";
+      py = "python";
+      py3 = "python";
+      ".." = "cd ./..";
+      "..." = "cd ./../..";
+      "...." = "cd ./../../..";
+    };
   };
 }

@@ -14,6 +14,8 @@ let
       };
     in
     builtins.foldl' (acc: addon: acc // mkAddon addon) {} addons;
+
+  mkSymlink = link : config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/${link}";
 in
 {
   imports = [ ./home-shared.nix ];
@@ -33,16 +35,30 @@ in
   xdg.mime.enable = true;
   xdg.systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share/applications" ];
 
-  xdg.desktopEntries.obsidian = {
-    name = "Obsidian";
-    type = "Application";
-    comment = "Knowledge base";
-    categories = [ "Office"];
-    exec = "obsidian --no-sandbox --ozone-platform=wayland --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U";
-    icon = "obsidian";
-    mimeType = ["x-scheme-handler/obsidian"];
+  xdg.desktopEntries = {
+    obsidian = {
+      name = "Obsidian";
+      type = "Application";
+      comment = "Knowledge base";
+      categories = [ "Office" ];
+      exec = "obsidian --no-sandbox --ozone-platform=wayland --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U";
+      icon = "obsidian";
+      mimeType = ["x-scheme-handler/obsidian"];
+    };
+
+    # Don't open new instance of BlueBubbles if already open
+    # Doesn't work if BlueBubbles is minimized
+    bluebubbles = {
+      name = "BlueBubbles";
+      type = "Application";
+      comment = "BlueBubbles client for Linux";
+      categories = [ "Network" "InstantMessaging" "Chat" ];
+      exec = "sh -c \"pgrep bluebubbles && swaymsg '[title=BlueBubbles]' focus || exec bluebubbles\"";
+      icon = "bluebubbles";
+    };
   };
 
+  # Mailto Thunderbird
   # xdg.mimeApps = {
   #   enable = true;
   #   defaultApplications = {
@@ -64,9 +80,7 @@ in
       protonmail-bridge protonvpn-gui zotero libreoffice
       gimp solaar everest-mons transmission_4
       thunderbird-bin meslo-lgs-nf aseprite zathura
-      tesseract libqalculate
-      # copyq
-      feh
+      tesseract libqalculate copyq feh
       swww rofi mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
       ollama godot_4 realvnc-vnc-viewer cryptomator
@@ -84,7 +98,7 @@ in
     "${firefoxProfile}/chrome".source = ../firefox/chrome;
     "${firefoxProfile}/user.js".source = ../firefox/user.js;
 
-    ".config/sway/config".source = ../sway.cfg;
+    ".config/sway/config".source = mkSymlink "sway.cfg";
     ".config/hypr".source = ../hypr;
     ".config/waybar".source = ../waybar;
     ".config/rofi/config.rasi".source = ../rofi.rasi;
