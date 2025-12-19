@@ -1,8 +1,8 @@
 syntax match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
 " nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
-nnoremap <leader>r :w<CR>:!~/bin/buildnote.sh "%:p"<CR>
-nnoremap <leader>o :silent exec "!open -a Skim.app %:r.pdf"<CR>
+" nnoremap <leader>r :w<CR>:!~/bin/buildnote.sh "%:p"<CR>
+" nnoremap <leader>o :silent exec "!open -a Skim.app %:r.pdf"<CR>
 
 nnoremap <silent> <leader>i :call ImageFromClipboard()<CR>
 

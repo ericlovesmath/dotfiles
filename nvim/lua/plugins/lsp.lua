@@ -75,6 +75,7 @@ return {
             })
 
             vim.lsp.enable({
+                "bashls",
                 "clangd",
                 "pyright",
                 "ts_ls",
