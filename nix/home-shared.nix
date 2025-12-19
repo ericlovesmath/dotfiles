@@ -32,6 +32,7 @@ in
 
     # Linters and Formatters
     clj-kondo eslint_d prettierd asmfmt shfmt stylua fourmolu
+    tree-sitter
 
     (python3.withPackages (pkgs: with pkgs; [
       pandas scipy numpy jupyterlab matplotlib
