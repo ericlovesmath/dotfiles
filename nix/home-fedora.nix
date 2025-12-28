@@ -89,8 +89,7 @@ in
     (builtins.map config.lib.nixGL.wrap [
       waybar obs-studio slack steam spotify mpv
       signal-desktop webcord alacritty telegram-desktop
-      wezterm
-      # jellyfin-media-player
+      wezterm reaper jellyfin-media-player
       lunar-client obsidian bluebubbles
     ]);
 
