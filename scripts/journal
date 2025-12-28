@@ -1,70 +1,103 @@
 #!/bin/bash
 
-# Personal journaling script so I can download my images and label them faster
-# Previews all images in ~/Downloads and quickly converts and moves them
+# Personal workflow for plaintext journaling
+# - Downloads images/videos from local immich instance to markdown folder
+# - Adds headers and captions, converting to common formats
+# - Previews images to allow quick selection of images
 
-JOURNAL_FOLDER="$HOME/Desktop/Recreation/2023-journal"
+# Validate import of environment variables
+source "$HOME/dotfiles/scripts/.env"
+
+: "${IMMICH_ENDPOINT:? "IMMICH_ENDPOINT is not set"}"
+: "${IMMICH_APIKEY:? "IMMICH_APIKEY is not set"}"
+: "${JOURNAL_FOLDER:? "JOURNAL_FOLDER is not set"}"
+
 JOURNAL_FILE="$JOURNAL_FOLDER/journal.md"
-IMAGE_DIR="imgs"
+
+# Quick open journal
+if [[ "$1" == "-o" ]]; then
+    cd "$JOURNAL_FOLDER" || exit 0
+    nvim "$JOURNAL_FILE" +"norm G"
+    exit 0
+fi
 
 shopt -s nocaseglob
+mkdir -p "$JOURNAL_FOLDER/imgs"
+TMP_DIR=$(mktemp -d -t immich_journal_XXXXXX)
+trap 'rm -rf "$TMP_DIR"' EXIT
 
-mkdir -p "$JOURNAL_FOLDER/$IMAGE_DIR"
+immich() {
+    curl \
+        -H "x-api-key: $IMMICH_APIKEY" \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        "$@"
+}
 
-DEFAULT_DATE=$(date +"%Y_%m_%d")
-read -e -p "Enter the date of entry: " -i "$DEFAULT_DATE" ENTRY_DATE
-ENTRY_DATE=${ENTRY_DATE:-$DEFAULT_DATE}
+download_from_immich() {
+    local DATE=$1
 
-MARKDOWN_DATE=$(echo "$ENTRY_DATE" | tr '_' '-')
-echo -e "\n# $MARKDOWN_DATE\n" >> "$JOURNAL_FILE"
+    if [[ -z "$DATE" ]]; then
+        echo "Error: No date provided. Usage: download_from_immich YYYY_MM_DD"
+        return 1
+    fi
 
-read -p "Do you want to add images (from ~/Downloads)? (y/n): " ADD_IMAGES
+    DASHED_DATE=$(echo "$DATE" | tr '_' '-')
+    echo -e "\n# ${DASHED_DATE}\n" >>"$JOURNAL_FILE"
 
-if [[ $ADD_IMAGES == "y" ]]; then
-  for IMAGE in "$HOME/Downloads"/*.{jpg,jpeg,png,gif,heic}; do
-    if [ -f "$IMAGE" ]; then
-      feh --scale-down "$IMAGE"
+    START_SEARCH=$(date -d "$DASHED_DATE - 1 day" +"%Y-%m-%dT00:00:00Z")
+    END_SEARCH=$(date -d "$DASHED_DATE + 1 day" +"%Y-%m-%dT23:59:59Z")
 
-      read -p "Do you want to add $IMAGE? (y/n): " ADD_THIS_IMAGE
+    # Fetch images in the given date, +/- 1 day (for time zone purposes)
+    RES=$(immich \
+        -sX POST "$IMMICH_ENDPOINT/search/metadata" \
+        -d "{
+          \"takenAfter\": \"${START_SEARCH}\",
+          \"takenBefore\": \"${END_SEARCH}\",
+          \"size\": 100
+        }" |
+        jq -r '.assets.items[] | "\(.id) \(.type) \(.originalFileName)"')
 
-      if [[ $ADD_THIS_IMAGE == "y" ]]; then
+    echo "$RES" | while read -r UUID TYPE ORIGINAL_FILENAME; do
+        TEMP_FILE="/${TMP_DIR}/$UUID.orig"
+        echo "Downloading $UUID ($TYPE)"
 
-        # Convert the image to PNG
-        CONVERTED_IMAGE="${IMAGE%.*}.png"
+        # Download asset to TMP_DIR
+        immich \
+            -sX GET "$IMMICH_ENDPOINT/assets/$UUID/original" \
+            -o "$TEMP_FILE"
 
-        if [[ $CONVERTED_IMAGE != $IMAGE ]]; then
-            magick "$IMAGE" "$CONVERTED_IMAGE"
-            rm "$IMAGE"
+        # Preview image/video based on type
+        if [[ "$TYPE" == "IMAGE" ]]; then
+            feh --scale-down "$TEMP_FILE"
+        else
+            mpv "$TEMP_FILE" &>/dev/null
         fi
 
-        read -p "Enter a label for the image: " IMAGE_LABEL
+        read -rp "Save this $TYPE? (y/n): " ADD_ASSET </dev/tty
 
-        IMAGE_NAME="${ENTRY_DATE}_${IMAGE_LABEL}.png"
-        mv "$CONVERTED_IMAGE" "$JOURNAL_FOLDER/$IMAGE_DIR/$IMAGE_NAME"
+        # Relabel asset with date and custom label
+        if [[ $ADD_ASSET == "y" ]]; then
+            read -rp "Enter a label for the file: " LABEL </dev/tty
 
-        echo "![${IMAGE_LABEL}](./${IMAGE_DIR}/${IMAGE_NAME})" >> "$JOURNAL_FILE"
-      fi
-    fi
-  done
+            if [[ "$TYPE" == "IMAGE" ]]; then
+                # Convert images to pngs
+                magick "${TEMP_FILE}" "${JOURNAL_FOLDER}/imgs/${DATE}_${LABEL}.png"
+                rm "${TEMP_FILE}"
+                echo "![${LABEL}](./imgs/${DATE}_${LABEL}.png)" >> "$JOURNAL_FILE"
+            else
+                EXT="${ORIGINAL_FILENAME##*.}"
+                mv "${TEMP_FILE}" "${JOURNAL_FOLDER}/imgs/${DATE}_${LABEL}.${EXT}"
+                echo "![${LABEL}](./imgs/${DATE}_${LABEL}.${EXT})" >> "$JOURNAL_FILE"
+            fi
+        fi
+    done
+}
 
-  for VIDEO in "$HOME/Downloads"/*.{mov,mp4}; do
-    if [ -f "$VIDEO" ]; then
-      mpv "$VIDEO"
+DEFAULT_DATE=$(date +"%Y_%m_%d")
+read -rep "Enter the date of entry: " -i "$DEFAULT_DATE" ENTRY_DATE
+ENTRY_DATE=${ENTRY_DATE:-$DEFAULT_DATE}
 
-      read -p "Do you want to add $VIDEO? (y/n): " ADD_THIS_VIDEO
-
-      if [[ $ADD_THIS_VIDEO == "y" ]]; then
-
-        read -p "Enter a label for the image: " VIDEO_LABEL
-
-        EXT="${VIDEO##*.}"
-        VIDEO_NAME="${ENTRY_DATE}_${VIDEO_LABEL}.${EXT}"
-        mv "$VIDEO" "$JOURNAL_FOLDER/$IMAGE_DIR/$VIDEO_NAME"
-
-        echo "![${VIDEO}](./${IMAGE_DIR}/${VIDEO_NAME})" >> "$JOURNAL_FILE"
-      fi
-    fi
-  done
-fi
+download_from_immich "${ENTRY_DATE}"
 
 nvim "$JOURNAL_FILE" +"norm G"
