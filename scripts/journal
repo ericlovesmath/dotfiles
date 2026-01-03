@@ -13,13 +13,35 @@ source "$HOME/dotfiles/scripts/.env"
 : "${JOURNAL_FOLDER:? "JOURNAL_FOLDER is not set"}"
 
 JOURNAL_FILE="$JOURNAL_FOLDER/journal.md"
+DAYS_RANGE=0 # Default range
 
-# Quick open journal
-if [[ "$1" == "-o" ]]; then
-    cd "$JOURNAL_FOLDER" || exit 0
-    nvim "$JOURNAL_FILE" +"norm G"
-    exit 0
-fi
+show_help() {
+    echo "Usage: journal [FLAGS]"
+    echo ""
+    echo "FLAGS:"
+    echo "  -o       Quick open the journal in Neovim and exit"
+    echo "  -d DAYS  Set the date search range in days (default: $DAYS_RANGE)"
+    echo "  -h       Show this help message"
+}
+
+while getopts "od:h" opt; do
+    case "$opt" in
+    o)
+        cd "$JOURNAL_FOLDER" || exit 1
+        nvim "$JOURNAL_FILE" +"norm G"
+        exit 0
+        ;;
+    d) DAYS_RANGE=$OPTARG ;;
+    h)
+        show_help
+        exit 0
+        ;;
+    *)
+        show_help
+        exit 1
+        ;;
+    esac
+done
 
 shopt -s nocaseglob
 mkdir -p "$JOURNAL_FOLDER/imgs"
@@ -45,10 +67,10 @@ download_from_immich() {
     DASHED_DATE=$(echo "$DATE" | tr '_' '-')
     echo -e "\n# ${DASHED_DATE}\n" >>"$JOURNAL_FILE"
 
-    START_SEARCH=$(date -d "$DASHED_DATE - 1 day" +"%Y-%m-%dT00:00:00Z")
-    END_SEARCH=$(date -d "$DASHED_DATE + 1 day" +"%Y-%m-%dT23:59:59Z")
+    START_SEARCH=$(date -d "$DASHED_DATE 00:00:00 $DAYS_RANGE days ago" -Is)
+    END_SEARCH=$(date -d "$DASHED_DATE 23:59:59 $DAYS_RANGE days" -Is)
 
-    # Fetch images in the given date, +/- 1 day (for time zone purposes)
+    # Fetch images in the given date, +/- $DAYS_RANGE
     RES=$(immich \
         -sX POST "$IMMICH_ENDPOINT/search/metadata" \
         -d "{
@@ -69,26 +91,44 @@ download_from_immich() {
 
         # Preview image/video based on type
         if [[ "$TYPE" == "IMAGE" ]]; then
-            feh --scale-down "$TEMP_FILE"
+            feh --scale-down "$TEMP_FILE" &
         else
-            mpv "$TEMP_FILE" &>/dev/null
+            mpv --loop "$TEMP_FILE" &>/dev/null &
         fi
 
-        read -rp "Save this $TYPE? (y/n): " ADD_ASSET </dev/tty
+        PREVIEW_PID=$!
+
+        echo -n "Action for $TYPE [y: save, n: next, N: skip remaining]: "
+        read -n 1 -r ADD_ASSET </dev/tty
+
+        kill $PREVIEW_PID 2>/dev/null
+        wait $PREVIEW_PID 2>/dev/null
+
+        if [[ $ADD_ASSET == "N" ]]; then
+            echo "Skipping remaining assets..."
+            break
+        fi
 
         # Relabel asset with date and custom label
         if [[ $ADD_ASSET == "y" ]]; then
             read -rp "Enter a label for the file: " LABEL </dev/tty
 
+            # Convert [example_label_name] to [Example Label Name], for default name
+            CLEAN_LABEL=$(
+                echo "$LABEL" |
+                    sed 's/[_-]/ /g' |
+                    awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2))}1'
+            )
+
             if [[ "$TYPE" == "IMAGE" ]]; then
                 # Convert images to pngs
                 magick "${TEMP_FILE}" "${JOURNAL_FOLDER}/imgs/${DATE}_${LABEL}.png"
                 rm "${TEMP_FILE}"
-                echo "![${LABEL}](./imgs/${DATE}_${LABEL}.png)" >> "$JOURNAL_FILE"
+                echo "![${CLEAN_LABEL}](./imgs/${DATE}_${LABEL}.png)" >>"$JOURNAL_FILE"
             else
                 EXT="${ORIGINAL_FILENAME##*.}"
                 mv "${TEMP_FILE}" "${JOURNAL_FOLDER}/imgs/${DATE}_${LABEL}.${EXT}"
-                echo "![${LABEL}](./imgs/${DATE}_${LABEL}.${EXT})" >> "$JOURNAL_FILE"
+                echo "![${CLEAN_LABEL}](./imgs/${DATE}_${LABEL}.${EXT})" >>"$JOURNAL_FILE"
             fi
         fi
     done
