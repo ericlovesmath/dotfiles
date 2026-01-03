@@ -49,6 +49,8 @@ return {
             },
         })
 
+        luasnip.filetype_extend("markdown", { "tex" })
+
         luasnip.config.setup({
             history = true,
             enable_autosnippets = true,

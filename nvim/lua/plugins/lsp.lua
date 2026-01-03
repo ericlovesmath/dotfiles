@@ -80,6 +80,7 @@ return {
                 "pyright",
                 "ts_ls",
                 "gdscript",
+                "glsl_analyzer",
                 "hls",
                 "ocamllsp",
                 "lua_ls",

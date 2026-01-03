@@ -2,8 +2,9 @@ return {
     "lervag/vimtex",
     dependencies = {
         "xuhdev/vim-latex-live-preview",
+        "preservim/vim-markdown"
     },
-    ft = { "tex" },
+    ft = { "tex", "markdown" },
     config = function()
         vim.cmd([[
         let g:vimtex_compiler_progname = "nvr"
@@ -11,7 +12,6 @@ return {
         let g:vimtex_imaps_enabled = 1
         let g:vimtex_complete_enabled = 0
         let g:vimtex_indent_on_ampersands = 0
-        " let g:vimtex_quickfix_enabled = 0
 
         call vimtex#init()
 
@@ -24,7 +24,8 @@ return {
             au User VimtexEventQuit call vimtex#compiler#clean(0)
         augroup END
 
-        " autocmd FileType tex nmap <buffer> <C-T> :!latexmk -pvc -pdf %<CR>
+        let g:vim_markdown_math = 1
+        let g:vim_markdown_folding_disabled = 1
         ]])
     end
 

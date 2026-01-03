@@ -32,8 +32,6 @@ return {
             "lua",
             "luadoc",
             "make",
-            "markdown",
-            "markdown_inline",
             "ocaml",
             "python",
             "scss",
@@ -53,6 +51,9 @@ return {
         local ignore_filetypes = {
             "checkhealth",
             "lazy",
+            "latex",
+            "tex",
+            "markdown",
         }
 
         -- Auto-install parsers and enable highlighting on FileType
