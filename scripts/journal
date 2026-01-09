@@ -20,12 +20,26 @@ show_help() {
     echo ""
     echo "FLAGS:"
     echo "  -o       Quick open the journal in Neovim and exit"
+    echo "  -l       Print last 5 days logged in journal and exit"
     echo "  -d DAYS  Set the date search range in days (default: $DAYS_RANGE)"
     echo "  -h       Show this help message"
 }
 
-while getopts "od:h" opt; do
+while getopts "lod:h" opt; do
     case "$opt" in
+    l)
+        cat "$JOURNAL_FILE" |
+            rg "^# " |
+            tail -n 5 |
+            cut -c 3- |
+            tac |
+            while read -r entry_date; do
+                seconds_diff=$(($(date +%s) - $(date -ud "$entry_date" +%s)))
+                date_diff=$((seconds_diff / 86400 - 1))
+                echo "$entry_date (-$date_diff days)"
+            done
+        exit 0
+        ;;
     o)
         cd "$JOURNAL_FOLDER" || exit 1
         nvim "$JOURNAL_FILE" +"norm G"
@@ -100,6 +114,7 @@ download_from_immich() {
 
         echo -n "Action for $TYPE [y: save, n: next, N: skip remaining]: "
         read -n 1 -r ADD_ASSET </dev/tty
+        echo ""
 
         kill $PREVIEW_PID 2>/dev/null
         wait $PREVIEW_PID 2>/dev/null
