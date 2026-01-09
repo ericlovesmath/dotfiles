@@ -108,3 +108,11 @@ autocmd("BufEnter", {
         ol.filetype = "uiua"
     end,
 })
+
+autocmd("BufEnter", {
+    group = augroup("JournalFiletype"),
+    pattern = { "*.journal", "*.rules" },
+    callback = function()
+        vim.bo.commentstring = "# %s"
+    end,
+})

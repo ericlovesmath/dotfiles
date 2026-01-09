@@ -18,9 +18,8 @@ in
     spicetify-cli coq deno pandoc
     nasm pandoc yt-dlp glow hugo docker gh
     julia-bin slides maven openjdk opam gnupatch elan
-    # mamba-cpp micromamba https://github.com/NixOS/nixpkgs/pull/460788
-    texliveFull nodejs coreutils
-    zsh zsh-powerlevel10k
+    micromamba texliveFull nodejs coreutils
+    zsh zsh-powerlevel10k xxd
     openjdk cargo ghc
     meslo-lgs-nf font-awesome hledger
 
@@ -76,8 +75,9 @@ in
     enable = true;
     enableCompletion = false;
     dirHashes = {
+      dotfiles  = "$HOME/dotfiles";
       jane      = "$HOME/Desktop/Important/Jane Street";
-      caltech   = "$HOME/Desktop/Academics/Caltech/senior/fall-2025";
+      caltech   = "$HOME/Desktop/Academics/Caltech/senior/winter-2026";
       tutor     = "$HOME/Desktop/Academics/Tutoring";
       surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";
       finance   = "$HOME/Desktop/Important/finance";
