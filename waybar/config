@@ -13,6 +13,7 @@
         ],
         "modules-right": [
             "group/expand",
+            "custom/dnd",
             "custom/spotify",
             "bluetooth",
             "network",
@@ -42,7 +43,7 @@
             }
         },
         "clock": {
-            "format": "{:%b %d %I:%M:%S %p} ",
+            "format": "{:%a %b %d %I:%M:%S %p} ",
             "interval": 1,   
             "timezone": "America/Los_Angeles",
             "tooltip-format": "<tt>{calendar}</tt>",
@@ -57,6 +58,12 @@
                 "on-click-right": "shift_down",
                 "on-click": "shift_up"
             }
+        },
+        "custom/dnd": {
+            "format": "{}",
+            "interval": 10,
+            "exec": "if makoctl mode | grep -q 'dnd'; then echo ''; fi",
+            "on-click": "sd dnd",
         },
         "custom/spotify": {
             "format": "{}",
@@ -113,12 +120,6 @@
             "format-charging": "󰂄 {capacity}%",
             "format-icons": [ "󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹" ],
         },
-        "custom/mako": {
-            "exec": "~/.config/waybar/togglednd.sh",
-            "format": "{}",
-            "tooltip": true,
-            "tooltip-format": "Toggle DND on/off",
-        },
         "custom/expand": {
             "format": "",
             "tooltip": false
@@ -136,7 +137,6 @@
             },
             "modules": [
                 "custom/expand",
-                // "custom/mako",
                 "cpu",
                 "memory",
                 "temperature",

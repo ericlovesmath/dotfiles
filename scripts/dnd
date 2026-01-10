@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Toggle DND with makoctl
+
+DND="$(makoctl mode | grep 'dnd')"
+if [[ -z $DND ]]; then
+    notify-send -u critical "Do not Distub: ON"
+    makoctl mode -a dnd >/dev/null
+else
+    makoctl mode -r dnd >/dev/null
+    notify-send -u critical "Do not Distub: OFF"
+fi
