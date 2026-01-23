@@ -27,16 +27,18 @@ in
     pyright haskell-language-server clojure-lsp clang-tools
     rust-analyzer svelte-language-server typescript-language-server
     lua-language-server vscode-langservers-extracted
-    bash-language-server shellcheck
+    bash-language-server shellcheck tex-fmt nixd
 
     # Linters and Formatters
     clj-kondo eslint_d prettierd asmfmt shfmt stylua fourmolu
-    tree-sitter
+    tree-sitter nixfmt
 
     (python3.withPackages (pkgs: with pkgs; [
       pandas scipy numpy jupyterlab matplotlib
       flake8 black isort
     ]))
+
+    (llm.withPlugins { llm-gemini = true; })
   ];
 
   home.file = {
@@ -73,10 +75,12 @@ in
 
   programs.zsh = {
     enable = true;
+    dotDir = config.home.homeDirectory;
     enableCompletion = false;
     dirHashes = {
       dotfiles  = "$HOME/dotfiles";
       jane      = "$HOME/Desktop/Important/Jane Street";
+      obsidian  = "$HOME/Desktop/Obsidian/Eric";
       caltech   = "$HOME/Desktop/Academics/Caltech/senior/winter-2026";
       tutor     = "$HOME/Desktop/Academics/Tutoring";
       surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";

@@ -62,6 +62,14 @@ timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
 runbg() { $@ & disown && exit }
 
+ff() {
+    local args=()
+    for file in "$@"; do
+        args+=("--new-tab" "$file")
+    done
+    firefox "${args[@]}"
+}
+
 # Stupid Aliases
 
 alias {help,duck}='firefox https://i.redd.it/zgdnh7q9u9t41.jpg'

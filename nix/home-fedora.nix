@@ -99,7 +99,7 @@ in
 
     ".config/sway/config".source = mkSymlink "sway.cfg";
     ".config/hypr".source = ../hypr;
-    ".config/waybar".source = ../waybar;
+    ".config/waybar".source = mkSymlink "waybar";
     ".config/rofi/config.rasi".source = ../rofi.rasi;
     ".config/mako/config".source = ../mako.cfg;
     ".config/wezterm/wezterm.lua".source = ../wezterm.lua;
