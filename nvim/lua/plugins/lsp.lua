@@ -88,6 +88,7 @@ return {
                 "cssls",
                 "zls",
                 "uiua",
+                "nixd",
             })
 
             local function switch_impl_intf()
@@ -153,12 +154,14 @@ return {
                     haskell = { "fourmolu" },
                     python = { "isort", "flake8", "black" },
                     cpp = { "clang-format" },
+                    latex = { "tex-fmt" },
                     javascript = { "prettierd", "eslint_d" },
                     typescript = { "prettierd", "eslint_d" },
                     javascriptreact = { "prettierd", "eslint_d" },
                     typescriptreact = { "prettierd", "eslint_d" },
                     json = { "jq" },
                     zig = { "zls" },
+                    nix = { "nixfmt" },
                 },
             })
             vim.keymap.set("n", "<leader>vf", function()
