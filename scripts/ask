@@ -1,0 +1,38 @@
+#!/bin/bash
+
+STORE="/tmp/.llm_ask_history"
+touch "$STORE"
+
+# Create a real temporary file for this session
+TEMP_FILE=$(mktemp /tmp/llm_ask.XXXXXX)
+trap 'rm -f "$TEMP_FILE"' EXIT
+
+if [[ "$1" == "-p" || "$1" == "--previous" ]]; then
+    cp "$STORE" "$TEMP_FILE"
+fi
+
+nvim "$TEMP_FILE"
+
+# Exit without prompting if the file is empty or only whitespace
+if [[ ! -s "$TEMP_FILE" ]]; then
+    echo "Prompt is empty. Aborting."
+    exit 0
+fi
+
+# Update the persistent store now.
+cp "$TEMP_FILE" "$STORE"
+
+# Extract the first line as the system prompt, rest as body
+system_prompt=$(sed -n '1p' "$TEMP_FILE")
+body=$(sed -n '2,$p' "$TEMP_FILE")
+
+# Run the LLM
+if [[ -z "$body" ]]; then
+    # If there is only one line, use it as a standard prompt
+    llm "$system_prompt" | tee "$TEMP_FILE"
+else
+    # First line is system prompt (-s), rest is the prompt body
+    echo "$body" | llm -s "$system_prompt" | tee "$TEMP_FILE"
+fi
+
+nvim -c "set linebreak wrap ft=markdown" "$TEMP_FILE"
