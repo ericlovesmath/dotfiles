@@ -69,9 +69,10 @@
             "format": "{}",
             "interval": 5,
             "exec": "~/.config/waybar/music.sh",
-            "on-click": "playerctl -p spotify play-pause",
-            "on-scroll-up": "playerctl -p spotify next",
-            "on-scroll-down": "playerctl -p spotify previous",
+            "on-click": "playerctl -p spotify play-pause; pkill -RTMIN+8 waybar",
+            "on-scroll-up": "playerctl -p spotify next; pkill -RTMIN+8 waybar",
+            "on-scroll-down": "playerctl -p spotify previous; pkill -RTMIN+8 waybar",
+            "signal": 8,
         },
         "network": {
             "format-wifi": "",
