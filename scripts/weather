@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+#!/bin/bash
+
+# Check if city name is provided as argument
+if [ $# -eq 1 ]; then
+    provided_city="$1"
+    echo "Using provided city: $provided_city"
+    # Get coordinates for the provided city using ip-api.com
+    location_data=$(curl -s "http://ip-api.com/json/?q=${provided_city}")
+else
+    # Get IP location data
+    location_data=$(curl -s http://ip-api.com/json)
+fi
+
+# Extract latitude and longitude using jq
+latitude=$(echo "$location_data" | jq -r '.lat')
+longitude=$(echo "$location_data" | jq -r '.lon')
+
+# Check if extraction was successful
+if [ "$latitude" = "null" ] || [ "$longitude" = "null" ]; then
+    echo "Error: Could not retrieve coordinates"
+    exit 1
+fi
+
+# Get city name for weather display
+if [ -n "$provided_city" ]; then
+    city="$provided_city"
+else
+    city=$(echo "$location_data" | jq -r '.city')
+fi
+
+echo "=== Current Weather ==="
+curl -s "wttr.in/${city}?format=3" || curl -s "wttr.in/${latitude},${longitude}?format=3"
+echo ""
+
+# Get current air quality data using the coordinates
+air_quality_url="https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&hourly=pm10,pm2_5"
+air_quality_data=$(curl -s "$air_quality_url")
+
+# Extract current PM10 and PM2.5 values using jq
+# Get the first hourly value (index 0) as current
+current_pm10=$(echo "$air_quality_data" | jq -r '.hourly.pm10[0]')
+current_pm25=$(echo "$air_quality_data" | jq -r '.hourly.pm2_5[0]')
+
+# Check if extraction was successful
+if [ "$current_pm10" = "null" ] || [ "$current_pm25" = "null" ]; then
+    echo "Error: Could not retrieve air quality data"
+    exit 1
+fi
+
+echo "=== Current Air Quality ==="
+echo "  PM10: ${current_pm10} µg/m³"
+echo "  PM2.5: ${current_pm25} µg/m³"

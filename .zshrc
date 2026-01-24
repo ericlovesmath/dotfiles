@@ -10,6 +10,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
 setopt incappendhistory
 setopt extendedglob local_options
 setopt completealiases
@@ -57,6 +58,7 @@ alias o='nautilus . &'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
 alias ocr="grim -g \"\$(slurp -d)\" - | tesseract stdin stdout | wl-copy && exit"
+alias llm=" llm"
 
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
