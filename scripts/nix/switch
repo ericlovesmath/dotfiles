@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Update home-manager switch
+
+source "$(dirname "$0")/home.sh"
+$HM_CMD switch

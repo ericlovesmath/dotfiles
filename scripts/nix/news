@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Read home-manager news
+
+source "$(dirname "$0")/home.sh"
+$HM_CMD news

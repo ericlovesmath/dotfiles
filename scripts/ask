@@ -7,11 +7,65 @@ touch "$STORE"
 TEMP_FILE=$(mktemp /tmp/llm_ask.XXXXXX)
 trap 'rm -f "$TEMP_FILE"' EXIT
 
-if [[ "$1" == "-p" || "$1" == "--previous" ]]; then
+ATTACHED_FILES=()
+LOAD_PREVIOUS=false
+
+MODEL="gemini-3-flash-preview"
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+    -p | --previous)
+        LOAD_PREVIOUS=true
+        shift
+        ;;
+    -a | --attach)
+        if [[ -n "$2" ]]; then
+            ATTACHED_FILES+=("$2")
+            shift 2
+        else
+            echo "Error: -a requires a file path"
+            exit 1
+        fi
+        ;;
+    -h | --high)
+        MODEL="gemini-3-pro-preview"
+        shift
+        ;;
+    *)
+        break
+        ;;
+    esac
+done
+
+if [ "$LOAD_PREVIOUS" = true ]; then
     cp "$STORE" "$TEMP_FILE"
 fi
 
-nvim "$TEMP_FILE"
+# Attach files as markdown
+if [ ${#ATTACHED_FILES[@]} -gt 0 ]; then
+    [[ -s "$TEMP_FILE" ]] && echo -e "\n" >>"$TEMP_FILE"
+
+    for f in "${ATTACHED_FILES[@]}"; do
+        if [[ -f "$f" ]]; then
+            {
+                echo "## $(basename "$f")"
+                echo '```'
+                cat "$f"
+                echo -e '\n```\n'
+            } >>"$TEMP_FILE"
+        else
+            echo "Warning: File $f not found."
+        fi
+    done
+fi
+
+if [ -p /dev/stdin ]; then
+    printf "## Contents\n\n" >>"$TEMP_FILE"
+    cat >>"$TEMP_FILE"
+fi
+
+# Open Neovim for user to edit prompt
+nvim -c "set linebreak wrap ft=markdown" "$TEMP_FILE"
 
 # Exit without prompting if the file is empty or only whitespace
 if [[ ! -s "$TEMP_FILE" ]]; then
@@ -29,10 +83,12 @@ body=$(sed -n '2,$p' "$TEMP_FILE")
 # Run the LLM
 if [[ -z "$body" ]]; then
     # If there is only one line, use it as a standard prompt
-    llm "$system_prompt" | tee "$TEMP_FILE"
+    llm -m "$MODEL" "$system_prompt" | tee "$TEMP_FILE"
 else
     # First line is system prompt (-s), rest is the prompt body
     echo "$body" | llm -s "$system_prompt" | tee "$TEMP_FILE"
 fi
 
-nvim -c "set linebreak wrap ft=markdown" "$TEMP_FILE"
+if [ -s "$TEMP_FILE" ]; then
+    nvim -c "set linebreak wrap ft=markdown" "$TEMP_FILE"
+fi

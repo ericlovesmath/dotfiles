@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Update home-manager packages
+
+source "$(dirname "$0")/home.sh"
+nix flake update --flake "$FLAKE_PATH"
