@@ -19,7 +19,7 @@ in
     nasm pandoc yt-dlp glow hugo docker gh
     julia-bin slides maven openjdk opam gnupatch elan
     micromamba texliveFull nodejs coreutils
-    zsh zsh-powerlevel10k xxd
+    zsh zsh-powerlevel10k xxd entr
     openjdk cargo ghc
     meslo-lgs-nf font-awesome hledger
 
@@ -30,7 +30,7 @@ in
     bash-language-server shellcheck tex-fmt nixd
 
     # Linters and Formatters
-    clj-kondo eslint_d prettierd asmfmt shfmt stylua fourmolu
+    clj-kondo eslint_d prettierd asmfmt shfmt stylua ormolu
     tree-sitter nixfmt
 
     (python3.withPackages (pkgs: with pkgs; [
@@ -44,7 +44,7 @@ in
   home.file = {
     ".tmux.conf".source = ../.tmux.conf;
     ".config/nvim".source = mkSymlink "nvim";
-    ".config/alacritty/alacritty.toml".source = ../alacritty.toml;
+    ".config/alacritty/alacritty.toml".source = mkSymlink "alacritty.toml";
     ".latexmkrc".source = ../.latexmkrc;
   };
 

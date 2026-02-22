@@ -151,7 +151,7 @@ return {
                     bash = { "shfmt" },
                     lua = { "stylua" },
                     ocaml = { "ocamlformat" },
-                    haskell = { "fourmolu" },
+                    haskell = { "ormolu" },
                     python = { "isort", "flake8", "black" },
                     cpp = { "clang-format" },
                     latex = { "tex-fmt" },
