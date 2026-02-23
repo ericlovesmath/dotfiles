@@ -35,6 +35,11 @@ return {
             default = { "lsp", "path", "snippets" },
         },
         completion = {
+            list = {
+                selection = {
+                    preselect = false,
+                },
+            },
             menu = {
                 draw = {
                     columns = {
