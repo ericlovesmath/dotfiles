@@ -1,5 +1,5 @@
 { nixgl }:
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 let
   firefoxProfile = ".mozilla/firefox/nixprofile";
@@ -79,14 +79,15 @@ in
       gcc gnumake unrar qemu_kvm virt-manager
       protonmail-bridge protonvpn-gui zotero libreoffice
       gimp solaar everest-mons transmission_4
-      thunderbird-bin meslo-lgs-nf aseprite zathura
+      thunderbird-bin meslo-lgs-nf zathura
       tesseract libqalculate copyq feh
       swww rofi mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
       ollama godot_4 realvnc-vnc-viewer cryptomator
       emacs-pgtk
+      # aseprite
     ] ++
-    (builtins.map config.lib.nixGL.wrap [
+    (map config.lib.nixGL.wrap [
       waybar obs-studio slack steam spotify mpv
       signal-desktop webcord alacritty telegram-desktop
       wezterm reaper jellyfin-media-player

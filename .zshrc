@@ -29,6 +29,7 @@ autoload -Uz compinit
 
 zstyle ':completion:*' list-colors '${(@s.:.)LS_COLORS}'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'm:{A-Z}={a-z}'
 
 # caching completion
 zstyle ':completion:*' accept-exact '*(N)'
@@ -54,11 +55,12 @@ alias {:q,:q!,:wq,:wq!,:Q}='exit'
 alias s='ls'
 
 alias gh="xdg-open \`git remote -v | grep fetch | awk '{print \$2}' | sed 's/git@/http:\/\//' | sed 's/com:/com\//'\`| head -n1"
-alias o='nautilus . &'
+alias o='nautilus . > /dev/null 2>&1 &'
 alias yt-best='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
 alias yt-best-audio='yt-dlp -f "ba" -x --audio-format mp3'
 alias ocr="grim -g \"\$(slurp -d)\" - | tesseract stdin stdout | wl-copy && exit"
 alias llm=" llm"
+alias lg="lazygit"
 
 timezsh() { repeat 10 { time zsh -i -c exit } }
 0x0() { curl -F "file=@$1" https://0x0.st }
@@ -76,6 +78,7 @@ ff() {
 
 alias {help,duck}='firefox https://i.redd.it/zgdnh7q9u9t41.jpg'
 alias {help2,duck2}='firefox https://i.kym-cdn.com/photos/images/original/002/429/796/96c.gif'
+alias shrug='wl-copy "¯\_(ツ)_/¯"'
 
 alias sus='function _sus(){echo \
 " 　.　　。　　　　•　 　ﾟ　　。 　　
