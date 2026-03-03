@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Spins up an ephemeral NixOS VM passing through nix store
+# to create a true VM jail with access to Nix and the bare minimum
+# dependencies for Opencode to run with nix-direnv enabled
+#
+# Uses current directory by default, can also pass in folder
+
+TARGET_DIR=$(readlink -f "${1:-$PWD}")
+
+if [ ! -d "$TARGET_DIR" ]; then
+  echo "Error: '$TARGET_DIR' is not a directory."
+  exit 1
+fi
+
+nix run "$HOME/dotfiles/scripts/microjail-nix#microjail" -- "$TARGET_DIR"
