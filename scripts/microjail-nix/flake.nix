@@ -1,12 +1,11 @@
 {
   description = "NixOS MicroVM";
 
-  # TODO: Remove 9p dep
-  # TODO: Factor out to generic opencode I can import
   # TODO: Remove /home/ericlee explicit
   # TODO: Fix rapid flickering while typing
   # TODO: remove path duplication
   # TODO: Put this somewhere online?
+  # TODO: Make tmp folder actually new so I can have multiple instances
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -49,20 +48,23 @@
             PROJ_SOCK="${tmp}/virtiofs.sock"
             CONF_SOCK="${tmp}/opencode-config.sock"
             DATA_SOCK="${tmp}/opencode-share.sock"
+            NIX_SOCK="${tmp}/nix-store.sock"
 
             # Cleanup old sockets
             rm -f "$PROJ_SOCK" "$CONF_SOCK" "$DATA_SOCK"
 
-            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir "$PROJECT_PATH" --socket-path "$PROJ_SOCK" --sandbox none &
+            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir "$PROJECT_PATH" --socket-path "$PROJ_SOCK" --sandbox none --cache auto &
             P1=$!
-            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /home/ericlee/.config/opencode --socket-path "$CONF_SOCK" --sandbox none &
+            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /home/ericlee/.config/opencode --socket-path "$CONF_SOCK" --sandbox none --cache auto &
             P2=$!
-            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /home/ericlee/.local/share/opencode --socket-path "$DATA_SOCK" --sandbox none &
+            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /home/ericlee/.local/share/opencode --socket-path "$DATA_SOCK" --sandbox none --cache auto &
             P3=$!
+            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /nix/store --socket-path "$NIX_SOCK" --sandbox none --cache auto &
+            P4=$!
 
             cleanup() {
-              kill $P1 $P2 $P3 2>/dev/null || true
-              rm -f "$PROJ_SOCK" "$CONF_SOCK" "$DATA_SOCK" "${tmp}/control.socket"
+              kill $P1 $P2 $P3 $P4 2>/dev/null || true
+              rm -f "$PROJ_SOCK" "$CONF_SOCK" "$DATA_SOCK" "$NIX_SOCK" "${tmp}/control.socket"
             }
             trap cleanup EXIT
 
@@ -117,6 +119,17 @@
               environment.sessionVariables = {
                 "TERM" = "xterm-256color";
                 "COLORTERM" = "truecolor";
+                "OPENCODE_CONFIG_CONTENT" = ''
+                  {
+                    \"permission\": {
+                      \"shell\": \"allow\",
+                      \"edit\": \"allow\",
+                      \"write\": \"allow\",
+                      \"read\": \"allow\",
+                      \"network\": \"allow\"
+                    }
+                  }
+                '';
               };
 
               services.getty.autologinUser = "root";
@@ -168,12 +181,13 @@
                 shares = [
                   {
                     # use proto = "virtiofs" for MicroVMs that are started by systemd
-                    proto = "9p";
+                    proto = "virtiofs";
                     tag = "ro-store";
                     # a host's /nix/store will be picked up so that no
                     # squashfs/erofs will be built for it.
                     source = "/nix/store";
                     mountPoint = "/nix/.ro-store";
+                    socket = "${tmp}/nix-store.sock";
                   }
                   {
                     proto = "virtiofs";
