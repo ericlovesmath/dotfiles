@@ -10,7 +10,7 @@ trap 'rm -f "$TEMP_FILE"' EXIT
 ATTACHED_FILES=()
 LOAD_PREVIOUS=false
 
-MODEL="gemini-3-flash-preview"
+MODEL="claude-sonnet-4.6"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -28,7 +28,11 @@ while [[ "$#" -gt 0 ]]; do
         fi
         ;;
     -h | --high)
-        MODEL="gemini-3-pro-preview"
+        MODEL="claude-opus-4.6"
+        shift
+        ;;
+    -l | --low)
+        MODEL="claude-haiku-4.5"
         shift
         ;;
     *)
