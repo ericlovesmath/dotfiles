@@ -5,6 +5,7 @@
   # TODO: remove path duplication
   # TODO: Put this somewhere online?
   # TODO: Make tmp folder actually new so I can have multiple instances
+  # TODO: cp tmux config
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -37,14 +38,34 @@
           mountPoint = "/home/dev/.config/opencode";
         }
         {
+          tag = "opencode-state";
+          hostPath = "$HOME/.local/state/opencode";
+          mountPoint = "/home/dev/.local/state/opencode";
+        }
+        {
           tag = "opencode-share";
           hostPath = "$HOME/.local/share/opencode";
           mountPoint = "/home/dev/.local/share/opencode";
         }
         {
+          tag = "claudecode-state";
+          hostPath = "$HOME/.local/state/claude";
+          mountPoint = "/home/dev/.local/state/claude";
+        }
+        {
+          tag = "claudecode-share";
+          hostPath = "$HOME/.local/share/claude";
+          mountPoint = "/home/dev/.local/share/claude";
+        }
+        {
           tag = "claudecode-config";
           hostPath = "$HOME/.claude";
           mountPoint = "/home/dev/.claude";
+        }
+        {
+          tag = "claudecode-json";
+          hostPath = "${tmp}/claude-share";
+          mountPoint = "/home/dev/.claude-share";
         }
       ];
 
@@ -69,9 +90,16 @@
 
             mkdir -p ${tmp}
 
+            touch "$HOME/.claude.json"
+            cp "$HOME/.claude.json" "${tmp}/claude-share/.claude.json"
+
             # Cleanup function to kill virtiofsd processes and remove sockets
             cleanup() {
               echo "Shutting down..."
+              # Sync Claude config back to host
+              if [ -f "${tmp}/claude-share/.claude.json" ]; then
+                cp -p "${tmp}/claude-share/.claude.json" "$HOME/.claude.json"
+              fi
               jobs -p | xargs -r kill 2>/dev/null || true
               rm -f ${tmp}/*.sock ${tmp}/control.socket
             }
@@ -110,10 +138,18 @@
                   networkConfig.DHCP = "yes";
                 };
 
+                users.groups.dev = {
+                  gid = 1000;
+                };
+
                 users.users.dev = {
                   isNormalUser = true;
+                  uid = 1000;
+                  group = "dev";
                   extraGroups = [ "wheel" ];
                   password = "";
+                  home = "/home/dev";
+                  createHome = true;
                 };
 
                 services.getty.autologinUser = "dev";
@@ -126,6 +162,10 @@
 
                 environment.interactiveShellInit = ''
                   cd /app
+                  alias shut='sudo shutdown now'
+                  alias claude='claude --dangerously-skip-permissions'
+                  ln -sf /home/dev/.claude-share/.claude.json /home/dev/.claude.json
+                  chown -h 1000:1000 /home/dev/.claude.json
                 '';
 
                 nixpkgs.config.allowUnfree = true;
@@ -147,6 +187,7 @@
                   binutils
                   gcc
                   gnumake
+                  tmux
                   opencode
                   claude-code
                 ];
@@ -154,7 +195,7 @@
                 environment.sessionVariables = {
                   "TERM" = "xterm-256color";
                   "COLORTERM" = "truecolor";
-                  "CLAUDE_CODE_DEBUGGING_SKIP_PERMISSIONS" = "true";
+                  "ENABLE_LSP_TOOL" = "1";
                   "OPENCODE_CONFIG_CONTENT" = ''
                     {
                       \"permission\": {
@@ -173,12 +214,12 @@
                   "flakes"
                 ];
 
-                # programs.git = {
-                #   enable = true;
-                #   config = {
-                #     safe.directory = "/app";
-                #   };
-                # };
+                programs.git = {
+                  enable = true;
+                  config = {
+                    safe.directory = "/app";
+                  };
+                };
 
                 programs.direnv = {
                   enable = true;
