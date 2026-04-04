@@ -12,12 +12,7 @@
             // "hyprland/workspaces"
         ],
         "modules-right": [
-            "group/expand",
-            "custom/dnd",
-            "custom/spotify",
-            "bluetooth",
-            "network",
-            "power-profiles-daemon",
+            "group/right_bubble",
             "battery",
         ],
         "hyprland/workspaces": {
@@ -142,6 +137,17 @@
                 "memory",
                 "temperature",
                 "custom/endpoint",
+            ]
+        },
+        "group/right_bubble": {
+            "orientation": "horizontal",
+            "modules": [
+                "group/expand",
+                "custom/dnd",
+                "custom/spotify",
+                "bluetooth",
+                "network",
+                "power-profiles-daemon"
             ]
         },
         "cpu": {

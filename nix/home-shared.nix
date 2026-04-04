@@ -11,8 +11,7 @@ in
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
-    neovim tmux
-    ripgrep lazygit jq
+    tmux ripgrep lazygit jq
     imagemagick htop fzf fd ffmpeg zstd
     tree wget nmap croc curl rlwrap fastfetch
     spicetify-cli coq deno pandoc
@@ -20,8 +19,8 @@ in
     julia-bin slides maven openjdk opam gnupatch elan
     micromamba texliveFull nodejs coreutils
     zsh zsh-powerlevel10k xxd entr
-    openjdk cargo ghc
-    meslo-lgs-nf font-awesome hledger
+    openjdk cargo ghc meslo-lgs-nf font-awesome hledger
+    vscode
 
     # LSPs
     pyright haskell-language-server clojure-lsp clang-tools
@@ -38,7 +37,7 @@ in
       flake8 black isort
     ]))
 
-    (llm.withPlugins { llm-gemini = true; })
+    (llm.withPlugins { llm-gemini = true; llm-anthropic = true; })
   ];
 
   home.file = {
@@ -73,6 +72,12 @@ in
 
   programs.opam.enable = true;
 
+  programs.neovim = {
+    enable = true;
+    withPython3 = true;
+    extraPython3Packages = (ps: with ps; [ pynvim flake8 ]);
+  };
+
   programs.zsh = {
     enable = true;
     dotDir = config.home.homeDirectory;
@@ -81,7 +86,7 @@ in
       dotfiles  = "$HOME/dotfiles";
       jane      = "$HOME/Desktop/Important/Jane Street";
       obsidian  = "$HOME/Desktop/Obsidian/Eric";
-      caltech   = "$HOME/Desktop/Academics/Caltech/senior/winter-2026";
+      caltech   = "$HOME/Desktop/Academics/Caltech/senior/spring-2026";
       tutor     = "$HOME/Desktop/Academics/Tutoring";
       surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";
       finance   = "$HOME/Desktop/Important/finance";

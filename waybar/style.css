@@ -1,146 +1,103 @@
+@define-color bg        #1e2326; /* Main dark background */
+@define-color bg-module #2d353b; /* Lighter background for the pills */
+@define-color fg        #d3c6aa; /* Soft off-white text */
+@define-color blue      #7fbbb3; /* Accent blue */
+@define-color green     #a7c080; /* Accent green for the updates pill */
+@define-color active    #475258; /* Active workspace background */
+
 * {
-    font-size: 14px;
-    font-family: "Font Awesome 6 Free", "CodeNewRoman Nerd Font Propo";
-}
-window#waybar{
-    all: unset;
-}
-.modules-left {
-    padding:5px;
-    margin:5px;
-    margin-bottom:0px;
-    border-radius:10px;
-    background: rgba(50,50,50,.5);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-}
-.modules-center {
-    padding:5px;
-    margin:5px;
-    margin-bottom:0px;
-    border-radius:10px;
-    background: rgba(50,50,50,.5);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-}
-.modules-right {
-    padding: 5px;
-    margin:5px;
-    margin-bottom:0px;
-    border-radius:10px;
-    background: rgba(50,50,50,.5);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+  border: none;
+  border-radius: 0;
+  font-family: "Terminus", "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+  /* Reduced from 800 so it looks cleaner in the pills */
+  font-weight: 600;
 }
 
-#custom-spotify {
-    padding: 0px 10px;
+/* Make the main bar transparent to allow modules to float */
+window#waybar {
+  background-color: transparent;
+  color: @fg;
 }
 
-tooltip {
-    background:rgb(50,50,50)
+/* Common style for all module pills */
+#pulseaudio,
+#right_bubble,
+#custom-launcher,
+#workspaces,
+#custom-updates,
+#battery,
+#clock,
+#custom-power,
+#tray,
+#mpris,
+#custom-music {
+  background-color: @bg-module;
+  color: @fg;
+  border-radius: 12px;
+  margin: 4px 4px 0px;
+  padding: 0px 14px;
 }
-#clock:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover{
-    transition: all .3s ease;
-    color:rgba(150,150,150,.5);
-}
-#clock{
-    padding: 0px 5px;
-    transition: all .3s ease;
-}
+
 #workspaces {
-    padding: 0px 5px;
+  padding: 0px 4px;
 }
-#workspaces button {
-    all:unset;
-    padding: 0px 5px;
-    color: transparent;
-    transition: all .5s ease;
-    text-shadow: 0px 0px 1px rgba(0, 0, 0, .5);
-}
-#workspaces button:hover {
-    transition: all .5s ease;
-    color:transparent;
-    text-shadow: 0px 0px 1px rgba(0, 0, 0, .6);
-}
-#workspaces button.active {
-    color: white;
-    border: none;
-    transition: all .5s ease;
-}
-#workspaces button.empty {
-    color: transparent;
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
-}
-#workspaces button.empty:hover {
-    color: transparent;
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
-}
-#workspaces button.empty.active {
-    color: white;
-    border: none;
-    transition: all .5s ease;
-}
-#bluetooth{
-    padding: 0px 5px;
-    transition: all .3s ease;
-}
-#network{
-    padding: 0px 5px;
-    transition: all .3s ease;
-}
-#battery{
-    padding: 0px 5px;
-    transition: all .3s ease;
 
+#workspaces button {
+  color: @fg;
+  background: transparent;
+  border-radius: 20px;
+  margin: 2px;
+  padding: 0px 8px;
+  transition: all 0.2s ease-in-out;
 }
+
+#workspaces button.active {
+  color: @fg;
+  background-color: @active;
+}
+
+#workspaces button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#workspaces button label {
+  font-size: 16px;
+  padding: 0 2px;
+}
+
+#custom-expand,
+#custom-spotify,
+#bluetooth,
+#network {
+  padding: 0px 5px;
+  transition: all .3s ease;
+}
+
+#battery {
+  transition: all .3s ease;
+}
+
 #battery.charging {
-    color: #26A65B;
+  color: #26A65B;
 }
 
 #battery.warning:not(.charging) {
-    color: #ffbe61;
+  color: #ffbe61;
 }
 
 #battery.critical:not(.charging) {
-    color: #f53c3c;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-#group-expand{
-    padding: 0px 5px;
-    transition: all .3s ease; 
-}
-#custom-expand{
-    padding: 0px 5px;
-    color:rgba(0,0,0,.2);
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
-    transition: all .3s ease; 
-}
-#custom-expand:hover{
-    color:rgba(255,255,255,.2);
-    text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
-}
-#cpu,#memory,#temperature{
-    padding: 0px 5px;
-    transition: all .3s ease; 
-}
-#custom-endpoint{
-    color:transparent;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
-}
-#tray{
-    padding: 0px 5px;
-    transition: all .3s ease; 
-}
-#tray menu * {
-    padding: 0px 5px;
-    transition: all .3s ease; 
+  color: #f53c3c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-#tray menu separator {
-    padding: 0px 5px;
-    transition: all .3s ease; 
+#cpu,
+#memory,
+#temperature {
+  padding: 0px 5px;
+  transition: all .3s ease;
 }
