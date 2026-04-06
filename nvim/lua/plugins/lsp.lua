@@ -106,6 +106,36 @@ return {
                 end)
             end
 
+            local function infer_intf()
+                local bufnr = vim.api.nvim_get_current_buf()
+                local uri = vim.uri_from_bufnr(bufnr)
+                local fname = vim.api.nvim_buf_get_name(bufnr)
+
+                vim.lsp.buf_request(bufnr, "ocamllsp/inferIntf", { uri }, function(err, result)
+                    if err then
+                        vim.notify("Failed to infer interface: " .. err.message, vim.log.levels.ERROR)
+                        return
+                    end
+                    if result == nil then
+                        vim.notify("No interface to infer (already a .mli file?)", vim.log.levels.WARN)
+                        return
+                    end
+
+                    -- Open a new .mli file based on current .ml filename
+                    local mli_path = fname:gsub("%.ml$", ".mli")
+                    vim.api.nvim_command("edit " .. vim.fn.fnameescape(mli_path))
+                    local new_bufnr = vim.api.nvim_get_current_buf()
+
+                    -- Only populate if buffer is empty
+                    local lines = vim.api.nvim_buf_get_lines(new_bufnr, 0, -1, false)
+                    local is_empty = #lines == 0 or (#lines == 1 and lines[1] == "")
+                    if is_empty then
+                        local content_lines = vim.split(result, "\n", { plain = true })
+                        vim.api.nvim_buf_set_lines(new_bufnr, 0, -1, false, content_lines)
+                    end
+                end)
+            end
+
             -- Create Keybinds for LSP
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("LspKeybinds", {}),
@@ -134,6 +164,7 @@ return {
 
                     if client.name == "ocamllsp" then
                         set_local("<leader>vsi", switch_impl_intf)
+                        set_local("<leader>vsI", infer_intf)
                     end
 
                     client.server_capabilities.semanticTokensProvider = nil
