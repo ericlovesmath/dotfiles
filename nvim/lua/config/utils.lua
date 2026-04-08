@@ -125,7 +125,13 @@ vim.api.nvim_create_user_command("MarkdownView", function()
     end)
 end, {})
 
-vim.keymap.set("n", "<leader>ll", "<cmd>MarkdownView<cr>", {
-    desc = "Markdown live preview",
-    silent = true,
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.keymap.set("n", "<leader>ll", "<cmd>MarkdownView<cr>", {
+            desc = "Markdown live preview",
+            silent = true,
+            buffer = true,
+        })
+    end,
 })
