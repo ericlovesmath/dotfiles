@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A script to set wallpapers for Hyprland (using swww) or Sway (using swaymsg).
+# A script to set wallpapers for Hyprland (using awww) or Sway (using swaymsg).
 
 # --- Configuration ---
 # Set the directory where your wallpapers are stored.
@@ -60,8 +60,8 @@ fi
 ALL_MONITORS=""
 case "$WM" in
     hyprland)
-        if ! command -v hyprctl &> /dev/null || ! command -v swww &> /dev/null; then
-            echo "Error: 'hyprctl' or 'swww' not found. Please install them for Hyprland support." >&2
+        if ! command -v hyprctl &> /dev/null || ! command -v awww &> /dev/null; then
+            echo "Error: 'hyprctl' or 'awww' not found. Please install them for Hyprland support." >&2
             exit 1
         fi
         ALL_MONITORS=$(hyprctl monitors all | grep 'Monitor ' | awk '{print $2}')
@@ -123,8 +123,8 @@ for MONITOR in $TARGET_MONITORS; do
     echo "Setting wallpaper for $MONITOR..."
     case "$WM" in
         hyprland)
-            swww query >/dev/null || swww init
-            swww img -o "$MONITOR" "$FULL_WALLPAPER_PATH" --transition-type center
+            awww query >/dev/null || awww init
+            awww img -o "$MONITOR" "$FULL_WALLPAPER_PATH" --transition-type center
             ;;
         sway)
             swaymsg output "$MONITOR" bg "$FULL_WALLPAPER_PATH" fill
