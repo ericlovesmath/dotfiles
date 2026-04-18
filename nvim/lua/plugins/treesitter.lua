@@ -6,35 +6,12 @@ vim.pack.add({
 local ts = require("nvim-treesitter")
 
 -- Install core parsers at startup
+-- stylua: ignore
 ts.install({
-    "bash",
-    "comment",
-    "css",
-    "diff",
-    "git_config",
-    "git_rebase",
-    "gitcommit",
-    "gitignore",
-    "haskell",
-    "html",
-    "javascript",
-    "json",
-    "latex",
-    "lua",
-    "luadoc",
-    "make",
-    "ocaml",
-    "python",
-    "scss",
-    "svelte",
-    "toml",
-    "tsx",
-    "typescript",
-    "typst",
-    "vim",
-    "vimdoc",
-    "vue",
-    "xml",
+    "bash", "comment", "css", "diff", "git_config", "git_rebase", "gitcommit",
+    "gitignore", "haskell", "html", "javascript", "json", "latex", "lua",
+    "luadoc", "make", "ocaml", "python", "scss", "svelte", "toml", "tsx",
+    "typescript", "typst", "vim", "vimdoc", "vue", "xml",
 })
 
 local group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
@@ -67,7 +44,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
         -- Install missing parsers (async, no-op if already installed)
-        -- ts.install({ lang })
+        ts.install({ lang })
     end,
 })
 -- Vim doesn't recognize WGSL as a filetype yet

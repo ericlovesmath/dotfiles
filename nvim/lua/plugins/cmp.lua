@@ -1,10 +1,29 @@
 vim.pack.add({
-    -- Autocomplete and Snippets
+    -- Autocomplete
     "https://github.com/saghen/blink.cmp",
-    "https://www.github.com/L3MON4D3/LuaSnip",
 })
 
--- saghen/blink.cmp
+-- Lazy Load Snippets
+vim.api.nvim_create_autocmd("InsertEnter", {
+    once = true,
+    callback = function()
+        vim.pack.add({ "https://www.github.com/L3MON4D3/LuaSnip" })
+        local luasnip = require("luasnip")
+
+        luasnip.filetype_extend("markdown", { "tex" })
+
+        luasnip.config.setup({
+            history = true,
+            enable_autosnippets = true,
+            update_events = "TextChanged,TextChangedI",
+            region_check_events = "InsertEnter",
+            delete_check_events = "TextChanged,InsertLeave",
+        })
+
+        require("luasnip.loaders.from_lua").lazy_load()
+    end,
+})
+
 require("blink.cmp").setup({
     fuzzy = {
         prebuilt_binaries = { force_version = "v1.10.0" },
@@ -38,18 +57,3 @@ require("blink.cmp").setup({
         },
     },
 })
-
--- L3MON4D3/LuaSnip
-local luasnip = require("luasnip")
-
-luasnip.filetype_extend("markdown", { "tex" })
-
-luasnip.config.setup({
-    history = true,
-    enable_autosnippets = true,
-    update_events = "TextChanged,TextChangedI",
-    region_check_events = "InsertEnter",
-    delete_check_events = "TextChanged,InsertLeave",
-})
-
-require("luasnip.loaders.from_lua").lazy_load()

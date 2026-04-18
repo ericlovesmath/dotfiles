@@ -2,7 +2,6 @@ vim.pack.add({
     "https://www.github.com/tpope/vim-surround",
     "https://www.github.com/junegunn/vim-easy-align",
     "https://www.github.com/DrKJeff16/project.nvim",
-    "https://www.github.com/Wansmer/treesj",
     "https://www.github.com/jpalardy/vim-slime",
 
     -- Gitsigns
@@ -22,7 +21,6 @@ vim.pack.add({
 
 vim.keymap.set({ "n", "x" }, "ga", "<Plug>(EasyAlign)")
 
-require("treesj").setup()
 require("gitsigns").setup()
 
 vim.g.slime_target = "tmux"
