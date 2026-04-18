@@ -1,3 +1,8 @@
+if true then
+    -- Disabled DAP module
+    return
+end
+
 vim.pack.add({
     -- DAP Protocol
     "https://www.github.com/mfussenegger/nvim-dap",

@@ -4,37 +4,16 @@ vim.pack.add({
     "https://www.github.com/stevearc/conform.nvim",
 
     "https://www.github.com/folke/lazydev.nvim",
-    "https://www.github.com/whonore/Coqtail",
-    -- "https://www.github.com/Julian/lean.nvim",
-    -- "https://www.github.com/mfussenegger/nvim-jdtls",
 })
 
 vim.api.nvim_create_autocmd("Filetype", {
     group = vim.api.nvim_create_augroup("EnableLazyDev", { clear = true }),
+    once = true,
     pattern = { "lua" },
     callback = function()
         require("lazydev").setup({
             integrations = { cmp = false },
         })
-    end,
-})
-
-vim.api.nvim_create_autocmd("Filetype", {
-    group = vim.api.nvim_create_augroup("EnableCoqtail", { clear = true }),
-    pattern = { "coq" },
-    callback = function()
-        vim.cmd([[
-        let g:coqtail_noimap = 1
-        nmap <buffer> <leader>cl <Plug>CoqToLine
-
-        imap <buffer> <S-Down> <Plug>CoqNext
-        imap <buffer> <S-Left> <Plug>CoqToLine
-        imap <buffer> <S-Up>  <Plug>CoqUndo
-
-        nmap <buffer> <S-Down> <Plug>CoqNext
-        nmap <buffer> <S-Left> <Plug>CoqToLine
-        nmap <buffer> <S-Up>  <Plug>CoqUndo
-        ]])
     end,
 })
 

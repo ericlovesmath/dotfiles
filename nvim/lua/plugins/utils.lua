@@ -18,6 +18,11 @@ vim.pack.add({
     "https://www.github.com/obsidian-nvim/obsidian.nvim",
     "https://www.github.com/nvim-lua/plenary.nvim",
     "https://www.github.com/saghen/blink.cmp",
+
+    -- Language specific tooling
+    "https://www.github.com/whonore/Coqtail",
+    -- "https://www.github.com/Julian/lean.nvim",
+    -- "https://www.github.com/mfussenegger/nvim-jdtls",
 })
 
 vim.keymap.set({ "n", "x" }, "ga", "<Plug>(EasyAlign)")
@@ -68,5 +73,25 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         })
 
         vim.keymap.set("n", "gf", "<CMD>Obsidian follow_link<CR>", { noremap = true, silent = true })
+    end,
+})
+
+vim.api.nvim_create_autocmd("Filetype", {
+    group = vim.api.nvim_create_augroup("EnableCoqtail", { clear = true }),
+    once = true,
+    pattern = { "coq" },
+    callback = function()
+        vim.cmd([[
+        let g:coqtail_noimap = 1
+        nmap <buffer> <leader>cl <Plug>CoqToLine
+
+        imap <buffer> <S-Down> <Plug>CoqNext
+        imap <buffer> <S-Left> <Plug>CoqToLine
+        imap <buffer> <S-Up>  <Plug>CoqUndo
+
+        nmap <buffer> <S-Down> <Plug>CoqNext
+        nmap <buffer> <S-Left> <Plug>CoqToLine
+        nmap <buffer> <S-Up>  <Plug>CoqUndo
+        ]])
     end,
 })

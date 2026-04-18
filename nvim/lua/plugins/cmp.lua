@@ -4,6 +4,7 @@ vim.pack.add({
     "https://www.github.com/L3MON4D3/LuaSnip",
 })
 
+-- saghen/blink.cmp
 require("blink.cmp").setup({
     fuzzy = {
         prebuilt_binaries = { force_version = "v1.10.0" },
@@ -38,6 +39,7 @@ require("blink.cmp").setup({
     },
 })
 
+-- L3MON4D3/LuaSnip
 local luasnip = require("luasnip")
 
 luasnip.filetype_extend("markdown", { "tex" })

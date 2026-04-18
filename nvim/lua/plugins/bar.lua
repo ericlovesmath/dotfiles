@@ -1,5 +1,5 @@
 vim.pack.add({
-    -- Statusline and Bufferline
+    -- Minimal Statusline and Bufferline Library
     "https://www.github.com/rebelot/heirline.nvim",
 })
 
@@ -122,40 +122,6 @@ local RulerOrWordCount = {
         return { fg = "black", bg = self.mode_color() }
     end,
 }
-
--- local MacroRecording = {
---     init = function(self)
---         self.reg_recording = vim.fn.reg_recording()
---     end,
---     {
---         condition = function(self)
---             return self.reg_recording ~= ""
---         end,
---         provider = function(self)
---             return "rec @" .. self.reg_recording .. " "
---         end,
---     },
---     hl = { bold = true },
---     update = { "RecordingEnter", "RecordingLeave" },
--- }
---
--- local SearchCount = {
---     init = function(self)
---         local ok, search = pcall(vim.fn.searchcount)
---         if ok and search.total > 0 then
---             self.search = search
---         end
---     end,
---     condition = function()
---         local cmd = vim.fn.getcmdtype()
---         return cmd == "?" or cmd == "/"
---     end,
---     provider = function(self)
---         local total = math.min(self.search.total, self.search.maxcount)
---         return string.format("[%d/%d]", self.search.current, total)
---     end,
---     hl = { bold = true },
--- }
 
 local StatusLine = {
     init = function(self)

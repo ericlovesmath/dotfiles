@@ -9,6 +9,7 @@ vim.pack.add({
     "https://www.github.com/norcalli/nvim-colorizer.lua",
 })
 
+-- navarasu/onedark.nvim
 require("onedark").setup({
     style = "dark",
     ending_tildes = true,
@@ -21,6 +22,7 @@ require("onedark").setup({
     },
 })
 
+-- catppuccin/nvim
 require("catppuccin").setup({
     flavour = "frappe",
     transparent_background = true,
@@ -28,7 +30,6 @@ require("catppuccin").setup({
         cmp = true,
         gitsigns = true,
         treesitter = true,
-        mason = true,
     },
     color_overrides = {
         all = { text = "#bec6d4" },
@@ -42,11 +43,13 @@ require("catppuccin").setup({
     end,
 })
 
+-- sainnhe/gruvbox-material
 vim.g.gruvbox_material_foreground = "material"
 vim.g.gruvbox_material_background = "medium"
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_transparent_background = 1
 
+-- norcalli/nvim-colorizer.lua
 require("colorizer").setup({
     css = { css = true },
     "javascript",

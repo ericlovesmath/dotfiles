@@ -50,6 +50,7 @@ local ignore_filetypes = {
 -- Auto-install parsers and enable highlighting on FileType
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
+    once = true,
     desc = "Enable treesitter highlighting and indentation",
     callback = function(event)
         if vim.tbl_contains(ignore_filetypes, event.match) then
