@@ -1,11 +1,13 @@
-return {
-    "lervag/vimtex",
-    dependencies = {
-        "xuhdev/vim-latex-live-preview",
-        "preservim/vim-markdown"
-    },
-    ft = { "tex", "markdown" },
-    config = function()
+vim.pack.add({
+    "https://www.github.com/lervag/vimtex",
+    "https://www.github.com/xuhdev/vim-latex-live-preview",
+    "https://www.github.com/preservim/vim-markdown",
+})
+
+vim.api.nvim_create_autocmd("Filetype", {
+    group = vim.api.nvim_create_augroup("EnableVimtex", { clear = true }),
+    pattern = { "tex", "markdown" },
+    callback = function()
         vim.cmd([[
         let g:vimtex_compiler_progname = "nvr"
         let g:vimtex_view_method = "zathura"   " skim on MacOS
@@ -31,5 +33,5 @@ return {
         let g:vim_markdown_auto_insert_bullets = 0
         let g:vim_markdown_new_list_item_indent = 0
         ]])
-    end
-}
+    end,
+})

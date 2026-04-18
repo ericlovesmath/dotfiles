@@ -1,59 +1,53 @@
-return {
-    "tpope/vim-surround",
-    {
-        "junegunn/vim-easy-align",
-        config = function()
-            vim.keymap.set({ "n", "x" }, "ga", "<Plug>(EasyAlign)")
-        end,
-    },
-    {
-        "DrKJeff16/project.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        name = "project_nvim",
-    },
-    {
-        "Wansmer/treesj",
-        keys = { "<space>m", "<space>j", "<space>s" },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        config = function()
-            require("treesj").setup()
-        end,
-    },
+vim.pack.add({
+    "https://www.github.com/tpope/vim-surround",
+    "https://www.github.com/junegunn/vim-easy-align",
+    "https://www.github.com/DrKJeff16/project.nvim",
+    "https://www.github.com/Wansmer/treesj",
+    "https://www.github.com/jpalardy/vim-slime",
 
-    {
-        "lewis6991/gitsigns.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            { "dlyongemallo/diffview.nvim", cmd = "DiffviewOpen" },
-            { "nvim-tree/nvim-web-devicons", opts = {} },
-        },
-        config = true,
-    },
+    -- Gitsigns
+    "https://www.github.com/lewis6991/gitsigns.nvim",
+    "https://www.github.com/dlyongemallo/diffview.nvim",
+    "https://www.github.com/nvim-tree/nvim-web-devicons",
 
-    {
-        "jpalardy/vim-slime",
-        event = "VeryLazy",
-        config = function()
-            vim.g.slime_target = "tmux"
-            vim.g.slime_bracketed_paste = 1
-            -- vim.g.slime_default_config = { socket_name = "default", target_pane = "{last}" }
-            -- vim.g.slime_dont_ask_default = 1
-        end,
+    -- ZenMode
+    "https://www.github.com/folke/zen-mode.nvim",
+    "https://www.github.com/folke/twilight.nvim",
+
+    -- Obsidian.nvim
+    "https://www.github.com/obsidian-nvim/obsidian.nvim",
+    "https://www.github.com/nvim-lua/plenary.nvim",
+    "https://www.github.com/saghen/blink.cmp",
+})
+
+vim.keymap.set({ "n", "x" }, "ga", "<Plug>(EasyAlign)")
+
+require("treesj").setup()
+require("gitsigns").setup()
+
+vim.g.slime_target = "tmux"
+vim.g.slime_bracketed_paste = 1
+
+require("zen-mode").setup({
+    backdrop = 1,
+    window = {
+        width = 0.70,
+        height = 0.90,
+        options = {
+            number = false,
+            relativenumber = false,
+        },
     },
-    {
-        "obsidian-nvim/obsidian.nvim",
-        version = "*",
-        lazy = true,
-        -- ft = "markdown",
-        event = {
-            "BufReadPre " .. vim.fn.expand("~") .. "/Desktop/Obsidian/Eric/*.md",
-            "BufNewFile " .. vim.fn.expand("~") .. "/Desktop/Obsidian/Eric/*.md",
-        },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "saghen/blink.cmp",
-        },
-        opts = {
+    plugins = {
+        twilight = { enabled = false },
+    },
+})
+
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+    pattern = vim.fn.expand("~") .. "/Desktop/Obsidian/Eric/" .. "*.md",
+    once = true,
+    callback = function()
+        require("obsidian").setup({
             workspaces = {
                 {
                     name = "Eric",
@@ -71,10 +65,8 @@ return {
                     return tostring(os.time())
                 end
             end,
-        },
-        config = function(_, opts)
-            require("obsidian").setup(opts)
-            vim.keymap.set("n", "gf", "<CMD>Obsidian follow_link<CR>", { noremap = true, silent = true })
-        end,
-    },
-}
+        })
+
+        vim.keymap.set("n", "gf", "<CMD>Obsidian follow_link<CR>", { noremap = true, silent = true })
+    end,
+})
