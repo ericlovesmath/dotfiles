@@ -77,14 +77,13 @@ in
     with pkgs;
     [
       gcc gnumake unrar qemu_kvm virt-manager
-      protonmail-bridge protonvpn-gui zotero libreoffice
+      protonmail-bridge proton-vpn zotero libreoffice
       gimp solaar everest-mons transmission_4
       thunderbird-bin meslo-lgs-nf zathura
       tesseract libqalculate copyq feh
-      swww rofi mako grim slurp hypridle
+      awww rofi mako grim slurp hypridle
       networkmanager bluez bluez-tools blueman pavucontrol
-      ollama godot_4 realvnc-vnc-viewer cryptomator
-      emacs-pgtk
+      godot_4 realvnc-vnc-viewer cryptomator emacs-pgtk
       # aseprite
     ] ++
     (map config.lib.nixGL.wrap [
@@ -93,6 +92,18 @@ in
       wezterm reaper jellyfin-media-player
       lunar-client obsidian bluebubbles
     ]);
+
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "rocm";
+  #   environmentVariables = {
+  #     # Required for Framework 13 AMD iGPU to be recognized
+  #     HSA_OVERRIDE_GFX_VERSION = "11.0.2";
+  #     # 2 Gb limit so my GPU doesn't go kaboom
+  #     OLLAMA_GPU_OVERHEAD = "2147483648";
+  #     # HSA_ENABLE_SDMA = "0";
+  #   };
+  # };
 
   home.file = {
     "${firefoxProfile}/chrome".source = ../firefox/chrome;

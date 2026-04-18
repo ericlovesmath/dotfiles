@@ -75,6 +75,7 @@ in
   programs.neovim = {
     enable = true;
     withPython3 = true;
+    withRuby = false;
     extraPython3Packages = (ps: with ps; [ pynvim flake8 ]);
   };
 

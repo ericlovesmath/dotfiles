@@ -1,5 +1,3 @@
-vim.treesitter.stop()
-
 vim.cmd([==[
 runtime ftplugin/tex.lua
 
