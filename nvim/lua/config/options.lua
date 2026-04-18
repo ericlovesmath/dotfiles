@@ -2,6 +2,7 @@ local o = vim.opt
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.o.nrformats = "blank"
 
 o.tabstop = 4
 o.softtabstop = 4
@@ -26,7 +27,6 @@ o.lazyredraw = true
 o.spellsuggest = "5"
 o.pumheight = 10
 o.completeopt = { "menu", "menuone", "noselect" }
--- o.cmdheight = 0
 
 local ol = vim.opt_local
 local autocmd = vim.api.nvim_create_autocmd
@@ -114,5 +114,16 @@ autocmd("BufEnter", {
     pattern = { "*.journal", "*.rules" },
     callback = function()
         vim.bo.commentstring = "# %s"
+    end,
+})
+
+autocmd("BufEnter", {
+    group = augroup("FiletypeGlml"),
+    pattern = { "*.glml" },
+    callback = function()
+        ol.syntax = "ocaml"
+        vim.fn.matchadd("Type", [[#\w\+]])
+        vim.fn.matchadd("Comment", [[//.*]])
+        vim.bo.commentstring = "// %s"
     end,
 })

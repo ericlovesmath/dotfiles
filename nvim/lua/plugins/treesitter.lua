@@ -12,6 +12,7 @@ return {
     branch = "main",
     build = ":TSUpdate",
     config = function()
+
         local ts = require("nvim-treesitter")
 
         -- Install core parsers at startup
@@ -75,7 +76,7 @@ return {
                 vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
                 -- Install missing parsers (async, no-op if already installed)
-                ts.install({ lang })
+                -- ts.install({ lang })
             end,
         })
         -- Vim doesn't recognize WGSL as a filetype yet

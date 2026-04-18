@@ -24,7 +24,7 @@ return {
         "lewis6991/gitsigns.nvim",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            { "sindrets/diffview.nvim", cmd = "DiffviewOpen" },
+            { "dlyongemallo/diffview.nvim", cmd = "DiffviewOpen" },
             { "nvim-tree/nvim-web-devicons", opts = {} },
         },
         config = true,

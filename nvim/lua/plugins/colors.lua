@@ -58,7 +58,7 @@ return {
     },
     "sainnhe/sonokai",
     {
-        "norcalli/nvim-colorizer.lua",
+        "catgoose/nvim-colorizer.lua",
         opts = {
             css = { css = true },
             "javascript",
