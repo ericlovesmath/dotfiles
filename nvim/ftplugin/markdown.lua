@@ -1,3 +1,8 @@
+vim.treesitter.stop()
+
+vim.cmd([==[
+runtime ftplugin/tex.lua
+
 syntax match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
 " nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
@@ -107,3 +112,4 @@ function! ToggleCheckbox()
 endf
 
 nnoremap <Leader>c :call ToggleCheckbox()<CR>
+]==])

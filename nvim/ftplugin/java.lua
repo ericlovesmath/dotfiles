@@ -1,3 +1,5 @@
+vim.pack.add({ "https://www.github.com/mfussenegger/nvim-jdtls" })
+
 -- Debugger installation location
 local MASON = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/"
 local JDTLS = MASON .. "jdtls/bin/jdtls"
