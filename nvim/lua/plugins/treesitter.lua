@@ -41,7 +41,6 @@ local group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
 
 local ignore_filetypes = {
     "checkhealth",
-    "lazy",
     "latex",
     "tex",
     "markdown",
@@ -54,6 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
     desc = "Enable treesitter highlighting and indentation",
     callback = function(event)
         if vim.tbl_contains(ignore_filetypes, event.match) then
+            vim.treesitter.stop(event.buf)
             return
         end
 

@@ -1,5 +1,6 @@
 local o = vim.opt
 
+vim.g.tex_flavor = "latex"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.o.nrformats = "blank"

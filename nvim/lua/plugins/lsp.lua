@@ -2,19 +2,6 @@ vim.pack.add({
     -- LSP
     "https://www.github.com/neovim/nvim-lspconfig",
     "https://www.github.com/stevearc/conform.nvim",
-
-    "https://www.github.com/folke/lazydev.nvim",
-})
-
-vim.api.nvim_create_autocmd("Filetype", {
-    group = vim.api.nvim_create_augroup("EnableLazyDev", { clear = true }),
-    once = true,
-    pattern = { "lua" },
-    callback = function()
-        require("lazydev").setup({
-            integrations = { cmp = false },
-        })
-    end,
 })
 
 -- Used to be used for html and cssls?
