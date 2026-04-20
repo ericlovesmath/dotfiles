@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=ericlovesmath&project=dotfiles&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 # Eric Lee's Dotfiles
 
 ![Neovim Configuration](./imgs/desktop.png)
