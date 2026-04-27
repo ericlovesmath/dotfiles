@@ -58,7 +58,16 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             legacy_commands = false,
             note_id_func = function(title)
                 if title ~= nil then
-                    return title:gsub(" ", "-"):gsub("[^%w%s-]", ""):lower()
+                    -- Characters invalid in filenames across common OSes
+                    local invalid_chars = '[/\\:*?"<>|]'
+                    if title:match(invalid_chars) then
+                        vim.notify(
+                            "Invalid filename: '" .. title .. "' contains forbidden characters ( / \\ : * ? \" < > | )",
+                            vim.log.levels.ERROR
+                        )
+                        return tostring(os.time())
+                    end
+                    return title
                 else
                     return tostring(os.time())
                 end

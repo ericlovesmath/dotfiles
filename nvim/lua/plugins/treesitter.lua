@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
         -- Install missing parsers (async, no-op if already installed)
-        ts.install({ lang })
+        -- ts.install({ lang })
     end,
 })
 -- Vim doesn't recognize WGSL as a filetype yet

@@ -4,10 +4,6 @@ vim.pack.add({
     "https://www.github.com/stevearc/conform.nvim",
 })
 
--- Used to be used for html and cssls?
--- local capabilities = require("cmp_nvim_lsp").default_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 vim.diagnostic.config({ virtual_text = false })
 
 vim.lsp.config("rust_analyzer", {

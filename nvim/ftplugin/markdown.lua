@@ -1,62 +1,19 @@
+-- Disable built-in treesitter for vimtex conceal purposes
+vim.schedule(function()
+    if vim.api.nvim_buf_is_valid(0) then
+        vim.treesitter.stop()
+        vim.cmd("syntax on")
+    end
+end)
+
 vim.cmd([==[
 runtime ftplugin/tex.lua
 
 syntax match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
-" nnoremap <leader>r :w<CR>:silent !open -a Skim.app %:r.pdf<CR>:!~/bin/buildnote.sh %:p<CR>
-" nnoremap <leader>r :w<CR>:!~/bin/buildnote.sh "%:p"<CR>
-" nnoremap <leader>o :silent exec "!open -a Skim.app %:r.pdf"<CR>
-
-nnoremap <silent> <leader>i :call ImageFromClipboard()<CR>
-
-function! ImageFromClipboard() abort
-
-  " Create `img` directory if it doesn't exist
-  let img_dir = getcwd() . '/img'
-  if !isdirectory(img_dir)
-    silent call mkdir(img_dir)
-  endif
-
-  " First find out what filename to use
-  let index = 1
-  let file_path = img_dir . "/image" . index . ".png"
-  while filereadable(file_path)
-    let index = index + 1
-    let file_path = img_dir . "/image" . index . ".png"
-  endwhile
-
-  let clip_command = 'osascript'
-  let clip_command .= ' -e "set png_data to the clipboard as «class PNGf»"'
-  let clip_command .= ' -e "set referenceNumber to open for access POSIX path of'
-  let clip_command .= ' (POSIX file \"' . file_path . '\") with write permission"'
-  let clip_command .= ' -e "write png_data to referenceNumber"'
-
-  silent call system(clip_command)
-  if v:shell_error == 1
-    normal! p
-  else
-      call inputsave()
-      let img_name = input('Enter Image Name: ')
-      call inputrestore()
-      execute "normal! i![" . img_name . "](./img/image" . index . ".png){ width=400px }"
-      execute "normal! F]"
-  endif
-endfunction
-
-command! -range Tablify <line1>,<line2>s/\s*|/§|/g | <line1>,<line2>!column -s § -t
-
-function! s:Tablify()
-  let p = '^\s*|\s.*\s|\s*$'
-  if getline('.') =~ '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let lnum = line('.')
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    execute "normal! vip:Tablify\<cr>"
-    execute 'normal! ' . lnum . 'G'
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
+nnoremap <silent> ]] /^#<CR>
+nnoremap <silent> [[ ?^#<CR>
+nnoremap gO :lvimgrep /^#/ %<CR>:lopen<CR>
 
 function! GlowPreview() abort
 
@@ -92,10 +49,6 @@ function! GlowPreview() abort
 endfunction
 
 nnoremap <leader>p :call GlowPreview()<CR>
-
-nnoremap <silent> ]] /^#<CR>
-nnoremap <silent> [[ ?^#<CR>
-nnoremap gO :lvimgrep /^#/ %<CR>:lopen<CR>
 
 function! ToggleCheckbox()
   let line = getline('.')

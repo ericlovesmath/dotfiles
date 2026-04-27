@@ -17,12 +17,12 @@
       "src": "https://www.github.com/stevearc/conform.nvim"
     },
     "diffview.nvim": {
-      "rev": "a84c601abadc37591bc60b2ea0e45cc90f958682",
+      "rev": "7df789b5228b2ed81789eccb7f37c29d4f52b0b5",
       "src": "https://www.github.com/dlyongemallo/diffview.nvim"
     },
     "gitsigns.nvim": {
       "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
-      "src": "https://github.com/lewis6991/gitsigns.nvim"
+      "src": "https://www.github.com/lewis6991/gitsigns.nvim"
     },
     "gruvbox-material": {
       "rev": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79",
