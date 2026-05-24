@@ -37,6 +37,12 @@ in
       flake8 black isort
     ]))
 
+    (pkgs.neovim.override {
+       withPython3 = true;
+       withRuby = false;
+       extraPython3Packages = (ps: with ps; [ pynvim flake8 ]);
+    })
+
     (llm.withPlugins { llm-gemini = true; llm-anthropic = true; })
   ];
 
@@ -71,13 +77,6 @@ in
   };
 
   programs.opam.enable = true;
-
-  programs.neovim = {
-    enable = true;
-    withPython3 = true;
-    withRuby = false;
-    extraPython3Packages = (ps: with ps; [ pynvim flake8 ]);
-  };
 
   programs.zsh = {
     enable = true;
