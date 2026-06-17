@@ -1,0 +1,12 @@
+#!/bin/bash
+
+CURRENT=$(swaymsg -t get_workspaces | jq -r ".[] | select(.focused==true) | .name")
+
+swaymsg workspace 1, move workspace to output DP-2
+swaymsg workspace 2, move workspace to output DP-2
+swaymsg workspace 3, move workspace to output DP-2
+swaymsg workspace 4, move workspace to output DP-2
+swaymsg workspace 5, move workspace to output DP-2
+
+swaymsg workspace "$CURRENT"
+makoctl reload

@@ -81,7 +81,7 @@ in
       gimp solaar everest-mons transmission_4
       thunderbird-bin meslo-lgs-nf zathura
       tesseract libqalculate copyq feh
-      awww rofi mako grim slurp hypridle
+      awww rofi mako grim slurp hypridle kanshi
       networkmanager bluez bluez-tools blueman pavucontrol
       godot_4 realvnc-vnc-viewer cryptomator emacs-pgtk
       # aseprite
@@ -114,6 +114,7 @@ in
     ".config/waybar".source = mkSymlink "waybar";
     ".config/rofi/config.rasi".source = ../rofi.rasi;
     ".config/mako/config".source = ../mako.cfg;
+    ".config/kanshi/config".source = ../kanshi.cfg;
     ".config/wezterm/wezterm.lua".source = ../wezterm.lua;
   };
 
@@ -128,6 +129,9 @@ in
   programs.firefox = {
     enable = true;
     package = (config.lib.nixGL.wrap pkgs.firefox);
+
+    # Legacy behavior, new XDG compliant one is "${config.xdg.configHome}/mozilla/firefox"
+    configPath = ".mozilla/firefox";
 
     profiles.nixprofile = {
       search = {
