@@ -83,8 +83,7 @@ in
       tesseract libqalculate copyq feh
       awww rofi mako grim slurp hypridle kanshi
       networkmanager bluez bluez-tools blueman pavucontrol
-      godot_4 realvnc-vnc-viewer cryptomator emacs-pgtk
-      # aseprite
+      godot_4 tigervnc cryptomator emacs-pgtk aseprite
     ] ++
     (map config.lib.nixGL.wrap [
       waybar obs-studio slack steam spotify mpv

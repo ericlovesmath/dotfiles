@@ -86,9 +86,7 @@ in
       dotfiles  = "$HOME/dotfiles";
       jane      = "$HOME/Desktop/Important/Jane Street";
       obsidian  = "$HOME/Desktop/Obsidian/Eric";
-      caltech   = "$HOME/Desktop/Academics/Caltech/senior/spring-2026";
       tutor     = "$HOME/Desktop/Academics/Tutoring";
-      surf      = "$HOME/Desktop/Academics/Caltech/sophmore/SURF";
       finance   = "$HOME/Desktop/Important/finance";
       portfolio = "$HOME/Desktop/Programming/portfolio-eric-lee";
       usaco     = "$HOME/Desktop/Programming/competitive-programming";
@@ -115,6 +113,28 @@ in
       ".." = "cd ./..";
       "..." = "cd ./../..";
       "...." = "cd ./../../..";
+    };
+  };
+
+  programs.claude-code = {
+    enable = true;
+    enableMcpIntegration = false;
+    context = ../llm/global.md;
+    skills = {
+      ocaml = ../llm/ocaml.md;
+      simpl = ../llm/simpl.md;
+    };
+    settings = {
+      model = "opus";
+      disableBundledSkills = true;
+      skipDangerousModePermissionPrompt = true;
+      showClearContextOnPlanAccept = true;
+      tui = "fullscreen";
+      theme = "dark";
+      statusLine = {
+        command = ../llm/statusline.sh;
+        type = "command";
+      };
     };
   };
 }
