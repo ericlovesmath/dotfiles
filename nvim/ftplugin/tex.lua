@@ -6,6 +6,7 @@ vim.pack.add({
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "tex",
+    once = true,
     callback = function()
         vim.api.nvim_create_autocmd("User", {
             pattern = "VimtexEventQuit",

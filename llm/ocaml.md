@@ -14,3 +14,4 @@ These are not hard rules, but general guidelines when writing clean OCaml code
 - Prefer variable shadowing if the variable will not be reused later
 - Avoid making functions with too many parameters, especially those with many flags, which can be hard to maintain
 - Avoid passing huge states like records with many fields that are rarely used
+- "Make invalid states unrepresentable" is an excellent design choice, avoiding non-exhaustive fallthrough case patternmatching

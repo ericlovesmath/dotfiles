@@ -10,7 +10,7 @@ local ts = require("nvim-treesitter")
 ts.install({
     "bash", "comment", "css", "diff", "git_config", "git_rebase", "gitcommit",
     "gitignore", "haskell", "html", "javascript", "json", "latex", "lua",
-    "luadoc", "make", "ocaml", "python", "scss", "svelte", "toml", "tsx",
+    "luadoc", "make", "markdown", "markdown_inline", "ocaml", "python", "scss", "svelte", "toml", "tsx",
     "typescript", "typst", "vim", "vimdoc", "vue", "xml",
 })
 
@@ -20,13 +20,11 @@ local ignore_filetypes = {
     "checkhealth",
     "latex",
     "tex",
-    "markdown",
 }
 
 -- Auto-install parsers and enable highlighting on FileType
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
-    once = true,
     desc = "Enable treesitter highlighting and indentation",
     callback = function(event)
         if vim.tbl_contains(ignore_filetypes, event.match) then
@@ -38,10 +36,13 @@ vim.api.nvim_create_autocmd("FileType", {
         local buf = event.buf
 
         -- Start highlighting immediately (works if parser exists)
-        pcall(vim.treesitter.start, buf, lang)
+        local ok = pcall(vim.treesitter.start, buf, lang)
 
-        -- Enable treesitter indentation
-        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        if ok then
+            -- Disable legacy regex syntax if Treesitter started successfully
+            vim.bo[buf].syntax = "off"
+            vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
 
         -- Install missing parsers (async, no-op if already installed)
         -- ts.install({ lang })

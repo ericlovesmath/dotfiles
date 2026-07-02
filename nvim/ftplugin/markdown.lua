@@ -1,11 +1,3 @@
--- Disable built-in treesitter for vimtex conceal purposes
-vim.schedule(function()
-    if vim.api.nvim_buf_is_valid(0) then
-        vim.treesitter.stop()
-        vim.cmd("syntax on")
-    end
-end)
-
 vim.cmd([==[
 runtime ftplugin/tex.lua
 
@@ -64,3 +56,16 @@ endf
 
 nnoremap <Leader>c :call ToggleCheckbox()<CR>
 ]==])
+
+-- vim.treesitter.start() disables the Vim syntax engine (sets vim.bo.syntax = "").
+-- Re-enable it after treesitter has started so VimTeX math conceal groups are active.
+-- Capture buf now; by the time vim.schedule fires the current buffer may have changed.
+local buf = vim.api.nvim_get_current_buf()
+vim.schedule(function()
+    if not vim.api.nvim_buf_is_valid(buf) then return end
+    vim.bo[buf].syntax = "markdown"
+    vim.api.nvim_buf_call(buf, function()
+        vim.cmd("call vimtex#init()")
+    end)
+    vim.wo.conceallevel = 2
+end)

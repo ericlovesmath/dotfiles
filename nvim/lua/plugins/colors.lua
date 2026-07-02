@@ -63,4 +63,13 @@ end)
 
 lazy_colorscheme("sonokai", "sainnhe/sonokai", function() end)
 
+-- Keep math content gold (Special) in markdown; treesitter's injected latex
+-- parser would otherwise color @markup.math.latex Blue at higher priority
+-- than VimTeX's texMathZoneTI. Re-apply after every colorscheme change.
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        vim.api.nvim_set_hl(0, "@markup.math.latex", { link = "Special" })
+    end,
+})
+
 vim.cmd.colorscheme("gruvbox-material")

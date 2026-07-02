@@ -1,7 +1,6 @@
 {
   description = "NixOS MicroVM";
 
-  # TODO: Fix rapid flickering while typing
   # TODO: remove path duplication
   # TODO: Put this somewhere online?
   # TODO: Make tmp folder actually new so I can have multiple instances
