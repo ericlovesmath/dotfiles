@@ -57,6 +57,17 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
                 blink = true,
             },
             legacy_commands = false,
+            frontmatter = {
+                enabled = true,
+                func = function(note)
+                    local out = require("obsidian.builtin").frontmatter(note)
+                    if not out.created then
+                        local stat = vim.uv.fs_stat(note.path.filename)
+                        out.created = os.date("%Y-%m-%d", stat and stat.birthtime and stat.birthtime.sec or nil)
+                    end
+                    return out
+                end,
+            },
             note_id_func = function(title)
                 if title ~= nil then
                     -- Characters invalid in filenames across common OSes
