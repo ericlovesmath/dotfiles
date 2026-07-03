@@ -1,14 +1,13 @@
 {
   description = "NixOS MicroVM";
 
-  # TODO: remove path duplication
   # TODO: Put this somewhere online?
   # TODO: Make tmp folder actually new so I can have multiple instances
+  #       (blocked: tmp is baked into sockets/volumes at build time)
   # TODO: cp tmux config
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     microvm = {
       url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,52 +23,36 @@
     let
       system = "x86_64-linux";
       tmp = "/tmp/microvm";
+      lib = nixpkgs.lib;
+      mkSock = tag: "${tmp}/${tag}.sock";
 
-      shareConfigs = [
+      shares = [
         {
-          tag = "project-dir";
-          hostPath = "$PROJECT_PATH";
-          mountPoint = "/app";
+          tag = "project";
+          host = "$PROJECT_PATH";
+          guest = "/app";
         }
         {
           tag = "opencode-config";
-          hostPath = "$HOME/.config/opencode";
-          mountPoint = "/home/dev/.config/opencode";
+          host = "$HOME/.config/opencode";
+          guest = "/home/dev/.config/opencode";
         }
         {
           tag = "opencode-state";
-          hostPath = "$HOME/.local/state/opencode";
-          mountPoint = "/home/dev/.local/state/opencode";
+          host = "$HOME/.local/state/opencode";
+          guest = "/home/dev/.local/state/opencode";
         }
         {
-          tag = "opencode-share";
-          hostPath = "$HOME/.local/share/opencode";
-          mountPoint = "/home/dev/.local/share/opencode";
+          tag = "opencode-data";
+          host = "$HOME/.local/share/opencode";
+          guest = "/home/dev/.local/share/opencode";
         }
         {
-          tag = "claudecode-state";
-          hostPath = "$HOME/.local/state/claude";
-          mountPoint = "/home/dev/.local/state/claude";
-        }
-        {
-          tag = "claudecode-share";
-          hostPath = "$HOME/.local/share/claude";
-          mountPoint = "/home/dev/.local/share/claude";
-        }
-        {
-          tag = "claudecode-config";
-          hostPath = "$HOME/.claude";
-          mountPoint = "/home/dev/.claude";
-        }
-        {
-          tag = "claudecode-json";
-          hostPath = "${tmp}/claude-share";
-          mountPoint = "/home/dev/.claude-share";
+          tag = "claude";
+          host = "$HOME/.claude";
+          guest = "/home/dev/.claude";
         }
       ];
-
-      # Helper to get socket path from tag
-      mkSock = tag: "${tmp}/${tag}.sock";
     in
     {
       packages.${system} = {
@@ -89,15 +72,20 @@
 
             mkdir -p ${tmp}
 
-            touch "$HOME/.claude.json"
-            cp "$HOME/.claude.json" "${tmp}/claude-share/.claude.json"
+            # Make sure every shared host dir exists before we hand it to virtiofsd
+            ${lib.concatMapStringsSep "\n            " (s: ''mkdir -p "${s.host}"'') shares}
 
-            # Cleanup function to kill virtiofsd processes and remove sockets
+            # On the host, Claude Code keeps .claude.json at ~/.claude.json
+            if [ -f "$HOME/.claude.json" ] && \
+               { [ ! -f "$HOME/.claude/.claude.json" ] || \
+                 [ "$HOME/.claude.json" -nt "$HOME/.claude/.claude.json" ]; }; then
+              cp -p "$HOME/.claude.json" "$HOME/.claude/.claude.json"
+            fi
+
             cleanup() {
               echo "Shutting down..."
-              # Sync Claude config back to host
-              if [ -f "${tmp}/claude-share/.claude.json" ]; then
-                cp -p "${tmp}/claude-share/.claude.json" "$HOME/.claude.json"
+              if [ -f "$HOME/.claude/.claude.json" ]; then
+                cp -p "$HOME/.claude/.claude.json" "$HOME/.claude.json"
               fi
               jobs -p | xargs -r kill 2>/dev/null || true
               rm -f ${tmp}/*.sock ${tmp}/control.socket
@@ -105,15 +93,11 @@
             trap cleanup EXIT
 
             echo "Starting virtiofsd daemons..."
-
-            # Start standard shares from shareConfigs
-            ${pkgs.lib.concatMapStringsSep "\n" (s: ''
-              # Ensure host directory exists before sharing
-              mkdir -p "${s.hostPath}" 2>/dev/null || true
-              ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir "${s.hostPath}" --socket "${mkSock s.tag}" --sandbox none --cache auto &
-            '') shareConfigs}
-
-            # Start Nix store share
+            # One daemon per share
+            ${lib.concatMapStringsSep "\n            " (s: ''
+              ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir "${s.host}" --socket "${mkSock s.tag}" --sandbox none --cache auto &
+            '') shares}
+            # Nix store
             ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /nix/store --socket "${mkSock "nix-store"}" --sandbox none --cache auto &
 
             ${vm-runner}/bin/microvm-run
@@ -163,12 +147,9 @@
                   cd /app
                   alias shut='sudo shutdown now'
                   alias claude='claude --dangerously-skip-permissions'
-                  ln -sf /home/dev/.claude-share/.claude.json /home/dev/.claude.json
-                  chown -h 1000:1000 /home/dev/.claude.json
                 '';
 
                 nixpkgs.config.allowUnfree = true;
-
                 environment.systemPackages = with pkgs; [
                   neovim
                   python3
@@ -190,11 +171,11 @@
                   opencode
                   claude-code
                 ];
-
                 environment.sessionVariables = {
                   "TERM" = "xterm-256color";
                   "COLORTERM" = "truecolor";
                   "ENABLE_LSP_TOOL" = "1";
+                  "CLAUDE_CONFIG_DIR" = "/home/dev/.claude";
                   "OPENCODE_CONFIG_CONTENT" = ''
                     {
                       \"permission\": {
@@ -242,9 +223,7 @@
                       mac = "02:00:00:00:00:01";
                     }
                   ];
-
                   writableStoreOverlay = "/nix/.rw-store";
-
                   volumes = [
                     {
                       mountPoint = "/var";
@@ -252,6 +231,7 @@
                       size = 256;
                     }
                   ];
+                  # source = /var/empty because the daemons are started externally
                   shares = [
                     {
                       proto = "virtiofs";
@@ -265,9 +245,9 @@
                     proto = "virtiofs";
                     tag = s.tag;
                     source = "/var/empty";
-                    mountPoint = s.mountPoint;
+                    mountPoint = s.guest;
                     socket = mkSock s.tag;
-                  }) shareConfigs);
+                  }) shares);
                 };
               }
             )
