@@ -2,9 +2,6 @@
   description = "NixOS MicroVM";
 
   # TODO: Put this somewhere online?
-  # TODO: Make tmp folder actually new so I can have multiple instances
-  #       (blocked: tmp is baked into sockets/volumes at build time)
-  # TODO: cp tmux config
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -22,9 +19,9 @@
     }:
     let
       system = "x86_64-linux";
-      tmp = "/tmp/microvm";
       lib = nixpkgs.lib;
-      mkSock = tag: "${tmp}/${tag}.sock";
+
+      mkSock = tag: "${tag}.sock";
 
       shares = [
         {
@@ -52,6 +49,11 @@
           host = "$HOME/.claude";
           guest = "/home/dev/.claude";
         }
+        {
+          tag = "tmux";
+          host = "$RUNTIME_TMP/tmux";
+          guest = "/home/dev/.config/tmux";
+        }
       ];
     in
     {
@@ -63,17 +65,34 @@
             vm-runner = self.nixosConfigurations.microjail.config.microvm.declaredRunner;
           in
           pkgs.writeShellScriptBin "run-microjail" ''
-            PROJECT_PATH=$(readlink -f "''${1}")
+            PROJECT_PATH=$(readlink -f "''${1:-$PWD}")
 
             if [ ! -d "$PROJECT_PATH" ]; then
               echo "Error: $PROJECT_PATH is not a directory."
               exit 1
             fi
 
-            mkdir -p ${tmp}
+            # The VM's sockets, control socket, and disk image all live here
+            RUNTIME_TMP=$(mktemp -d /tmp/microjail.XXXXXXXX)
+
+            cleanup() {
+              echo "Shutting down..."
+              if [ -f "$HOME/.claude/.claude.json" ]; then
+                cp -p "$HOME/.claude/.claude.json" "$HOME/.claude.json"
+              fi
+              jobs -p | xargs -r kill 2>/dev/null || true
+              rm -rf "$RUNTIME_TMP"
+            }
+            trap cleanup EXIT
 
             # Make sure every shared host dir exists before we hand it to virtiofsd
             ${lib.concatMapStringsSep "\n            " (s: ''mkdir -p "${s.host}"'') shares}
+
+            if [ -f "$HOME/.config/tmux/tmux.conf" ]; then
+              cp "$HOME/.config/tmux/tmux.conf" "$RUNTIME_TMP/tmux/tmux.conf"
+            elif [ -f "$HOME/.tmux.conf" ]; then
+              cp "$HOME/.tmux.conf" "$RUNTIME_TMP/tmux/tmux.conf"
+            fi
 
             # On the host, Claude Code keeps .claude.json at ~/.claude.json
             if [ -f "$HOME/.claude.json" ] && \
@@ -82,23 +101,16 @@
               cp -p "$HOME/.claude.json" "$HOME/.claude/.claude.json"
             fi
 
-            cleanup() {
-              echo "Shutting down..."
-              if [ -f "$HOME/.claude/.claude.json" ]; then
-                cp -p "$HOME/.claude/.claude.json" "$HOME/.claude.json"
-              fi
-              jobs -p | xargs -r kill 2>/dev/null || true
-              rm -f ${tmp}/*.sock ${tmp}/control.socket
-            }
-            trap cleanup EXIT
+            # Everything below runs relative to the per-run dir
+            cd "$RUNTIME_TMP"
 
             echo "Starting virtiofsd daemons..."
             # One daemon per share
             ${lib.concatMapStringsSep "\n            " (s: ''
-              ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir "${s.host}" --socket "${mkSock s.tag}" --sandbox none --cache auto &
+              ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir "${s.host}" --socket-path "${mkSock s.tag}" --sandbox none --cache auto --inode-file-handles=never &
             '') shares}
             # Nix store
-            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /nix/store --socket "${mkSock "nix-store"}" --sandbox none --cache auto &
+            ${pkgs.virtiofsd}/bin/virtiofsd --shared-dir /nix/store --socket-path "${mkSock "nix-store"}" --sandbox none --cache auto --inode-file-handles=never &
 
             ${vm-runner}/bin/microvm-run
           '';
@@ -215,7 +227,7 @@
                   hypervisor = "qemu";
                   mem = 4096;
                   vcpu = 4;
-                  socket = "${tmp}/control.socket";
+                  socket = "control.socket";
                   interfaces = [
                     {
                       type = "user";
@@ -227,7 +239,7 @@
                   volumes = [
                     {
                       mountPoint = "/var";
-                      image = "${tmp}/var.img";
+                      image = "var.img";
                       size = 256;
                     }
                   ];
