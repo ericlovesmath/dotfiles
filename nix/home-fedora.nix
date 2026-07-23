@@ -81,13 +81,13 @@ in
       gimp solaar everest-mons transmission_4
       thunderbird-bin meslo-lgs-nf zathura
       tesseract libqalculate copyq feh
-      awww rofi mako grim slurp hypridle kanshi
+      awww rofi mako grim slurp hypridle kanshi foot
       networkmanager bluez bluez-tools blueman pavucontrol
       godot_4 tigervnc cryptomator emacs-pgtk aseprite
     ] ++
     (map config.lib.nixGL.wrap [
       waybar obs-studio slack steam spotify mpv
-      signal-desktop webcord alacritty telegram-desktop
+      signal-desktop webcord-vencord alacritty telegram-desktop
       wezterm reaper jellyfin-media-player
       lunar-client obsidian bluebubbles
     ]);
@@ -114,6 +114,7 @@ in
     ".config/rofi/config.rasi".source = ../rofi.rasi;
     ".config/mako/config".source = ../mako.cfg;
     ".config/kanshi/config".source = ../kanshi.cfg;
+    ".config/foot/foot.ini".source = ../foot.ini;
     ".config/wezterm/wezterm.lua".source = ../wezterm.lua;
   };
 

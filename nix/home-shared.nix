@@ -2,7 +2,8 @@
 
 let
   # Allows neovim to write to folder as well, like lazy.lock
-  mkSymlink = link : config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/${link}";
+  mkSymlink =
+    link: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/${link}";
 in
 {
   programs.home-manager.enable = true;
@@ -32,18 +33,28 @@ in
     clj-kondo eslint_d prettierd asmfmt shfmt stylua ormolu
     tree-sitter nixfmt
 
-    (python3.withPackages (pkgs: with pkgs; [
-      pandas scipy numpy jupyterlab matplotlib
-      flake8 black isort
-    ]))
+    (python3.withPackages (
+      pkgs: with pkgs; [
+        pandas scipy numpy jupyterlab matplotlib
+        flake8 black isort
+      ]
+    ))
 
     (pkgs.neovim.override {
-       withPython3 = true;
-       withRuby = false;
-       extraPython3Packages = (ps: with ps; [ pynvim flake8 ]);
+      withPython3 = true;
+      withRuby = false;
+      extraPython3Packages = (
+        ps: with ps; [
+          pynvim
+          flake8
+        ]
+      );
     })
 
-    (llm.withPlugins { llm-gemini = true; llm-anthropic = true; })
+    (llm.withPlugins {
+      llm-gemini = true;
+      llm-anthropic = true;
+    })
   ];
 
   home.file = {
@@ -83,19 +94,21 @@ in
     dotDir = config.home.homeDirectory;
     enableCompletion = false;
     dirHashes = {
-      dotfiles  = "$HOME/dotfiles";
-      jane      = "$HOME/Desktop/Important/Jane Street";
-      obsidian  = "$HOME/Desktop/Obsidian/Eric";
-      tutor     = "$HOME/Desktop/Academics/Tutoring";
-      finance   = "$HOME/Desktop/Important/finance";
+      dotfiles = "$HOME/dotfiles";
+      jane = "$HOME/Desktop/Important/Jane Street";
+      obsidian = "$HOME/Desktop/Obsidian/Eric";
+      tutor = "$HOME/Desktop/Academics/Tutoring";
+      finance = "$HOME/Desktop/Important/finance";
       portfolio = "$HOME/Desktop/Programming/portfolio-eric-lee";
-      usaco     = "$HOME/Desktop/Programming/competitive-programming";
+      usaco = "$HOME/Desktop/Programming/competitive-programming";
     };
-    plugins = [{
-      name = "zsh-powerlevel10k";
-      src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
-      file = "powerlevel10k.zsh-theme";
-    }];
+    plugins = [
+      {
+        name = "zsh-powerlevel10k";
+        src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
+        file = "powerlevel10k.zsh-theme";
+      }
+    ];
     initContent = ''
       . "$HOME/.p10k.zsh"
       . "$HOME/dotfiles/.zshrc"
@@ -134,6 +147,26 @@ in
       statusLine = {
         command = ../llm/statusline.sh;
         type = "command";
+      };
+      attribution = {
+        commit = "";
+        pr = "";
+      };
+    };
+  };
+
+  programs.pi-coding-agent = {
+    enable = true;
+    context = ../llm/global.md;
+
+    settings = {
+      theme = "dark";
+      defaultProvider = "fireworks";
+      defaultModel = "accounts/fireworks/models/glm-5p2";
+      defaultThinkingLevel = "medium";
+      retry = {
+        enabled = true;
+        maxRetries = 3;
       };
     };
   };
