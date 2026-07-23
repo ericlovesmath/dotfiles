@@ -1,4 +1,4 @@
-vim.pack.add({ "https://www.github.com/norcalli/nvim-colorizer.lua" })
+vim.pack.add({ "https://www.github.com/catgoose/nvim-colorizer.lua" })
 
 require("colorizer").setup({
     css = { css = true },

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Garbage Collect Nix
+
+nix-collect-garbage -d
+nix store optimise

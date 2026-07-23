@@ -24,10 +24,10 @@ o.signcolumn = "yes:2"
 o.updatetime = 50
 o.splitright = true
 o.laststatus = 3
-o.lazyredraw = true
 o.spellsuggest = "5"
 o.pumheight = 10
 o.completeopt = { "menu", "menuone", "noselect" }
+o.ttimeoutlen=10
 
 local ol = vim.opt_local
 local autocmd = vim.api.nvim_create_autocmd

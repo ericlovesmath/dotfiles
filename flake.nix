@@ -51,13 +51,6 @@
     homeConfigurations."fedora" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = [
-        # For WebCord
-        ({
-          nixpkgs.config.permittedInsecurePackages = [
-            "electron-36.9.5"
-          ];
-        })
-
         (import ./nix/home-fedora.nix { nixgl = nixgl; })
       ];
     };

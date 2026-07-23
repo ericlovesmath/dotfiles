@@ -109,6 +109,7 @@ local Percentage = {
 }
 
 local RulerOrWordCount = {
+    update = { "BufEnter", "CursorHold", "CursorHoldI", "ModeChanged" },
     provider = function()
         if vim.bo.filetype == "markdown" then
             local wc = vim.fn.wordcount()
