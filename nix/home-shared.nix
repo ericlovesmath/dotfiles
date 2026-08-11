@@ -136,6 +136,7 @@ in
     skills = {
       ocaml = ../llm/ocaml.md;
       simpl = ../llm/simpl.md;
+      planner = ../llm/planner.md;
     };
     settings = {
       model = "opus";
@@ -160,6 +161,7 @@ in
     context = ../llm/global.md;
 
     settings = {
+      skills = [ "~/.claude/skills" ];
       theme = "dark";
       defaultProvider = "fireworks";
       defaultModel = "accounts/fireworks/models/glm-5p2";
@@ -168,6 +170,12 @@ in
         enabled = true;
         maxRetries = 3;
       };
+      packages = [
+        "npm:pi-render-cache"
+        "npm:@juicesharp/rpiv-ask-user-question"
+        # "npm:@tintinweb/pi-subagents"
+        # "npm:pi-web-access"
+      ];
     };
   };
 }

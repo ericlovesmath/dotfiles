@@ -1,5 +1,5 @@
 ---
-name: OCaml
+name: ocaml
 description: Use when the task involves writing OCaml code, contains OCaml style and design preferences
 ---
 
