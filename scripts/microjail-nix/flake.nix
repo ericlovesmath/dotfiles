@@ -50,6 +50,16 @@
           guest = "/home/dev/.claude";
         }
         {
+          tag = "pi-config";
+          host = "$HOME/.config/pi";
+          guest = "/home/dev/.config/pi";
+        }
+        {
+          tag = "pi-cache";
+          host = "$HOME/.pi/agent";
+          guest = "/home/dev/.pi/agent";
+        }
+        {
           tag = "tmux";
           host = "$RUNTIME_TMP/tmux";
           guest = "/home/dev/.config/tmux";
@@ -182,6 +192,7 @@
                   tmux
                   opencode
                   claude-code
+                  pi-coding-agent
                 ];
                 environment.sessionVariables = {
                   "TERM" = "xterm-256color";
