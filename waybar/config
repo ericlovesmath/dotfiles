@@ -40,7 +40,7 @@
         "clock": {
             "format": "{:%a %b %d %I:%M:%S %p} ",
             "interval": 1,   
-            "timezone": "America/Los_Angeles",
+            "timezone": "America/New_York",
             "tooltip-format": "<tt>{calendar}</tt>",
             "calendar": {
                 "format": {
