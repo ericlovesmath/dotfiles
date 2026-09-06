@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Get one time code from makoctl notifications
+
+get_otp() {
+    makoctl "$1" -j |
+        jq -r '.[] | select(.app_name == "bluebubbles") | .body' |
+        grep -oP '\b\d{4,8}\b' |
+        head -1
+}
+
+otp=$(get_otp list)
+[[ -z "$otp" ]] && otp=$(get_otp history)
+
+if [[ -n "$otp" ]]; then
+    printf '%s' "$otp" | wl-copy -n
+    echo "Copied: $otp"
+else
+    echo "No OTP found"
+fi
